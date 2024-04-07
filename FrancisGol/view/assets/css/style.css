@@ -10,7 +10,7 @@
     --septimo_color: #F44336;
     --octavo_color: #4CAF50;
     --noveno_color: #76AC47;
-    --decimo_color: #333333CC;
+    --decimo_color: #333333EE;
 }
 
 /* Tipos de letra */
@@ -27,13 +27,17 @@
 
 /* Estilos genéricos */
 
+html {
+    min-width: 280px;
+}
+
 * {
     margin: 0;
     padding: 0;
     border: 0;
     box-sizing: border-box;
     scroll-behavior: smooth;
-    /* font-family: 'manrope_regular', sans-serif; */
+    font-family: 'manrope_regular', sans-serif;
 }
 
 a {
@@ -63,17 +67,17 @@ a {
 header {
     background-color: var(--segundo_color);
     height: 70px;
-    position: fixed;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    /* z-index: 2; */
-    width: 100%;
+    z-index: 2;
+    position: relative;
 }
 
 header a span {
     font-family: 'bebas_neue', sans-serif;
     letter-spacing: 2px;
+    font-size: 15pt;
 }
 
 header a {
@@ -97,6 +101,7 @@ header .menu_hamburguesa hr {
     border: 3px solid var(--cuarto_color);
     border-radius: 5px;
     margin: 5px;
+    transition: 0.5s all;
 }
 
 header .menu_ordenador {
@@ -106,20 +111,106 @@ header .menu_ordenador {
 
 header .menu_ordenador a {
     margin: 5px;
-    font-family: 'manrope_regular', sans-serif;
+    border-radius: 10px;
+    padding: 5px 10px;
+    font-weight: bold;
+    font-size: 10pt;
+    color: #000000;
 }
 
+header .menu_ordenador a:first-of-type {
+    background-color: var(--quinto_color);
+}
 
+header .menu_ordenador a:last-of-type {
+    background-color: var(--tercer_color);
+}
+
+.menu_activado hr:nth-of-type(1) {
+    transform: translateY(10px) rotateZ(45deg);
+}
+
+.menu_activado hr:nth-of-type(2) {
+    opacity: 0;
+}
+
+.menu_activado hr:nth-of-type(3) {
+    transform: translateY(-10px) rotateZ(-45deg);
+}
+
+/* Diseño del nav */
+
+nav {
+    background-color: var(--decimo_color);
+    padding: 20px;    
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    transform: translateY(-100%);
+    z-index: 1;
+    position: relative;
+    transition: 0.5s all;
+}
+
+nav a {
+    text-decoration: underline;
+    color: var(--cuarto_color);
+    font-weight: bold;
+    letter-spacing: 2px;
+    margin: 5px;
+    font-size: 12pt;
+}
+
+.mostrar_nav {
+    transform: translateY(0);
+}
+
+.vista_ordenador {
+    display: block;
+}
 
 /* Diseños de ordenador */
 
 @media screen and (min-width: 450px) {
+
+    /* Estilos del header */
 
     header .menu_ordenador {
         display: flex;
     }
 
     header .menu_hamburguesa {
+        display: none;
+    }
+
+    /* Diseño del nav */
+
+    nav {
+        flex-direction: row;
+        justify-content: center;
+        background-color: var(--tercer_color);
+        flex-wrap: wrap;
+        transform: translateY(0);
+    }
+
+    nav a {
+        background-color: var(--segundo_color);
+        padding: 10px;
+        transform: skew(-30deg);
+        margin: 5px 10px;
+        box-shadow: 0 0 5px black;
+        font-size: 10pt;
+    }
+
+    nav span {
+        text-decoration: none;
+        display: inline-block;
+        transform: skew(30deg);
+        width: 130px;
+        text-align: center;
+    }
+
+    .vista_ordenador {
         display: none;
     }
 }

@@ -4,7 +4,7 @@
         <span>FrancisGol</span>
     </a>
     <div>
-        <div class="menu_hamburguesa">
+        <div class="menu_hamburguesa" id="menu_hamburguesa">
             <hr>
             <hr>
             <hr>
@@ -15,3 +15,4 @@
         </div>
     </div>
 </header>
+<script src="../view/assets/scripts/menu_hamburguesa.js"></script>
