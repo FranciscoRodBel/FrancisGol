@@ -159,6 +159,11 @@ nav a {
     letter-spacing: 2px;
     margin: 5px;
     font-size: 12pt;
+    transition: 0.5s all;
+}
+
+nav a:hover {
+    letter-spacing: 4px;
 }
 
 .mostrar_nav {
@@ -200,6 +205,12 @@ nav a {
         margin: 5px 10px;
         box-shadow: 0 0 5px black;
         font-size: 10pt;
+    }
+
+    nav a:hover {
+        letter-spacing: 2px;
+        background-color: var(--cuarto_color);
+        color: var(--segundo_color);
     }
 
     nav span {
