@@ -187,6 +187,14 @@ article {
     justify-content: center;
 }
 
+.icono_estrella {
+    position: absolute;
+    right: 0;
+    top: 0;
+    font-size: 15pt;
+    color: var(--sexto_color);
+}
+
 /* Titulos de secciones o páginas */
 
 .titulo_pagina {
@@ -219,7 +227,7 @@ form {
     border-radius: 10px;
     width: 80%;
     min-width: 250px;
-    max-width: 400px;
+    max-width: 450px;
 }
 
 .cuadro_inicio_registro {
@@ -261,6 +269,11 @@ form {
     width: 80%;
 }
 
+.cuadro_inicio_registro hr {
+    border: 1px solid var(--cuarto_color);
+    border-radius: 10px;
+}
+
 .boton_siguiente_anterior {
     background-color: var(--tercer_color);
     border-radius: 10px;
@@ -278,6 +291,27 @@ form {
     flex-wrap: wrap;
 }
 
+.competiciones_equipos {
+    height: 250px;
+    overflow: auto;
+}
+
+.competiciones_equipos div {
+    display: flex;
+    align-items: center;
+    margin: 10px;
+    position: relative;
+}
+
+.competiciones_equipos div p {
+    color: var(--cuarto_color);
+    font-weight: bold;
+    margin: 10px;
+}
+
+.competiciones_equipos div img {
+    width: 100px;
+}
 
 
 

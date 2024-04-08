@@ -24,7 +24,7 @@
                 <select name="seleccionar_pais" id="seleccionar_pais" class="seleccionar_pais">
                     <?= $paises ?>
                 </select>
-                <div id="competiciones_equipos">
+                <div id="competiciones_equipos" class="competiciones_equipos">
 
                 </div>
                 <div class="conjunto_botones">

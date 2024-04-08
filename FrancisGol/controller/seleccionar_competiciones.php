@@ -28,12 +28,12 @@
         foreach ($resultado->response as $key => $liga) {
 
             $competiciones = "<div>";
-                $competiciones .= "<p>ID: ".$liga->league->id."<br>";
-                $competiciones .= "<p>Nombre: ".$liga->league->name."<br>";
-                $competiciones .= "Tipo: ".$liga->league->type."<br>";
-                $competiciones .= "<img src=".$liga->league->logo." alt='logo'>";
-                $competiciones .= "</p>";
-            $competiciones .= "</div>";
+                // $competiciones .= "<p>ID: ".$liga->league->id."<br>";
+                $competiciones .= "<img src=".$liga->league->logo." alt='logo competición'>";
+                $competiciones .= "<p>".$liga->league->name."</p>";
+                $competiciones .= '<i class="fa-solid fa-star icono_estrella"></i>';
+                // $competiciones .= "Tipo: ".$liga->league->type."<br>";
+            $competiciones .= "</div><hr>";
 
             if ($liga->country->code == $codigoPais) {
                 $competiciones_pais .= $competiciones;
