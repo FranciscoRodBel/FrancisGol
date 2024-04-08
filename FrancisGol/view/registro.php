@@ -21,9 +21,12 @@
             </section>
             <section class="cuadro_inicio_registro">
                 <h3 class="titulo_informacion">Selecciona sus competiciones favoritas</h3>
-                <select name="seleccionar_pais" class="seleccionar_pais">
-                    <option value="">Seleccina un país</option>
+                <select name="seleccionar_pais" id="seleccionar_pais" class="seleccionar_pais">
+                    <?= $paises ?>
                 </select>
+                <div id="competiciones_equipos">
+
+                </div>
                 <div class="conjunto_botones">
                     <button class="boton_siguiente_anterior">Anterior</button>
                     <button class="boton_siguiente_anterior">Siguiente</button>   
@@ -35,3 +38,36 @@
         </form>
     </article>
 </main>
+<script>
+    $(document).ready(function() { // cuando se cargue la página...
+        var idPais = $("#seleccionar_pais").val(); // Selecciona el valor del elemento con el id comunidadAutonoma
+        
+        $.ajax({ // Hace una consulta ajax a...
+            url: '../controller/seleccionar_competiciones.php', // El archivo provincias
+            method: 'POST', // por el método POST
+            data: { // Los datos que le va a enviar son
+                query: idPais // Una query con el valor de 
+            },
+            success: function(datos) { // Si la conexión se realiza, viene aquí con el resultado(datos)
+                $('#competiciones_equipos').html(datos); // añade como texto dentro del elemento con el id provincia los datos devueltos(las provincias)
+
+            }
+        });
+    });
+
+    $(document).ready(function() {
+        $("#seleccionar_pais").change(function() {
+            var idPais = $(this).val();
+            $.ajax({
+                url: '../controller/seleccionar_competiciones.php',
+                method: 'POST',
+                data: {
+                    query: idPais
+                },
+                success: function(datos) {
+                    $('#competiciones_equipos').html(datos);
+                }
+            });
+        });
+    });
+</script>
