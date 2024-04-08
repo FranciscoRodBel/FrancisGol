@@ -61,7 +61,7 @@ a {
     border-radius: 5px;
 }
 
-/* Diseños de móvil */
+/* Estilos de móvil */
 /* Estilos del header */
 
 header {
@@ -138,7 +138,7 @@ header .menu_ordenador a:last-of-type {
     transform: translateY(-10px) rotateZ(-45deg);
 }
 
-/* Diseño del nav */
+/* Estilos del nav */
 
 nav {
     background-color: var(--decimo_color);
@@ -174,7 +174,133 @@ nav a:hover {
     display: block;
 }
 
-/* Diseños de ordenador */
+/* Estilos cuerpo de la página */
+main {
+
+}
+
+article {
+    width: 100vw;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Titulos de secciones o páginas */
+
+.titulo_pagina {
+    font-family: 'bebas_neue', sans-serif;
+    letter-spacing: 2px;
+    font-weight: normal;
+    font-size: 22pt;
+    padding: 30px;
+    text-align: center;
+}
+
+.titulo_informacion {
+    color: var(--cuarto_color);
+    text-align: center;
+    padding: 10px;
+}
+
+/* Estilos del inicio de sesión */
+
+form {
+    width: 100%;
+    display: flex;
+    flex-direction: column; 
+    align-items: center;
+}
+
+.cuadro_inicio_registro {
+    background-color: var(--segundo_color);
+    padding: 30px;
+    border-radius: 10px;
+    width: 80%;
+    min-width: 250px;
+    max-width: 400px;
+}
+
+.cuadro_inicio_registro {
+    display: flex;
+    flex-direction: column; 
+    align-items: center;
+}
+
+.cuadro_inicio_registro label {
+    color: var(--cuarto_color);
+    text-align: center;
+    font-weight: bold;
+    margin: 10px;
+    font-size: 13pt;
+}
+
+.cuadro_inicio_registro input {
+    color: var(--cuarto_color);
+    border-radius: 10px;
+    font-size: 12pt;
+    padding: 5px;
+    margin-bottom: 15px;
+    width: 200px;
+    
+}
+
+.cuadro_inicio_registro input[type="submit"], .boton_siguiente_anterior, .seleccionar_foto, .seleccionar_pais {
+    background-color: var(--quinto_color);
+    color: var(--primer_color);
+    font-weight: bold;
+    box-shadow: 0 0 10px var(--primer_color);
+    margin: 10px;
+    padding: 10px ;
+    width: 150px;
+    cursor: pointer;
+}
+
+.cuadro_inicio_registro .foto_perfil {
+    width: 80%;
+}
+
+.boton_siguiente_anterior {
+    background-color: var(--tercer_color);
+    border-radius: 10px;
+}
+
+.seleccionar_foto, .seleccionar_pais {
+    background-color: var(--cuarto_color);
+    border-radius: 10px;
+    width: 80%;
+}
+
+.conjunto_botones {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* Estilos de ordenador */
 
 @media screen and (min-width: 450px) {
 
@@ -188,7 +314,7 @@ nav a:hover {
         display: none;
     }
 
-    /* Diseño del nav */
+    /* Estilos del nav */
 
     nav {
         flex-direction: row;

@@ -10,8 +10,8 @@
             <hr>
         </div>
         <div class="menu_ordenador">
-            <a href="#">Iniciar sesión</a>
-            <a href="#">Registrarse</a>
+            <a href="../controller/inicioSesion.php">Iniciar sesión</a>
+            <a href="../controller/registro.php">Registrarse</a>
         </div>
     </div>
 </header>
