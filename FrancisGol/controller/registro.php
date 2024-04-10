@@ -2,7 +2,7 @@
   require_once "../model/consulta_pais.php";
 
   $titulo = "FrancisGol - Registro";
-  $css = "registro_inicio.css";
+  $lista_css = ["registro_inicio.css"];
   
   $paises = seleccionarPais();
   

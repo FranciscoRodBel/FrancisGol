@@ -1,6 +1,6 @@
 <?php
-  $titulo = "FrancisGol - Partidos";
-  $css = "partidos_liga.css";
+  $titulo = "FrancisGol - Resumen partido";
+  $lista_css = ["partidos_liga.css"];
   
   include '../view/templates/head.php';
   include '../view/templates/header.php';

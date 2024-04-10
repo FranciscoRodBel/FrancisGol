@@ -19,13 +19,14 @@
                 </a>
             </div>
             <div class="conjunto_botones">
-                <a href="../controller/resumen_partido.php" class="boton_gris">Resumen</a>
-                <a href="" class="boton_gris">Estadísticas</a>
-                <a href="" class="boton_gris">Alineaciones</a>
+                <a href="../controller/resumen_partido.php" class="boton_gris"><span>Resumen</span></a>
+                <a href="../controller/estadisticas_partido.php" class="boton_gris"><span>Estadísticas</span></a>
+                <a href="../controller/alineaciones_partido.php" class="boton_gris"><span>Alineaciones</span></a>
             </div>
             <hr>
             <div class="eventos_partidos">
                 <div>
+                    <h3 class="titulo_informacion">Celta de Vigo</h3>
                     <div class="evento">
                         <p class="minuto">31'</p>
                         <i class="fa-solid fa-futbol icono_evento"></i>
@@ -47,6 +48,7 @@
                 </div>
                 <hr>
                 <div>
+                    <h3 class="titulo_informacion">Rayo Vallecano</h3>
                     <div class="evento tarjeta">
                         <p class="minuto">178'</p>
                         <div class="icono_evento"><div class="tarjeta_amarilla"></div></div>

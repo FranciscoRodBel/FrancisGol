@@ -198,4 +198,52 @@
     .separacion_partidos {
         display: none;
     }
+
+    /* Diseño de las páginas de resumen del partido */
+
+    .evento {
+        font-size: 10pt;
+    }
+
+    /* Diseño de botones de navegación */
+    
+    .conjunto_botones {
+        margin: 20px;
+    }
+
+    .conjunto_botones a {
+        transform: skew(-30deg);
+        border-radius: 0;
+    }
+
+    .conjunto_botones span {
+        display: inline-block;
+        transform: skew(30deg);
+        
+    }
+}
+
+@media screen and (min-width: 700px) {
+
+    .evento {
+        font-size: 12pt;
+    }
+
+    .minuto {
+        min-width: 40px;
+    }
+    
+    .icono_evento {
+        min-width: 50px;
+        display: flex;
+        justify-content: center;
+    }
+    
+    .nombre_evento {
+        width: calc(100% - 90px);
+    }
+
+    .titulo_informacion {
+        font-size: 15pt;
+    }
 }

@@ -14,8 +14,12 @@
         }
         echo "<title>$titulo</title>";
 
-        if(!empty($css)){ 
-            echo '<link rel="stylesheet" href="../view/assets/css/'.$css.'">'; 
+        if(!empty($lista_css)){
+
+            foreach ($lista_css as $key => $css) {
+                echo '<link rel="stylesheet" href="../view/assets/css/'.$css.'">'; 
+            }
+            
         }
 
     ?>
