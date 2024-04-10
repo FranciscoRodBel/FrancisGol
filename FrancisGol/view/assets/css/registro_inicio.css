@@ -1,0 +1,84 @@
+/* Estilos del inicio de sesión */
+
+form {
+    width: 100%;
+    display: flex;
+    flex-direction: column; 
+    align-items: center;
+}
+
+.cuadro_inicio_registro {
+    background-color: var(--segundo_color);
+    padding: 30px;
+    border-radius: 10px;
+    width: 80%;
+    min-width: 250px;
+    max-width: 450px;
+}
+
+.cuadro_inicio_registro {
+    display: flex;
+    flex-direction: column; 
+    align-items: center;
+}
+
+.cuadro_inicio_registro label {
+    color: var(--cuarto_color);
+    text-align: center;
+    font-weight: bold;
+    margin: 10px;
+    font-size: 13pt;
+}
+
+.cuadro_inicio_registro input {
+    color: var(--cuarto_color);
+    border-radius: 10px;
+    font-size: 12pt;
+    padding: 5px;
+    margin-bottom: 15px;
+    width: 200px;
+    
+}
+
+.cuadro_inicio_registro input[type="submit"], .seleccionar_foto, .seleccionar_pais {
+    background-color: var(--quinto_color);
+    color: var(--primer_color);
+    font-weight: bold;
+    box-shadow: 0 0 10px var(--primer_color);
+    margin: 10px;
+    padding: 10px ;
+    width: 150px;
+    cursor: pointer;
+}
+
+.cuadro_inicio_registro .foto_perfil {
+    width: 80%;
+}
+
+.seleccionar_foto, .seleccionar_pais {
+    background-color: var(--cuarto_color);
+    border-radius: 10px;
+    width: 80%;
+}
+
+.competiciones_equipos {
+    height: 250px;
+    overflow: auto;
+}
+
+.competiciones_equipos div {
+    display: flex;
+    align-items: center;
+    margin: 10px;
+    position: relative;
+}
+
+.competiciones_equipos div p {
+    color: var(--cuarto_color);
+    font-weight: bold;
+    margin: 10px;
+}
+
+.competiciones_equipos div img {
+    width: 100px;
+}

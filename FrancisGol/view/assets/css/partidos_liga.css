@@ -1,0 +1,201 @@
+/* Diseños de la página de partidos */
+
+.partidos_liga {
+    position: relative;
+    padding-bottom: 10px;
+}
+
+.partidos_liga * {
+    transition: 0.5s all;
+}
+
+.partidos_liga a {
+    display: flex;
+    align-items: center;
+    color: var(--cuarto_color);
+    font-weight: bold;
+    font-size: 12pt;
+}
+
+.partidos_liga img {
+    width: 50px;
+}
+
+.enfrentamiento_equipos {
+    margin: 10px;
+}
+
+.enfrentamiento_equipos * {
+    transition: 0.5s all;
+}
+
+.enfrentamiento_equipos a {
+    color: var(--cuarto_color);
+    font-weight: bold;
+    font-size: 10pt;
+    position: relative;
+}
+
+.enfrentamiento_equipos a div {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.enfrentamiento_equipos a div span {
+    width: calc(100% - 100px);
+}
+
+.enfrentamiento_equipos a div:nth-of-type(2) {
+    height: 52px;
+    min-width: 52px;
+    position: absolute;
+    right: 0;
+    top: calc(50% - 26px);
+    flex-direction: column;
+    justify-content: center;
+}
+
+.enfrentamiento_equipos a div:nth-of-type(2) p:first-of-type {
+    font-family: 'bebas_neue', sans-serif;
+    letter-spacing: 3px;
+    font-size: 20pt;
+}
+
+.enfrentamiento_equipos img {
+    width: 40px;
+    margin-right: 5px;
+}
+
+.separacion_partidos {
+    width: 80%;
+    margin: 0 auto;
+}
+
+/* Diseño de las páginas de resumen del partido */
+
+.seccion_negra .boton_gris {
+    font-size: 10pt;
+    padding: 5px 10px;
+}
+
+.eventos_partidos {
+    color: var(--cuarto_color);
+    display: flex;
+    padding: 10px 0;
+    font-size: 10pt;
+}
+
+.eventos_partidos > div {
+    min-width: 50%;
+}
+
+.eventos_partidos div:first-of-type .evento {
+    flex-direction: row-reverse;
+    text-align: right;
+}
+
+.evento {
+    margin: 10px 0;
+    display: flex;
+    align-items: center;
+    padding: 5px;
+    font-size: 8pt;
+    font-weight: bold;
+}
+
+.evento i {
+    font-size: 13pt;
+}
+
+.minuto {
+    text-align: center;
+    min-width: 25px;
+}
+
+.icono_evento {
+    min-width: 35px;
+    display: flex;
+    justify-content: center;
+}
+
+.nombre_evento {
+    width: calc(100% - 60px);
+}
+
+.tarjeta_amarilla, .tarjeta_roja {
+    width: 15px;
+    height: 20px;
+    border-radius: 5px;
+    background-color: var(--sexto_color);
+}
+
+.tarjeta_roja {
+    background-color: var(--septimo_color);
+}
+
+
+
+
+
+
+
+
+
+
+
+@media screen and (min-width: 450px) {
+
+    .partidos_liga a {
+        font-size: 15pt;
+    }
+
+    .partidos_liga img {
+        width: 80px;
+    }
+
+    .enfrentamiento_equipos a {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 13pt;
+    }
+
+    .enfrentamiento_equipos a div {
+        margin: 0;
+    }
+
+    .enfrentamiento_equipos a div:nth-of-type(1) {
+        min-width: 45%;
+        flex-direction: row-reverse;
+    }
+
+    .enfrentamiento_equipos a div:nth-of-type(1) img {
+        margin-left: 5px;
+        margin-right: 0px;
+    }
+
+    .enfrentamiento_equipos a div:nth-of-type(1) span {
+        text-align: right;
+    }
+
+    .enfrentamiento_equipos a div:nth-of-type(2) {
+        position: relative;
+    }
+
+    .enfrentamiento_equipos a div:nth-of-type(3) {
+        min-width: 45%;
+    }
+
+    .enfrentamiento_equipos a div span {
+        width: calc(100% - 75px);
+    }
+
+    .enfrentamiento_equipos img {
+        width: 70px;
+    }
+
+    .separacion_partidos {
+        display: none;
+    }
+}

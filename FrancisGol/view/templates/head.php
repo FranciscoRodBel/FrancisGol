@@ -14,9 +14,9 @@
         }
         echo "<title>$titulo</title>";
 
-        // if(!empty($css)){ 
-        //     echo '<link rel="stylesheet" href="../view/assets/css/'.$css.'">'; 
-        // }
+        if(!empty($css)){ 
+            echo '<link rel="stylesheet" href="../view/assets/css/'.$css.'">'; 
+        }
 
     ?>
 

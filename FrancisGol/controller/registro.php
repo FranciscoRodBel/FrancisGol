@@ -1,8 +1,8 @@
 <?php
-  require_once "../controller/seleccionar_pais.php";
+  require_once "../model/consulta_pais.php";
 
   $titulo = "FrancisGol - Registro";
-  // $css = "inicio.css";
+  $css = "registro_inicio.css";
   
   $paises = seleccionarPais();
   

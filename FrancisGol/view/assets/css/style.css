@@ -10,7 +10,7 @@
     --septimo_color: #F44336;
     --octavo_color: #4CAF50;
     --noveno_color: #76AC47;
-    --decimo_color: #333333EE;
+    --decimo_color: #333333FA;
 }
 
 /* Tipos de letra */
@@ -25,7 +25,7 @@
     src: url("../fonts/Manrope-Regular.ttf");
 }
 
-/* Estilos genéricos */
+/* Estilos genericos de la página */
 
 html {
     min-width: 280px;
@@ -38,10 +38,61 @@ html {
     box-sizing: border-box;
     scroll-behavior: smooth;
     font-family: 'manrope_regular', sans-serif;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+}
+
+article {
+    width: 100vw;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+hr {
+    border: 1px solid var(--cuarto_color);
+    border-radius: 10px;
+}
+
+.icono_estrella {
+    position: absolute;
+    right: 0;
+    top: 0;
+    font-size: 15pt;
+    color: var(--sexto_color);
+}
+
+.seccion_negra {
+    background-color: #333333;
+    width: 90%;
+    padding: 20px;
+    border-radius: 10px;
+    min-width: 250px;
+    margin-bottom: 40px;
 }
 
 a {
     text-decoration: none;
+}
+
+.conjunto_botones {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.boton_gris {
+    background-color: var(--tercer_color);
+    color: var(--primer_color);
+    font-weight: bold;
+    box-shadow: 0 0 10px var(--primer_color);
+    margin: 10px;
+    padding: 10px ;
+    width: 150px;
+    cursor: pointer;
+    border-radius: 10px;
+    text-align: center;
 }
 
 /* Estilo del scroll */
@@ -127,7 +178,8 @@ header .menu_ordenador a:last-of-type {
 }
 
 .menu_activado hr:nth-of-type(1) {
-    transform: translateY(10px) rotateZ(45deg);
+    transform: translateY(11px) rotateZ(45deg);
+
 }
 
 .menu_activado hr:nth-of-type(2) {
@@ -135,12 +187,13 @@ header .menu_ordenador a:last-of-type {
 }
 
 .menu_activado hr:nth-of-type(3) {
-    transform: translateY(-10px) rotateZ(-45deg);
+    transform: translateY(-11px) rotateZ(-45deg);
 }
 
 /* Estilos del nav */
 
 nav {
+    width: 100%;
     background-color: var(--decimo_color);
     padding: 20px;    
     display: flex;
@@ -148,7 +201,7 @@ nav {
     align-items: center;
     transform: translateY(-100%);
     z-index: 1;
-    position: relative;
+    position: absolute;
     transition: 0.5s all;
 }
 
@@ -174,27 +227,6 @@ nav a:hover {
     display: block;
 }
 
-/* Estilos cuerpo de la página */
-main {
-
-}
-
-article {
-    width: 100vw;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-}
-
-.icono_estrella {
-    position: absolute;
-    right: 0;
-    top: 0;
-    font-size: 15pt;
-    color: var(--sexto_color);
-}
-
 /* Titulos de secciones o páginas */
 
 .titulo_pagina {
@@ -211,115 +243,6 @@ article {
     text-align: center;
     padding: 10px;
 }
-
-/* Estilos del inicio de sesión */
-
-form {
-    width: 100%;
-    display: flex;
-    flex-direction: column; 
-    align-items: center;
-}
-
-.cuadro_inicio_registro {
-    background-color: var(--segundo_color);
-    padding: 30px;
-    border-radius: 10px;
-    width: 80%;
-    min-width: 250px;
-    max-width: 450px;
-}
-
-.cuadro_inicio_registro {
-    display: flex;
-    flex-direction: column; 
-    align-items: center;
-}
-
-.cuadro_inicio_registro label {
-    color: var(--cuarto_color);
-    text-align: center;
-    font-weight: bold;
-    margin: 10px;
-    font-size: 13pt;
-}
-
-.cuadro_inicio_registro input {
-    color: var(--cuarto_color);
-    border-radius: 10px;
-    font-size: 12pt;
-    padding: 5px;
-    margin-bottom: 15px;
-    width: 200px;
-    
-}
-
-.cuadro_inicio_registro input[type="submit"], .boton_siguiente_anterior, .seleccionar_foto, .seleccionar_pais {
-    background-color: var(--quinto_color);
-    color: var(--primer_color);
-    font-weight: bold;
-    box-shadow: 0 0 10px var(--primer_color);
-    margin: 10px;
-    padding: 10px ;
-    width: 150px;
-    cursor: pointer;
-}
-
-.cuadro_inicio_registro .foto_perfil {
-    width: 80%;
-}
-
-.cuadro_inicio_registro hr {
-    border: 1px solid var(--cuarto_color);
-    border-radius: 10px;
-}
-
-.boton_siguiente_anterior {
-    background-color: var(--tercer_color);
-    border-radius: 10px;
-}
-
-.seleccionar_foto, .seleccionar_pais {
-    background-color: var(--cuarto_color);
-    border-radius: 10px;
-    width: 80%;
-}
-
-.conjunto_botones {
-    display: flex;
-    justify-content: center;
-    flex-wrap: wrap;
-}
-
-.competiciones_equipos {
-    height: 250px;
-    overflow: auto;
-}
-
-.competiciones_equipos div {
-    display: flex;
-    align-items: center;
-    margin: 10px;
-    position: relative;
-}
-
-.competiciones_equipos div p {
-    color: var(--cuarto_color);
-    font-weight: bold;
-    margin: 10px;
-}
-
-.competiciones_equipos div img {
-    width: 100px;
-}
-
-
-
-
-
-
-
-
 
 
 
@@ -355,6 +278,7 @@ form {
         justify-content: center;
         background-color: var(--tercer_color);
         flex-wrap: wrap;
+        position: relative;
         transform: translateY(0);
     }
 
