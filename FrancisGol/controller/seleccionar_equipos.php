@@ -3,10 +3,9 @@
     
     if (isset($_POST['query'])) {
         
-        print_r($_POST['query']);
         $resultado = seleccionarEquipo($_POST['query'], date("Y")-1);
+
         $equipos = "";
-        
 
         foreach ($resultado->response as $equipo) {
 
@@ -15,7 +14,7 @@
                 $equipos .= "<img src=".$equipo->team->logo." alt='logo competición'>";
                 $equipos .= "<p>".$equipo->team->name."</p>";
                 $equipos .= '<i class="fa-solid fa-star icono_estrella"></i>';
-            $equipos .= "</div><hr>";
+            $equipos .= "</div>";
         }
 
         echo $equipos;

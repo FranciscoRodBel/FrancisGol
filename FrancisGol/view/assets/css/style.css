@@ -57,8 +57,8 @@ hr {
 
 .icono_estrella {
     position: absolute;
-    right: 0;
-    top: 0;
+    right: 5px;
+    top: 10px;
     font-size: 15pt;
     color: var(--sexto_color);
 }

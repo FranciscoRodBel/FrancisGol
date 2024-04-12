@@ -19,10 +19,15 @@
                     <button class="boton_gris">Siguiente</button>   
                 </div>
             </section>
+
+
+
+
+
             <section class="cuadro_inicio_registro">
                 <h3 class="titulo_informacion">Selecciona sus competiciones favoritas</h3>
                 <select name="seleccionar_pais" id="seleccionar_pais1" class="seleccionar_pais">
-                    <?= $paises ?>
+                    <?= $paises1 ?>
                 </select>
                 <div id="competiciones" class="competiciones_equipos">
 
@@ -38,12 +43,12 @@
             <section class="cuadro_inicio_registro">
                 <h3 class="titulo_informacion">Selecciona sus competiciones favoritas</h3>
                 <select name="seleccionar_pais"  id="seleccionar_pais2" class="seleccionar_pais">
-                    <?= $paises ?>
+                    <?= $paises2 ?>
                 </select>
                 <select name="seleccionar_competicion" id="competiciones2" class="seleccionar_pais">
 
                 </select>
-                <div id="equipos" class="competiciones_equipos">
+                <div id="equipos_competicion" class="competiciones_equipos">
 
                 </div>
                 <div class="conjunto_botones">
@@ -58,103 +63,44 @@
     </article>
 </main>
 <script>
-    $(document).ready(function() { // cuando se cargue la página...
-        var idPais = $("#seleccionar_pais1").val(); // Selecciona el valor del elemento con el id comunidadAutonoma
-        
-        $.ajax({ // Hace una consulta ajax a...
-            url: '../controller/seleccionar_competiciones.php', // El archivo provincias
-            method: 'POST', // por el método POST
-            data: { // Los datos que le va a enviar son
-                query: idPais // Una query con el valor de 
+
+    function seleccionarDatos(selectFormulario, rutaController, divPintarDatos) {
+
+        let idPais = $(selectFormulario).val();
+        $.ajax({
+            url: rutaController,
+            method: 'POST',
+            data: {
+                query: idPais
             },
-            success: function(datos) { // Si la conexión se realiza, viene aquí con el resultado(datos)
-                $('#competiciones').html(datos); // añade como texto dentro del elemento con el id provincia los datos devueltos(las provincias)
+            success: function(datos) {
+                $(divPintarDatos).html(datos);
+                seleccionarDatos("#competiciones2", "../controller/seleccionar_equipos.php", '#equipos_competicion');
 
             }
         });
+    }
+
+    let pais1 = document.getElementById("seleccionar_pais1");
+    let pais2 = document.getElementById("seleccionar_pais2");
+    let competiciones2 = document.getElementById("competiciones2");
+
+    seleccionarDatos("#seleccionar_pais1", "../controller/seleccionar_competiciones.php", '#competiciones');
+    seleccionarDatos("#seleccionar_pais2", "../controller/seleccionar_competiciones2.php", '#competiciones2');
+
+    pais1.addEventListener("change", () => {
+
+        seleccionarDatos("#seleccionar_pais1", "../controller/seleccionar_competiciones.php", '#competiciones');
     });
-
-    $(document).ready(function() {
-        $("#seleccionar_pais1").change(function() {
-            var idPais = $(this).val();
-            $.ajax({
-                url: '../controller/seleccionar_competiciones.php',
-                method: 'POST',
-                data: {
-                    query: idPais
-                },
-                success: function(datos) {
-                    $('#competiciones').html(datos);
-                }
-            });
-        });
-    });
-
-    /* Seleccionar equipo */
-
-    $(document).ready(function() { // cuando se cargue la página...
-        var idPais = $("#seleccionar_pais2").val(); // Selecciona el valor del elemento con el id comunidadAutonoma
-        
-        $.ajax({ // Hace una consulta ajax a...
-            url: '../controller/seleccionar_competiciones2.php', // El archivo provincias
-            method: 'POST', // por el método POST
-            data: { // Los datos que le va a enviar son
-                query: idPais // Una query con el valor de 
-            },
-            success: function(datos) { // Si la conexión se realiza, viene aquí con el resultado(datos)
-                $('#competiciones2').html(datos); // añade como texto dentro del elemento con el id provincia los datos devueltos(las provincias)
-
-            }
-        });
-    });
-
-    $(document).ready(function() {
-        $("#seleccionar_pais2").change(function() {
-            var idPais = $(this).val();
-            $.ajax({
-                url: '../controller/seleccionar_competiciones2.php',
-                method: 'POST',
-                data: {
-                    query: idPais
-                },
-                success: function(datos) {
-                    $('#competiciones2').html(datos);
-                }
-            });
-        });
-    });
-
-    /* Seleccionar equipo */
     
-    $(document).ready(function() { // cuando se cargue la página...
-        var idPais = $("#competiciones2").val(); // Selecciona el valor del elemento con el id comunidadAutonoma
-        
-        $.ajax({ // Hace una consulta ajax a...
-            url: '../controller/seleccionar_equipos.php', // El archivo provincias
-            method: 'POST', // por el método POST
-            data: { // Los datos que le va a enviar son
-                query: idPais // Una query con el valor de 
-            },
-            success: function(datos) { // Si la conexión se realiza, viene aquí con el resultado(datos)
-                $('#equipos').html(datos); // añade como texto dentro del elemento con el id provincia los datos devueltos(las provincias)
+    pais2.addEventListener("change", () => {
 
-            }
-        });
+        seleccionarDatos("#seleccionar_pais2", "../controller/seleccionar_competiciones2.php", '#competiciones2');
+
     });
+    
+    competiciones2.addEventListener("change", () => {
 
-    $(document).ready(function() {
-        $("#competiciones2").change(function() {
-            var idPais = $(this).val();
-            $.ajax({
-                url: '../controller/seleccionar_equipos.php',
-                method: 'POST',
-                data: {
-                    query: idPais
-                },
-                success: function(datos) {
-                    $('#equipos').html(datos);
-                }
-            });
-        });
+        seleccionarDatos("#competiciones2", "../controller/seleccionar_equipos.php", '#equipos_competicion');
     });
 </script>

@@ -15,7 +15,7 @@
                 $competiciones .= "<p>".$liga->league->name."</p>";
                 $competiciones .= '<i class="fa-solid fa-star icono_estrella"></i>';
                 // $competiciones .= "Tipo: ".$liga->league->type."<br>";
-            $competiciones .= "</div><hr>";
+            $competiciones .= "</div>";
 
             if ($liga->country->code == $codigoPais) {
                 $competiciones_pais .= $competiciones;

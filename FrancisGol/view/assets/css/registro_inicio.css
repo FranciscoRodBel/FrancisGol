@@ -62,23 +62,39 @@ form {
 }
 
 .competiciones_equipos {
+    width: 100%;
     height: 250px;
+    margin: 20px 0;
     overflow: auto;
 }
 
 .competiciones_equipos div {
     display: flex;
     align-items: center;
-    margin: 10px;
+    padding: 10px 0;
     position: relative;
+    border-bottom: 2px solid var(--cuarto_color);
 }
 
 .competiciones_equipos div p {
     color: var(--cuarto_color);
     font-weight: bold;
-    margin: 10px;
+    padding: 10px 0 10px 10px;
+    width: 60%;
+    font-size: 10pt;
 }
 
 .competiciones_equipos div img {
-    width: 100px;
+    width: 20%;
+}
+
+@media screen and (min-width: 450px) {
+
+    .icono_estrella {
+        font-size: 20pt;
+    }
+
+    .competiciones_equipos div p {
+        font-size: 15pt;
+    }
 }
