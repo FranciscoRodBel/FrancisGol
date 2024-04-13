@@ -134,7 +134,33 @@
     background-color: var(--septimo_color);
 }
 
+.fechas_partidos {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100vw;
+}
 
+.fechas_partidos div {
+    display: flex;
+    align-items: center;
+    min-width: 250px;
+    overflow-x: auto;
+    margin: 0 20px 40px 20px;  
+}
+
+.fechas_partidos div hr {
+    border: 1px solid var(--primer_color);
+    border-radius: 50%;
+    height: 10px;
+}
+
+.fechas_partidos div a {
+    display: flex;
+    color: var(--primer_color);
+    padding: 10px 15px;
+    font-size: 10pt;
+}
 
 
 
@@ -166,7 +192,7 @@
     }
 
     .enfrentamiento_equipos a div:nth-of-type(1) {
-        min-width: 45%;
+        min-width: 50%;
         flex-direction: row-reverse;
     }
 
@@ -184,7 +210,7 @@
     }
 
     .enfrentamiento_equipos a div:nth-of-type(3) {
-        min-width: 45%;
+        min-width: 50%;
     }
 
     .enfrentamiento_equipos a div span {
@@ -221,6 +247,17 @@
         transform: skew(30deg);
         
     }
+
+    .fechas_partidos a {
+        display: flex;
+        color: var(--primer_color);
+        padding: 10px 15px;
+        font-size: 15pt;
+    }
+
+    .fechas_partidos div hr {
+        height: 20px;
+    }
 }
 
 @media screen and (min-width: 700px) {
@@ -246,4 +283,5 @@
     .titulo_informacion {
         font-size: 15pt;
     }
+    
 }

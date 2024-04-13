@@ -11,6 +11,8 @@
                     <input type="password" name="repetir_contrasenia" placeholder="Contraseña">
                     <button class="boton_gris">Siguiente</button>   
             </section>
+
+
             <section class="cuadro_inicio_registro">
                 <img class="foto_perfil" src="../view/assets/images/foto_perfil.png" alt="Foto de perfil">
                 <button  class="seleccionar_foto">Selecciona una foto de perfil</button>
@@ -19,9 +21,6 @@
                     <button class="boton_gris">Siguiente</button>   
                 </div>
             </section>
-
-
-
 
 
             <section class="cuadro_inicio_registro">
@@ -53,18 +52,15 @@
                 </div>
                 <div class="conjunto_botones">
                     <button class="boton_gris">Anterior</button>
-                    <button class="boton_gris">Siguiente</button>   
+                    <input type="submit" value="Registrarse" name="iniciar_sesion">
                 </div>
-            </section>
-            <section class="cuadro_inicio_registro">
-                <input type="submit" value="Registrarse" name="iniciar_sesion">
             </section>
         </form>
     </article>
 </main>
 <script>
 
-    function seleccionarDatos(selectFormulario, rutaController, divPintarDatos) {
+    function seleccionarDatos(selectFormulario, rutaController, divPintarDatos, condicion) {
 
         let idPais = $(selectFormulario).val();
         $.ajax({
@@ -75,7 +71,12 @@
             },
             success: function(datos) {
                 $(divPintarDatos).html(datos);
-                seleccionarDatos("#competiciones2", "../controller/seleccionar_equipos.php", '#equipos_competicion');
+                
+                
+                if (condicion) {
+
+                    seleccionarDatos("#competiciones2", "../controller/seleccionar_equipos.php", '#equipos_competicion', false);
+                }
 
             }
         });
@@ -85,22 +86,22 @@
     let pais2 = document.getElementById("seleccionar_pais2");
     let competiciones2 = document.getElementById("competiciones2");
 
-    seleccionarDatos("#seleccionar_pais1", "../controller/seleccionar_competiciones.php", '#competiciones');
-    seleccionarDatos("#seleccionar_pais2", "../controller/seleccionar_competiciones2.php", '#competiciones2');
+    seleccionarDatos("#seleccionar_pais1", "../controller/seleccionar_competiciones.php", '#competiciones', false);
+    seleccionarDatos("#seleccionar_pais2", "../controller/seleccionar_competiciones2.php", '#competiciones2', true);
 
     pais1.addEventListener("change", () => {
 
-        seleccionarDatos("#seleccionar_pais1", "../controller/seleccionar_competiciones.php", '#competiciones');
+        seleccionarDatos("#seleccionar_pais1", "../controller/seleccionar_competiciones.php", '#competiciones', false);
     });
     
     pais2.addEventListener("change", () => {
 
-        seleccionarDatos("#seleccionar_pais2", "../controller/seleccionar_competiciones2.php", '#competiciones2');
+        seleccionarDatos("#seleccionar_pais2", "../controller/seleccionar_competiciones2.php", '#competiciones2', true);
 
     });
     
     competiciones2.addEventListener("change", () => {
 
-        seleccionarDatos("#competiciones2", "../controller/seleccionar_equipos.php", '#equipos_competicion');
+        seleccionarDatos("#competiciones2", "../controller/seleccionar_equipos.php", '#equipos_competicion', false);
     });
 </script>

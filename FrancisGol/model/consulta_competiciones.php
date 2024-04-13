@@ -2,7 +2,7 @@
 
 function seleccionarCompeticion() {
     
-    $archivo = "../view/assets/json/competicion.json"; // Nombre del archivo
+    $archivo = "../view/assets/json/competiciones.json"; // Nombre del archivo
 
     // Verifica si existe un archivo y si fue modificado en el último día
     if (file_exists($archivo) && (time() - filemtime($archivo) < 86400)) {
