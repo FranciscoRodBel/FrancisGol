@@ -1,6 +1,5 @@
 <?php
   require_once "../model/partidos.php";
-  require_once "../model/consulta_partidos.php";
 
   $titulo = "FrancisGol - Partidos";
   $lista_css = ["partidos_liga.css"];

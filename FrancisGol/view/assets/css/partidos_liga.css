@@ -77,6 +77,11 @@
 .seccion_negra .boton_gris {
     font-size: 10pt;
     padding: 5px 10px;
+    transition: 0.5s all;
+}
+
+.seccion_negra .boton_gris:hover {
+    background-color: var(--cuarto_color);
 }
 
 .eventos_partidos {

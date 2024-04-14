@@ -1,3 +1,20 @@
+
+<?php
+    // print_r($eventosPartido);
+
+    // echo "<h3>Eventos del partido: </h3>";
+    // foreach ($eventosPartido->response as $key => $evento) {
+
+    //     echo "<p>Equipo: ".$evento->team->name."<br>";
+    //     echo "Jugador: ".$evento->player->name."<br>";
+    //     echo "Tipo: ".$evento->type."<br>";
+    //     echo "Tiempo transcurrido: ".$evento->time->elapsed."<br>";
+    //     echo "Detalle: ".$evento->detail."<br>";
+    //     echo "Comentarios: ".$evento->comments."<br><br>";
+    //     echo "</p>";
+
+    // }
+?>
 <main>
     <h1 class="titulo_pagina">Resumen del partido</h1>
     <article>
@@ -5,26 +22,28 @@
             <div class="enfrentamiento_equipos">
                 <a href="../controller/partido.php">
                     <div>
-                        <img src="../view/assets/images/logo.png" alt="Logo">
-                        <span>Celta de Vigo</span>
+                        <img src="<?= $partido->teams->home->logo ?>" alt="Logo">
+                        <span><?= $partido->teams->home->name ?></span>
                     </div>
                     <div>
                         <p>VS</p>
-                        <p>1 - 3</p>
+                        <p><?= $partido->goals->home.' - '.$partido->goals->away ?></p>
                     </div>
                     <div>
-                        <img src="../view/assets/images/logo.png" alt="Logo">
-                        <span>Rayo Vallecano</span>
+                        <img src="<?= $partido->teams->away->logo ?>" alt="Logo">
+                        <span><?= $partido->teams->away->name ?></span>
                     </div>
                 </a>
             </div>
             <div class="conjunto_botones">
-                <a href="../controller/resumen_partido.php" class="boton_gris"><span>Resumen</span></a>
-                <a href="../controller/estadisticas_partido.php" class="boton_gris"><span>Estadísticas</span></a>
-                <a href="../controller/alineaciones_partido.php" class="boton_gris"><span>Alineaciones</span></a>
+                <a href="../controller/resumen_partido.php?partido=<?= urlencode(json_encode($partido)) ?>"  class="boton_gris"><span>Resumen</span></a>
+                <a href="../controller/estadisticas_partido.php?idPartido=<?= $idPartido ?>" class="boton_gris"><span>Estadísticas</span></a>
+                <a href="../controller/alineaciones_partido.php?idPartido=<?= $idPartido ?>" class="boton_gris"><span>Alineaciones</span></a>
             </div>
             <hr>
-            <div class="eventos_partidos">
+            <div class='eventos_partidos'>
+                <?= $resumenPartido ?> 
+            <!--
                 <div>
                     <h3 class="titulo_informacion">Celta de Vigo</h3>
                     <div class="evento">
@@ -67,8 +86,8 @@
                         <div class="icono_evento"><div class="tarjeta_roja"></div></div>
                         <p class="nombre_evento">Florian Lejeune</p>
                     </div>
+                </div> -->
                 </div>
-            </div>
         </section>
     </article>
 </main>
