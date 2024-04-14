@@ -36,9 +36,9 @@
                 </a>
             </div>
             <div class="conjunto_botones">
-                <a href="../controller/resumen_partido.php?partido=<?= urlencode(json_encode($partido)) ?>"  class="boton_gris"><span>Resumen</span></a>
-                <a href="../controller/estadisticas_partido.php?idPartido=<?= $idPartido ?>" class="boton_gris"><span>Estadísticas</span></a>
-                <a href="../controller/alineaciones_partido.php?idPartido=<?= $idPartido ?>" class="boton_gris"><span>Alineaciones</span></a>
+                <a href="../controller/resumen_partido.php?partido=<?= urlencode(json_encode($partido)) ?>" class="boton_gris"><span>Resumen</span></a>
+                <a href="../controller/estadisticas_partido.php?partido=<?= urlencode(json_encode($partido)) ?>" class="boton_gris"><span>Estadísticas</span></a>
+                <a href="../controller/alineaciones_partido.php?ipartido=<?= urlencode(json_encode($partido)) ?>"><span>Alineaciones</span></a>
             </div>
             <hr>
             <div class='eventos_partidos'>
