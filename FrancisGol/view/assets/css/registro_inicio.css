@@ -30,16 +30,6 @@ form {
     font-size: 13pt;
 }
 
-.cuadro_inicio_registro input {
-    color: var(--cuarto_color);
-    border-radius: 10px;
-    font-size: 12pt;
-    padding: 5px;
-    margin-bottom: 15px;
-    width: 200px;
-    
-}
-
 .cuadro_inicio_registro input[type="submit"], .seleccionar_foto, .seleccionar_pais {
     background-color: var(--quinto_color);
     color: var(--primer_color);

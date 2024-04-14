@@ -1,0 +1,27 @@
+.buscador {
+    position: relative;
+    width: 100vw;
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+.icono_busqueda {
+    position: relative;
+}
+
+.buscador i {
+    position: absolute;
+    top: 7px;
+    left: 8px;
+
+}
+
+.buscador input {
+    box-shadow: 0 0 10px var(--primer_color);
+    padding: 5px 5px 5px 30px;
+    border-radius: 10px;
+    color: var(--primer_color);
+    width: 90%;
+    max-width: 350px;
+}
