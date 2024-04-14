@@ -1,6 +1,6 @@
 <?php
   require_once "../model/partidos.php";
-  require_once "../model/partidosDirecto2.php";
+  require_once "../model/consulta_partidos.php";
 
   $titulo = "FrancisGol - Partidos";
   $lista_css = ["partidos_liga.css"];
@@ -8,14 +8,17 @@
 
   $fechas_partidos = generarFechasPartidos();
   
-  // if (isset($_GET["fecha"]) && !empty($_GET["fecha"])) {
+  if (isset($_GET["fecha"]) && !empty($_GET["fecha"])) {
       
-  //   $partidos = recogerPartidos($_GET["fecha"]);
-
+    $partidos = recogerPartidos($_GET["fecha"]);
     
-  // }
+  } else {
+    
+    $partidos = recogerPartidos(date("Y-m-d"));
+  }
 
-  $resultado = partidos();
+  $partidosSeleccionados = pintarPartidos($partidos);
+  
 
   include '../view/templates/head.php';
   include '../view/templates/header.php';

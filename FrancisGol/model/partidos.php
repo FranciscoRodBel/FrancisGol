@@ -26,6 +26,57 @@ function generarFechasPartidos() {
 
 }
 
-function recogerPartidos($fecha) {
+function pintarPartidos($partidos) {
     
+    $todosLosPartidos = "";
+
+    foreach ($partidos->response as $partido) {
+        
+        $partidosDeUnaLiga = '
+            <div class="enfrentamiento_equipos">
+                <a href="../controller/resumen_partido.php?idPartido='.$partido->fixture->venue->id.'">
+                    <div>
+                        <img src="'.$partido->teams->home->logo.'" alt="Logo">
+                        <span>'.$partido->teams->home->name.'</span>
+                    </div>
+                    <div>
+                        <p>VS</p>
+                        <p>'.$partido->goals->home.' - '.$partido->goals->away.'</p>
+                    </div>
+                    <div>
+                        <img src="'.$partido->teams->away->logo.'" alt="Logo">
+                        <span>'.$partido->teams->away->name.'</span>
+                    </div>
+                </a>
+            </div>
+            <hr class="separacion_partidos">';
+
+        $idLigaActual = $partido->league->id;
+        $datosLiga[$idLigaActual] = [$partido->league->logo, $partido->league->name];
+        $partidosPorLiga[$idLigaActual][] = $partidosDeUnaLiga;
+
+    }
+    
+    foreach ($partidosPorLiga as $idLiga => $partidosLiga) {
+
+        $todosLosPartidos .= '
+                <section class="seccion_negra">
+                    <div class="partidos_liga">
+                        <a href="../controller/competicion.php?idLiga='.$idLiga.'">
+                            <img src="'.$datosLiga[$idLiga][0].'" alt="Logo">
+                            <span>'.$datosLiga[$idLiga][1].'</span>
+                        </a>
+                        <i class="fa-solid fa-star icono_estrella"></i>
+                    </div>
+                    <hr>';
+
+        foreach ($partidosLiga as $partidoLiga) {
+            $todosLosPartidos .= $partidoLiga;
+        }
+
+        $todosLosPartidos .= "</section>";
+
+    }
+
+    return $todosLosPartidos;
 }

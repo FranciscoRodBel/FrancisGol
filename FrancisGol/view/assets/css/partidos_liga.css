@@ -22,7 +22,7 @@
 }
 
 .enfrentamiento_equipos {
-    margin: 10px;
+    margin: 20px 10px;
 }
 
 .enfrentamiento_equipos * {
@@ -218,7 +218,7 @@
     }
 
     .enfrentamiento_equipos img {
-        width: 70px;
+        width: 50px;
     }
 
     .separacion_partidos {

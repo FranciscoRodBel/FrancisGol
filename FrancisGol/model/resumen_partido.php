@@ -1,8 +1,8 @@
 <?php
 
-    function partidos() {
+    function recogerResumenPartido($idPartido) {
 
-        $archivo = "../view/assets/json/partidos.json"; // Nombre del archivo
+        $archivo = "../view/assets/json/resumen_partido".$idPartido.".json"; // Nombre del archivo
 
         // Verifica si existe un archivo y si fue modificado en el último día
         if (file_exists($archivo) && (time() - filemtime($archivo) < 86400)) {
@@ -14,7 +14,7 @@
             $curl = curl_init();
 
             curl_setopt_array($curl, array(
-            CURLOPT_URL => 'https://v3.football.api-sports.io/fixtures?live=all',
+            CURLOPT_URL => 'https://v3.football.api-sports.io/fixtures?date='.$idPartido,
             CURLOPT_RETURNTRANSFER => true,
             CURLOPT_ENCODING => '',
             CURLOPT_MAXREDIRS => 10,
