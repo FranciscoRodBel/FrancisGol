@@ -67,9 +67,17 @@
     margin-right: 5px;
 }
 
+.enfrentamiento_equipos:last-of-type {
+    margin-bottom: 5px;
+}
+
 .separacion_partidos {
     width: 80%;
     margin: 0 auto;
+}
+
+.separacion_partidos:last-of-type {
+    display: none;
 }
 
 /* Diseño de las páginas de resumen del partido */
@@ -229,6 +237,7 @@
     .separacion_partidos {
         display: none;
     }
+    
 
     /* Diseño de las páginas de resumen del partido */
 

@@ -198,7 +198,7 @@ header .menu_ordenador a:last-of-type {
 }
 
 .menu_activado hr:nth-of-type(3) {
-    transform: translateY(-11px) rotateZ(-45deg);
+    transform: translateY(-10px) rotateZ(-45deg);
 }
 
 /* Estilos del nav */

@@ -31,6 +31,10 @@ function pintarPartidos($partidos) {
     $todosLosPartidos = "";
 
     foreach ($partidos->response as $partido) {
+
+        $hora_partido = strtotime($partido->fixture->date);
+        // $hora_partido = strtotime('+2 hours', $hora_partido);
+        $hora_partido = date('H:i', $hora_partido);
         
         $partidosDeUnaLiga = '
             <div class="enfrentamiento_equipos">
@@ -40,9 +44,16 @@ function pintarPartidos($partidos) {
                         <span>'.$partido->teams->home->name.'</span>
                     </div>
                     <div>
-                        <p>VS</p>
-                        <p>'.$partido->goals->home.' - '.$partido->goals->away.'</p>
-                    </div>
+                        <p>VS</p>';
+                        if (date('H:i') < $hora_partido) {
+
+                            $partidosDeUnaLiga .= '<p>'.$hora_partido.'</p>';
+                        } else {
+
+                            $partidosDeUnaLiga .= '<p>'.$partido->goals->home.' - '.$partido->goals->away.'</p>';
+                        }
+
+        $partidosDeUnaLiga .= '</div>
                     <div>
                         <img src="'.$partido->teams->away->logo.'" alt="Logo">
                         <span>'.$partido->teams->away->name.'</span>
