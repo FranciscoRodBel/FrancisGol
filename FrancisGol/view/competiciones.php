@@ -2,18 +2,17 @@
     <h1 class="titulo_pagina">Competiciones</h1>
     <article>
             <section>
-                <form action="#" method="POST">
-                    <div class="buscador">
-                        <label for="competiciones" class="icono_busqueda">
-                            <i class="fa-solid fa-magnifying-glass"></i>
-                        </label>
-                        <input type="text" name="seleccionar_competicion" list="listaCompeticiones" placeholder="Busca una competición" onkeyup="buscarCompeticion(this.value)">
-                    </div>
-                    <datalist id="listaCompeticiones"></datalist>
-                    <div id="equipos_competicion" class="competiciones_equipos">
+            <form method="GET">
+                <div class="buscador">
+                    <label for="competiciones" class="icono_busqueda">
+                        <i class="fa-solid fa-magnifying-glass"></i>
+                    </label>
+                    <input type="text" name="competicion" list="listaCompeticiones" placeholder="Busca una competición" onkeyup="buscarCompeticion(this.value)">
+                </div>
+                <datalist id="listaCompeticiones"></datalist>
+                <input type="submit" value="Enviar" class="boton_enviar">
+            </form>
 
-                    </div>
-                </form>
             </section>
             <section class="seccion_negra">
 
@@ -41,4 +40,15 @@
             xmlhttp.send();
         }
     }
+
+    document.querySelector("form").addEventListener("submit", function(event) {
+        event.preventDefault();
+
+        let datalist = document.getElementById("listaCompeticiones");
+        let competicionInput = datalist.firstElementChild.getAttribute('data-idCompeticion');
+
+        let url = "../controller/competicion_noticias.php?competicion=" + encodeURIComponent(competicionInput);
+        window.location.href = url;
+
+    });
 </script>

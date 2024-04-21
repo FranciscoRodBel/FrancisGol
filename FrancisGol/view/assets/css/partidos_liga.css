@@ -1,26 +1,5 @@
 /* Diseños de la página de partidos */
 
-.partidos_liga {
-    position: relative;
-    padding-bottom: 10px;
-}
-
-.partidos_liga * {
-    transition: 0.5s all;
-}
-
-.partidos_liga a {
-    display: flex;
-    align-items: center;
-    color: var(--cuarto_color);
-    font-weight: bold;
-    font-size: 12pt;
-}
-
-.partidos_liga img {
-    width: 50px;
-}
-
 .enfrentamiento_equipos {
     margin: 20px 10px;
 }
@@ -108,6 +87,14 @@
     text-align: right;
 }
 
+.eventos_partidos p {
+    width: 100%;
+    font-size: 13pt;
+    font-weight: bold;
+    text-align: center;
+    margin: 20px;
+}
+
 .evento {
     margin: 10px 0;
     display: flex;
@@ -151,7 +138,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 100vw;
+    width: 100%;
 }
 
 .fechas_partidos div {
@@ -184,14 +171,6 @@
 
 
 @media screen and (min-width: 450px) {
-
-    .partidos_liga a {
-        font-size: 15pt;
-    }
-
-    .partidos_liga img {
-        width: 80px;
-    }
 
     .enfrentamiento_equipos a {
         display: flex;
@@ -246,21 +225,6 @@
     }
 
     /* Diseño de botones de navegación */
-    
-    .conjunto_botones {
-        margin: 20px;
-    }
-
-    .conjunto_botones a {
-        transform: skew(-30deg);
-        border-radius: 0;
-    }
-
-    .conjunto_botones span {
-        display: inline-block;
-        transform: skew(30deg);
-        
-    }
 
     .fechas_partidos a {
         display: flex;

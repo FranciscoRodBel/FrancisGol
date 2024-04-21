@@ -43,7 +43,6 @@ html {
 }
 
 article {
-    min-width: 100vw;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -62,7 +61,6 @@ input {
     padding: 5px;
     margin-bottom: 15px;
     width: 200px;
-    
 }
 
 .icono_estrella {
@@ -80,7 +78,6 @@ input {
     border-radius: 10px;
     min-width: 250px;
     margin-bottom: 40px;
-    margin: 0 auto 20px auto;
 }
 
 a {
@@ -104,6 +101,18 @@ a {
     cursor: pointer;
     border-radius: 10px;
     text-align: center;
+}
+
+.seleccionar {
+    color: var(--primer_color);
+    font-weight: bold;
+    box-shadow: 0 0 10px var(--primer_color);
+    margin: 10px;
+    padding: 10px ;
+    cursor: pointer;
+    background-color: var(--cuarto_color);
+    border-radius: 10px;
+    width: 200px;
 }
 
 /* Estilo del scroll */
@@ -283,13 +292,33 @@ nav a:hover {
     background-color: var(--tercer_color);
 }
 
+/* Estilo de competición o equipo*/
 
+.competicion_equipo {
+    position: relative;
+    padding-bottom: 10px;
+}
 
+.competicion_equipo * {
+    transition: 0.5s all;
+}
 
+.competicion_equipo a {
+    display: flex;
+    align-items: center;
+    color: var(--cuarto_color);
+    font-weight: bold;
+    font-size: 12pt;
+}
 
+.competicion_equipo span {
+    margin-left: 10px;
+    width: 60%;
+}
 
-
-
+.competicion_equipo img {
+    width: 50px;
+}
 
 
 
@@ -343,5 +372,29 @@ nav a:hover {
 
     .vista_ordenador {
         display: none;
+    }
+
+    /* Botones seccion negra */
+    .conjunto_botones {
+        margin: 20px;
+    }
+
+    .conjunto_botones a {
+        transform: skew(-30deg);
+        border-radius: 0;
+    }
+
+    .conjunto_botones span {
+        display: inline-block;
+        transform: skew(30deg);
+        
+    }
+
+    .competicion_equipo a {
+        font-size: 15pt;
+    }
+
+    .competicion_equipo img {
+        width: 80px;
     }
 }

@@ -72,8 +72,8 @@ function pintarPartidos($partidos) {
 
         $todosLosPartidos .= '
                 <section class="seccion_negra">
-                    <div class="partidos_liga">
-                        <a href="../controller/competicion.php?idLiga='.$idLiga.'">
+                    <div class="competicion_equipo">
+                        <a href="../controller/competicion.php?competicion='.$idLiga.'">
                             <img src="'.$datosLiga[$idLiga][0].'" alt="Logo">
                             <span>'.$datosLiga[$idLiga][1].'</span>
                         </a>

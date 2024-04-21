@@ -3,7 +3,7 @@
 
     if (isset($_POST['query'])) {
 
-        $resultado = recogerCompeticion();
+        $resultado = recogerCompeticiones();
         $competiciones_pais = "";
         $codigoPais = $_POST['query'];
 

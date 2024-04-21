@@ -3,7 +3,7 @@
     
     if (isset($_POST['query']) && !empty($_POST['query'])) {
 
-        $resultado = recogerCompeticion();
+        $resultado = recogerCompeticiones();
         $competiciones_pais = "";
         $codigoPais = $_POST['query'];
 
@@ -20,7 +20,7 @@
 
     } else if (isset($_GET["texto"]) && !empty($_GET["texto"])) {
 
-        $resultado = recogerCompeticion();
+        $resultado = recogerCompeticiones();
         $competiciones_pais = "";
 
         foreach ($resultado->response as $liga) {

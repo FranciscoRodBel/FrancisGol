@@ -51,7 +51,7 @@
                 
             }
         } else {
-            $resumenPartido = "<p>El partido aún no ha comenzado<p>";
+            $resumenPartido = "<p>El partido aún no ha comenzado</p>";
         }
 
 

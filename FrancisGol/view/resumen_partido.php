@@ -42,52 +42,8 @@
             </div>
             <hr>
             <div class='eventos_partidos'>
-                <?= $resumenPartido ?> 
-            <!--
-                <div>
-                    <h3 class="titulo_informacion">Celta de Vigo</h3>
-                    <div class="evento">
-                        <p class="minuto">31'</p>
-                        <i class="fa-solid fa-futbol icono_evento"></i>
-                        <p class="nombre_evento">Iago Aspassssssssssssssssss</p>
-                    </div>
-                    <div class="evento">
-                        <p class="minuto">65'</p>
-                        <i class="fa-solid fa-futbol icono_evento"></i>
-                        <p class="nombre_evento">Iago Aspas</p>
-                    </div>
-                    <div class="evento">
-                        <p class="minuto">82'</p>
-                        <i class="fa-solid fa-arrows-rotate icono_evento"></i>
-                        <div class="nombre_evento cambio">
-                            <p>Iago Aspas</p>
-                            <p>Larsen</p>
-                        </div>
-                    </div>
-                </div>
-                <hr>
-                <div>
-                    <h3 class="titulo_informacion">Rayo Vallecano</h3>
-                    <div class="evento tarjeta">
-                        <p class="minuto">178'</p>
-                        <div class="icono_evento"><div class="tarjeta_amarilla"></div></div>
-                        <p class="nombre_evento">Florian Lejeune</p>
-                    </div>
-                    <div class="evento">
-                        <p class="minuto">85'</p>
-                        <div class="icono_evento gol_anulado">
-                            <i class="fa-solid fa-futbol"></i>
-                            <i class="fa-solid fa-xmark"></i>
-                        </div>
-                        <p class="nombre_evento">Gol anulado</p>
-                    </div>
-                    <div class="evento">
-                        <p class="minuto">86'</p>
-                        <div class="icono_evento"><div class="tarjeta_roja"></div></div>
-                        <p class="nombre_evento">Florian Lejeune</p>
-                    </div>
-                </div> -->
-                </div>
+                <?= $resumenPartido ?>
+            </div>
         </section>
     </article>
 </main>
