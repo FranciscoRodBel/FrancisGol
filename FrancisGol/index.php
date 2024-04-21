@@ -1,2 +1,2 @@
 <?php
-  header("Location: controller/noticias.php");
+  header("Location: controller/partidos.php");

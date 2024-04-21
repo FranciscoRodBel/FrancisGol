@@ -14,6 +14,7 @@ function seleccionarDatos(selectFormulario, rutaController, divPintarDatos, cond
             if (condicion) {
 
                 seleccionarDatos("#competiciones2", "../controller/seleccionar_equipos.php", '#equipos_competicion', false);
+
             }
 
         }
