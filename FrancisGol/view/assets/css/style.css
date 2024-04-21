@@ -265,6 +265,18 @@ nav a:hover {
     padding: 10px;
 }
 
+/* Diseños de secciones de apartados de una sección*/
+
+.seccion_negra .boton_gris {
+    font-size: 10pt;
+    padding: 5px 10px;
+    transition: 0.5s all;
+}
+
+.seccion_negra .boton_gris:hover {
+    background-color: var(--cuarto_color);
+}
+
 /* Tabla de datos o estadísticas */
 
 .tabla_datos {
@@ -320,7 +332,33 @@ nav a:hover {
     width: 50px;
 }
 
+/* Estilos mostrar equipos/competiciones */
 
+.equipos_competiciones {
+    width: 80%;
+    margin: 20px 0;
+    overflow: auto;
+}
+
+.equipos_competiciones div {
+    display: flex;
+    align-items: center;
+    padding: 10px 0;
+    position: relative;
+    border-bottom: 2px solid var(--cuarto_color);
+}
+
+.equipos_competiciones div p {
+    color: var(--primer_color);
+    font-weight: bold;
+    padding: 10px 0 10px 10px;
+    width: 60%;
+    font-size: 10pt;
+}
+
+.equipos_competiciones div img {
+    width: 50px;
+}
 
 /* Estilos de ordenador */
 
@@ -375,8 +413,13 @@ nav a:hover {
     }
 
     /* Botones seccion negra */
+
     .conjunto_botones {
         margin: 20px;
+    }
+
+    hr ~ .conjunto_botones {
+        margin-bottom: 0;
     }
 
     .conjunto_botones a {
@@ -397,4 +440,10 @@ nav a:hover {
     .competicion_equipo img {
         width: 80px;
     }
+
+    /* Estilos mostrar equipos/competiciones */
+    .equipos_competiciones div p {
+        font-size: 15pt;
+    }
+    
 }

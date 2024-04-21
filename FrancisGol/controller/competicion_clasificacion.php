@@ -3,7 +3,7 @@
     require_once "../model/Competicion.php";
     require_once "../model/competiciones.php";
 
-    $titulo = "FrancisGol - Competición";
+    $titulo = "FrancisGol - Competición clasificación";
     $lista_css = ["competiciones.css"];
 
     if (isset($_GET["competicion"]) && !empty($_GET["competicion"])) {

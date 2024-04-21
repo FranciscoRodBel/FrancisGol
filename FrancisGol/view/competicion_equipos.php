@@ -10,28 +10,8 @@
                 <a href="../controller/competicion_equipos.php?competicion=<?= $idCompeticion ?>" class="boton_gris"><span>Equipos</span></a>
             </div>
         </section>
-        <section>
-            <select class="seleccionar" name="jornadasCompeticion" id="jornadasCompeticion">
-                <?= $opcionesJornadas ?>
-            </select>
-        </section>
-        <section class="jornadasCompeticion">
-            <?= $jornadas ?>
+        <section class="equipos_competiciones">
+            <?= $equiposCompeticion ?>
         </section>
     </article>
 </main>
-<script>
-    let selectJornada = document.getElementById("jornadasCompeticion");
-    let jornadaAnterior = document.getElementById(selectJornada.value);
-    jornadaAnterior.classList.remove("ocultarjornada");
-
-    selectJornada.addEventListener("change", () => {
-
-        jornadaAnterior.classList.add("ocultarjornada");
-        let jornadaSeleccionada = document.getElementById(selectJornada.value);
-        
-        jornadaSeleccionada.classList.remove("ocultarjornada");
-        jornadaAnterior = jornadaSeleccionada;
-    });
-
-</script>
