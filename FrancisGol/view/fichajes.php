@@ -16,7 +16,7 @@
                 <input type="submit" value="Enviar" name="enviar" class="boton_enviar">
             </form>
         </section>
-        <section class="fichajes">
+        <section class='fichajes'>
             <?= $fichajes ?>
         </section>
     </article>

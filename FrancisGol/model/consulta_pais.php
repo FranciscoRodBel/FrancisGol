@@ -45,7 +45,12 @@
         $opciones = "";
         foreach ($paises->response as $pais) {
 
-            $opciones .= "<option value='".$pais->code."'>".$pais->name."</option>";
+            if ($pais->name == "Spain") {
+
+                $opciones .= "<option value='".$pais->code."' selected>".$pais->name."</option>";
+            } else {
+                $opciones .= "<option value='".$pais->code."'>".$pais->name."</option>";
+            }
         }
 
         return $opciones;

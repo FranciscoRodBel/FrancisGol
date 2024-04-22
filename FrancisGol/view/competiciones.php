@@ -47,7 +47,7 @@
         let datalist = document.getElementById("listaCompeticiones");
         let competicionInput = datalist.firstElementChild.getAttribute('data-idCompeticion');
 
-        let url = "../controller/competicion_noticias.php?competicion=" + encodeURIComponent(competicionInput);
+        let url = "../controller/competicion_clasificacion.php?competicion=" + encodeURIComponent(competicionInput);
         window.location.href = url;
 
     });

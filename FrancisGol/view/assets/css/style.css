@@ -112,7 +112,9 @@ a {
     cursor: pointer;
     background-color: var(--cuarto_color);
     border-radius: 10px;
-    width: 250px;
+    min-width: 230px;
+    width: 90%;
+    max-width: 300px;
 }
 
 .boton_enviar {
@@ -382,6 +384,99 @@ nav a:hover {
     color: var(--primer_color);
 }
 
+/* Estilos página de fichajes */
+
+.fichajes {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.fichajes > div {
+    box-shadow: 0 0 10px var(--primer_color);
+    padding: 20px;
+    border-radius: 10px;
+    width: 90%;
+    max-width: 550px;
+    margin: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+}
+
+.datos_fichaje {
+    text-align: center;
+    font-weight: bold;
+    font-size: 15pt;
+}
+
+.datos_fichaje a{ 
+    text-decoration: none;
+    color: var(--primer_color);
+}
+
+.datos_fichaje hr {
+    margin: 10px;
+    border: 1px solid var(--segundo_color);
+}
+
+.fichaje_equipos {
+    display: flex;
+    margin: 20px 0;
+    max-width: 100%;
+}
+
+.fichaje_equipos  div{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.equipo_fichaje {
+    margin: 10px;
+    width: 30%;
+}
+
+.equipo_fichaje a {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    color: var(--primer_color);
+    text-align: center;
+}
+
+.equipo_fichaje img {
+    width: 40px;
+}
+
+.equipo_fichaje p {
+    font-size: 10pt;
+}
+
+.tipo_fichaje {
+    width: 30%;
+}
+
+.tipo_fichaje i {
+    font-size: 15pt;
+    margin-top: 10px;
+}
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -472,5 +567,26 @@ nav a:hover {
     .equipos_competiciones div p {
         font-size: 15pt;
     }
-    
+
+    /* Estilos fichajes*/
+    .fichajes > div {
+        flex-direction: row;
+        justify-content: space-evenly;
+    }
+
+    .fichaje_equipos {
+        margin: 0;
+    }
+
+    .equipo_fichaje img {
+        width: 70px;
+    }
+
+    .equipo_fichaje p {
+        font-size: 14pt;
+    }
+
+    .tipo_fichaje i {
+        font-size: 20pt;
+    }
 }
