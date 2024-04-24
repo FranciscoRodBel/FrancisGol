@@ -2,30 +2,27 @@
 
 .enfrentamiento_equipos {
     margin: 20px 10px;
+    position: relative;
 }
 
 .enfrentamiento_equipos * {
     transition: 0.5s all;
 }
 
-.enfrentamiento_equipos a {
-    color: var(--cuarto_color);
-    font-weight: bold;
-    font-size: 10pt;
-    position: relative;
-}
-
-.enfrentamiento_equipos a div {
+.enfrentamiento_equipos div {
     display: flex;
     align-items: center;
     margin-bottom: 10px;
 }
 
-.enfrentamiento_equipos a div span {
+.enfrentamiento_equipos div span {
     width: calc(100% - 100px);
+    color: var(--cuarto_color);
+    font-weight: bold;
+    font-size: 10pt;
 }
 
-.enfrentamiento_equipos a div:nth-of-type(2) {
+.resultado_hora {
     height: 52px;
     min-width: 52px;
     position: absolute;
@@ -33,9 +30,12 @@
     top: calc(50% - 26px);
     flex-direction: column;
     justify-content: center;
+    text-align: center;
+    color: var(--cuarto_color);
+    font-weight: bold;
 }
 
-.enfrentamiento_equipos a div:nth-of-type(2) p:first-of-type {
+.resultado_hora p:first-of-type {
     font-family: 'bebas_neue', sans-serif;
     letter-spacing: 3px;
     font-size: 20pt;
@@ -44,10 +44,6 @@
 .enfrentamiento_equipos img {
     width: 40px;
     margin-right: 5px;
-}
-
-.enfrentamiento_equipos:last-of-type {
-    margin-bottom: 5px;
 }
 
 .separacion_partidos {
@@ -162,7 +158,7 @@
 
 @media screen and (min-width: 450px) {
 
-    .enfrentamiento_equipos a {
+    .enfrentamiento_equipos a, .enfrentamiento_equipos {
         display: flex;
         justify-content: center;
         align-items: center;
@@ -173,30 +169,31 @@
         margin: 0;
     }
 
-    .enfrentamiento_equipos a div:nth-of-type(1) {
+    .equipo_local {
         min-width: 50%;
         flex-direction: row-reverse;
     }
 
-    .enfrentamiento_equipos a div:nth-of-type(1) img {
+    .equipo_local img {
         margin-left: 5px;
         margin-right: 0px;
     }
 
-    .enfrentamiento_equipos a div:nth-of-type(1) span {
+    .equipo_local span {
         text-align: right;
     }
 
-    .enfrentamiento_equipos a div:nth-of-type(2) {
+    .resultado_hora {
         position: relative;
     }
 
-    .enfrentamiento_equipos a div:nth-of-type(3) {
+    .equipo_visitante {
         min-width: 50%;
     }
 
-    .enfrentamiento_equipos a div span {
+    .enfrentamiento_equipos div span {
         width: calc(100% - 75px);
+        font-size: 15pt;
     }
 
     .enfrentamiento_equipos img {

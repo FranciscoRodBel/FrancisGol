@@ -20,16 +20,18 @@
     <article>
         <section class="seccion_negra">
             <div class="enfrentamiento_equipos">
-                <a href="../controller/partido.php">
-                    <div>
+                <a href="../controller/equipo_competiciones.php?equipo=<?= $partido->teams->home->id?>">
+                    <div class="equipo_local">
                         <img src="<?= $partido->teams->home->logo ?>" alt="Logo">
                         <span><?= $partido->teams->home->name ?></span>
                     </div>
-                    <div>
-                        <p>VS</p>
-                        <p><?= $partido->goals->home.' - '.$partido->goals->away ?></p>
-                    </div>
-                    <div>
+                </a>
+                <div class="resultado_hora">
+                    <p>VS</p>
+                    <p><?= $partido->goals->home.' - '.$partido->goals->away ?></p>
+                </div>
+                <a href="../controller/equipo_competiciones.php?equipo=<?= $partido->teams->away->id?>">
+                    <div class="equipo_visitante">
                         <img src="<?= $partido->teams->away->logo ?>" alt="Logo">
                         <span><?= $partido->teams->away->name ?></span>
                     </div>

@@ -39,13 +39,13 @@ function pintarPartidos($partidos) {
         $partidosDeUnaLiga = '
             <div class="enfrentamiento_equipos">
                 <a href="../controller/resumen_partido.php?partido='.urlencode(json_encode($partido)).'">
-                    <div>
+                    <div class="equipo_local">
                         <img src="'.$partido->teams->home->logo.'" alt="Logo">
                         <span>'.$partido->teams->home->name.'</span>
                     </div>
-                    <div>
+                    <div class="resultado_hora">
                         <p>VS</p>';
-                        if (date('H:i') < $hora_partido) {
+                        if (date('H:i') > $hora_partido) {
 
                             $partidosDeUnaLiga .= '<p>'.$hora_partido.'</p>';
                         } else {
@@ -54,7 +54,7 @@ function pintarPartidos($partidos) {
                         }
 
         $partidosDeUnaLiga .= '</div>
-                    <div>
+                    <div class="equipo_visitante">
                         <img src="'.$partido->teams->away->logo.'" alt="Logo">
                         <span>'.$partido->teams->away->name.'</span>
                     </div>
