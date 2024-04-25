@@ -1,9 +1,9 @@
 <main>
     <h1 class="titulo_pagina">Registro de usuario</h1>
     <article>
-        <form action="#" method="POST">
+        <form action="../controller/registro.php" method="POST">
             <section class="cuadro_inicio_registro">
-                    <label for="email">Nombre usuario</label>
+                    <label for="nombre">Nombre usuario</label>
                     <input type="text" name="nombre" placeholder="Nombre">
                     <label for="email">Email</label>
                     <input type="text" name="email" placeholder="Email">
@@ -18,6 +18,7 @@
 
             <section class="cuadro_inicio_registro">
                 <img class="foto_perfil" src="../view/assets/images/foto_perfil.png" alt="Foto de perfil">
+                <input type="file" name="foto" id="foto">
                 <button  class="seleccionar_foto">Selecciona una foto de perfil</button>
                 <div class="conjunto_botones">
                     <button class="boton_gris">Anterior</button>
@@ -55,8 +56,9 @@
                 </div>
                 <div class="conjunto_botones">
                     <button class="boton_gris">Anterior</button>
-                    <input type="submit" value="Registrarse" name="iniciar_sesion">
+                    <input type="submit" value="Registrarse" name="registrarse">
                 </div>
+                <p><?= $resultadoFormulario ?></p>
             </section>
         </form>
     </article>

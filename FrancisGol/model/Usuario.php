@@ -83,7 +83,7 @@ class Usuario { // Se usa para manejar todos los datos del usuario
         $contrasenia = password_hash($contrasenia, PASSWORD_DEFAULT); // cifra la contraseña del usuario
 
         // Añade el usuario en la base de datos
-        $consulta = $conexion->prepare("INSERT INTO usuario (email, nombre, contrasenia, , fechaNacimiento, telefono) VALUES (?, ?, ?, ?, ?)");
+        $consulta = $conexion->prepare("INSERT INTO usuario (email, nombre, contrasenia, foto) VALUES (?, ?, ?, ?)");
         $consulta->bind_param("sssb", $email, $nombre, $contrasenia, $foto);
         $consulta->execute();
 

@@ -6,7 +6,7 @@
             if (!isset(self::$conexion)) {
                 $server = "localhost:3307";
                 $usuario = "root";
-                $contrasenia = "";
+                $contrasenia = "root";
                 $baseDatos = "francisGol";
 
                 self::$conexion = new mysqli($server, $usuario, $contrasenia, $baseDatos); // Inicio la conexión usando el objeto mysql
