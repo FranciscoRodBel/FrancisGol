@@ -3,6 +3,8 @@
     <article>
         <form action="#" method="POST">
             <section class="cuadro_inicio_registro">
+                    <label for="email">Nombre usuario</label>
+                    <input type="text" name="nombre" placeholder="Nombre">
                     <label for="email">Email</label>
                     <input type="text" name="email" placeholder="Email">
                     <label for="contrasenia">Contraseña</label>
@@ -11,6 +13,7 @@
                     <input type="password" name="repetir_contrasenia" placeholder="Contraseña">
                     <button class="boton_gris">Siguiente</button>   
             </section>
+
 
 
             <section class="cuadro_inicio_registro">
