@@ -55,7 +55,7 @@ hr {
 }
 
 input {
-    color: var(--cuarto_color);
+    color: var(--primer_color);
     border-radius: 10px;
     font-size: 12pt;
     padding: 5px;

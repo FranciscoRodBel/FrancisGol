@@ -1,12 +1,12 @@
 <main>
     <h1 class="titulo_pagina">Registro de usuario</h1>
     <article>
-        <form action="../controller/registro.php" method="POST">
+        <form action="../controller/registro.php" method="POST" enctype="multipart/form-data">
             <section class="cuadro_inicio_registro">
                     <label for="nombre">Nombre usuario</label>
-                    <input type="text" name="nombre" placeholder="Nombre">
+                    <input type="text" name="nombre" placeholder="Nombre" value="<?= $_POST["nombre"] ?? "" ?>">
                     <label for="email">Email</label>
-                    <input type="text" name="email" placeholder="Email">
+                    <input type="text" name="email" placeholder="Email" value="<?= $_POST["email"] ?? "" ?>">
                     <label for="contrasenia">Contraseña</label>
                     <input type="password" name="contrasenia" placeholder="Contraseña">
                     <label for="repetir_contrasenia">Repetir contraseña</label>
@@ -18,7 +18,7 @@
 
             <section class="cuadro_inicio_registro">
                 <img class="foto_perfil" src="../view/assets/images/foto_perfil.png" alt="Foto de perfil">
-                <input type="file" name="foto" id="foto">
+                <input type="file" name="foto" id="foto" accept="image/png, image/jpeg, image/jpg">
                 <button  class="seleccionar_foto">Selecciona una foto de perfil</button>
                 <div class="conjunto_botones">
                     <button class="boton_gris">Anterior</button>

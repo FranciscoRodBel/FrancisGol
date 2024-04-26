@@ -82,7 +82,7 @@
     margin-bottom: 40px;
 }
 
-.jornadasCompeticion *{
+.jornadasCompeticion .enfrentamiento_equipos *{
     color: var(--primer_color);
 }
 

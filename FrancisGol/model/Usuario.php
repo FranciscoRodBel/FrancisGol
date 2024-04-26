@@ -26,7 +26,7 @@ class Usuario { // Se usa para manejar todos los datos del usuario
     public function comprobarInicioSesion($contrasenia) {
         $conexion = FrancisGolBD::establecerConexion();
         $email = $this->__get("email");
-    
+        
         // Busco el email del usuario y recojo su contraseña
         $consulta = $conexion->stmt_init();
         $consulta->prepare("SELECT * FROM usuario WHERE email = ?");
@@ -36,6 +36,8 @@ class Usuario { // Se usa para manejar todos los datos del usuario
         $resultado = $resultado->fetch_assoc();
 
         if (!empty($email)) {
+
+
             // Compruebo si la contraseña es la misma
             if ($resultado !== null && password_verify($contrasenia, $resultado["contrasenia"])) {
                 
@@ -49,6 +51,7 @@ class Usuario { // Se usa para manejar todos los datos del usuario
                 header('Location: ./partidos.php');
                 die();
             }
+            
         }
     
         return "Email o contraseña incorrecta";
@@ -64,76 +67,57 @@ class Usuario { // Se usa para manejar todos los datos del usuario
         $consulta->bind_param("s", $email);
         $consulta->execute();
 
-        return empty($consulta->fetch()); // Devuelve true si está vacío (que no está en uso)
+        return !empty($consulta->fetch()); // Devuelve true si está con datos (que está en uso)
     }
 
-    public function nombreEnUso($nombre)  { // comprueba si el teléfono ya está en la base de datos
+    public function nombreEnUso($nombre)  { // comprueba si el nombre ya está en la base de datos
         $conexion = FrancisGolBD::establecerConexion();
     
         $consulta = $conexion->prepare("SELECT * FROM usuario WHERE nombre = ?");
         $consulta->bind_param("s", $nombre);
         $consulta->execute();
 
-        return empty($consulta->fetch()); // Devuelve true si está vacío (que no está en uso)
+        return !empty($consulta->fetch()); // Devuelve true si está con datos (que está en uso)
     }
 
     public function guardarDatosUsuario($email, $nombre, $contrasenia, $foto) {
         $conexion = FrancisGolBD::establecerConexion();
         
-        $contrasenia = password_hash($contrasenia, PASSWORD_DEFAULT); // cifra la contraseña del usuario
-
+        $contrasenia = password_hash($contrasenia, PASSWORD_DEFAULT); // Cifra la contraseña del usuario
+        
         // Añade el usuario en la base de datos
         $consulta = $conexion->prepare("INSERT INTO usuario (email, nombre, contrasenia, foto) VALUES (?, ?, ?, ?)");
         $consulta->bind_param("sssb", $email, $nombre, $contrasenia, $foto);
+        $consulta->send_long_data(3, $foto); // Para enviar datos binarios largos
         $consulta->execute();
-
+    
         $conexion->close();
     }
+    
    
-    public function comprobarRegistro($email, $nombre, $contraseniaUno, $contraseniaDos, $foto) {
+    public function comprobarRegistro($email, $nombre, $contraseniaUno, $contraseniaDos) {
         
         $email = comprobarDatos($email);
         $nombre = comprobarDatos($nombre);
         $contraseniaUno = comprobarDatos($contraseniaUno);
         $contraseniaDos = comprobarDatos($contraseniaDos);
 
-        if (comprobarVacio(array($nombre, $email, $contraseniaUno, $contraseniaDos))) {
-            
-            if ($this->emailEnUso()) { // Si el email no está en uso continua
-
-                if ($this->nombreEnUso($nombre)) { // Si el teléfono no está en uso continua
-
-                        if (!is_numeric($nombre)) { // Si el nombre no es un número continua
-
-                            if ($contraseniaUno == $contraseniaDos) {
+        if (!comprobarVacio(array($nombre, $email, $contraseniaUno, $contraseniaDos))) return "El formulario está incompleto";
         
-                                // Si los datos están bien los guarda en el usuario
-                                $this->guardarDatosUsuario($nombre, $email, $contraseniaUno, $foto);
-                                
-                                return "Cuenta Creada";
-                
-                            } else {
-                                return "Las contraseñas no coinciden";
-                
-                            }
-
-                        } else {
-                            return "Nombre incorrecto";
-                        }
+        if ($this->emailEnUso()) return "El email ya está en uso";
         
-                } else {
-                    return "El nombre ya está en uso";
+        if ($this->nombreEnUso($nombre)) return "El nombre ya está en uso";
         
-                }
-    
-            } else {
-                return "El email ya está en uso";
-    
-            }
+        if (is_numeric($nombre)) return "Nombre incorrecto";
 
-        } else {
-            return "Formulario incompleto";
-        }
+        if ($contraseniaUno != $contraseniaDos) return "Las contraseñas no coinciden";
+
+        $foto = $this->generarFoto();
+
+        if ($foto == "mal_formato") return "El formato de las fotos no es correcto";
+
+        $this->guardarDatosUsuario($email, $nombre, $contraseniaUno, $foto);
+        return "Cuenta Creada";
 
     }
 
@@ -161,5 +145,29 @@ class Usuario { // Se usa para manejar todos los datos del usuario
     
         return $usuarios;  
     }
+
+    public function generarFoto() {
+    
+        $rutaTemporal = $_FILES['foto']['tmp_name']; // Obtén la ruta temporal del archivo
+    
+        if ($rutaTemporal == "") { // Si está vacía es que no se ha enviado la foto
+            $archivo = addslashes(file_get_contents("../view/assets/images/foto_perfil.png"));
+
+        } else {
+
+            // Del nombre del archivo recojo la extensión del archivo
+            $nombreArchivo = basename($_FILES['foto']['name']);
+            $extension = strtolower(pathinfo($nombreArchivo, PATHINFO_EXTENSION));
+        
+            if (!in_array($extension, ["png", "jpeg", "jpg"])) { // Si el tipo de archivo no es válido devuelve error
+                return "mal_formato";
+            }
+
+            $archivo = addslashes(file_get_contents($rutaTemporal)); // Devuelve la imagen en formato binario para guardarlo en el longblob
+
+        }
+    
+        return $archivo;
+    }
 }
-?>
+

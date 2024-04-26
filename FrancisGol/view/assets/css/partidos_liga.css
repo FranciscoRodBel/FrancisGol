@@ -160,9 +160,8 @@
 
     .enfrentamiento_equipos a, .enfrentamiento_equipos {
         display: flex;
-        justify-content: center;
-        align-items: center;
         font-size: 13pt;
+        width: 100%;
     }
 
     .enfrentamiento_equipos a div {
@@ -170,8 +169,13 @@
     }
 
     .equipo_local {
-        min-width: 50%;
+        width: 50%;
         flex-direction: row-reverse;
+
+    }
+
+    .enfrentamiento_equipos a:first-of-type {
+        justify-content: end;
     }
 
     .equipo_local img {
@@ -188,11 +192,11 @@
     }
 
     .equipo_visitante {
-        min-width: 50%;
+        width: 50%;
     }
 
     .enfrentamiento_equipos div span {
-        width: calc(100% - 75px);
+        width: 100%;
         font-size: 15pt;
     }
 

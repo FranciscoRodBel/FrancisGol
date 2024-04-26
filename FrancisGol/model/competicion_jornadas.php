@@ -61,16 +61,16 @@ function generarJornadas($jornadas) {
             $partidosTotales .= '
             <div class="enfrentamiento_equipos">
                 <a href="">
-                    <div>
+                    <div class="equipo_local">
                         <img src="'.$partido->teams->home->logo.'" alt="Logo">
                         <span>'.$partido->teams->home->name.'</span>
                     </div>
-                    <div>
+                    <div class="resultado_hora">
                         <p>VS</p>';
                         $partidosTotales .= '<p>'.$partido->goals->home.' - '.$partido->goals->away.'</p>';
 
         $partidosTotales .= '</div>
-                    <div>
+                    <div class="equipo_visitante">
                         <img src="'.$partido->teams->away->logo.'" alt="Logo">
                         <span>'.$partido->teams->away->name.'</span>
                     </div>
