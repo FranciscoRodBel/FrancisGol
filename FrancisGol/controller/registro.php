@@ -1,12 +1,13 @@
 <?php
   session_start();
-  require_once "../model/consulta_pais.php";
+  require_once "../model/paises.php";
+  require_once "../model/realizar_consultas.php";
   require_once "../model/Usuario.php";
 
   $titulo = "FrancisGol - Registro";
   $lista_css = ["registro_inicio.css"];
   
-  $paises = seleccionarPais();
+  $paises = realizarConsulta("paises", "countries", 86400); 
   $paises2 = crearOpcionesPaises($paises);
   $paises1 = "<option value='' selected>Competiciones generales</option>".$paises2;
 

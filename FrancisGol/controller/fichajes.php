@@ -1,11 +1,12 @@
 <?php
-    require_once "../model/consulta_pais.php";
+    require_once "../model/paises.php";
+    require_once "../model/realizar_consultas.php";
     require_once "../model/fichajes.php";
 
     $titulo = "FrancisGol - Registro";
     $lista_css = ["registro_inicio.css"];
 
-    $paises = seleccionarPais();
+    $paises = realizarConsulta("paises", "countries", 86400); 
     $paises = crearOpcionesPaises($paises);
 
     if (isset($_POST['enviar']) && isset($_POST['equipos_competicion'])) {
@@ -13,7 +14,8 @@
         if (!empty($_POST['equipos_competicion'])) {
             
             $idEquipo = $_POST['equipos_competicion'];
-            $fichajesEquipo = recogerFichajes($idEquipo);
+            $fichajesEquipo = realizarConsulta("fichajes_$idEquipo", "transfers?team=$idEquipo", 86400); 
+
             $fichajes = pintarFichajesEquipo($fichajesEquipo);
 
         } else {

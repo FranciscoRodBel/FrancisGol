@@ -1,8 +1,7 @@
 <?php
     require_once "../model/competicion_equipos.php";
     require_once "../model/Competicion.php";
-    require_once "../model/competiciones.php";
-    require_once "../model/consulta_equipo.php";
+    require_once "../model/realizar_consultas.php";
 
     $titulo = "FrancisGol - Competición equipos";
     $lista_css = ["competiciones.css"];
@@ -11,7 +10,7 @@
 
         $idCompeticion = $_GET["competicion"];
         $datosCompeticion = Competicion::recogerCompeticion($idCompeticion);
-        $equipos = seleccionarEquipo($idCompeticion, date("Y")-1);
+        $equipos = realizarConsulta("competicion_equipos_$idCompeticion"."_"."2023", "teams?league=$idCompeticion&season=2023", 86400); 
         $equiposCompeticion = generarEquipos($equipos);
 
     } else {

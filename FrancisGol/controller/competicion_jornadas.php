@@ -1,7 +1,7 @@
 <?php
     require_once "../model/competicion_jornadas.php";
     require_once "../model/Competicion.php";
-    require_once "../model/competiciones.php";
+    require_once "../model/realizar_consultas.php";
 
     $titulo = "FrancisGol - Competición jornadas";
     $lista_css = ["competiciones.css", "partidos_liga.css"];
@@ -10,8 +10,8 @@
 
         $idCompeticion = $_GET["competicion"];
         $datosCompeticion = Competicion::recogerCompeticion($idCompeticion);
-        $clasificacion = recogerJornadas($idCompeticion);
-        $datosJornadas = generarJornadas($clasificacion);
+        $jornadasCompeticion = realizarConsulta("competicion_jornadas_$idCompeticion", "fixtures?league=$idCompeticion&season=2023", 86400); 
+        $datosJornadas = generarJornadas($jornadasCompeticion);
         $opcionesJornadas = $datosJornadas[0];
         $jornadas = $datosJornadas[1];
 

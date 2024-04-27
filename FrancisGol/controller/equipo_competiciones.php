@@ -1,5 +1,6 @@
 <?php
     require_once "../model/equipo_competiciones.php";
+    require_once "../model/realizar_consultas.php";
     require_once "../model/Equipo.php";
 
     $titulo = "FrancisGol - competiciones equipo";

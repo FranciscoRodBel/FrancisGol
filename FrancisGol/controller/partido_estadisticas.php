@@ -1,8 +1,9 @@
 <?php
-    require_once "../model/alineaciones_partido.php";
+    require_once "../model/partido_estadisticas.php";
+    require_once "../model/realizar_consultas.php";
 
     $titulo = "FrancisGol - Estadísticas partido";
-    $lista_css = ["partidos_liga.css",  "alineaciones.css"];
+    $lista_css = ["partidos_liga.css"];
 
     if (isset($_GET["partido"]) && !empty($_GET["partido"])) {
 
@@ -12,8 +13,8 @@
         $idEquipoLocal = $partido->teams->home->id;
         $idEquipoVisitante = $partido->teams->away->id;
 
-        $alineacionesPartido = recogerAlineacionesPartido($idPartido);
-        $alineacionesPartido = pintarAlineacionesPartido($alineacionesPartido);
+        $estadisticasPartido = realizarConsulta("partido_estadisticas_$idPartido", "fixtures/statistics?fixture=$idPartido", 86400); 
+        $tablaEstadisticas = pintarEstadisticasPartido($estadisticasPartido);
 
     } else {
 
@@ -24,5 +25,5 @@
     include '../view/templates/head.php';
     include '../view/templates/header.php';
     include '../view/templates/nav.php';
-    include '../view/alineaciones_partido.php';
+    include '../view/partido_estadisticas.php';
     include '../view/templates/footer.php';

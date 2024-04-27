@@ -1,5 +1,6 @@
 <?php
   require_once "../model/partidos.php";
+  require_once "../model/realizar_consultas.php";
 
   $titulo = "FrancisGol - Partidos";
   $lista_css = ["partidos_liga.css"];
@@ -7,15 +8,9 @@
 
   $fechas_partidos = generarFechasPartidos();
   
-  if (isset($_GET["fecha"]) && !empty($_GET["fecha"])) {
-      
-    $partidos = recogerPartidos($_GET["fecha"]);
-    
-  } else {
-    
-    $partidos = recogerPartidos(date("Y-m-d"));
-  }
+  $fecha = isset($_GET["fecha"]) && !empty($_GET["fecha"]) ? $_GET["fecha"] : date("Y-m-d");
 
+  $partidos = realizarConsulta("partidos_$fecha", "fixtures?date=$fecha", 86400); 
   $partidosSeleccionados = pintarPartidos($partidos);
   
 

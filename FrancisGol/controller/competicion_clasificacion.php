@@ -1,7 +1,7 @@
 <?php
     require_once "../model/competicion_clasificacion.php";
     require_once "../model/Competicion.php";
-    require_once "../model/competiciones.php";
+    require_once "../model/realizar_consultas.php";
 
     $titulo = "FrancisGol - Competición clasificación";
     $lista_css = ["competiciones.css"];
@@ -10,7 +10,9 @@
 
         $idCompeticion = $_GET["competicion"];
         $datosCompeticion = Competicion::recogerCompeticion($idCompeticion);
-        $clasificacion = recogerClasificacion($idCompeticion);
+        
+        $clasificacion = realizarConsulta("competicion_clasificacion_$idCompeticion", "standings?league=$idCompeticion&season=2023", 86400); 
+
         $tablaClasificacion = generarClasificacion($clasificacion);
 
     } else {

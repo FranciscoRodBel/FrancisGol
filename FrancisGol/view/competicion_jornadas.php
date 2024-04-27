@@ -1,5 +1,5 @@
 <main>
-    <h1 class="titulo_pagina">Noticias competición</h1>
+    <h1 class="titulo_pagina">Jornadas competición</h1>
     <article>
         <section class="seccion_negra">
             <?= $datosCompeticion ?>

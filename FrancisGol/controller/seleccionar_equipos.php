@@ -1,9 +1,9 @@
 <?php
-    require_once "../model/consulta_equipo.php";
-    
+    require_once "../model/realizar_consultas.php";
+
     if (isset($_POST['query'])) {
-        
-        $resultado = seleccionarEquipo($_POST['query'], date("Y")-1);
+        $idCompeticion = $_POST['query'];
+        $resultado = realizarConsulta("competicion_equipos_$idCompeticion"."_"."2023", "teams?league=$idCompeticion&season=2023", 86400); 
 
         $equipos = "";
 

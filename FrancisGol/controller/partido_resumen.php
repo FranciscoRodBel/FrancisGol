@@ -1,5 +1,6 @@
 <?php
-  require_once "../model/resumen_partido.php";
+  require_once "../model/partido_resumen.php";
+  require_once "../model/realizar_consultas.php";
 
   $titulo = "FrancisGol - Resumen partido";
   $lista_css = ["partidos_liga.css"];
@@ -11,8 +12,8 @@
     $idPartido = $partido->fixture->id;
     $idEquipoLocal = $partido->teams->home->id;
     $idEquipoVisitante = $partido->teams->away->id;
-
-    $eventosPartido = recogerResumenPartido($idPartido);
+    
+    $eventosPartido = realizarConsulta("partido_resumen_$idPartido", "fixtures/events?fixture=$idPartido", 86400); 
     $resumenPartido = pintarResumenPartido($eventosPartido, $idEquipoLocal, $idEquipoVisitante);
     
   } else {
@@ -25,5 +26,5 @@
   include '../view/templates/head.php';
   include '../view/templates/header.php';
   include '../view/templates/nav.php';
-  include '../view/resumen_partido.php';
+  include '../view/partido_resumen.php';
   include '../view/templates/footer.php';

@@ -1,5 +1,4 @@
 <?php
-    require_once "../model/competiciones.php";
 
     $titulo = "FrancisGol - Competiciones";
     $lista_css = ["competiciones.css"];

@@ -3,25 +3,27 @@
     <article>
         <section class="seccion_negra">
             <div class="enfrentamiento_equipos">
-                <a href="../controller/partido.php">
-                    <div>
+                <a href="../controller/equipo_competiciones.php?equipo=<?= $partido->teams->home->id?>">
+                    <div class="equipo_local">
                         <img src="<?= $partido->teams->home->logo ?>" alt="Logo">
                         <span><?= $partido->teams->home->name ?></span>
                     </div>
-                    <div>
-                        <p>VS</p>
-                        <p><?= $partido->goals->home.' - '.$partido->goals->away ?></p>
-                    </div>
-                    <div>
+                </a>
+                <div class="resultado_hora">
+                    <p>VS</p>
+                    <p><?= $partido->goals->home.' - '.$partido->goals->away ?></p>
+                </div>
+                <a href="../controller/equipo_competiciones.php?equipo=<?= $partido->teams->away->id?>">
+                    <div class="equipo_visitante">
                         <img src="<?= $partido->teams->away->logo ?>" alt="Logo">
                         <span><?= $partido->teams->away->name ?></span>
                     </div>
                 </a>
             </div>
             <div class="conjunto_botones">
-                <a href="../controller/resumen_partido.php?partido=<?= urlencode(json_encode($partido)) ?>" class="boton_gris"><span>Resumen</span></a>
-                <a href="../controller/estadisticas_partido.php?partido=<?= urlencode(json_encode($partido)) ?>" class="boton_gris"><span>Estadísticas</span></a>
-                <a href="../controller/alineaciones_partido.php?partido=<?= urlencode(json_encode($partido)) ?>" class="boton_gris"><span>Alineaciones</span></a>
+                <a href="../controller/partido_resumen.php?partido=<?= urlencode(json_encode($partido)) ?>" class="boton_gris"><span>Resumen</span></a>
+                <a href="../controller/partido_estadisticas.php?partido=<?= urlencode(json_encode($partido)) ?>" class="boton_gris"><span>Estadísticas</span></a>
+                <a href="../controller/partido_alineaciones.php?partido=<?= urlencode(json_encode($partido)) ?>" class="boton_gris"><span>Alineaciones</span></a>
             </div>
             <hr>
             <div class="conjunto_botones">

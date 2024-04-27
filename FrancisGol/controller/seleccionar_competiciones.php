@@ -1,9 +1,9 @@
 <?php
-    require_once "../model/competiciones.php";
+    require_once "../model/realizar_consultas.php";
 
     if (isset($_POST['query'])) {
 
-        $resultado = recogerCompeticiones();
+        $resultado = realizarConsulta("competiciones", "leagues", 86400); 
         $competiciones_pais = "";
         $codigoPais = $_POST['query'];
 
