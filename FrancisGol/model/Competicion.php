@@ -2,6 +2,7 @@
     require_once "../model/realizar_consultas.php";
     class Competicion {
         
+        protected array $anios = [];
         public function __construct(
             protected int $id,
             protected string $nombre,
@@ -39,6 +40,26 @@
             </div><hr>';
 
             return $datosCompeticion;
+        }
+
+        public static function recogerEquipoCompeticiones($idEquipo) {
+        
+            $equipoCompeticiones =  realizarConsulta("equipo_competiciones_$idEquipo", "leagues?team=$idEquipo", 86400); 
+
+            foreach ($equipoCompeticiones->response as $competicion) {
+
+                $competicionesEquipo = new Competicion($competicion->league->id, $competicion->league->name, $competicion->league->logo);
+
+
+                foreach ($competicion->seasons as $anio) {
+
+                    $competicionesEquipo->anios[] = $anio->year;
+                }
+                $competiciones[] = $competicionesEquipo;
+
+            }
+
+            return $competiciones;
         }
         
     }

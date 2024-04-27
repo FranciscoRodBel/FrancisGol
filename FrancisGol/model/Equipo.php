@@ -18,9 +18,7 @@
         public static function recogerEquipo($idEquipo) {
         
             $equipo = realizarConsulta("equipo_$idEquipo", "teams?id=$idEquipo", 86400);
-            echo "<pre>";
-            print_r($equipo);
-            echo "</pre>"; 
+
             $equipo = $equipo->response[0]->team;
             $equipo = new Equipo($equipo->id, $equipo->name, $equipo->logo);
 
