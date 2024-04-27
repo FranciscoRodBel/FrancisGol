@@ -7,9 +7,11 @@
   
   if (isset($_GET["partido"]) && !empty($_GET["partido"])) {
   
-    $partido = json_decode(urldecode($_GET["partido"]));;
+    $idPartido = $_GET["partido"];
 
-    $idPartido = $partido->fixture->id;
+    $partido = realizarConsulta("datos_partido_$idPartido", "fixtures?id=$idPartido", 86400); 
+    $partido = $partido->response[0];
+
     $idEquipoLocal = $partido->teams->home->id;
     $idEquipoVisitante = $partido->teams->away->id;
     

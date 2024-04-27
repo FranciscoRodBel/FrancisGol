@@ -17,17 +17,12 @@
 
         public static function recogerEquipo($idEquipo) {
         
-            if (isset($_SESSION["equipo".$idEquipo])) {
-
-                // $equipo  = unserialize(json_decode($_SESSION["equipo".$idEquipo]));
-
-            } else {
-
-                $equipo = realizarConsulta("equipo_$idEquipo", "teams?id=$idEquipo", 86400); 
-                $equipo = $equipo->response[0]->team;
-                $equipo = new Equipo($equipo->id, $equipo->name, $equipo->logo);
-                $_SESSION["equipo".$idEquipo] = serialize(json_encode($equipo));
-            }
+            $equipo = realizarConsulta("equipo_$idEquipo", "teams?id=$idEquipo", 86400);
+            echo "<pre>";
+            print_r($equipo);
+            echo "</pre>"; 
+            $equipo = $equipo->response[0]->team;
+            $equipo = new Equipo($equipo->id, $equipo->name, $equipo->logo);
 
             $datosEquipo = '<div class="competicion_equipo">
                 <a>

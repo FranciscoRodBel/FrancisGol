@@ -276,7 +276,7 @@
 .formacion_4-5-1 .jugador_4_1 { grid-area: 1 / 4 / 2 / 5; }
 
 
-/*Bien formada - */
+/*Bien formada - Comprobada*/
 .formacion_5-3-2 .jugador_1_1 { grid-area: 4 / 4 / 5 / 5; }
 .formacion_5-3-2 .jugador_2_1 { grid-area: 3 / 1 / 4 / 2; }
 .formacion_5-3-2 .jugador_2_2 { grid-area: 3 / 3 / 4 / 4; }
@@ -305,6 +305,23 @@
 
 
 
+/*
+Comprobadas
+3-1-4-2
+3-4-1-2
+3-4-2-1
+3-4-3
+3-5-1-1
+3-5-2
+4-1-4-1
+4-2-2-2
+4-2-3-1
+4-3-3
+4-4-1-1
+4-4-2
+5-3-2
+5-4-1
+*/
 
 /*
 Falta por comprobar
@@ -313,15 +330,10 @@ Falta por comprobar
 4-3-1-2
 4-3-2-1
 4-5-1
-5-3-2
 
 */
 
-
-
-
 /* 
-
 Falta por crear
 
 4-1-3-2

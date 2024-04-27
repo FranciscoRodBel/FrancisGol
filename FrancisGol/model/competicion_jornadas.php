@@ -17,9 +17,10 @@ function generarJornadas($jornadas) {
             $partidosTotales .= "</div><div class='ocultarjornada' id='jornada_$contadorJornada'>";
 
         } else {
+
             $partidosTotales .= '
             <div class="enfrentamiento_equipos">
-                <a href="">
+                <a href="../controller/partido_resumen.php?partido='.$partido->fixture->id.'">
                     <div class="equipo_local">
                         <img src="'.$partido->teams->home->logo.'" alt="Logo">
                         <span>'.$partido->teams->home->name.'</span>

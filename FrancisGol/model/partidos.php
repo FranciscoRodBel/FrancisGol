@@ -32,13 +32,16 @@ function pintarPartidos($partidos) {
 
     foreach ($partidos->response as $partido) {
 
+        // echo "<pre>";
+        // print_r($partido);
+        // echo "</pre>";
         $hora_partido = strtotime($partido->fixture->date);
         // $hora_partido = strtotime('+2 hours', $hora_partido);
         $hora_partido = date('H:i', $hora_partido);
         
         $partidosDeUnaLiga = '
             <div class="enfrentamiento_equipos">
-                <a href="../controller/partido_resumen.php?partido='.urlencode(json_encode($partido)).'">
+                <a href="../controller/partido_resumen.php?partido='.$partido->fixture->id.'">
                     <div class="equipo_local">
                         <img src="'.$partido->teams->home->logo.'" alt="Logo">
                         <span>'.$partido->teams->home->name.'</span>
