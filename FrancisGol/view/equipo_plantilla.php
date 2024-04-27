@@ -9,7 +9,7 @@
                 <a href="../controller/equipo_fichajes.php?equipo=<?= $idEquipo ?>" class="boton_gris"><span>Fichajes</span></a>
             </div>
         </section>
-        <section class="seccionClasificacion">
+        <section class="equipo_plantilla">
             <?= $plantilla ?>
         </section>
     </article>

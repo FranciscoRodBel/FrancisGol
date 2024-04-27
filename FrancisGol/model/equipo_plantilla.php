@@ -1,14 +1,12 @@
 <?php
 function generarPlantilla($equipoPlantilla) {
 
-    $jugadoresPlantilla = "
-    <table><thead><tr>
-        <td></td>
-        <td>Nombre</td>
-        <td>Edad</td>
-        <td>Dorsal</td>
-        <td>Posición</td>
-    </tr></thead><tbody>";
+    $jugadoresPlantilla = "<div><div>Foto</div>";
+    $jugadoresPlantilla .= "<div>Nombre</div>";
+    $jugadoresPlantilla .= "<div>Edad</div>";
+    $jugadoresPlantilla .= "<div>Dorsal</div>";
+    $jugadoresPlantilla .= "<div>Posicion</div>";
+    $jugadoresPlantilla .= "</div>";
 
     foreach ($equipoPlantilla->response[0]->players as $key => $jugador) {
 
@@ -19,14 +17,23 @@ function generarPlantilla($equipoPlantilla) {
            "Attacker" => "Delantero",
            default => "Desconocida"
         };
+
+
+        $jugadoresPlantilla .= "<a href='#'><div>";
+        $jugadoresPlantilla .= "<img src=".$jugador->photo." alt='logo competición'>";
+        $jugadoresPlantilla .= "<div>".$jugador->name."</div>";
+        $jugadoresPlantilla .= "<div>".$jugador->age."</div>";
+        $jugadoresPlantilla .= "<div>".$jugador->number."</div>";
+        $jugadoresPlantilla .= "<div>".$posicion."</div>";
+        $jugadoresPlantilla .= "</div></a>";
         // id jugador: $jugador->id
-        $jugadoresPlantilla .= "<a href=''><tr>";
-            $jugadoresPlantilla .= "<td><img src=".$jugador->photo." alt='logo competición'></td>";
-            $jugadoresPlantilla .= "<td>".$jugador->name."</td>";
-            $jugadoresPlantilla .= "<td>".$jugador->age."</td>";
-            $jugadoresPlantilla .= "<td>".$jugador->number."</td>";
-            $jugadoresPlantilla .= "<td>".$posicion."</td>";
-        $jugadoresPlantilla .= "</tr></a>";
+        // $jugadoresPlantilla .= "<a href='#'><tr>";
+        //     $jugadoresPlantilla .= "<td><img src=".$jugador->photo." alt='logo competición'></td>";
+        //     $jugadoresPlantilla .= "<td>".$jugador->name."</td>";
+        //     $jugadoresPlantilla .= "<td>".$jugador->age."</td>";
+        //     $jugadoresPlantilla .= "<td>".$jugador->number."</td>";
+        //     $jugadoresPlantilla .= "<td>".$posicion."</td>";
+        // $jugadoresPlantilla .= "</tr></a>";
     }
     $jugadoresPlantilla .= "</tbody></table>";
     return $jugadoresPlantilla;

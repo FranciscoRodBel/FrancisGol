@@ -468,8 +468,35 @@ nav a:hover {
 }
 
 
+/* Página de equipo plantilla */
 
+.equipo_plantilla {
+    display: block;
+    width: 80%;
+    overflow-x: auto;
+}
 
+.equipo_plantilla > div:first-of-type {
+    background-color: var(--primer_color);
+    color: var(--cuarto_color);
+    padding: 10px;
+    font-weight: bold;
+    border-radius: 10px;
+    margin-bottom: 5px;
+}
+
+.equipo_plantilla > div, .equipo_plantilla a > div{
+    display: grid;
+    grid-template-columns: repeat(5, minmax(100px, 1fr));
+    justify-items: center;
+    align-items: center;
+    padding: 5px;
+    border-bottom: 1px solid var(--tercer_color);
+}
+
+.equipo_plantilla div img {
+    width: 70px;
+}
 
 
 
