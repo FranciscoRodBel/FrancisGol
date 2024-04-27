@@ -1,26 +1,331 @@
 .alineacion {
+    overflow-x: auto;
+    margin: 20px 0 20px 0;
+}
+
+.formacion_equipo {
+    margin: 0 auto;
+    padding: 10px;
+    width: 370px;
+    height: 500px;
     background-image: url(../images/campoFutbol.png);
-    background-size: contain;
-    background-position: center;
-    background-repeat: no-repeat;
-    margin: 20px auto;
-    position: relative;
+    background-size: 100% 100%;
     display: grid;
-    grid-template-columns: repeat(7, 1fr);
-    grid-template-rows: repeat(7, 1fr);
-
+    align-items: center;
+    grid-column-gap: 0px;
+    grid-row-gap: 0px;
+    grid-template-columns: repeat(7, 50px);
 }
 
-.alineacion div img {
-    position: relative;
+.formacion_equipo div {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
-.alineacion img {
+.formacion_equipo img {
     width: 40px;
     height: 40px;
 }
 
-.alineacion p {
+.formacion_equipo p {
     font-size: 8pt;
     text-align: center;
+    font-weight: bold;
 }
+
+/* Formaciones */
+
+/*Bien formada - Comprobada*/
+.formacion_3-1-4-2 .jugador_1_1 { grid-area: 5 / 4 / 6 / 5; }
+.formacion_3-1-4-2 .jugador_2_1 { grid-area: 4 / 2 / 5 / 3; }
+.formacion_3-1-4-2 .jugador_2_2 { grid-area: 4 / 4 / 5 / 5; }
+.formacion_3-1-4-2 .jugador_2_3 { grid-area: 4 / 6 / 5 / 7; }
+.formacion_3-1-4-2 .jugador_3_1 { grid-area: 3 / 4 / 4 / 5; }
+.formacion_3-1-4-2 .jugador_4_1 { grid-area: 2 / 1 / 3 / 2; }
+.formacion_3-1-4-2 .jugador_4_2 { grid-area: 2 / 3 / 3 / 4; }
+.formacion_3-1-4-2 .jugador_4_3 { grid-area: 2 / 5 / 3 / 6; }
+.formacion_3-1-4-2 .jugador_4_4 { grid-area: 2 / 7 / 3 / 8; }
+.formacion_3-1-4-2 .jugador_5_1 { grid-area: 1 / 3 / 2 / 4; }
+.formacion_3-1-4-2 .jugador_5_2 { grid-area: 1 / 5 / 2 / 6; }
+
+
+
+/*Bien formada - Comprobada*/
+.formacion_3-4-1-2 .jugador_1_1 { grid-area: 5 / 4 / 6 / 5; }
+.formacion_3-4-1-2 .jugador_2_1 { grid-area: 4 / 2 / 5 / 3; }
+.formacion_3-4-1-2 .jugador_2_2 { grid-area: 4 / 4 / 5 / 5; }
+.formacion_3-4-1-2 .jugador_2_3 { grid-area: 4 / 6 / 5 / 7; }
+.formacion_3-4-1-2 .jugador_3_1 { grid-area: 3 / 1 / 4 / 2; }
+.formacion_3-4-1-2 .jugador_3_2 { grid-area: 3 / 3 / 4 / 4; }
+.formacion_3-4-1-2 .jugador_3_3 { grid-area: 3 / 5 / 4 / 6; }
+.formacion_3-4-1-2 .jugador_3_4 { grid-area: 3 / 7 / 4 / 8; }
+.formacion_3-4-1-2 .jugador_4_1 { grid-area: 2 / 4 / 3 / 5; }
+.formacion_3-4-1-2 .jugador_5_1 { grid-area: 1 / 2 / 2 / 3; }
+.formacion_3-4-1-2 .jugador_5_2 { grid-area: 1 / 6 / 2 / 7; }
+
+
+/*Bien formada - Comprobada*/
+.formacion_3-4-2-1 .jugador_1_1 { grid-area: 5 / 4 / 6 / 5; }
+.formacion_3-4-2-1 .jugador_2_1 { grid-area: 4 / 2 / 5 / 3; }
+.formacion_3-4-2-1 .jugador_2_2 { grid-area: 4 / 4 / 5 / 5; }
+.formacion_3-4-2-1 .jugador_2_3 { grid-area: 4 / 6 / 5 / 7; }
+.formacion_3-4-2-1 .jugador_3_1 { grid-area: 3 / 1 / 4 / 2; }
+.formacion_3-4-2-1 .jugador_3_2 { grid-area: 3 / 3 / 4 / 4; }
+.formacion_3-4-2-1 .jugador_3_3 { grid-area: 3 / 5 / 4 / 6; }
+.formacion_3-4-2-1 .jugador_3_4 { grid-area: 3 / 7 / 4 / 8; }
+.formacion_3-4-2-1 .jugador_4_1 { grid-area: 2 / 2 / 3 / 3; }
+.formacion_3-4-2-1 .jugador_4_2 { grid-area: 2 / 6 / 3 / 7; }
+.formacion_3-4-2-1 .jugador_5_1 { grid-area: 1 / 4 / 2 / 5; }
+
+
+/*Bien formada - Comprobada*/
+.formacion_3-4-3 .jugador_1_1 { grid-area: 4 / 4 / 5 / 5; }
+.formacion_3-4-3 .jugador_2_1 { grid-area: 3 / 2 / 4 / 3; }
+.formacion_3-4-3 .jugador_2_2 { grid-area: 3 / 4 / 4 / 5; }
+.formacion_3-4-3 .jugador_2_3 { grid-area: 3 / 6 / 4 / 7; }
+.formacion_3-4-3 .jugador_3_1 { grid-area: 2 / 1 / 3 / 2; }
+.formacion_3-4-3 .jugador_3_2 { grid-area: 2 / 3 / 3 / 4; }
+.formacion_3-4-3 .jugador_3_3 { grid-area: 2 / 5 / 3 / 6; }
+.formacion_3-4-3 .jugador_3_4 { grid-area: 2 / 7 / 3 / 8; }
+.formacion_3-4-3 .jugador_4_1 { grid-area: 1 / 2 / 2 / 3; }
+.formacion_3-4-3 .jugador_4_2 { grid-area: 1 / 4 / 2 / 5; }
+.formacion_3-4-3 .jugador_4_3 { grid-area: 1 / 6 / 2 / 7; }
+
+
+/*Bien formada - Comprobada*/
+.formacion_3-5-1-1 .jugador_1_1 { grid-area: 5 / 4 / 6 / 5; }
+.formacion_3-5-1-1 .jugador_2_1 { grid-area: 4 / 2 / 5 / 3; }
+.formacion_3-5-1-1 .jugador_2_2 { grid-area: 4 / 4 / 5 / 5; }
+.formacion_3-5-1-1 .jugador_2_3 { grid-area: 4 / 6 / 5 / 7; }
+.formacion_3-5-1-1 .jugador_3_1 { grid-area: 3 / 1 / 4 / 2; }
+.formacion_3-5-1-1 .jugador_3_2 { grid-area: 3 / 3 / 4 / 4; }
+.formacion_3-5-1-1 .jugador_3_3 { grid-area: 3 / 4 / 4 / 5; }
+.formacion_3-5-1-1 .jugador_3_4 { grid-area: 3 / 5 / 4 / 6; }
+.formacion_3-5-1-1 .jugador_3_5 { grid-area: 3 / 7 / 4 / 8; }
+.formacion_3-5-1-1 .jugador_4_1 { grid-area: 2 / 4 / 3 / 5; }
+.formacion_3-5-1-1 .jugador_5_1 { grid-area: 1 / 4 / 2 / 5; }
+
+
+/*Bien formada - Comprobada*/
+.formacion_3-5-2 .jugador_1_1 { grid-area: 4 / 4 / 5 / 5; }
+.formacion_3-5-2 .jugador_2_1 { grid-area: 3 / 2 / 4 / 3; }
+.formacion_3-5-2 .jugador_2_2 { grid-area: 3 / 4 / 4 / 5; }
+.formacion_3-5-2 .jugador_2_3 { grid-area: 3 / 6 / 4 / 7; }
+.formacion_3-5-2 .jugador_3_1 { grid-area: 2 / 1 / 3 / 2; }
+.formacion_3-5-2 .jugador_3_2 { grid-area: 2 / 3 / 3 / 4; }
+.formacion_3-5-2 .jugador_3_3 { grid-area: 2 / 4 / 3 / 5; }
+.formacion_3-5-2 .jugador_3_4 { grid-area: 2 / 5 / 3 / 6; }
+.formacion_3-5-2 .jugador_3_5 { grid-area: 2 / 7 / 3 / 8; }
+.formacion_3-5-2 .jugador_4_1 { grid-area: 1 / 3 / 2 / 4; }
+.formacion_3-5-2 .jugador_4_2 { grid-area: 1 / 5 / 2 / 6; }
+
+
+/*Bien formada - */
+.formacion_3-6-1 .jugador_1_1 { grid-area: 4 / 4 / 5 / 5; }
+.formacion_3-6-1 .jugador_2_1 { grid-area: 3 / 2 / 4 / 3; }
+.formacion_3-6-1 .jugador_2_2 { grid-area: 3 / 4 / 4 / 5; }
+.formacion_3-6-1 .jugador_2_3 { grid-area: 3 / 6 / 4 / 7; }
+.formacion_3-6-1 .jugador_3_1 { grid-area: 2 / 1 / 3 / 2; }
+.formacion_3-6-1 .jugador_3_2 { grid-area: 2 / 2 / 3 / 3; }
+.formacion_3-6-1 .jugador_3_3 { grid-area: 2 / 3 / 3 / 4; }
+.formacion_3-6-1 .jugador_3_4 { grid-area: 2 / 5 / 3 / 6; }
+.formacion_3-6-1 .jugador_3_5 { grid-area: 2 / 6 / 3 / 7; }
+.formacion_3-6-1 .jugador_3_6 { grid-area: 2 / 7 / 3 / 8; }
+.formacion_3-6-1 .jugador_4_1 { grid-area: 1 / 4 / 2 / 5; }
+
+
+/*Bien formada - */
+.formacion_4-1-2-1-2 .jugador_1_1 { grid-area: 6 / 4 / 7 / 5; }
+.formacion_4-1-2-1-2 .jugador_2_1 { grid-area: 5 / 1 / 6 / 2; }
+.formacion_4-1-2-1-2 .jugador_2_2 { grid-area: 5 / 3 / 6 / 4; }
+.formacion_4-1-2-1-2 .jugador_2_3 { grid-area: 5 / 5 / 6 / 6; }
+.formacion_4-1-2-1-2 .jugador_2_4 { grid-area: 5 / 7 / 6 / 8; }
+.formacion_4-1-2-1-2 .jugador_3_1 { grid-area: 4 / 4 / 5 / 5; }
+.formacion_4-1-2-1-2 .jugador_4_1 { grid-area: 3 / 2 / 4 / 3; }
+.formacion_4-1-2-1-2 .jugador_4_2 { grid-area: 3 / 6 / 4 / 7; }
+.formacion_4-1-2-1-2 .jugador_5_1 { grid-area: 2 / 4 / 3 / 5; }
+.formacion_4-1-2-1-2 .jugador_6_1 { grid-area: 1 / 2 / 2 / 3; }
+.formacion_4-1-2-1-2 .jugador_6_2 { grid-area: 1 / 6 / 2 / 7; }
+
+
+/*Bien formada - Comprobada*/
+.formacion_4-1-4-1 .jugador_1_1 { grid-area: 5 / 4 / 6 / 5; }
+.formacion_4-1-4-1 .jugador_2_1 { grid-area: 4 / 1 / 5 / 2; }
+.formacion_4-1-4-1 .jugador_2_2 { grid-area: 4 / 3 / 5 / 4; }
+.formacion_4-1-4-1 .jugador_2_3 { grid-area: 4 / 5 / 5 / 6; }
+.formacion_4-1-4-1 .jugador_2_4 { grid-area: 4 / 7 / 5 / 8; }
+.formacion_4-1-4-1 .jugador_3_1 { grid-area: 3 / 4 / 4 / 5; }
+.formacion_4-1-4-1 .jugador_4_1 { grid-area: 2 / 1 / 3 / 2; }
+.formacion_4-1-4-1 .jugador_4_2 { grid-area: 2 / 3 / 3 / 4; }
+.formacion_4-1-4-1 .jugador_4_3 { grid-area: 2 / 5 / 3 / 6; }
+.formacion_4-1-4-1 .jugador_4_4 { grid-area: 2 / 7 / 3 / 8; }
+.formacion_4-1-4-1 .jugador_5_1 { grid-area: 1 / 4 / 2 / 5; }
+
+
+/*Bien formada - Comprobada*/
+.formacion_4-2-2-2 .jugador_1_1 { grid-area: 5 / 4 / 6 / 5; }
+.formacion_4-2-2-2 .jugador_2_1 { grid-area: 4 / 1 / 5 / 2; }
+.formacion_4-2-2-2 .jugador_2_2 { grid-area: 4 / 3 / 5 / 4; }
+.formacion_4-2-2-2 .jugador_2_3 { grid-area: 4 / 5 / 5 / 6; }
+.formacion_4-2-2-2 .jugador_2_4 { grid-area: 4 / 7 / 5 / 8; }
+.formacion_4-2-2-2 .jugador_3_1 { grid-area: 3 / 3 / 4 / 4; }
+.formacion_4-2-2-2 .jugador_3_2 { grid-area: 3 / 5 / 4 / 6; }
+.formacion_4-2-2-2 .jugador_4_1 { grid-area: 2 / 2 / 3 / 3; }
+.formacion_4-2-2-2 .jugador_4_2 { grid-area: 2 / 6 / 3 / 7; }
+.formacion_4-2-2-2 .jugador_5_1 { grid-area: 1 / 3 / 2 / 4; }
+.formacion_4-2-2-2 .jugador_5_2 { grid-area: 1 / 5 / 2 / 6; }
+
+
+/*Bien formada - Comprobada*/
+.formacion_4-2-3-1 .jugador_1_1 { grid-area: 5 / 4 / 6 / 5; }
+.formacion_4-2-3-1 .jugador_2_1 { grid-area: 4 / 1 / 5 / 2; }
+.formacion_4-2-3-1 .jugador_2_2 { grid-area: 4 / 3 / 5 / 4; }
+.formacion_4-2-3-1 .jugador_2_3 { grid-area: 4 / 5 / 5 / 6; }
+.formacion_4-2-3-1 .jugador_2_4 { grid-area: 4 / 7 / 5 / 8; }
+.formacion_4-2-3-1 .jugador_3_1 { grid-area: 3 / 2 / 4 / 3; }
+.formacion_4-2-3-1 .jugador_3_2 { grid-area: 3 / 6 / 4 / 7; }
+.formacion_4-2-3-1 .jugador_4_1 { grid-area: 2 / 1 / 3 / 2; }
+.formacion_4-2-3-1 .jugador_4_2 { grid-area: 2 / 4 / 3 / 5; }
+.formacion_4-2-3-1 .jugador_4_3 { grid-area: 2 / 7 / 3 / 8; }
+.formacion_4-2-3-1 .jugador_5_1 { grid-area: 1 / 4 / 2 / 5; }
+
+
+/*Bien formada - Delanteros cambiados?*/
+.formacion_4-3-1-2 .jugador_1_1 { grid-area: 5 / 4 / 6 / 5; }
+.formacion_4-3-1-2 .jugador_2_1 { grid-area: 4 / 1 / 5 / 2; }
+.formacion_4-3-1-2 .jugador_2_2 { grid-area: 4 / 3 / 5 / 4; }
+.formacion_4-3-1-2 .jugador_2_3 { grid-area: 4 / 5 / 5 / 6; }
+.formacion_4-3-1-2 .jugador_2_4 { grid-area: 4 / 7 / 5 / 8; }
+.formacion_4-3-1-2 .jugador_3_1 { grid-area: 3 / 2 / 4 / 3; }
+.formacion_4-3-1-2 .jugador_3_2 { grid-area: 3 / 4 / 4 / 5; }
+.formacion_4-3-1-2 .jugador_3_3 { grid-area: 3 / 6 / 4 / 7; }
+.formacion_4-3-1-2 .jugador_4_1 { grid-area: 2 / 4 / 3 / 5; }
+.formacion_4-3-1-2 .jugador_5_1 { grid-area: 1 / 3 / 2 / 4; }
+.formacion_4-3-1-2 .jugador_5_2 { grid-area: 1 / 5 / 2 / 6; }
+
+
+/*Bien formada - */
+.formacion_4-3-2-1 .jugador_1_1 { grid-area: 5 / 4 / 6 / 5; }
+.formacion_4-3-2-1 .jugador_2_1 { grid-area: 4 / 1 / 5 / 2; }
+.formacion_4-3-2-1 .jugador_2_2 { grid-area: 4 / 3 / 5 / 4; }
+.formacion_4-3-2-1 .jugador_2_3 { grid-area: 4 / 5 / 5 / 6; }
+.formacion_4-3-2-1 .jugador_2_4 { grid-area: 4 / 7 / 5 / 8; }
+.formacion_4-3-2-1 .jugador_3_1 { grid-area: 3 / 2 / 4 / 3; }
+.formacion_4-3-2-1 .jugador_3_2 { grid-area: 3 / 4 / 4 / 5; }
+.formacion_4-3-2-1 .jugador_3_3 { grid-area: 3 / 6 / 4 / 7; }
+.formacion_4-3-2-1 .jugador_4_1 { grid-area: 2 / 3 / 3 / 4; }
+.formacion_4-3-2-1 .jugador_4_2 { grid-area: 2 / 5 / 3 / 6; }
+.formacion_4-3-2-1 .jugador_5_1 { grid-area: 1 / 4 / 2 / 5; }
+
+
+/*Bien formada - Comprobada*/
+.formacion_4-3-3 .jugador_1_1 { grid-area: 4 / 4 / 5 / 5; }
+.formacion_4-3-3 .jugador_2_1 { grid-area: 3 / 1 / 4 / 2; }
+.formacion_4-3-3 .jugador_2_2 { grid-area: 3 / 3 / 4 / 4; }
+.formacion_4-3-3 .jugador_2_3 { grid-area: 3 / 5 / 4 / 6; }
+.formacion_4-3-3 .jugador_2_4 { grid-area: 3 / 7 / 4 / 8; }
+.formacion_4-3-3 .jugador_3_1 { grid-area: 2 / 2 / 3 / 3; }
+.formacion_4-3-3 .jugador_3_2 { grid-area: 2 / 4 / 3 / 5; }
+.formacion_4-3-3 .jugador_3_3 { grid-area: 2 / 6 / 3 / 7; }
+.formacion_4-3-3 .jugador_4_1 { grid-area: 1 / 2 / 2 / 3; }
+.formacion_4-3-3 .jugador_4_2 { grid-area: 1 / 4 / 2 / 5; }
+.formacion_4-3-3 .jugador_4_3 { grid-area: 1 / 6 / 2 / 7; }
+
+
+/*Bien formada - Comprobada*/
+.formacion_4-4-1-1 .jugador_1_1 { grid-area: 5 / 4 / 6 / 5; }
+.formacion_4-4-1-1 .jugador_2_1 { grid-area: 4 / 1 / 5 / 2; }
+.formacion_4-4-1-1 .jugador_2_2 { grid-area: 4 / 3 / 5 / 4; }
+.formacion_4-4-1-1 .jugador_2_3 { grid-area: 4 / 5 / 5 / 6; }
+.formacion_4-4-1-1 .jugador_2_4 { grid-area: 4 / 7 / 5 / 8; }
+.formacion_4-4-1-1 .jugador_3_1 { grid-area: 3 / 1 / 4 / 2; }
+.formacion_4-4-1-1 .jugador_3_2 { grid-area: 3 / 3 / 4 / 4; }
+.formacion_4-4-1-1 .jugador_3_3 { grid-area: 3 / 5 / 4 / 6; }
+.formacion_4-4-1-1 .jugador_3_4 { grid-area: 3 / 7 / 4 / 8; }
+.formacion_4-4-1-1 .jugador_4_1 { grid-area: 2 / 4 / 3 / 5; }
+.formacion_4-4-1-1 .jugador_5_1 { grid-area: 1 / 4 / 2 / 5; }
+
+
+/*Bien formada - Comprobada*/
+.formacion_4-4-2 .jugador_1_1 { grid-area: 4 / 4 / 5 / 5; }
+.formacion_4-4-2 .jugador_2_1 { grid-area: 3 / 1 / 4 / 2; }
+.formacion_4-4-2 .jugador_2_2 { grid-area: 3 / 3 / 4 / 4; }
+.formacion_4-4-2 .jugador_2_3 { grid-area: 3 / 5 / 4 / 6; }
+.formacion_4-4-2 .jugador_2_4 { grid-area: 3 / 7 / 4 / 8; }
+.formacion_4-4-2 .jugador_3_1 { grid-area: 2 / 1 / 3 / 2; }
+.formacion_4-4-2 .jugador_3_2 { grid-area: 2 / 3 / 3 / 4; }
+.formacion_4-4-2 .jugador_3_3 { grid-area: 2 / 5 / 3 / 6; }
+.formacion_4-4-2 .jugador_3_4 { grid-area: 2 / 7 / 3 / 8; }
+.formacion_4-4-2 .jugador_4_1 { grid-area: 1 / 3 / 2 / 4; }
+.formacion_4-4-2 .jugador_4_2 { grid-area: 1 / 5 / 2 / 6; }
+
+
+
+/*Bien formada - */
+.formacion_4-5-1 .jugador_1_1 { grid-area: 4 / 4 / 5 / 5; }
+.formacion_4-5-1 .jugador_2_1 { grid-area: 3 / 1 / 4 / 2; }
+.formacion_4-5-1 .jugador_2_2 { grid-area: 3 / 3 / 4 / 4; }
+.formacion_4-5-1 .jugador_2_3 { grid-area: 3 / 5 / 4 / 6; }
+.formacion_4-5-1 .jugador_2_4 { grid-area: 3 / 7 / 4 / 8; }
+.formacion_4-5-1 .jugador_3_1 { grid-area: 2 / 1 / 3 / 2; }
+.formacion_4-5-1 .jugador_3_2 { grid-area: 2 / 3 / 3 / 4; }
+.formacion_4-5-1 .jugador_3_3 { grid-area: 2 / 4 / 3 / 5; }
+.formacion_4-5-1 .jugador_3_4 { grid-area: 2 / 5 / 3 / 6; }
+.formacion_4-5-1 .jugador_3_5 { grid-area: 2 / 7 / 3 / 8; }
+.formacion_4-5-1 .jugador_4_1 { grid-area: 1 / 4 / 2 / 5; }
+
+
+/*Bien formada - */
+.formacion_5-3-2 .jugador_1_1 { grid-area: 4 / 4 / 5 / 5; }
+.formacion_5-3-2 .jugador_2_1 { grid-area: 3 / 1 / 4 / 2; }
+.formacion_5-3-2 .jugador_2_2 { grid-area: 3 / 3 / 4 / 4; }
+.formacion_5-3-2 .jugador_2_3 { grid-area: 3 / 4 / 4 / 5; }
+.formacion_5-3-2 .jugador_2_4 { grid-area: 3 / 5 / 4 / 6; }
+.formacion_5-3-2 .jugador_2_5 { grid-area: 3 / 7 / 4 / 8; }
+.formacion_5-3-2 .jugador_3_1 { grid-area: 2 / 2 / 3 / 3; }
+.formacion_5-3-2 .jugador_3_2 { grid-area: 2 / 4 / 3 / 5; }
+.formacion_5-3-2 .jugador_3_3 { grid-area: 2 / 6 / 3 / 7; }
+.formacion_5-3-2 .jugador_4_1 { grid-area: 1 / 3 / 2 / 4; }
+.formacion_5-3-2 .jugador_4_2 { grid-area: 1 / 5 / 2 / 6; }
+
+
+/*Bien formada - Comprobada*/
+.formacion_5-4-1 .jugador_1_1 { grid-area: 4 / 4 / 5 / 5; }
+.formacion_5-4-1 .jugador_2_1 { grid-area: 3 / 1 / 4 / 2; }
+.formacion_5-4-1 .jugador_2_2 { grid-area: 3 / 3 / 4 / 4; }
+.formacion_5-4-1 .jugador_2_3 { grid-area: 3 / 4 / 4 / 5; }
+.formacion_5-4-1 .jugador_2_4 { grid-area: 3 / 5 / 4 / 6; }
+.formacion_5-4-1 .jugador_2_5 { grid-area: 3 / 7 / 4 / 8; }
+.formacion_5-4-1 .jugador_3_1 { grid-area: 2 / 1 / 3 / 2; }
+.formacion_5-4-1 .jugador_3_2 { grid-area: 2 / 3 / 3 / 4; }
+.formacion_5-4-1 .jugador_3_3 { grid-area: 2 / 5 / 3 / 6; }
+.formacion_5-4-1 .jugador_3_4 { grid-area: 2 / 7 / 3 / 8; }
+.formacion_5-4-1 .jugador_4_1 { grid-area: 1 / 4 / 2 / 5; }
+
+
+
+
+/*
+Falta por comprobar
+3-6-1
+4-1-2-1-2
+4-3-1-2
+4-3-2-1
+4-5-1
+5-3-2
+
+*/
+
+
+
+
+/* 
+
+Falta por crear
+
+4-1-3-2
+4-2-1-3
+4-3-1-2
+4-1-3-1-1
+*/

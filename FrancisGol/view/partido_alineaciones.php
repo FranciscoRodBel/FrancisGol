@@ -30,12 +30,7 @@
                 <a href="" class="boton_gris"><span>Celta de Vigo</span></a>
                 <a href="" class="boton_gris"><span>Rayo Vallecano</span></a>
             </div>
-            <div class="alineacion">
-                <div>
-                    <img src="../view/assets/images/logo.png" alt="foto">
-                    <p>Iago Aspas</p>
-                </div>
-            </div>
+            <?= $alineacionesPartido ?>
         </section>
     </article>
 </main>

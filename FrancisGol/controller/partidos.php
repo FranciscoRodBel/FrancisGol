@@ -11,6 +11,7 @@
   $fecha = isset($_GET["fecha"]) && !empty($_GET["fecha"]) ? $_GET["fecha"] : date("Y-m-d");
 
   $partidos = realizarConsulta("partidos_$fecha", "fixtures?date=$fecha", 86400); 
+
   $partidosSeleccionados = pintarPartidos($partidos);
   
 
