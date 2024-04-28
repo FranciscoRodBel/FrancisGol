@@ -19,7 +19,7 @@ function generarPlantilla($equipoPlantilla) {
         };
 
 
-        $jugadoresPlantilla .= "<a href='#'><div>";
+        $jugadoresPlantilla .= "<a href='../controller/jugador_datos.php?jugador=".$jugador->id."'><div>";
         $jugadoresPlantilla .= "<img src=".$jugador->photo." alt='logo competición'>";
         $jugadoresPlantilla .= "<div>".$jugador->name."</div>";
         $jugadoresPlantilla .= "<div>".$jugador->age."</div>";

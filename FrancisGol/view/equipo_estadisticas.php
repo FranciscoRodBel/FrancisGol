@@ -17,8 +17,8 @@
 
             </select>
         </section>
-        <section>
-            <?= $tablaEstadisticas ?>
+        <section id="estadisticas_equipo">
+
         </section>
     </article>
 </main>

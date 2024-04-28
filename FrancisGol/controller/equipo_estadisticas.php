@@ -15,13 +15,6 @@
         $opcionesCompeticiones = generarOpcionesCompeticiones($equipoCompeticiones);
         $opcionesAnios = generarOpcionesAnios($equipoCompeticiones);
 
-        $equipoEstadisticas = realizarConsulta("equipo_estadisticas_530", "teams/statistics?league=140&season=2023&team=530", 86400); 
-        $tablaEstadisticas = pintarEstadisticasEquipo($equipoEstadisticas);
-      
-    } else {
-
-        header("Location: ../controller/partidos.php");
-        exit;
     }
 
     include '../view/templates/head.php';
