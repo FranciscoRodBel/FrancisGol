@@ -9,8 +9,22 @@
                 <a href="../controller/equipo_fichajes.php?equipo=<?= $idEquipo ?>" class="boton_gris"><span>Fichajes</span></a>
             </div>
         </section>
-        <!-- <section class="seccionClasificacion">
-            <?= $tablaClasificacion ?>
-        </section> -->
+        <section class="conjunto_botones">
+            <select name="competiciones" id="competiciones" class="seleccionar">
+                <?= $opcionesCompeticiones ?>
+            </select>
+            <select name="competicionesAnios" id="competicionesAnios" class="seleccionar">
+
+            </select>
+        </section>
+        <section>
+            <?= $tablaEstadisticas ?>
+        </section>
     </article>
 </main>
+<script src="../view/assets/scripts/seleccionarAniosCompeticiones.js"></script>
+<script>
+    let opcionesAnios = <?= json_encode($opcionesAnios); ?>;
+    let idEquipo = <?= $idEquipo ?>;
+    seleccionarAniosCompeticiones(opcionesAnios, idEquipo);
+</script>

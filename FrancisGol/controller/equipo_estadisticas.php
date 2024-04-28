@@ -12,13 +12,12 @@
         $idEquipo = $_GET["equipo"];
         $datosEquipo = Equipo::recogerEquipo($idEquipo);
         $equipoCompeticiones = Competicion::recogerEquipoCompeticiones($idEquipo); 
+        $opcionesCompeticiones = generarOpcionesCompeticiones($equipoCompeticiones);
+        $opcionesAnios = generarOpcionesAnios($equipoCompeticiones);
 
-        echo "<pre>";
-        print_r($equipoCompeticiones);
-        echo "</pre>";
-        // $equipoEstadisticas = realizarConsulta("equipo_estadisticas_$idEquipo", "teams/statistics?league=140&season=2023&team=530", 86400); 
-
-
+        $equipoEstadisticas = realizarConsulta("equipo_estadisticas_530", "teams/statistics?league=140&season=2023&team=530", 86400); 
+        $tablaEstadisticas = pintarEstadisticasEquipo($equipoEstadisticas);
+      
     } else {
 
         header("Location: ../controller/partidos.php");

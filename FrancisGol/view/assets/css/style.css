@@ -29,6 +29,7 @@
 
 html {
     min-width: 280px;
+    background-color: var(--cuarto_color);
 }
 
 * {
@@ -303,7 +304,6 @@ nav a:hover {
     border-collapse: collapse;
     font-size: 10pt;
     text-align: center;
-    
 }
 
 .tabla_datos thead th {
@@ -497,6 +497,51 @@ nav a:hover {
 .equipo_plantilla div img {
     width: 70px;
 }
+
+
+/* Estadísticas del equipo */
+
+.estadisticas_equipo th:first-of-type {
+    background-color: var(--cuarto_color);
+    border-top: 0;
+    border-left:0;
+}
+
+.estadisticas_equipo th:nth-of-type(2), .estadisticas_equipo_goles th:first-of-type, .estadisticas_equipo_datos th:first-of-type {
+    padding: 10px;
+}
+
+.estadisticas_equipo td, .estadisticas_equipo_goles td, .estadisticas_equipo_datos td {
+    padding: 10px;
+    min-width: 100px;
+}
+
+/*Tabla de goles por minutos*/
+
+.estadisticas_equipo_goles, .estadisticas_equipo_datos {
+    margin-top: 40px;
+}
+.estadisticas_equipo_goles tr td:first-of-type {
+    background-color: var(--cuarto_color);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
