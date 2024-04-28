@@ -308,13 +308,14 @@ nav a:hover {
 
 .tabla_datos thead th {
     background-color: var(--tercer_color);
-    padding: 5px;
+    padding: 10px;
     border: 2px solid var(--primer_color);
 }
 
 .tabla_datos td {
-    padding: 5px;
+    padding: 10px;
     border: 2px solid var(--primer_color);
+    min-width: 100px;
 }
 
 .tabla_datos tbody td:first-of-type {
@@ -507,26 +508,21 @@ nav a:hover {
     border-left:0;
 }
 
-.estadisticas_equipo th:nth-of-type(2), .estadisticas_equipo_goles th:first-of-type, .estadisticas_equipo_datos th:first-of-type {
-    padding: 10px;
-}
-
-.estadisticas_equipo td, .estadisticas_equipo_goles td, .estadisticas_equipo_datos td {
-    padding: 10px;
-    min-width: 100px;
-}
-
 /*Tabla de goles por minutos*/
 
 .estadisticas_equipo_goles, .estadisticas_equipo_datos {
     margin-top: 40px;
 }
-.estadisticas_equipo_goles tr td:first-of-type {
+.estadisticas_equipo_goles tr td:first-of-type, .tabla_trofeos tr td:first-of-type {
     background-color: var(--cuarto_color);
 }
 
 
+/* Tabla página de trofeos */
 
+.tabla_trofeos thead tr:nth-of-type(2) {
+    font-weight: bold;
+}
 
 
 

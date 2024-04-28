@@ -1,5 +1,5 @@
 <main>
-    <h1 class="titulo_pagina">Equipo Datos</h1>
+    <h1 class="titulo_pagina">Equipo Trofeos</h1>
     <article>
         <section class="seccion_negra">
             <?= $datosJugador ?>
@@ -9,7 +9,7 @@
             </div>
         </section>
         <section>
-            <?= $tablaDatosJugador ?>
+            <?= $datosTrofeosJugador ?>
         </section>
     </article>
 </main>
