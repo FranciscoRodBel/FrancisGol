@@ -1,5 +1,5 @@
 <main>
-    <h1 class="titulo_pagina">Competiciones</h1>
+    <h1 class="titulo_pagina">Fichajes</h1>
     <article>
         <section class="seccion_negra seccion_negra_fichajes">
             <form action="../controller/fichajes.php" method="POST">
