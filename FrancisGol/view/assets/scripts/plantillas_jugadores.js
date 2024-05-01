@@ -90,8 +90,6 @@ function listenersMovimientoJugadores() {
 
                 } else {
 
-                    console.log(jugadorArrastrado.previousSibling);
-                    console.log(jugador);
                     if (jugadorArrastrado.previousSibling == jugador) {
                         
                         jugador.parentNode.insertBefore(jugador, jugadorArrastrado.nextSibling);
@@ -108,3 +106,56 @@ function listenersMovimientoJugadores() {
         });
     }
 }
+
+
+/* Guardar jugadores */
+function recogerJugadores(datosPlantilla, evento) {
+    evento.preventDefault();
+    let jugadores = document.querySelectorAll('.seccion_plantilla div[draggable]');
+    let posicionesJugadores = {};
+
+    for (const jugador of jugadores) {
+
+        let idJugador = jugador.getAttribute("data-idJugador");
+        let posicion = jugador.getAttribute("class");
+        posicionesJugadores[idJugador] = posicion;
+    } 
+
+    guardarJugadores(posicionesJugadores, datosPlantilla);
+}
+
+
+function guardarJugadores(posicionesJugadores, datosPlantilla) {
+
+    let tituloPlantilla = document.getElementById("titulo_plantilla").value;
+    let formacion = document.getElementById("formacion").value;
+
+    posicionesJugadores = JSON.stringify(posicionesJugadores);
+    datosPlantilla = JSON.stringify(datosPlantilla);
+
+    let ruta = "../controller/guardar_plantillas.php";
+    let datos = {
+        posicionesJugadores: posicionesJugadores,
+        titulo: tituloPlantilla,
+        formacion: formacion,
+        datosPlantilla: datosPlantilla
+    };
+
+    let opciones = {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(datos)
+    };
+
+    return fetch(ruta, opciones)
+        .then(response => response.text())
+        .then(mensajeError => {
+            console.log(mensajeError);
+        })
+        .catch(error => {
+            console.error('Error:', error);
+        });
+}
+

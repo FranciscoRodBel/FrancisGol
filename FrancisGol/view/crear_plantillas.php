@@ -11,12 +11,12 @@
             <?php if (isset($_POST['enviarEquipo']) && isset($_POST['equipos_competicion'])) { ?>
 
                 <?= $datosEquipo ?>
-                <form action="../controller/guardar_plantillas.php" method="POST">
-                    <input type="text" class="input_generico" placeholder="Título plantilla">
+                <form>
+                    <input type="text" class="input_generico" id="titulo_plantilla" placeholder="Título plantilla">
                     <select name="formacion" id="formacion" class="seleccionar">
                         <?= $optionsSelectFormaciones ?>
                     </select>
-                    <input type="submit" value="Guardar" name="guardarEquipo" class="boton_verde">
+                    <input type="submit" value="Guardar" name="guardarEquipo" id="guardarEquipo" class="boton_verde">
                 </form>
 
             <?php } else { ?>
@@ -51,4 +51,10 @@
     selectFormaciones.addEventListener("change", cambiarformacion);
 
     listenersMovimientoJugadores();
+</script>
+<script>
+    let boton_guardar = document.getElementById("guardarEquipo");
+    let datosPlantilla = <?= json_encode($equipoPlantilla) ?>;
+    boton_guardar.addEventListener("click", (evento) => { recogerJugadores(datosPlantilla, evento); });
+
 </script>

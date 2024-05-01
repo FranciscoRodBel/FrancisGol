@@ -31,7 +31,7 @@ function generarPlantilla($equipoPlantilla) {
         if ($numeroJugador < 11) {
             
             $alineacionPrincipal .= 
-            "<div class='".$clasesJugador[$numeroJugador]."' draggable='true'>
+            "<div class='".$clasesJugador[$numeroJugador]."' draggable='true' data-idJugador='{$jugador->id}'>
                 <img src='{$jugador->photo}' alt='foto'>
                 <p>{$jugador->name}</p>
             </div>";
@@ -40,7 +40,7 @@ function generarPlantilla($equipoPlantilla) {
 
             $alineacionPrincipal .= $numeroJugador == 11 ? "</div></div><p class='titulo_seccion'>Suplentes</p><section class='seccion_negra jugadores_suplentes'>" : "";
             
-            $alineacionPrincipal .= "<div class='suplentes_".$numeroJugador."' draggable='true'>
+            $alineacionPrincipal .= "<div class='suplentes_".$numeroJugador."' draggable='true' data-idJugador='{$jugador->id}'>
                                         <img src='{$jugador->photo}' alt='foto'>
                                         <p>{$jugador->name}</p>
                                     </div>";
@@ -48,7 +48,7 @@ function generarPlantilla($equipoPlantilla) {
 
             $alineacionPrincipal .= $numeroJugador == 23 ? "</section><p class='titulo_seccion'>No convocados</p><section class='seccion_negra jugadores_suplentes'>" : "";
             
-            $alineacionPrincipal .= "<div class='no_convocado_".$numeroJugador."' draggable='true'>
+            $alineacionPrincipal .= "<div class='no_convocado_".$numeroJugador."' draggable='true' data-idJugador='{$jugador->id}'>
                                         <img src='{$jugador->photo}' alt='foto'>
                                         <p>{$jugador->name}</p>
                                     </div>";
