@@ -23,16 +23,53 @@
     align-items: center;
 }
 
-.formacion_equipo img {
+.formacion_equipo img, .jugadores_suplentes img {
     width: 40px;
     height: 40px;
+    border-radius: 5px;
 }
 
-.formacion_equipo p {
+.formacion_equipo p, .jugadores_suplentes p {
     font-size: 8pt;
     text-align: center;
     font-weight: bold;
+    min-height: 30px;
+    width: 100%;
 }
+
+/* Página de plantillas */
+.seccion_plantilla {
+    width: 90%;
+}
+
+.jugadores_suplentes {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin: 10px 0;
+}
+
+.jugadores_suplentes div {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 50px;
+    padding: 5px;
+}
+
+.jugadores_suplentes p {
+    color: var(--cuarto_color);
+}
+
+.ocultarJugador {
+    opacity: 0.5;
+}
+
+.dentroJugador {
+    transform: scale(1.05);
+}
+
 
 /* Formaciones */
 

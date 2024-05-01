@@ -3,7 +3,7 @@
     require_once "../model/mis_plantillas.php";
     require_once "../model/Equipo.php";
 
-    $titulo = "FrancisGol - Equipo plantilla";
+    $titulo = "FrancisGol - Mis plantillas";
     $lista_css = [];
 
 

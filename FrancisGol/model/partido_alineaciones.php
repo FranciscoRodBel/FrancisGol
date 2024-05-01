@@ -43,7 +43,6 @@ function pintarAlineacionesPartido($alineacionesPartido) {
         }
         $alineacionPrincipal .= "</div></div>";
     }
-    $alineacionPrincipal .= "</div>";
 
     return $alineacionPrincipal;
 

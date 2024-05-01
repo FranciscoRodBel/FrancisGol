@@ -19,7 +19,7 @@
             $fichajes = pintarFichajesEquipo($fichajesEquipo);
 
         } else {
-            $fichajes = "<p>No se encontró el equipo<p>";
+            $fichajes = "<p>No se encontró el equipo</p>";
         }
 
     } else {

@@ -1,5 +1,5 @@
 <main>
-    <h1 class="titulo_pagina">Plantillas</h1>
+    <h1 class="titulo_pagina">Mis Plantillas</h1>
     <article>
         <section class="seccion_negra">
             <div class="conjunto_botones">

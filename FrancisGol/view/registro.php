@@ -56,7 +56,7 @@
                 </div>
                 <div class="conjunto_botones">
                     <button class="boton_gris">Anterior</button>
-                    <input type="submit" value="Registrarse" name="registrarse">
+                    <input type="submit" value="Registrarse" name="registrarse" class="boton_verde">
                 </div>
                 <p><?= $resultadoFormulario ?></p>
             </section>
