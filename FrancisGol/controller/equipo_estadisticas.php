@@ -1,6 +1,5 @@
 <?php
     require_once "../model/Competicion.php";
-    require_once "../model/equipo_estadisticas.php";
     require_once "../model/realizar_consultas.php";
     require_once "../model/Equipo.php";
 
@@ -10,10 +9,13 @@
     if (isset($_GET["equipo"]) && !empty($_GET["equipo"])) {
 
         $idEquipo = $_GET["equipo"];
-        $datosEquipo = Equipo::recogerEquipo($idEquipo);
+        $equipo = Equipo::recogerEquipo($idEquipo);
+        $datosEquipo = $equipo->pintarEquipo();
+        
         $equipoCompeticiones = Competicion::recogerEquipoCompeticiones($idEquipo); 
-        $opcionesCompeticiones = generarOpcionesCompeticiones($equipoCompeticiones);
-        $opcionesAnios = generarOpcionesAnios($equipoCompeticiones);
+
+        $opcionesCompeticiones = $equipo->generarOpcionesCompeticiones($equipoCompeticiones);
+        $opcionesAnios = $equipo->generarOpcionesAnios($equipoCompeticiones);
 
     }
 

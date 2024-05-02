@@ -1,6 +1,6 @@
 function recogerClasesFormaciones(nuevaFormacion) {
 
-    return fetch('../model/generarClasesJugador.php?formacion=' + nuevaFormacion)
+    return fetch('../controller/generarClasesJugador.php?formacion=' + nuevaFormacion)
     .then(response => response.json())
     .then(posicionesJugador => {
 

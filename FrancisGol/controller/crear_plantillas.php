@@ -16,7 +16,9 @@
             
             $idEquipo = $_POST['equipos_competicion'];
 
-            $datosEquipo = Equipo::recogerEquipo($idEquipo);
+            $equipo = Equipo::recogerEquipo($idEquipo);
+            $datosEquipo = $equipo->pintarEquipo();
+            
             $optionsSelectFormaciones = generarSelectFormaciones();
 
             $equipoPlantilla = realizarConsulta("equipo_plantilla_$idEquipo", "/players/squads?team=$idEquipo", 86400); 

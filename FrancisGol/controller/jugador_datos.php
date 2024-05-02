@@ -1,6 +1,5 @@
 <?php
     require_once "../model/Jugador.php";
-    require_once "../model/jugador_datos.php";
     require_once "../model/realizar_consultas.php";
 
     $titulo = "FrancisGol - Equipo estadísticas";
@@ -9,9 +8,10 @@
     if (isset($_GET["jugador"]) && !empty($_GET["jugador"])) {
 
         $idJugador = $_GET["jugador"];
-        $datosJugador = Jugador::recogerJugador($idJugador);
-        $tablaDatosJugador = pintarDatosJugador($datosJugador[1]);
-        $datosJugador = $datosJugador[0];
+        $jugador = Jugador::recogerJugador($idJugador);
+        $datosJugador = $jugador->pintarJugador();
+        
+        $tablaDatosJugador = $jugador->pintarDatosJugador();
 
     } else {
         $tablaDatosJugador = "";

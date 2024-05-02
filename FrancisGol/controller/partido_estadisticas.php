@@ -1,5 +1,5 @@
 <?php
-    require_once "../model/partido_estadisticas.php";
+    require_once "../model/Partido.php";
     require_once "../model/realizar_consultas.php";
 
     $titulo = "FrancisGol - Estadísticas partido";
@@ -8,15 +8,14 @@
     if (isset($_GET["partido"]) && !empty($_GET["partido"])) {
 
         $idPartido = $_GET["partido"];
-
-        $partido = realizarConsulta("datos_partido_$idPartido", "fixtures?id=$idPartido", 86400); 
-        $partido = $partido->response[0];
-        
-        $idEquipoLocal = $partido->teams->home->id;
-        $idEquipoVisitante = $partido->teams->away->id;
+        $partido = Partido::recogerPartido($idPartido);
+        $datosPartido = $partido->pintarPartido();
 
         $estadisticasPartido = realizarConsulta("partido_estadisticas_$idPartido", "fixtures/statistics?fixture=$idPartido", 86400); 
-        $tablaEstadisticas = pintarEstadisticasPartido($estadisticasPartido);
+        $tablaEstadisticas = $partido->pintarEstadisticasPartido($estadisticasPartido);
+
+        $nombreEquipoLocal = $partido->__get("nombreEquipoLocal");
+        $nombreEquipoVisitante = $partido->__get("nombreEquipoVisitante");
 
     } else {
 

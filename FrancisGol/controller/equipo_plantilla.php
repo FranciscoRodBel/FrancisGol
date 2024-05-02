@@ -1,5 +1,4 @@
 <?php
-    require_once "../model/equipo_plantilla.php";
     require_once "../model/realizar_consultas.php";
     require_once "../model/Equipo.php";
 
@@ -9,10 +8,11 @@
     if (isset($_GET["equipo"]) && !empty($_GET["equipo"])) {
 
         $idEquipo = $_GET["equipo"];
-        $datosEquipo = Equipo::recogerEquipo($idEquipo);
+        $equipo = Equipo::recogerEquipo($idEquipo);
+        $datosEquipo = $equipo->pintarEquipo();
          
         $equipoPlantilla = realizarConsulta("equipo_plantilla_$idEquipo", "/players/squads?team=$idEquipo", 86400); 
-        $plantilla = generarPlantilla($equipoPlantilla);
+        $plantilla = $equipo->generarPlantilla($equipoPlantilla);
 
     } else {
 

@@ -1,5 +1,4 @@
 <?php
-    require_once "../model/competicion_jornadas.php";
     require_once "../model/Competicion.php";
     require_once "../model/realizar_consultas.php";
 
@@ -9,9 +8,11 @@
     if (isset($_GET["competicion"]) && !empty($_GET["competicion"])) {
 
         $idCompeticion = $_GET["competicion"];
-        $datosCompeticion = Competicion::recogerCompeticion($idCompeticion);
+        $competicion = Competicion::recogerCompeticion($idCompeticion);
+        $datosCompeticion = $competicion->pintarCompeticion($competicion);
+
         $jornadasCompeticion = realizarConsulta("competicion_jornadas_$idCompeticion", "fixtures?league=$idCompeticion&season=2023", 86400); 
-        $datosJornadas = generarJornadas($jornadasCompeticion);
+        $datosJornadas = $competicion->generarJornadas($jornadasCompeticion);
         $opcionesJornadas = $datosJornadas[0];
         $jornadas = $datosJornadas[1];
 

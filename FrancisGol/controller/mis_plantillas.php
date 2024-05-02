@@ -1,5 +1,4 @@
 <?php
-    require_once "../model/equipo_plantilla.php";
     require_once "../model/mis_plantillas.php";
     require_once "../model/Equipo.php";
 

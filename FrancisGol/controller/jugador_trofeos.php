@@ -1,6 +1,5 @@
 <?php
     require_once "../model/Jugador.php";
-    require_once "../model/jugador_trofeos.php";
     require_once "../model/realizar_consultas.php";
 
     $titulo = "FrancisGol - Equipo estadísticas";
@@ -9,9 +8,11 @@
     if (isset($_GET["jugador"]) && !empty($_GET["jugador"])) {
 
         $idJugador = $_GET["jugador"];
-        $datosJugador = Jugador::recogerJugador($idJugador)[0];
+        $jugador = Jugador::recogerJugador($idJugador);
+        $datosJugador = $jugador->pintarJugador();
+
         $trofeosJugador = realizarConsulta("trofeos_jugador_$idJugador", "trophies?player=$idJugador", 86400); 
-        $datosTrofeosJugador = pintarTrofeosJugador($trofeosJugador);
+        $datosTrofeosJugador = $jugador->pintarTrofeosJugador($trofeosJugador);
 
     } else {
         $datosTrofeosJugador = "";
