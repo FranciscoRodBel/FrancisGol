@@ -41,7 +41,10 @@ function listenersMovimientoJugadores() {
 
     for (const jugador of jugadores) {
 
+        /* Drag and drop de jugadores*/
+
         jugador.addEventListener("dragstart", function () { // Al empezar a mover el jugador...
+            
             jugador.classList.add("ocultarJugador");
         });
 
@@ -66,47 +69,69 @@ function listenersMovimientoJugadores() {
             
             evento.preventDefault();
             let jugadorArrastrado = document.querySelector(".ocultarJugador");
-            let hermanoJugador;
 
             jugadorArrastrado.classList.remove("ocultarJugador");
             jugador.classList.remove("dentroJugador");
+            jugadorArrastrado.classList.remove("intercambiarJugador");
+            jugador.classList.remove("intercambiarJugador");
 
-            let jugadorSoltado = jugadorArrastrado.getAttribute("class");
-            let jugadorTapado = jugador.getAttribute("class");
-
-            if (jugadorSoltado != jugadorTapado) {
-
-                jugadorArrastrado.classList.remove(jugadorSoltado);
-                jugador.classList.remove(jugadorTapado);
-
-                jugador.classList.add(jugadorSoltado);
-                jugadorArrastrado.classList.add(jugadorTapado);
-
-                if (jugadorArrastrado.previousSibling == null) {
-
-                    hermanoJugador = jugadorArrastrado.nextSibling;
-                    jugador.parentNode.insertBefore(jugadorArrastrado, jugador.nextSibling);
-                    hermanoJugador.parentNode.insertBefore(jugador, hermanoJugador.parentNode.firstChild);
-
-                } else {
-
-                    if (jugadorArrastrado.previousSibling == jugador) {
-                        
-                        jugador.parentNode.insertBefore(jugador, jugadorArrastrado.nextSibling);
-
-                    } else {
-                        hermanoJugador = jugadorArrastrado.previousSibling;
-                        jugador.parentNode.insertBefore(jugadorArrastrado, jugador.nextSibling);
-                        hermanoJugador.parentNode.insertBefore(jugador, hermanoJugador.nextSibling);
-                    }
-                    
-                }
-            }
-            
+            intercambiarJugadores(jugador, jugadorArrastrado);
         });
+
+        /* Seleccionar e intercambiar jugadores*/
+
+        jugador.addEventListener("click", function () { 
+
+            jugador.classList.toggle("intercambiarJugador");
+            
+            let jugadores = document.querySelectorAll(".intercambiarJugador");
+    
+            if (jugadores.length == 2) {
+                
+                jugadores[0].classList.remove("intercambiarJugador");
+                jugadores[1].classList.remove("intercambiarJugador");
+
+                intercambiarJugadores(jugadores[0], jugadores[1]);
+            }
+        });
+
     }
 }
 
+function intercambiarJugadores(jugador, jugadorArrastrado) {
+
+    let jugadorSoltado = jugadorArrastrado.classList[0];
+    let jugadorTapado = jugador.classList[0];
+
+    if (jugadorSoltado != jugadorTapado) {
+
+        jugadorArrastrado.classList.remove(jugadorSoltado);
+        jugador.classList.remove(jugadorTapado);
+
+        jugador.classList.add(jugadorSoltado);
+        jugadorArrastrado.classList.add(jugadorTapado);
+
+        if (jugadorArrastrado.previousSibling == null) {
+
+            hermanoJugador = jugadorArrastrado.nextSibling;
+            jugador.parentNode.insertBefore(jugadorArrastrado, jugador.nextSibling);
+            hermanoJugador.parentNode.insertBefore(jugador, hermanoJugador.parentNode.firstChild);
+
+        } else {
+
+            if (jugadorArrastrado.previousSibling == jugador) {
+                
+                jugador.parentNode.insertBefore(jugador, jugadorArrastrado.nextSibling);
+
+            } else {
+                hermanoJugador = jugadorArrastrado.previousSibling;
+                jugador.parentNode.insertBefore(jugadorArrastrado, jugador.nextSibling);
+                hermanoJugador.parentNode.insertBefore(jugador, hermanoJugador.nextSibling);
+            }
+            
+        }
+    }
+}
 
 /* Guardar jugadores */
 function recogerJugadores(datosPlantilla, evento) {
@@ -133,7 +158,7 @@ function guardarJugadores(posicionesJugadores, datosPlantilla) {
     posicionesJugadores = JSON.stringify(posicionesJugadores);
     datosPlantilla = JSON.stringify(datosPlantilla);
 
-    let ruta = "../controller/guardar_plantillas.php";
+    let ruta = "../controller/plantillas_guardar.php";
     let datos = {
         posicionesJugadores: posicionesJugadores,
         titulo: tituloPlantilla,
@@ -152,7 +177,14 @@ function guardarJugadores(posicionesJugadores, datosPlantilla) {
     return fetch(ruta, opciones)
         .then(response => response.text())
         .then(mensajeError => {
-            console.log(mensajeError);
+
+            let seccionNegra = document.querySelector(".seccion_negra_fichajes");
+
+            let parrafo = document.createElement("p");
+            parrafo.setAttribute("class", "titulo_informacion");
+            parrafo.innerHTML = mensajeError;
+
+            seccionNegra.appendChild(parrafo);
         })
         .catch(error => {
             console.error('Error:', error);

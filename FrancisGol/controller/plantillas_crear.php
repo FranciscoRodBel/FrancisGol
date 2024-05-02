@@ -1,7 +1,7 @@
 <?php
     require_once "../model/paises.php";
     require_once "../model/realizar_consultas.php";
-    require_once "../model/crear_plantillas.php";
+    require_once "../model/plantillas_crear.php";
     require_once "../model/Equipo.php";
 
     $titulo = "FrancisGol - Crear plantilla";
@@ -35,5 +35,5 @@
     include '../view/templates/head.php';
     include '../view/templates/header.php';
     include '../view/templates/nav.php';
-    include '../view/crear_plantillas.php';
+    include '../view/plantillas_crear.php';
     include '../view/templates/footer.php';

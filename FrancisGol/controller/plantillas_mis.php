@@ -1,5 +1,5 @@
 <?php
-    require_once "../model/mis_plantillas.php";
+    require_once "../model/plantillas_mis.php";
     require_once "../model/Equipo.php";
 
     $titulo = "FrancisGol - Mis plantillas";
@@ -9,5 +9,5 @@
     include '../view/templates/head.php';
     include '../view/templates/header.php';
     include '../view/templates/nav.php';
-    include '../view/mis_plantillas.php';
+    include '../view/plantillas_mis.php';
     include '../view/templates/footer.php';

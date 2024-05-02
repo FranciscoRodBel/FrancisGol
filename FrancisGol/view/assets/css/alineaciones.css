@@ -62,7 +62,7 @@
     color: var(--cuarto_color);
 }
 
-.ocultarJugador {
+.ocultarJugador, .intercambiarJugador {
     opacity: 0.5;
 }
 

@@ -3,9 +3,9 @@
     <article>
         <section class="seccion_negra seccion_negra_fichajes">
             <div class="conjunto_botones">
-                <a href="../controller/mis_plantillas.php" class="boton_gris"><span>Mis plantillas</span></a>
+                <a href="../controller/plantillas_mis.php" class="boton_gris"><span>Mis plantillas</span></a>
                 <a href="../controller/plantillas_usuarios.php" class="boton_gris"><span>Plantillas usuarios</span></a>
-                <a href="../controller/crear_plantillas.php" class="boton_gris"><span>Crear plantillas</span></a>
+                <a href="../controller/plantillas_crear.php" class="boton_gris"><span>Crear plantillas</span></a>
             </div>
             
             <?php if (isset($_POST['enviarEquipo']) && isset($_POST['equipos_competicion'])) { ?>
@@ -21,7 +21,7 @@
 
             <?php } else { ?>
                 <hr>
-                <form action="../controller/crear_plantillas.php" method="POST">
+                <form action="../controller/plantillas_crear.php" method="POST">
                     <h3 class="titulo_informacion">Seleccione un equipo</h3>
                     <select name="seleccionar_pais"  id="seleccionar_pais" class="seleccionar">
                         <?= $paises ?>
