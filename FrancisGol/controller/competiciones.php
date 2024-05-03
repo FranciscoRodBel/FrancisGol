@@ -1,5 +1,6 @@
 <?php
     session_start();
+    require_once "../model/Usuario.php";
     
     $titulo = "FrancisGol - Competiciones";
     $lista_css = ["competiciones.css"];

@@ -1,9 +1,9 @@
 <?php
    session_start();
+   require_once "../model/Usuario.php";
    require_once "../model/funciones.inc.php";
    require_once "../model/plantillas_guardar.php";
    require_once "../model/plantillas_crear.php";
-   require_once "../model/Usuario.php";
 
    Usuario::comprobarSesionIniciada(false);
 

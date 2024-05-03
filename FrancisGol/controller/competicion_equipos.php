@@ -1,5 +1,6 @@
 <?php
     session_start();
+    require_once "../model/Usuario.php";
     require_once "../model/Competicion.php";
     require_once "../model/realizar_consultas.php";
 

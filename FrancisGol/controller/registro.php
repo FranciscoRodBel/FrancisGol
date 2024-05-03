@@ -1,8 +1,8 @@
 <?php
     session_start();
+    require_once "../model/Usuario.php";
     require_once "../model/paises.php";
     require_once "../model/realizar_consultas.php";
-    require_once "../model/Usuario.php";
 
     $titulo = "FrancisGol - Registro";
     $lista_css = ["registro_inicio.css"];
