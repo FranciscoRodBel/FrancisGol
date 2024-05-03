@@ -1,6 +1,11 @@
 <?php
+   session_start();
    require_once "../model/funciones.inc.php";
    require_once "../model/plantillas_guardar.php";
+   require_once "../model/plantillas_crear.php";
+   require_once "../model/Usuario.php";
+
+   Usuario::comprobarSesionIniciada(false);
 
    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
@@ -8,14 +13,22 @@
 
       if (isset($datos['posicionesJugadores']) && isset($datos['titulo']) && isset($datos['formacion']) && isset($datos['datosPlantilla'])) {
          
-         $posicionesJugadores = $datos['posicionesJugadores'];
+         $posicionesJugadores = json_decode($datos['posicionesJugadores'], true);
          $titulo = $datos['titulo'];
          $formacion = $datos['formacion'];
          $datosPlantilla = $datos['datosPlantilla'];
 
          if (comprobarVacio([$posicionesJugadores, $titulo, $formacion, $datosPlantilla])) {
             
-            echo $datosPlantilla;
+
+            if (comprobarDatosJugadores($formacion, $posicionesJugadores, $datosPlantilla)) {
+               
+               guardarDatosJugadores($posicionesJugadores, $titulo, $formacion, $datosPlantilla);
+
+            } else {
+
+               echo "Los datos de los jugadores no son correctos";
+            }
 
          } else {
 

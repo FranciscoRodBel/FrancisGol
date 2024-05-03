@@ -1,4 +1,5 @@
 <?php
+    session_start();
     require_once "../model/realizar_consultas.php";
     
     if (isset($_POST['query'])) {

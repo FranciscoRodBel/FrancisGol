@@ -1,5 +1,6 @@
 <?php
-
+    session_start();
+    
     $titulo = "FrancisGol - Competiciones";
     $lista_css = ["competiciones.css"];
 

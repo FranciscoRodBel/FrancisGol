@@ -121,30 +121,29 @@ class Usuario { // Se usa para manejar todos los datos del usuario
 
     }
 
-    public static function recogerUsuario($idUsuario) {
-        $conexion = FrancisGolBD::establecerConexion();
+    // public static function recogerUsuario($idUsuario) {
+    //     $conexion = FrancisGolBD::establecerConexion();
 
-        // Recogerá un único usuario, a través del id pasado por parámetro
-        $consulta = "SELECT * FROM usuario WHERE idUsuario=".$idUsuario;
-        $resultado = $conexion->query($consulta);
+    //     // Recogerá un único usuario, a través del id pasado por parámetro
+    //     $consulta = "SELECT * FROM usuario WHERE idUsuario=".$idUsuario;
+    //     $resultado = $conexion->query($consulta);
         
-        $usuarios = [];
+    //     $usuarios = [];
         
-        // Guarda el usuario en un array
-        while ($usuario = $resultado->fetch_assoc()) {
+    //     // Guarda el usuario en un array
+    //     while ($usuario = $resultado->fetch_assoc()) {
 
-            // Creo el objeto y luego seteo sus propiedades
-            $ObjetoUsuario = new Usuario($usuario["email"]);
-            $ObjetoUsuario->__set("id", $usuario["idUsuario"]);
-            $ObjetoUsuario->__set("nombreCompleto", $usuario["nombreCompleto"]);
-            $ObjetoUsuario->__set("fechaNacimiento", $usuario["fechaNacimiento"]);
-            $ObjetoUsuario->__set("telefono", $usuario["telefono"]);
+    //         // Creo el objeto y luego seteo sus propiedades
+    //         $ObjetoUsuario = new Usuario($usuario["email"]);
+    //         $ObjetoUsuario->__set("id", $usuario["idUsuario"]);
+    //         $ObjetoUsuario->__set("nombre", $usuario["nombre"]);
+    //         $ObjetoUsuario->__set("foto", $usuario["foto"]);
 
-            $usuarios[] = $ObjetoUsuario;
-        }
+    //         $usuarios[] = $ObjetoUsuario;
+    //     }
     
-        return $usuarios;  
-    }
+    //     return $usuarios;  
+    // }
 
     public function generarFoto() {
     
@@ -168,6 +167,30 @@ class Usuario { // Se usa para manejar todos los datos del usuario
         }
     
         return $archivo;
+    }
+
+    public static function comprobarSesionIniciada($operacion) { // Se usa para redirigir a una página cuando esté o no la sesión iniciada
+
+        if ($operacion) {
+    
+            // Que si la sesión está iniciada lo devuelva a la página de partidos, se usa en páginas de iniciar sesión y registro
+            if (isset($_SESSION['usuario'])) {
+            
+                header('Location: ./inicioSesion.php');
+                die();
+            
+            }
+        
+        } else {
+            
+            // Que si la sesión no está iniciada que lo reenvíe a la página de partidos, en cualquier página en la que cambie la base de datos
+            if (!isset($_SESSION['usuario'])) {
+            
+                header('Location: ./partidos.php');
+                die();
+            
+            }
+        }
     }
 }
 

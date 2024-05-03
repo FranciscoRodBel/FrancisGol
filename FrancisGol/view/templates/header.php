@@ -9,11 +9,21 @@
             <hr>
             <hr>
         </div>
-        <div class="menu_ordenador">
-            <a href="../controller/inicioSesion.php">Iniciar sesión</a>
-            <a href="../controller/registro.php">Registrarse</a>
-        </div>
-        <!-- <img src="data:image/jpeg;base64,'.base64_encode($this->__get("imagen")).'"/> -->
+        <?php if (isset($_SESSION["usuario"])) { ?>
+
+            <div class="menu_ordenador">
+                <a href="../controller/inicioSesion.php">Iniciar sesión</a>
+                <a href="../controller/registro.php">Registrarse</a>
+            </div>
+        
+        <?php } else {
+            $usuario = unserialize($_SESSION['usuario']);
+
+            // echo $usuario;
+            // echo "<img src='data:image/jpeg;base64," . base64_encode($usuario->__get("foto")) . "'>";
+
+            
+        } ?>
     </div>
 </header>
 <script src="../view/assets/scripts/menu_hamburguesa.js"></script>

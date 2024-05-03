@@ -1,4 +1,5 @@
 <?php
+    session_start();
     include '../model/Usuario.php';
 
     $titulo = "FrancisGol - Inicio de sesión";

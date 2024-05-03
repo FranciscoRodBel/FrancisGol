@@ -1,4 +1,5 @@
 <?php
+    session_start();
     require_once "../model/Partido.php";
     require_once "../model/realizar_consultas.php";
 

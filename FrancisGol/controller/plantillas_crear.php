@@ -1,4 +1,5 @@
 <?php
+    session_start();
     require_once "../model/paises.php";
     require_once "../model/realizar_consultas.php";
     require_once "../model/plantillas_crear.php";
