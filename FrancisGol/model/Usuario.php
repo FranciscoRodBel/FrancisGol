@@ -88,10 +88,10 @@ class Usuario { // Se usa para manejar todos los datos del usuario
         // Añade el usuario en la base de datos
         $consulta = $conexion->prepare("INSERT INTO usuario (email, nombre, contrasenia, foto) VALUES (?, ?, ?, ?)");
         $consulta->bind_param("sssb", $email, $nombre, $contrasenia, $foto);
-        $consulta->send_long_data(3, $foto); // Para enviar datos binarios largos
         $consulta->execute();
-    
         $conexion->close();
+        // $conexion->query($consulta); // ejecuta la consulta
+        // $conexion->close(); // cierro la conexión
     }
     
    
@@ -117,33 +117,9 @@ class Usuario { // Se usa para manejar todos los datos del usuario
         if ($foto == "mal_formato") return "El formato de las fotos no es correcto";
 
         $this->guardarDatosUsuario($email, $nombre, $contraseniaUno, $foto);
+        
         return "Cuenta Creada";
-
     }
-
-    // public static function recogerUsuario($idUsuario) {
-    //     $conexion = FrancisGolBD::establecerConexion();
-
-    //     // Recogerá un único usuario, a través del id pasado por parámetro
-    //     $consulta = "SELECT * FROM usuario WHERE idUsuario=".$idUsuario;
-    //     $resultado = $conexion->query($consulta);
-        
-    //     $usuarios = [];
-        
-    //     // Guarda el usuario en un array
-    //     while ($usuario = $resultado->fetch_assoc()) {
-
-    //         // Creo el objeto y luego seteo sus propiedades
-    //         $ObjetoUsuario = new Usuario($usuario["email"]);
-    //         $ObjetoUsuario->__set("id", $usuario["idUsuario"]);
-    //         $ObjetoUsuario->__set("nombre", $usuario["nombre"]);
-    //         $ObjetoUsuario->__set("foto", $usuario["foto"]);
-
-    //         $usuarios[] = $ObjetoUsuario;
-    //     }
-    
-    //     return $usuarios;  
-    // }
 
     public function generarFoto() {
     

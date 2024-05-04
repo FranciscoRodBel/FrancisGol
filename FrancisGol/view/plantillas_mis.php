@@ -9,7 +9,7 @@
             </div>
         </section>
         <section>
-
+            <?= $plantillas ?>
         </section>
     </article>
 </main>

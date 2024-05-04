@@ -13,8 +13,8 @@
 
         $usuario = unserialize($_SESSION['usuario']);
 
-        echo $usuario->id;
-        // echo "<img src='data:image/jpeg;base64," . base64_encode($usuario->__get("foto")) . "'>";
+        echo "<div class='menu_ordenador'><a href='../controller/cerrarSesion.php'>Cerrar sesión</a>";
+        echo "<img src='data:image/jpeg;base64," . base64_encode($usuario->__get("foto")) . "'/></div>";
 
         } else { ?>
 

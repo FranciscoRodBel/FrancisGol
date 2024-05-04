@@ -23,7 +23,10 @@
 
             if (comprobarDatosJugadores($formacion, $posicionesJugadores, $datosPlantilla)) {
                
-               guardarDatosJugadores($posicionesJugadores, $titulo, $formacion, $datosPlantilla);
+               $idPlantilla = guardarDatosJugadores($posicionesJugadores, $titulo, $formacion, $datosPlantilla);
+               
+               header("Location: ../controller/plantillas_editar.php?plantilla=$idPlantilla");
+               die();
 
             } else {
 

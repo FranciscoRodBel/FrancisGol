@@ -35,7 +35,41 @@ function comprobarDatosJugadores($formacion, $posicionesJugadores, $datosPlantil
 
 function guardarDatosJugadores($posicionesJugadores, $titulo, $formacion, $datosPlantilla) {
     
-    $usuario = unserialize($_SESSION['usuario']);
-    $usuario->id;
+    $conexion = FrancisGolBD::establecerConexion();
 
+    $usuario = unserialize($_SESSION['usuario']);
+    $idUsuario = $usuario->id;
+    $idEquipo = json_decode($datosPlantilla)->response[0]->team->id;
+    $escudo = json_decode($datosPlantilla)->response[0]->team->logo;
+    $anio = 2023;
+
+    $consulta = $conexion->prepare("INSERT INTO plantilla (titulo, anio, formacion, idEquipo, escudo, idUsuario)  VALUES (?, ?, ?, ?, ?, ?)");
+    $consulta->bind_param("sisisi", $titulo, $anio, $formacion, $idEquipo, $escudo, $idUsuario);
+    $consulta->execute();
+    
+    $idPlantilla = mysqli_insert_id($conexion);
+
+    foreach (json_decode($datosPlantilla)->response[0]->players as $jugador) {
+        
+        $idJugador = $jugador->id;
+        $nombreJugador = $jugador->name;
+        $fotoJugador = $jugador->photo;
+        $posicion = $posicionesJugadores[$idJugador];
+    
+        $consulta = $conexion->prepare("INSERT INTO jugador (idJugador, nombre, foto)  VALUES (?, ?, ?)");
+    
+        try {
+            $consulta->bind_param("iss", $idJugador, $nombreJugador, $fotoJugador);
+            $consulta->execute();
+
+        } catch (mysqli_sql_exception) {
+            // Si el jugador ya está insertado no hace nada
+        }
+
+        $consulta = $conexion->prepare("INSERT INTO plantilla_jugador (idPlantilla,	idJugador,	posicion)  VALUES (?, ?, ?)");
+        $consulta->bind_param("iis", $idPlantilla, $idJugador, $posicion);
+        $consulta->execute();
+
+    }
+    return $idPlantilla;
 }

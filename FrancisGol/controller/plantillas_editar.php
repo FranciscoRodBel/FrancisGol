@@ -1,25 +1,22 @@
 <?php
     session_start();
     require_once "../model/Usuario.php";
-    require_once "../model/paises.php";
-    require_once "../model/realizar_consultas.php";
-    require_once "../model/plantillas_crear.php";
+    require_once "../model/plantillas_editar.php";
     require_once "../model/Equipo.php";
 
-    $titulo = "FrancisGol - Crear plantilla";
+    $titulo = "FrancisGol - Editar plantilla";
     $lista_css = ["registro_inicio.css", "alineaciones.css"];
 
-    $paises = realizarConsulta("paises", "countries", 86400); 
-    $paises = crearOpcionesPaises($paises);
 
     if (isset($_POST['enviarEquipo']) && isset($_POST['equipos_competicion'])) {
 
         if (!empty($_POST['equipos_competicion'])) {
             
-            $idEquipo = $_POST['equipos_competicion'];
+            // $idEquipo = ;
 
-            $equipo = Equipo::recogerEquipo($idEquipo);
-            $datosEquipo = $equipo->pintarEquipo();
+            // $equipo = Equipo::recogerEquipo($idEquipo);
+            // $datosEquipo = $equipo->pintarEquipo();
+            $datosEquipo = "";
             
             $optionsSelectFormaciones = generarSelectFormaciones();
 
@@ -39,5 +36,5 @@
     include '../view/templates/head.php';
     include '../view/templates/header.php';
     include '../view/templates/nav.php';
-    include '../view/plantillas_crear.php';
+    include '../view/plantillas_editar.php';
     include '../view/templates/footer.php';
