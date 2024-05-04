@@ -15,14 +15,12 @@
             $plantilla = Plantilla::recogerPlantilla($idPlantilla);
             $idEquipo = $plantilla->__get("idEquipo");
 
-            $equipo = Equipo::recogerEquipo($idEquipo);
             $datosEquipo = $equipo->pintarEquipo();
-            $datosEquipo = "";
             
-            $optionsSelectFormaciones = generarSelectFormaciones();
+            // $optionsSelectFormaciones = generarSelectFormaciones();
 
-            $equipoPlantilla = realizarConsulta("equipo_plantilla_$idEquipo", "/players/squads?team=$idEquipo", 86400); 
-            $plantilla = generarPlantilla($equipoPlantilla);
+            // $equipoPlantilla = realizarConsulta("equipo_plantilla_$idEquipo", "/players/squads?team=$idEquipo", 86400); 
+            // $plantilla = generarPlantilla($equipoPlantilla);
 
     } else {
         $datosEquipo = "";
