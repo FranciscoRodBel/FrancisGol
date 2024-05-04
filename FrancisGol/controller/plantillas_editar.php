@@ -3,6 +3,7 @@
     require_once "../model/Usuario.php";
     require_once "../model/Plantilla.php";
     require_once "../model/Equipo.php";
+    require_once "../model/realizar_consultas.php";
 
     $titulo = "FrancisGol - Editar plantilla";
     $lista_css = ["registro_inicio.css", "alineaciones.css"];
@@ -15,12 +16,14 @@
             $plantilla = Plantilla::recogerPlantilla($idPlantilla);
             $idEquipo = $plantilla->__get("idEquipo");
 
+            echo $idEquipo;
+            $equipo = Equipo::recogerEquipo($idEquipo);
             $datosEquipo = $equipo->pintarEquipo();
             
-            // $optionsSelectFormaciones = generarSelectFormaciones();
+            $optionsSelectFormaciones = Plantilla::generarSelectFormaciones();
 
-            // $equipoPlantilla = realizarConsulta("equipo_plantilla_$idEquipo", "/players/squads?team=$idEquipo", 86400); 
-            // $plantilla = generarPlantilla($equipoPlantilla);
+            $equipoPlantilla = realizarConsulta("equipo_plantilla_$idEquipo", "/players/squads?team=$idEquipo", 86400); 
+            $plantilla = Plantilla::generarPlantilla($equipoPlantilla);
 
     } else {
         $datosEquipo = "";

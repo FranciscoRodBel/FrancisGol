@@ -4,7 +4,7 @@
         public function __construct(
             protected int $id,
             protected string $nombre,
-            protected string $logo
+            protected string $foto
         ) {}
 
         public function __get(string $propiedad) {
@@ -29,7 +29,7 @@
 
             $datosJugador = '<div class="competicion_equipo">
                 <a>
-                    <img src="'.$this->__get("logo").'" alt="Logo">
+                    <img src="'.$this->__get("foto").'" alt="Logo">
                     <span>'.$this->__get("nombre").'</span>
                 </a>
                 <i class="fa-solid fa-star icono_estrella"></i>
@@ -112,7 +112,7 @@
         }
         
         /* FUNCIONES JUGADOR TROFEOS */
-        function pintarTrofeosJugador($trofeosJugador) {
+        public function pintarTrofeosJugador($trofeosJugador) {
 
             $tablaTrofeos ="<table class='tabla_datos tabla_trofeos'>
             <thead><tr><th colspan='3'>Trofeos</th></tr>
@@ -133,5 +133,23 @@
             $tablaTrofeos .= "</tbody></table>";
         
             return $tablaTrofeos;
+        }
+
+        public function insertarJugador() {
+            $conexion = FrancisGolBD::establecerConexion();
+            
+            $idJugador = $this->__get('id');
+            $nombreJugador = $this->__get('nombre');
+            $fotoJugador = $this->__get('foto');
+
+            $consulta = $conexion->prepare("INSERT INTO jugador (idJugador, nombre, foto)  VALUES (?, ?, ?)");
+    
+            try {
+                $consulta->bind_param("iss", $idJugador, $nombreJugador, $fotoJugador);
+                $consulta->execute();
+    
+            } catch (mysqli_sql_exception) {
+                // Si el jugador ya está insertado no hace nada
+            }
         }
     }

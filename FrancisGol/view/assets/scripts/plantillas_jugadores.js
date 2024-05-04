@@ -175,19 +175,27 @@ function guardarJugadores(posicionesJugadores, datosPlantilla) {
     };
 
     return fetch(ruta, opciones)
-        .then(response => response.text())
-        .then(mensajeError => {
+    .then(response => {
 
-            let seccionNegra = document.querySelector(".seccion_negra_fichajes");
+        if (response.redirected) { // Si la respuesta es una redirección
+            
+            window.location.href = response.url;
 
-            let parrafo = document.createElement("p");
-            parrafo.setAttribute("class", "titulo_informacion");
-            parrafo.innerHTML = mensajeError;
+        } else { // Si no hay redirección...
+            
+            return response.text().then(mensajeError => {
+                
+                let seccionNegra = document.querySelector(".seccion_negra_fichajes");
+                let parrafo = document.createElement("p");
+                parrafo.setAttribute("class", "titulo_informacion");
+                parrafo.innerHTML = mensajeError;
+                seccionNegra.appendChild(parrafo);
+            });
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+    });
 
-            seccionNegra.appendChild(parrafo);
-        })
-        .catch(error => {
-            console.error('Error:', error);
-        });
 }
 

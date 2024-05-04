@@ -4,7 +4,7 @@
         public function __construct(
             protected int $id,
             protected string $nombre,
-            protected string $logo
+            protected string $escudo
         ) {}
 
         public function __get(string $propiedad) {
@@ -29,7 +29,7 @@
             
             $datosEquipo = '<div class="competicion_equipo">
                 <a>
-                    <img src="'.$this->__get("logo").'" alt="Logo">
+                    <img src="'.$this->__get("escudo").'" alt="Logo">
                     <span>'.$this->__get("nombre").'</span>
                 </a>
                 <i class="fa-solid fa-star icono_estrella"></i>
@@ -269,4 +269,23 @@
             return $jugadoresPlantilla;
         }
 
+        /* Acciones equipo BBDD */
+
+        public function insertarEquipo() {
+            $conexion = FrancisGolBD::establecerConexion();
+            
+            $idEquipo = $this->__get('id');
+            $nombreEquipo = $this->__get('nombre');
+            $escudoEquipo = $this->__get('escudo');
+
+            $consulta = $conexion->prepare("INSERT INTO equipo (idEquipo, nombre, escudo)  VALUES (?, ?, ?)");
+    
+            try {
+                $consulta->bind_param("iss", $idEquipo, $nombreEquipo, $escudoEquipo);
+                $consulta->execute();
+    
+            } catch (mysqli_sql_exception) {
+                // Si el equipo ya está insertado no hace nada
+            }
+        }
     }

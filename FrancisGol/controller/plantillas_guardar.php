@@ -1,9 +1,10 @@
 <?php
    session_start();
    require_once "../model/Usuario.php";
+   require_once "../model/Equipo.php";
+   require_once "../model/Jugador.php";
+   require_once "../model/Plantilla.php";
    require_once "../model/funciones.inc.php";
-   require_once "../model/plantillas_guardar.php";
-   require_once "../model/plantillas_crear.php";
 
    Usuario::comprobarSesionIniciada(false);
 
@@ -21,9 +22,9 @@
          if (comprobarVacio([$posicionesJugadores, $titulo, $formacion, $datosPlantilla])) {
             
 
-            if (comprobarDatosJugadores($formacion, $posicionesJugadores, $datosPlantilla)) {
+            if (Plantilla::comprobarDatosJugadores($formacion, $posicionesJugadores, $datosPlantilla)) {
                
-               $idPlantilla = guardarDatosJugadores($posicionesJugadores, $titulo, $formacion, $datosPlantilla);
+               $idPlantilla = Plantilla::guardarDatosJugadores($posicionesJugadores, $titulo, $formacion, $datosPlantilla);
                
                header("Location: ../controller/plantillas_editar.php?plantilla=$idPlantilla");
                die();
