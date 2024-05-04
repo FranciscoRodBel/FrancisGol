@@ -16,11 +16,25 @@
         }
 
         public static function recogerJugador($idJugador) {
+
+                $conexion = FrancisGolBD::establecerConexion();
+                $consulta = "SELECT * FROM jugador WHERE idJugador = $idJugador";
+                $resultado = $conexion->query($consulta);
         
-            $jugador = realizarConsulta("jugador_$idJugador", "/players?id=$idJugador&season=2023", 86400);
+                if (mysqli_num_rows($resultado) == 1) {
             
-            $jugador = $jugador->response[0]->player;
-            $jugador = new Jugador($jugador->id, $jugador->name, $jugador->photo);
+                    while($row = mysqli_fetch_assoc($resultado)) {
+                        
+                        $jugador = new Jugador($row['idJugador'], $row['nombre'], $row['foto']);
+                    }
+    
+                } else {
+
+                    $jugador = realizarConsulta("jugador_$idJugador", "/players?id=$idJugador&season=2023", 86400);
+            
+                    $jugador = $jugador->response[0]->player;
+                    $jugador = new Jugador($jugador->id, $jugador->name, $jugador->photo);
+                }
 
             return $jugador;
         }

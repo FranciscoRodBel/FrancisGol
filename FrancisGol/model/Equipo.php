@@ -17,10 +17,24 @@
 
         public static function recogerEquipo($idEquipo) {
         
-            $equipo = realizarConsulta("equipo_$idEquipo", "teams?id=$idEquipo", 86400);
+            $conexion = FrancisGolBD::establecerConexion();
+            $consulta = "SELECT * FROM equipo WHERE idEquipo = $idEquipo";
+            $resultado = $conexion->query($consulta);
+    
+            if (mysqli_num_rows($resultado) == 1) {
+        
+                while($row = mysqli_fetch_assoc($resultado)) {
+                    
+                    $equipo = new Equipo($row['idEquipo'], $row['nombre'], $row['escudo']);
+                }
 
-            $equipo = $equipo->response[0]->team;
-            $equipo = new Equipo($equipo->id, $equipo->name, $equipo->logo);
+            } else {
+
+                $equipo = realizarConsulta("equipo_$idEquipo", "teams?id=$idEquipo", 86400);
+
+                $equipo = $equipo->response[0]->team;
+                $equipo = new Equipo($equipo->id, $equipo->name, $equipo->logo);
+            }
 
             return $equipo;
         }

@@ -3,7 +3,6 @@
     require_once "../model/Usuario.php";
     require_once "../model/Plantilla.php";
     require_once "../model/Equipo.php";
-    require_once "../model/realizar_consultas.php";
 
     $titulo = "FrancisGol - Mis plantillas";
     $lista_css = ["alineaciones.css"];
