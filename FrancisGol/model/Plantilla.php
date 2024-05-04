@@ -39,11 +39,19 @@
             return $plantillaUsuario;
         }
 
-        public static function recogerPlantillasUsuario($idUsuario) {
+        public static function recogerPlantillasUsuario($idUsuario, $condicion) {
     
             $conexion = FrancisGolBD::establecerConexion();
         
-            $consulta = "SELECT * FROM plantilla WHERE idUsuario = $idUsuario";
+            if ($condicion) {
+
+                $consulta = "SELECT * FROM plantilla WHERE idUsuario = $idUsuario";
+                
+            } else {
+                
+                $consulta = "SELECT * FROM plantilla WHERE idUsuario != $idUsuario";
+            }
+
         
             $resultado = $conexion->query($consulta);
         
@@ -63,10 +71,12 @@
 
         public function pintarPlantilla() {
     
+            $equipo = Equipo::recogerEquipo($this->__get('idEquipo'));
+
             $plantilla = "<div class='mi_plantilla'>
                             <a href='../controller/plantillas_editar.php?plantilla={$this->__get('id')}'>
                                 <div>
-                                    <img src='{$this->__get('escudo')}' alt='escudo'>
+                                    <img src='{$equipo->__get('escudo')}' alt='escudo'>
                                     <p>{$this->__get('titulo')}</p>
                                 </div>
                                 <div>

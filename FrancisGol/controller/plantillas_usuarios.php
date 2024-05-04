@@ -12,7 +12,7 @@
     $idUsuario = $usuario->id;
 
     $plantillas = "";
-    $plantillasUsuario = Plantilla::recogerPlantillasUsuario($idUsuario, true);
+    $plantillasUsuario = Plantilla::recogerPlantillasUsuario($idUsuario, false);
 
     if (!empty($plantillasUsuario)) {
         
@@ -23,11 +23,11 @@
 
     } else {
 
-        $plantillas = "No se encontraron plantillas creadas";
+        $plantillas = "No se encontraron plantillas";
     }
 
     include '../view/templates/head.php';
     include '../view/templates/header.php';
     include '../view/templates/nav.php';
-    include '../view/plantillas_mis.php';
+    include '../view/plantillas_usuarios.php';
     include '../view/templates/footer.php';

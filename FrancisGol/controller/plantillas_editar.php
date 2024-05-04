@@ -16,7 +16,6 @@
             $plantilla = Plantilla::recogerPlantilla($idPlantilla);
             $idEquipo = $plantilla->__get("idEquipo");
 
-            echo $idEquipo;
             $equipo = Equipo::recogerEquipo($idEquipo);
             $datosEquipo = $equipo->pintarEquipo();
             

@@ -94,7 +94,6 @@
     color: var(--primer_color);
     display: flex;
     flex-direction: column;
-    align-items: center;
     justify-content: space-between;
 }
 
@@ -110,7 +109,13 @@
     font-weight: bold;
 }
 
-.mi_plantilla a div:last-of-type{
+.mi_plantilla a div:first-of-type {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.mi_plantilla a div:last-of-type {
     width: 100%;
     display: flex;
     justify-content: space-between;
