@@ -8,7 +8,7 @@
                 <a href="../controller/plantillas_crear.php" class="boton_gris"><span>Crear plantillas</span></a>
             </div>
         </section>
-        <section>
+        <section class="plantillas">
             <?= $plantillas ?>
         </section>
     </article>

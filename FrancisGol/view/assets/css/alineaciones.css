@@ -70,6 +70,52 @@
     transform: scale(1.05);
 }
 
+/* Estilos de la página de mis plantillas */
+
+.plantillas {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.mi_plantilla {
+    width: 230px;
+    height: 320px;
+    padding: 20px;
+    margin: 15px;
+    box-shadow: 0 0 10px var(--primer_color);
+    border-radius: 20px;
+}
+
+.mi_plantilla a {
+    height: 100%;
+    text-decoration: none;
+    color: var(--primer_color);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.mi_plantilla img {
+    width: 130px;
+    margin: 10px;
+
+}
+
+.mi_plantilla p {
+    text-align: center;
+    font-size: 13pt;
+    font-weight: bold;
+}
+
+.mi_plantilla a div:last-of-type{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+
 
 /* Formaciones */
 

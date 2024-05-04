@@ -4,7 +4,7 @@
     require_once "../model/Plantilla.php";
 
     $titulo = "FrancisGol - Mis plantillas";
-    $lista_css = [];
+    $lista_css = ["alineaciones.css"];
 
     $usuario = unserialize($_SESSION['usuario']);
     $idUsuario = $usuario->id;
