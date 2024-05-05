@@ -8,7 +8,7 @@
     $lista_css = ["alineaciones.css"];
 
     $usuario = unserialize($_SESSION['usuario']);
-    $idUsuario = $usuario->id;
+    $idUsuario = $usuario->__get("id");
 
     $plantillas = "";
     $plantillasUsuario = Plantilla::recogerPlantillasUsuario($idUsuario, true);

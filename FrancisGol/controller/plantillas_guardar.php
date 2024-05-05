@@ -38,8 +38,18 @@
 
                      $idPlantilla = $datos['idPlantilla'];
                      $plantilla = Plantilla::recogerPlantilla($idPlantilla);
-                     echo $plantilla->actualizarDatosJugadores($posicionesJugadores, $titulo, $formacion);
 
+                     $usuario = unserialize($_SESSION['usuario']);
+                     $idUsuario = $usuario->__get("id");
+
+                     if ($plantilla->__get("idUsuario") == $idUsuario) {
+            
+                        echo $plantilla->actualizarDatosJugadores($posicionesJugadores, $titulo, $formacion);
+
+                     } else {
+             
+                         echo "No puede editar esta plantilla";
+                     }
 
                   } else {
 

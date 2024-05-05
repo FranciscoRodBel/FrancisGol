@@ -13,7 +13,10 @@
                 <select name="formacion" id="formacion" class="seleccionar">
                     <?= $optionsSelectFormaciones ?>
                 </select>
-                <input type="submit" value="Editar" name="editarEquipo" id="editarEquipo" class="boton_verde">
+                <div class="conjunto_botones">
+                    <input type="submit" value="Borrar" name="borrarEquipo" id="borrarEquipo" class="boton_rojo">
+                    <input type="submit" value="Editar" name="editarEquipo" id="editarEquipo" class="boton_verde">
+                </div>
             </form>
         </section>
         <section class="seccion_plantilla">
@@ -29,8 +32,14 @@
 </script>
 <script>
     let boton_editar = document.getElementById("editarEquipo");
+    let boton_borrar = document.getElementById("borrarEquipo");
     let datosPlantilla = <?= json_encode($equipoPlantilla) ?>;
     let idPlantilla = <?= $idPlantilla ?>;
 
     boton_editar.addEventListener("click", (evento) => { recogerJugadores(datosPlantilla, evento, "editar", idPlantilla); });
+    boton_borrar.addEventListener("click", (evento) => { 
+        
+        evento.preventDefault();
+        escucharBotonesPopUp(idPlantilla) 
+    });
 </script>

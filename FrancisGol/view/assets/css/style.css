@@ -87,15 +87,22 @@ a {
 
 /* Botones */
 
-.boton_verde, .seleccionar_foto, .seleccionar_pais {
+.boton_verde, .seleccionar_foto, .seleccionar_pais, .boton_rojo {
     background-color: var(--quinto_color);
     color: var(--primer_color);
+    border-radius: 10px;
     font-weight: bold;
     box-shadow: 0 0 10px var(--primer_color);
     margin: 10px;
     padding: 10px ;
     width: 150px;
     cursor: pointer;
+}
+
+.boton_rojo {
+    background-color: var(--septimo_color);
+    color: var(--cuarto_color);
+    width: 100px;
 }
 
 .conjunto_botones {
@@ -545,10 +552,31 @@ nav a:hover {
     font-weight: bold;
 }
 
+/* PopUp de aviso de borrado*/
 
+.bloquearPagina {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    background-color: var(--decimo_color);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 2;
+}
 
-
-
+.mensajeBorrado {
+    background-color: var(--tercer_color);
+    box-shadow: 0 0 10px var(--cuarto_color);
+    border-radius: 20px;
+    padding: 20px;
+    width: 90%;
+    max-width: 400px;
+    font-weight: bold;
+    text-align: center;
+  }
 
 
 

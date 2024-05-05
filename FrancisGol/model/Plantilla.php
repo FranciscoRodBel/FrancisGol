@@ -33,7 +33,8 @@
                 }
 
             } else {
-                $plantillaUsuario = "";
+                header("Location: ../controller/plantillas_mis.php");
+                die();
             }
         
             return $plantillaUsuario;
@@ -128,7 +129,7 @@
             $conexion = FrancisGolBD::establecerConexion();
         
             $usuario = unserialize($_SESSION['usuario']);
-            $idUsuario = $usuario->id;
+            $idUsuario = $usuario->__get("id");
             $anio = 2023;
             $equipo = json_decode($datosPlantilla)->response[0]->team;
             $idEquipo = $equipo->id;
@@ -339,5 +340,18 @@
             }
 
             return "Plantilla editada correctamente";
+        }
+
+        /* FUNCIONES BORRAR PLANTILLA */
+
+        public function borrarPlantilla() {
+            
+            $idPlantilla = $this->__get("id");
+            $conexion = FrancisGolBD::establecerConexion();
+
+            $consulta = $conexion->prepare("DELETE FROM plantilla WHERE idPlantilla = ?");
+            $consulta->bind_param("i", $idPlantilla);
+            $consulta->execute();
+
         }
     }

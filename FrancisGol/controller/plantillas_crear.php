@@ -6,7 +6,6 @@
     require_once "../model/paises.php";
     require_once "../model/realizar_consultas.php";
 
-
     $titulo = "FrancisGol - Crear plantilla";
     $lista_css = ["registro_inicio.css", "alineaciones.css"];
 
