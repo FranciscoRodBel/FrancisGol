@@ -11,7 +11,7 @@
 
         foreach ($resultado->response as $equipo) {
 
-            $equipos .= "<div>";
+            $equipos .= "<div data->";
                 // $competiciones .= "<p>ID: ".$equipo->team->id."<br>";
                 $equipos .= "<img src=".$equipo->team->logo." alt='logo competición'>";
                 $equipos .= "<p>".$equipo->team->name."</p>";

@@ -69,6 +69,11 @@ input {
     right: 5px;
     top: 10px;
     font-size: 15pt;
+    color: var(--tercer_color);
+    cursor: pointer;
+}
+
+.favorito {
     color: var(--sexto_color);
 }
 

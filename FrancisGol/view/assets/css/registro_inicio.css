@@ -14,12 +14,18 @@ form {
     width: 80%;
     min-width: 250px;
     max-width: 450px;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    display: none;
 }
 
-.cuadro_inicio_registro {
+.desocultar {
     display: flex;
-    flex-direction: column; 
-    align-items: center;
+}
+
+.inputFoto {
+    display: none;
 }
 
 .cuadro_inicio_registro label {
@@ -31,7 +37,10 @@ form {
 }
 
 .cuadro_inicio_registro .foto_perfil {
-    width: 80%;
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    margin-bottom: 10px;
 }
 
 .seleccionar_foto, .seleccionar_pais {
@@ -75,5 +84,10 @@ form {
 
     .competiciones_equipos div p {
         font-size: 15pt;
+    }
+
+    .cuadro_inicio_registro .foto_perfil {
+        width: 300px;
+        height: 300px;
     }
 }

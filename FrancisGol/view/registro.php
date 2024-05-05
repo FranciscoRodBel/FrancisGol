@@ -2,7 +2,8 @@
     <h1 class="titulo_pagina">Registro de usuario</h1>
     <article>
         <form action="../controller/registro.php" method="POST" enctype="multipart/form-data">
-            <section class="cuadro_inicio_registro">
+            
+            <section class="cuadro_inicio_registro desocultar">
                     <label for="nombre">Nombre usuario</label>
                     <input type="text" name="nombre" placeholder="Nombre" value="<?= $_POST["nombre"] ?? "" ?>">
                     <label for="email">Email</label>
@@ -11,21 +12,20 @@
                     <input type="password" name="contrasenia" placeholder="Contraseña">
                     <label for="repetir_contrasenia">Repetir contraseña</label>
                     <input type="password" name="repetir_contrasenia" placeholder="Contraseña">
-                    <button class="boton_gris">Siguiente</button>   
+                    <div class="conjunto_botones">
+                        <button class="boton_gris siguiente">Siguiente</button>   
+                    </div>
             </section>
-
-
 
             <section class="cuadro_inicio_registro">
-                <img class="foto_perfil" src="../view/assets/images/foto_perfil.png" alt="Foto de perfil">
-                <input type="file" name="foto" id="foto" accept="image/png, image/jpeg, image/jpg">
-                <button  class="seleccionar_foto">Selecciona una foto de perfil</button>
+                <img class="foto_perfil" id="foto_perfil" src="../view/assets/images/foto_perfil.png" alt="Foto de perfil">
+                <input type="file" name="inputFoto" class="inputFoto" id="inputFoto" accept="image/png, image/jpeg, image/jpg">
+                <button  class="seleccionar_foto" id="seleccionar_foto">Selecciona una foto de perfil</button>
                 <div class="conjunto_botones">
-                    <button class="boton_gris">Anterior</button>
-                    <button class="boton_gris">Siguiente</button>   
+                    <button class="boton_gris anterior">Anterior</button>
+                    <button class="boton_gris siguiente">Siguiente</button>   
                 </div>
             </section>
-
 
             <section class="cuadro_inicio_registro">
                 <h3 class="titulo_informacion">Selecciona sus competiciones favoritas</h3>
@@ -36,12 +36,10 @@
 
                 </div>
                 <div class="conjunto_botones">
-                    <button class="boton_gris">Anterior</button>
-                    <button class="boton_gris">Siguiente</button>   
+                    <button class="boton_gris anterior">Anterior</button>
+                    <button class="boton_gris siguiente">Siguiente</button> 
                 </div>
             </section>
-
-
 
             <section class="cuadro_inicio_registro">
                 <h3 class="titulo_informacion">Selecciona sus competiciones favoritas</h3>
@@ -55,15 +53,17 @@
 
                 </div>
                 <div class="conjunto_botones">
-                    <button class="boton_gris">Anterior</button>
+                    <button class="boton_gris anterior">Anterior</button>
                     <input type="submit" value="Registrarse" name="registrarse" class="boton_verde">
                 </div>
-                <p><?= $resultadoFormulario ?></p>
+                <p class='titulo_informacion'><?= $resultadoFormulario ?></p>
             </section>
         </form>
     </article>
 </main>
 <script src="../view/assets/scripts/competiciones.js"></script>
+<script src="../view/assets/scripts/registro.js"></script>
 <script>
     seleccionarCompeticiones();
+    escucharFormularios();
 </script>

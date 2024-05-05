@@ -94,16 +94,15 @@ class Usuario { // Se usa para manejar todos los datos del usuario
     public function guardarDatosUsuario($email, $nombre, $contrasenia, $foto) {
         $conexion = FrancisGolBD::establecerConexion();
         
-        $contrasenia = password_hash($contrasenia, PASSWORD_DEFAULT); // Cifra la contraseña del usuario
+        // Cifra la contraseña del usuario
+        $contrasenia = password_hash($contrasenia, PASSWORD_DEFAULT);
         
-        // Añade el usuario en la base de datos
-        $consulta = $conexion->prepare("INSERT INTO usuario (email, nombre, contrasenia, foto) VALUES (?, ?, ?, ?)");
-        $consulta->bind_param("sssb", $email, $nombre, $contrasenia, $foto);
-        $consulta->execute();
-        $conexion->close();
-        // $conexion->query($consulta); // ejecuta la consulta
-        // $conexion->close(); // cierro la conexión
+        $consulta = "INSERT INTO usuario (email, nombre, contrasenia, foto) VALUES ('$email', '$nombre', '$contrasenia', '$foto')";
+
+        $conexion->query($consulta); // Ejecutar la consulta
+        $conexion->close(); // Cierra la conexión
     }
+    
     
    
     public function comprobarRegistro($email, $nombre, $contraseniaUno, $contraseniaDos) {
