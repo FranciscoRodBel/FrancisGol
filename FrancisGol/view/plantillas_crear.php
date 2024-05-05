@@ -8,8 +8,10 @@
                 <a href="../controller/plantillas_crear.php" class="boton_gris"><span>Crear plantillas</span></a>
             </div>
             
-            <?php if (isset($_POST['enviarEquipo']) && isset($_POST['equipos_competicion'])) { ?>
-
+            <?php
+                if (isset($_SESSION['usuario'])) {
+                if (isset($_POST['enviarEquipo']) && isset($_POST['equipos_competicion'])) { 
+            ?>
                 <?= $datosEquipo ?>
                 <form>
                     <input type="text" class="input_generico" id="titulo_plantilla" placeholder="Título plantilla">
@@ -34,7 +36,7 @@
                     </select>
                     <input type="submit" value="Enviar" name="enviarEquipo" class="boton_enviar">
                 </form>
-            <?php } ?>
+            <?php } }?>
         </section>
         <section class="seccion_plantilla">
             <?= $plantilla ?>

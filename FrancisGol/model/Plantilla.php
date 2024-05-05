@@ -70,12 +70,14 @@
             return $plantillasUsuario;
         }
 
-        public function pintarPlantilla() {
-    
+        public function pintarPlantilla($accion) {
+
             $equipo = Equipo::recogerEquipo($this->__get('idEquipo'));
 
+            $ruta = $accion == "editar" ? "plantillas_editar.php" : "plantillas_ver.php" ;
+
             $plantilla = "<div class='mi_plantilla'>
-                            <a href='../controller/plantillas_editar.php?plantilla={$this->__get('id')}'>
+                            <a href='../controller/$ruta?plantilla={$this->__get('id')}'>
                                 <div>
                                     <img src='{$equipo->__get('escudo')}' alt='escudo'>
                                     <p>{$this->__get('titulo')}</p>

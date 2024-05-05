@@ -7,22 +7,28 @@
     $titulo = "FrancisGol - Mis plantillas";
     $lista_css = ["alineaciones.css"];
 
-    $usuario = unserialize($_SESSION['usuario']);
-    $idUsuario = $usuario->__get("id");
-
-    $plantillas = "";
-    $plantillasUsuario = Plantilla::recogerPlantillasUsuario($idUsuario, true);
-
-    if (!empty($plantillasUsuario)) {
+    if (isset($_SESSION['usuario'])) {
         
-        foreach ($plantillasUsuario as $plantilla) {
+        $usuario = unserialize($_SESSION['usuario']);
+        $idUsuario = $usuario->__get("id");
+    
+        $plantillas = "";
+        $plantillasUsuario = Plantilla::recogerPlantillasUsuario($idUsuario, true);
 
-            $plantillas .= $plantilla->pintarPlantilla();
+        if (!empty($plantillasUsuario)) {
+        
+            foreach ($plantillasUsuario as $plantilla) {
+    
+                $plantillas .= $plantilla->pintarPlantilla("editar");
+            }
+    
+        } else {
+    
+            $plantillas = "<p>No se encontraron plantillas creadas</p>";
         }
 
     } else {
-
-        $plantillas = "No se encontraron plantillas creadas";
+        $plantillas = "<p>Debe iniciar sesión para ver sus plantillas</p>";
     }
 
     include '../view/templates/head.php';
