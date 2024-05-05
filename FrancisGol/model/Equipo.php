@@ -1,4 +1,5 @@
 <?php
+    require_once "../model/Favoritos.php";
     class Equipo {
         
         public function __construct(
@@ -42,12 +43,15 @@
 
         public function pintarEquipo() {
             
+            $equiposFavoritas = Favoritos::recogerEquiposFavorito();
+            $claseFavorito = in_array($this->__get("id"), $equiposFavoritas->__get("equiposCompeticiones")) ? "favorito" : "";
+            
             $datosEquipo = '<div class="competicion_equipo">
                 <a>
                     <img src="'.$this->__get("escudo").'" alt="Logo">
                     <span>'.$this->__get("nombre").'</span>
                 </a>';
-            $datosEquipo .= isset($_SESSION["usuario"]) ? '<i class="fa-solid fa-star icono_estrella" id="equipo_'.$this->__get("id").'"></i>' : ''; 
+            $datosEquipo .= isset($_SESSION["usuario"]) ? '<i class="fa-solid fa-star icono_estrella '.$claseFavorito.'" id="equipo_'.$this->__get("id").'"></i>' : ''; 
             $datosEquipo .= '</div><hr>';
 
             return $datosEquipo;

@@ -14,11 +14,11 @@
 
         if ($_GET["accion"] == "competicion") {
             
-            Favoritos::eliminarCompeticion($_GET["id"], $idUsuario);
+            echo Favoritos::eliminarCompeticion($_GET["id"], $idUsuario);
 
         } else if ($_GET["accion"] == "equipo") {
 
-            Favoritos::eliminarEquipo($_GET["id"], $idUsuario);
+            echo Favoritos::eliminarEquipo($_GET["id"], $idUsuario);
         }
  
     }

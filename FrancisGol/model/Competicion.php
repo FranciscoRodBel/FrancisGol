@@ -1,5 +1,6 @@
 <?php
     require_once "../model/realizar_consultas.php";
+    require_once "../model/Favoritos.php";
     class Competicion {
         
         protected array $anios = [];
@@ -42,13 +43,16 @@
         }
 
         public function pintarCompeticion($datosCompeticion) {
-        
+
+            $competicionesFavoritas = Favoritos::recogerCompeticionFavorito();
+            $claseFavorito = in_array($this->__get("id"), $competicionesFavoritas->__get("equiposCompeticiones")) ? "favorito" : "";
+
             $datosCompeticion = '<div class="competicion_equipo">
                 <a>
                     <img src="'.$this->__get("logo").'" alt="Logo">
                     <span>'.$this->__get("nombre").'</span>
                 </a>';
-            $datosCompeticion .= isset($_SESSION["usuario"]) ? '<i class="fa-solid fa-star icono_estrella" id="competicion_'.$this->__get("id").'"></i>' : '';   
+            $datosCompeticion .= isset($_SESSION["usuario"]) ? '<i class="fa-solid fa-star icono_estrella '.$claseFavorito.'" id="competicion_'.$this->__get("id").'"></i>' : '';   
             $datosCompeticion .= '</div><hr>';
 
             return $datosCompeticion;
@@ -134,14 +138,18 @@
         /* FUNCIONES COMPETICION EQUIPOS */
         public function generarEquipos($equipos) {
 
+            $equiposFavoritas = Favoritos::recogerEquiposFavorito();
+
             $todosLosEquipos = "";
         
             foreach ($equipos->response as $equipo) {
         
+                $claseFavorito = in_array($equipo->team->id, $equiposFavoritas->__get("equiposCompeticiones")) ? "favorito" : "";
+
                 $todosLosEquipos .= "<a href='../controller/equipo_estadisticas.php?equipo={$equipo->team->id}'><div>";
                     $todosLosEquipos .= "<img src=".$equipo->team->logo." alt='logo competición'>";
                     $todosLosEquipos .= "<p>".$equipo->team->name."</p>";
-                    $todosLosEquipos .= isset($_SESSION["usuario"]) ? '<i class="fa-solid fa-star icono_estrella" id="equipo_'.$equipo->team->id.'"></i>' : ''; 
+                    $todosLosEquipos .= isset($_SESSION["usuario"]) ? '<i class="fa-solid fa-star icono_estrella '.$claseFavorito.'" id="equipo_'.$equipo->team->id.'"></i>' : ''; 
                 $todosLosEquipos .= "</div></a>";
             }
         

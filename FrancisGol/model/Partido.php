@@ -1,5 +1,5 @@
 <?php
-
+    require_once "../model/Favoritos.php";
 class Partido {
     
     public function __construct(
@@ -259,8 +259,12 @@ class Partido {
             $partidosPorLiga[$idLigaActual][] = $partidosDeUnaLiga;
     
         }
-        
+
+        $competicionesFavoritas = Favoritos::recogerCompeticionFavorito();
+
         foreach ($partidosPorLiga as $idLiga => $partidosLiga) {
+
+            $claseFavorito = in_array($idLiga, $competicionesFavoritas->__get("equiposCompeticiones")) ? "favorito" : "";
     
             $todosLosPartidos .= '
                     <section class="seccion_negra">
@@ -269,7 +273,7 @@ class Partido {
                                 <img src="'.$datosLiga[$idLiga][0].'" alt="Logo">
                                 <span>'.$datosLiga[$idLiga][1].'</span>
                             </a>';
-            $todosLosPartidos .= isset($_SESSION["usuario"]) ? '<i class="fa-solid fa-star icono_estrella" id="competicion_'.$idLiga.'"></i>' : '';        
+            $todosLosPartidos .= isset($_SESSION["usuario"]) ? '<i class="fa-solid fa-star icono_estrella '.$claseFavorito.'" id="competicion_'.$idLiga.'"></i>' : '';        
             $todosLosPartidos .= '</div><hr>';
     
             foreach ($partidosLiga as $partidoLiga) {
