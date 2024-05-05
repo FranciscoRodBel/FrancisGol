@@ -134,7 +134,7 @@ function intercambiarJugadores(jugador, jugadorArrastrado) {
 }
 
 /* Guardar jugadores */
-function recogerJugadores(datosPlantilla, evento) {
+function recogerJugadores(datosPlantilla, evento, accion, idPlantilla = "") {
     evento.preventDefault();
     let jugadores = document.querySelectorAll('.seccion_plantilla div[draggable]');
     let posicionesJugadores = {};
@@ -146,11 +146,11 @@ function recogerJugadores(datosPlantilla, evento) {
         posicionesJugadores[idJugador] = posicion;
     } 
 
-    guardarJugadores(posicionesJugadores, datosPlantilla);
+    guardarJugadores(posicionesJugadores, datosPlantilla, accion, idPlantilla);
 }
 
 
-function guardarJugadores(posicionesJugadores, datosPlantilla) {
+function guardarJugadores(posicionesJugadores, datosPlantilla, accion, idPlantilla) {
 
     let tituloPlantilla = document.getElementById("titulo_plantilla").value;
     let formacion = document.getElementById("formacion").value;
@@ -163,7 +163,9 @@ function guardarJugadores(posicionesJugadores, datosPlantilla) {
         posicionesJugadores: posicionesJugadores,
         titulo: tituloPlantilla,
         formacion: formacion,
-        datosPlantilla: datosPlantilla
+        datosPlantilla: datosPlantilla,
+        accion: accion,
+        idPlantilla: idPlantilla
     };
 
     let opciones = {
@@ -190,6 +192,10 @@ function guardarJugadores(posicionesJugadores, datosPlantilla) {
                 parrafo.setAttribute("class", "titulo_informacion");
                 parrafo.innerHTML = mensajeError;
                 seccionNegra.appendChild(parrafo);
+
+                setTimeout(function() {
+                    seccionNegra.removeChild(parrafo); // A los 2 segundos se borra
+                }, 2000); // 2000 milisegundos = 2 segundos
             });
         }
     })

@@ -12,22 +12,41 @@
 
       $datos = json_decode(file_get_contents("php://input"), true);
 
-      if (isset($datos['posicionesJugadores']) && isset($datos['titulo']) && isset($datos['formacion']) && isset($datos['datosPlantilla'])) {
+      if (isset($datos['posicionesJugadores']) && isset($datos['titulo']) && isset($datos['formacion']) && isset($datos['datosPlantilla']) && isset($datos['accion'])) {
          
          $posicionesJugadores = json_decode($datos['posicionesJugadores'], true);
          $titulo = $datos['titulo'];
          $formacion = $datos['formacion'];
          $datosPlantilla = $datos['datosPlantilla'];
+         $accion = $datos['accion'];
 
          if (comprobarVacio([$posicionesJugadores, $titulo, $formacion, $datosPlantilla])) {
             
 
             if (Plantilla::comprobarDatosJugadores($formacion, $posicionesJugadores, $datosPlantilla)) {
                
-               $idPlantilla = Plantilla::guardarDatosJugadores($posicionesJugadores, $titulo, $formacion, $datosPlantilla);
+               if ($accion == "guardar") {
+
+                  $idPlantilla = Plantilla::guardarDatosJugadores($posicionesJugadores, $titulo, $formacion, $datosPlantilla);
                
-               header("Location: ../controller/plantillas_editar.php?plantilla=$idPlantilla");
-               die();
+                  header("Location: ../controller/plantillas_editar.php?plantilla=$idPlantilla");
+                  die();
+
+               } else if ($accion == "editar") {
+
+                  if (isset($datos['idPlantilla'])) {
+
+                     $idPlantilla = $datos['idPlantilla'];
+                     $plantilla = Plantilla::recogerPlantilla($idPlantilla);
+                     echo $plantilla->actualizarDatosJugadores($posicionesJugadores, $titulo, $formacion);
+
+
+                  } else {
+
+                     echo "Los datos enviados no son correctos";
+                  }
+
+               }
 
             } else {
 

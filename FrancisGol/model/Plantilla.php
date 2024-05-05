@@ -161,13 +161,13 @@
 
         /* FUNCIONES DE CREAR PLANTILLAS */
 
-        public static function generarSelectFormaciones() {
+        public static function generarSelectFormaciones($formacionSeleccionada = "4-3-3") {
             $formaciones = array("3-1-4-2", "3-4-1-2", "3-4-2-1", "3-4-3", "3-5-1-1", "3-5-2", "3-6-1", "4-1-2-1-2", "4-1-3-1-1", "4-1-3-2", "4-1-4-1", "4-2-1-3", "4-2-2-2", "4-2-3-1", "4-3-1-2", "4-3-2-1", "4-3-3", "4-4-1-1", "4-4-2", "4-5-1", "5-3-2", "5-4-1");
             
             $optionsFormaciones = "";
             foreach ($formaciones as $formacion) {
         
-                if ($formacion == "4-3-3") {
+                if ($formacion == $formacionSeleccionada) {
         
                     $optionsFormaciones .= "<option value='$formacion' selected>$formacion</option>";
                 } else {
@@ -188,7 +188,6 @@
             
             foreach ($equipoPlantilla->response[0]->players as $numeroJugador => $jugador) {
         
-                // $jugador->id;
                 if ($numeroJugador < 11) {
                     
                     $alineacionPrincipal .= 
@@ -235,5 +234,110 @@
             }
         
             return $clasesGeneradas;
+        }
+
+        /* FUNCIONES PÁGINA DE EDITAR PLANTILLA */
+
+        public function recogerDatosPlantilla() {
+
+            $datosPlantilla = [];
+            $idPlantilla = $this->__get("id");
+            $conexion = FrancisGolBD::establecerConexion();
+
+            $consulta = "SELECT * 
+                        FROM jugador ju
+                        INNER JOIN plantilla_jugador pj
+                        ON pj.idJugador = ju.idJugador
+                        WHERE pj.idPlantilla = $idPlantilla";
+
+            $resultado = $conexion->query($consulta);
+
+
+
+            if (mysqli_num_rows($resultado) > 0) {
+        
+                while($row = mysqli_fetch_assoc($resultado)) {
+                    
+                    $datosPlantilla[$row['posicion']] = ["id" => $row['idJugador'], "nombre" => $row['nombre'], "foto" => $row['foto']];
+                }
+
+            }
+
+            return $datosPlantilla;
+        }
+
+        public function pintarPlantillaEditar($datosPlantilla) {
+            
+            $formacion = $this->__get("formacion");
+
+            $alineacion = "<div class='alineacion'><div class='formacion_equipo formacion_$formacion'>"; 
+            
+            $formaciones = Plantilla::generarClasesPosicionJugador($formacion);
+            
+            foreach ($formaciones  as $formacion) {
+
+                $datosJugador = $datosPlantilla[$formacion];
+
+                $alineacion .= "<div class='".$formacion."' draggable='true' data-idJugador='".$datosJugador["id"]."'>
+                    <img src='".$datosJugador["foto"]."' alt='foto'>
+                    <p>".$datosJugador["nombre"]."</p>
+                </div>";
+            }
+
+            $alineacion .= "</div></div><p class='titulo_seccion'>Suplentes</p><section class='seccion_negra jugadores_suplentes'>";
+
+            for ($i = 11; $i < 23; $i++) { 
+                
+                $datosJugador = $datosPlantilla["suplentes_$i"];
+
+                $alineacion .= "<div class='suplentes_".$i."' draggable='true' data-idJugador='".$datosJugador["id"]."'>
+                                    <img src='".$datosJugador["foto"]."' alt='foto'>
+                                    <p>".$datosJugador["nombre"]."</p>
+                                </div>";
+            }
+
+            $alineacion .= "</section><p class='titulo_seccion'>No convocados</p><section class='seccion_negra jugadores_suplentes'>";
+
+
+            for ($i = 23; $i < count($datosPlantilla); $i++) { 
+                
+                $datosJugador = $datosPlantilla["no_convocado_$i"];
+
+                $alineacion .= "<div class='no_convocado_".$i."' draggable='true' data-idJugador='".$datosJugador["id"]."'>
+                                    <img src='".$datosJugador["foto"]."' alt='foto'>
+                                    <p>".$datosJugador["nombre"]."</p>
+                                </div>";
+            }
+
+            $alineacion .= "</section>";
+
+            return $alineacion;
+        }
+
+        public function actualizarDatosJugadores($posicionesJugadores, $titulo, $formacion) {
+
+            $idPlantilla = $this->__get("id");
+            $conexion = FrancisGolBD::establecerConexion();
+
+            try {
+
+                $consulta = $conexion->prepare("UPDATE plantilla SET titulo = ?, formacion = ? WHERE idPlantilla = ?");
+                $consulta->bind_param("ssi", $titulo, $formacion, $idPlantilla);
+                $consulta->execute();
+    
+                foreach ($posicionesJugadores as $idJugador => $posicion) {
+    
+                    $consulta = $conexion->prepare("UPDATE plantilla_jugador SET posicion = ? WHERE idPlantilla = ? AND idJugador = ?");
+                    $consulta->bind_param("sii", $posicion, $idPlantilla, $idJugador);
+                    $consulta->execute();
+                    
+                }
+    
+            } catch (mysqli_sql_exception) {
+
+                return "No se pudieron actualizar los datos";
+            }
+
+            return "Plantilla editada correctamente";
         }
     }

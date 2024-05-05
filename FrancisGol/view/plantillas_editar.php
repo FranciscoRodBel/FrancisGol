@@ -9,7 +9,7 @@
             </div>
             <?= $datosEquipo ?>
             <form>
-                <input type="text" class="input_generico" id="titulo_plantilla" placeholder="Título plantilla">
+                <input type="text" class="input_generico" id="titulo_plantilla" placeholder="Título plantilla" value="<?= $titulo ?>">
                 <select name="formacion" id="formacion" class="seleccionar">
                     <?= $optionsSelectFormaciones ?>
                 </select>
@@ -17,7 +17,7 @@
             </form>
         </section>
         <section class="seccion_plantilla">
-            <?= $plantilla ?>
+            <?= $resultadoPlantilla ?>
         </section>
     </article>
 </main>
@@ -28,7 +28,9 @@
     listenersMovimientoJugadores();
 </script>
 <script>
-    // let boton_editar = document.getElementById("editarEquipo");
-    // let datosPlantilla = <?= json_encode($equipoPlantilla) ?>;
-    // boton_editar.addEventListener("click", (evento) => { recogerJugadores(datosPlantilla, evento); });
+    let boton_editar = document.getElementById("editarEquipo");
+    let datosPlantilla = <?= json_encode($equipoPlantilla) ?>;
+    let idPlantilla = <?= $idPlantilla ?>;
+
+    boton_editar.addEventListener("click", (evento) => { recogerJugadores(datosPlantilla, evento, "editar", idPlantilla); });
 </script>
