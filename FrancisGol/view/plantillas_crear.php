@@ -14,8 +14,8 @@
             ?>
                 <?= $datosEquipo ?>
                 <form>
-                    <input type="text" class="input_generico" id="titulo_plantilla" placeholder="Título plantilla">
-                    <select name="formacion" id="formacion" class="seleccionar">
+                    <input type="text" class="input_generico titulo_plantilla" id="titulo_plantilla" placeholder="Título plantilla">
+                    <select name="formacion" id="formacion" class="formacion">
                         <?= $optionsSelectFormaciones ?>
                     </select>
                     <input type="submit" value="Guardar" name="guardarEquipo" id="guardarEquipo" class="boton_verde">

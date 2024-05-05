@@ -8,6 +8,12 @@
                 <a href="../controller/plantillas_crear.php" class="boton_gris"><span>Crear plantillas</span></a>
             </div>
             <?= $datosEquipo ?>
+            <div class="datos_plantilla">
+                <p>Título</p>
+                <p><?= $tituloPlantilla ?></p>
+                <p>Formación: <?= $formacion ?></p>
+                <p>Usuario: <?= $nombreUsuario ?></p>
+            </div>
         </section>
         <section class="seccion_plantilla">
             <?= $resultadoPlantilla ?>

@@ -21,6 +21,17 @@ class Usuario { // Se usa para manejar todos los datos del usuario
         $this->$propiedad = $valor;
     }
 
+    public static function recogerNombreUsuario($idUsuario) {
+
+        $conexion = FrancisGolBD::establecerConexion();
+        $consulta = "SELECT nombre FROM usuario WHERE idUsuario = $idUsuario";
+        $resultado = $conexion->query($consulta);
+        $fila = $resultado->fetch_assoc();
+        $nombreUsuario = $fila['nombre'];
+
+        return $nombreUsuario;
+    }
+
     // Inicio de sesión
 
     public function comprobarInicioSesion($contrasenia) {

@@ -124,7 +124,7 @@ a {
     text-align: center;
 }
 
-.seleccionar {
+.seleccionar, .formacion {
     color: var(--primer_color);
     font-weight: bold;
     box-shadow: 0 0 10px var(--primer_color);

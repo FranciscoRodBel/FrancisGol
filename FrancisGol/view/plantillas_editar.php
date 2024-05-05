@@ -9,8 +9,8 @@
             </div>
             <?= $datosEquipo ?>
             <form>
-                <input type="text" class="input_generico" id="titulo_plantilla" placeholder="Título plantilla" value="<?= $titulo ?>">
-                <select name="formacion" id="formacion" class="seleccionar">
+                <input type="text" class="input_generico titulo_plantilla" id="titulo_plantilla" placeholder="Título plantilla" value="<?= $tituloPlantilla ?>">
+                <select name="formacion" id="formacion" class="formacion">
                     <?= $optionsSelectFormaciones ?>
                 </select>
                 <div class="conjunto_botones">

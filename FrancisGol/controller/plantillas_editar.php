@@ -19,7 +19,7 @@
     
             if ($plantilla->__get("idUsuario") == $idUsuario) {
                 
-                $titulo = $plantilla->__get("titulo");
+                $tituloPlantilla = $plantilla->__get("titulo");
                 $formacion = $plantilla->__get("formacion");
                 $idPlantilla = $plantilla->__get("id");
     
@@ -42,7 +42,7 @@
 
     } else {
         
-        $titulo = "";
+        $tituloPlantilla = "";
         $datosEquipo = "";
         $resultadoPlantilla = "<p>No se encontró la plantilla</p>";
     }

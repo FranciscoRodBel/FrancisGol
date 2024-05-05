@@ -5,18 +5,17 @@
     require_once "../model/Equipo.php";
     require_once "../model/realizar_consultas.php";
 
-    Usuario::comprobarSesionIniciada(false);
-
     $titulo = "FrancisGol - Ver plantilla";
     $lista_css = ["registro_inicio.css", "alineaciones.css"];
 
     if (isset($_GET['plantilla']) && !empty($_GET['plantilla'])) {
 
         $plantilla = Plantilla::recogerPlantilla($_GET['plantilla']);
-            
-        $titulo = $plantilla->__get("titulo");
+    
+        $nombreUsuario = Usuario::recogerNombreUsuario($plantilla->__get("idUsuario"));
+
+        $tituloPlantilla = $plantilla->__get("titulo");
         $formacion = $plantilla->__get("formacion");
-        $idPlantilla = $plantilla->__get("id");
 
         $equipo = Equipo::recogerEquipo($plantilla->__get("idEquipo"));
         $datosEquipo = $equipo->pintarEquipo();
@@ -31,7 +30,8 @@
 
     } else {
         
-        $titulo = "";
+        $nombreUsuario = "";
+        $tituloPlantilla = "";
         $datosEquipo = "";
         $resultadoPlantilla = "<p>No se encontró la plantilla</p>";
     }

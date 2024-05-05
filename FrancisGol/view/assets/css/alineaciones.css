@@ -7,7 +7,7 @@
     margin: 0 auto;
     padding: 10px;
     width: 370px;
-    height: 500px;
+    min-height: 500px;
     background-image: url(../images/campoFutbol.png);
     background-size: 100% 100%;
     display: grid;
@@ -71,6 +71,35 @@
     transform: scale(1.05);
 }
 
+.titulo_plantilla {
+    width: 100%;
+    max-width: 400px;
+    margin: 20px;
+    text-align: center;
+}
+
+.formacion {
+    min-width: auto;
+    width: 120px;
+    max-width: auto;
+}
+
+.datos_plantilla p {
+    color: var(--cuarto_color);
+    margin: 10px;
+    font-weight: bold;
+    font-size: 13pt;
+}
+
+.datos_plantilla p:nth-of-type(2) {
+    text-align: center;
+}
+
+.datos_plantilla p:first-of-type {
+    font-size: 15pt;
+    text-align: center;
+}
+
 /* Estilos de la página de mis plantillas */
 
 .plantillas {
@@ -105,9 +134,15 @@
 }
 
 .mi_plantilla p {
+    width: 100%;
     text-align: center;
     font-size: 13pt;
     font-weight: bold;
+    overflow: hidden;
+}
+
+.mi_plantilla div:first-of-type p {
+    height: 100px;
 }
 
 .mi_plantilla a div:first-of-type {

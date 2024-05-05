@@ -39,7 +39,7 @@
         }
 
     } else {
-        $plantilla = "<p>Debe iniciar sesión para ver sus plantillas</p>";
+        $plantilla = "<p>Debe iniciar sesión para crear plantillas</p>";
     }
 
     include '../view/templates/head.php';
