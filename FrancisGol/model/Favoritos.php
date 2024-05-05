@@ -28,7 +28,7 @@ class Favoritos { // Se usa para manejar todos los datos del usuario
 
         $conexion = FrancisGolBD::establecerConexion();
 
-        $consulta = $conexion->prepare("INSERT INTO equipo_favorito (idUsuario, idCompeticion)  VALUES (?, ?)");
+        $consulta = $conexion->prepare("INSERT INTO equipo_favorito (idUsuario, idEquipo)  VALUES (?, ?)");
         $consulta->bind_param("ii", $idUsuario, $idEquipo);
         $consulta->execute();
     }

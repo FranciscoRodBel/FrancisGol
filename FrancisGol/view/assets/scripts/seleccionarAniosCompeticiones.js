@@ -36,7 +36,6 @@ function seleccionarDatosCompeticion(idEquipo, anio, idCompeticion) {
 
 function incluirDatosEnLaPagina(contenidoPagina) {
     let seccion_estadisticas_equipo = document.getElementById("estadisticas_equipo");
-    console.log(contenidoPagina);
     seccion_estadisticas_equipo.innerHTML = contenidoPagina;
 
 }

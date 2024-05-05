@@ -47,7 +47,7 @@
                     <img src="'.$this->__get("escudo").'" alt="Logo">
                     <span>'.$this->__get("nombre").'</span>
                 </a>';
-            $datosEquipo .= isset($_SESSION["usuario"]) ? '<i class="fa-solid fa-star icono_estrella" id="equipo'.$this->__get("id").'"></i>' : ''; 
+            $datosEquipo .= isset($_SESSION["usuario"]) ? '<i class="fa-solid fa-star icono_estrella" id="equipo_'.$this->__get("id").'"></i>' : ''; 
             $datosEquipo .= '</div><hr>';
 
             return $datosEquipo;
