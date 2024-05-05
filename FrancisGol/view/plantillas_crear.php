@@ -58,5 +58,4 @@
     let boton_guardar = document.getElementById("guardarEquipo");
     let datosPlantilla = <?= json_encode($equipoPlantilla) ?>;
     boton_guardar.addEventListener("click", (evento) => { recogerJugadores(datosPlantilla, evento, "guardar"); });
-
 </script>

@@ -19,6 +19,7 @@
         </section>
     </article>
 </main>
+<script src="../view/assets/scripts/favoritos.js"></script>
 <script>
     let selectJornada = document.getElementById("jornadasCompeticion");
     let jornadaAnterior = document.getElementById(selectJornada.value);
@@ -33,4 +34,5 @@
         jornadaAnterior = jornadaSeleccionada;
     });
 
+    escucharFavoritos();
 </script>

@@ -19,9 +19,24 @@
 
         public static function recogerCompeticion($idCompeticion) {
         
-            $competicion = realizarConsulta("competicion_$idCompeticion", "leagues?id=$idCompeticion", 86400); 
-            $competicion = $competicion->response[0]->league;
-            $competicion = new Competicion($competicion->id, $competicion->name, $competicion->logo);
+            $conexion = FrancisGolBD::establecerConexion();
+            $consulta = "SELECT * FROM competicion WHERE idCompeticion = $idCompeticion";
+            $resultado = $conexion->query($consulta);
+    
+            if (mysqli_num_rows($resultado) == 1) {
+        
+                while($row = mysqli_fetch_assoc($resultado)) {
+                    
+                    $competicion = new Competicion($row['idCompeticion'], $row['nombre'], $row['logo']);
+                }
+
+            } else {
+
+                $competicion = realizarConsulta("competicion_$idCompeticion", "leagues?id=$idCompeticion", 86400); 
+                $competicion = $competicion->response[0]->league;
+                $competicion = new Competicion($competicion->id, $competicion->name, $competicion->logo);
+                $competicion->insertarCompeticion();
+            }
 
             return $competicion;
         }
@@ -32,11 +47,30 @@
                 <a>
                     <img src="'.$this->__get("logo").'" alt="Logo">
                     <span>'.$this->__get("nombre").'</span>
-                </a>
-                <i class="fa-solid fa-star icono_estrella"></i>
-            </div><hr>';
+                </a>';
+            $datosCompeticion .= isset($_SESSION["usuario"]) ? '<i class="fa-solid fa-star icono_estrella" id="competicion_'.$this->__get("id").'"></i>' : '';   
+            $datosCompeticion .= '</div><hr>';
 
             return $datosCompeticion;
+        }
+
+        public function insertarCompeticion() {
+            $conexion = FrancisGolBD::establecerConexion();
+
+            $idCompeticion = $this->__get("id");
+            $nombreCompeticion = $this->__get("nombre");
+            $logoCompeticion = $this->__get("logo");
+    
+            $consulta = $conexion->prepare("INSERT INTO competicion (idCompeticion, nombre, logo)  VALUES (?, ?, ?)");
+            
+            try {
+
+                $consulta->bind_param("iss", $idCompeticion, $nombreCompeticion, $logoCompeticion);
+                $consulta->execute();
+
+            } catch (mysqli_sql_exception) {
+                // Si la competición ya está insertado no hace nada
+            }
         }
 
         public static function recogerEquipoCompeticiones($idEquipo) {
@@ -107,7 +141,7 @@
                 $todosLosEquipos .= "<a href='../controller/equipo_estadisticas.php?equipo={$equipo->team->id}'><div>";
                     $todosLosEquipos .= "<img src=".$equipo->team->logo." alt='logo competición'>";
                     $todosLosEquipos .= "<p>".$equipo->team->name."</p>";
-                    $todosLosEquipos .= '<i class="fa-solid fa-star icono_estrella"></i>';
+                    $todosLosEquipos .= isset($_SESSION["usuario"]) ? '<i class="fa-solid fa-star icono_estrella" id="equipo'.$equipo->team->id.'"></i>' : ''; 
                 $todosLosEquipos .= "</div></a>";
             }
         
@@ -153,45 +187,6 @@
                     </div>
                     <hr class="separacion_partidos">';
                 }
-                
-        
-                
-                // $jornadasCompeticion .=
-                // echo "<p>ID del partido: ".$jornada->fixture->id."<br>";
-                // echo "Arbitro: ".$jornada->fixture->referee."<br>";
-                // echo "Ciudad: ".$jornada->fixture->venue->city."<br>";
-                // echo "ID Estadio: ".$jornada->fixture->venue->id."<br>";
-                // echo "Estadio: ".$jornada->fixture->venue->name."<br>";
-                // echo "Estado del partido: ".$jornada->fixture->status->long."<br>";
-                // echo "Tipo de finalización: ".$jornada->fixture->status->short."<br>";
-                // echo "Tiempo jugado: ".$jornada->fixture->status->elapsed."<br>";
-        
-                // echo "<br>Liga<br>";
-                // echo "id: ".$jornada->league->id."<br>";
-                // echo "Nombre: ".$jornada->league->name."<br>";
-                // echo "Pais: ".$jornada->league->country."<br>";
-                // echo "Año: ".$jornada->league->season."<br>";
-                // echo "La jornada: ".$jornada->league->round."<br>";
-                // echo "<img src=".$jornada->league->logo." alt='logo'>";
-                // echo "<img src=".$jornada->league->flag." alt='bandera'><br>";
-        
-                // echo "<br>Equipos<br>";
-                // echo "Equipo local:<br>";
-                // echo "id: ".$jornada->teams->home->id."<br>";
-                // echo "Nombre: ".$jornada->teams->home->name."<br>";
-                // echo "Resultado: ".$jornada->teams->home->winner."<br>";
-                // echo "<img src=".$jornada->teams->home->logo." alt='logo'><br>";
-        
-                // echo "Equipo Visitante:<br>";
-                // echo "id: ".$jornada->teams->away->id."<br>";
-                // echo "Nombre: ".$jornada->teams->away->name."<br>";
-                // echo "Resultado: ".$jornada->teams->away->winner."<br>";
-                // echo "<img src=".$jornada->teams->away->logo." alt='logo'><br>";
-        
-                // echo "<br>Resultado: ".$jornada->goals->home." - ".$jornada->goals->away."<br>";
-        
-        
-                // echo "</p>";
         
             }
         

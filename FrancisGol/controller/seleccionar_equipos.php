@@ -11,11 +11,10 @@
 
         foreach ($resultado->response as $equipo) {
 
-            $equipos .= "<div data->";
-                // $competiciones .= "<p>ID: ".$equipo->team->id."<br>";
+            $equipos .= "<div>";
                 $equipos .= "<img src=".$equipo->team->logo." alt='logo competición'>";
                 $equipos .= "<p>".$equipo->team->name."</p>";
-                $equipos .= '<i class="fa-solid fa-star icono_estrella"></i>';
+                $equipos .= isset($_SESSION["usuario"]) ? '<i class="fa-solid fa-star icono_estrella" id="equipo'.$equipo->team->id.'"></i>' : ''; 
             $equipos .= "</div>";
         }
 

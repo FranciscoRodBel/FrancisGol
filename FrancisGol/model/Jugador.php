@@ -34,6 +34,7 @@
             
                     $jugador = $jugador->response[0]->player;
                     $jugador = new Jugador($jugador->id, $jugador->name, $jugador->photo);
+                    $jugador->insertarJugador();
                 }
 
             return $jugador;
@@ -46,7 +47,6 @@
                     <img src="'.$this->__get("foto").'" alt="Logo">
                     <span>'.$this->__get("nombre").'</span>
                 </a>
-                <i class="fa-solid fa-star icono_estrella"></i>
             </div><hr>';
 
             return $datosJugador;

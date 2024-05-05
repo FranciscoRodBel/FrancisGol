@@ -34,6 +34,7 @@
 
                 $equipo = $equipo->response[0]->team;
                 $equipo = new Equipo($equipo->id, $equipo->name, $equipo->logo);
+                $equipo->insertarEquipo();
             }
 
             return $equipo;
@@ -45,9 +46,9 @@
                 <a>
                     <img src="'.$this->__get("escudo").'" alt="Logo">
                     <span>'.$this->__get("nombre").'</span>
-                </a>
-                <i class="fa-solid fa-star icono_estrella"></i>
-            </div><hr>';
+                </a>';
+            $datosEquipo .= isset($_SESSION["usuario"]) ? '<i class="fa-solid fa-star icono_estrella" id="equipo'.$this->__get("id").'"></i>' : ''; 
+            $datosEquipo .= '</div><hr>';
 
             return $datosEquipo;
         }

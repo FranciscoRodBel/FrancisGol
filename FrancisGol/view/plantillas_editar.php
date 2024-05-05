@@ -25,6 +25,7 @@
     </article>
 </main>
 <script src="../view/assets/scripts/plantillas_jugadores.js"></script>
+<script src="../view/assets/scripts/favoritos.js"></script>
 <script>
     let selectFormaciones = document.getElementById("formacion");
     selectFormaciones.addEventListener("change", cambiarformacion);
@@ -42,4 +43,5 @@
         evento.preventDefault();
         escucharBotonesPopUp(idPlantilla) 
     });
+    escucharFavoritos();
 </script>

@@ -63,7 +63,9 @@
 </main>
 <script src="../view/assets/scripts/competiciones.js"></script>
 <script src="../view/assets/scripts/registro.js"></script>
+<script src="../view/assets/scripts/favoritos.js"></script>
 <script>
+    escucharFavoritos();
     seleccionarCompeticiones();
     escucharFormularios();
 </script>

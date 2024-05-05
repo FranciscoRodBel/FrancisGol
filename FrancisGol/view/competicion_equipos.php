@@ -14,3 +14,5 @@
         </section>
     </article>
 </main>
+<script src="../view/assets/scripts/favoritos.js"></script>
+<script> escucharFavoritos(); </script>

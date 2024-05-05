@@ -19,6 +19,7 @@
             </section>
     </article>
 </main>
+<script src="../view/assets/scripts/favoritos.js"></script>
 <script>
     function buscarCompeticion(str) {
 
@@ -51,4 +52,5 @@
         window.location.href = url;
 
     });
+    escucharFavoritos();
 </script>

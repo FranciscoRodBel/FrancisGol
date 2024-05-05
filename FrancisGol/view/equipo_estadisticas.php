@@ -23,8 +23,10 @@
     </article>
 </main>
 <script src="../view/assets/scripts/seleccionarAniosCompeticiones.js"></script>
+<script src="../view/assets/scripts/favoritos.js"></script>
 <script>
     let opcionesAnios = <?= json_encode($opcionesAnios); ?>;
     let idEquipo = <?= $idEquipo ?>;
     seleccionarAniosCompeticiones(opcionesAnios, idEquipo);
+    escucharFavoritos();
 </script>

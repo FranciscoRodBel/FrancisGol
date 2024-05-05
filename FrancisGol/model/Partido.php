@@ -265,13 +265,12 @@ class Partido {
             $todosLosPartidos .= '
                     <section class="seccion_negra">
                         <div class="competicion_equipo">
-                            <a href="../controller/competicion.php?competicion='.$idLiga.'">
+                            <a href="../controller/competicion_clasificacion.php?competicion='.$idLiga.'">
                                 <img src="'.$datosLiga[$idLiga][0].'" alt="Logo">
                                 <span>'.$datosLiga[$idLiga][1].'</span>
-                            </a>
-                            <i class="fa-solid fa-star icono_estrella"></i>
-                        </div>
-                        <hr>';
+                            </a>';
+            $todosLosPartidos .= isset($_SESSION["usuario"]) ? '<i class="fa-solid fa-star icono_estrella" id="competicion_'.$idLiga.'"></i>' : '';        
+            $todosLosPartidos .= '</div><hr>';
     
             foreach ($partidosLiga as $partidoLiga) {
                 $todosLosPartidos .= $partidoLiga;
