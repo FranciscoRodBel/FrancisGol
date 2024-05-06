@@ -1,6 +1,5 @@
 <?php
     require_once "../model/realizar_consultas.php";
-    require_once "../model/Favoritos.php";
     class Competicion {
         
         protected array $anios = [];
@@ -44,8 +43,8 @@
 
         public function pintarCompeticion($datosCompeticion) {
 
-            $competicionesFavoritas = Favoritos::recogerCompeticionFavorito();
-            $claseFavorito = in_array($this->__get("id"), $competicionesFavoritas->__get("equiposCompeticiones")) ? "favorito" : "";
+            $competicionesFavoritas = Competicion::recogerCompeticionFavorita();
+            $claseFavorito = isset($_SESSION["usuario"]) && in_array($this->__get("id"), $competicionesFavoritas) ? "favorito" : "";
 
             $datosCompeticion = '<div class="competicion_equipo">
                 <a>
@@ -58,6 +57,26 @@
             return $datosCompeticion;
         }
 
+        public static function pintarCompeticiones($competiciones) {
+
+            $competicionesFavoritas = !isset($_SESSION["usuario"]) ? [140, 39, 61, 78, 71, 2] : Competicion::recogerCompeticionFavorita();
+            $datosCompeticion = "";
+            
+            foreach ($competiciones->response as $competicion) {
+
+                if (in_array($competicion->league->id, $competicionesFavoritas)) {
+                    $datosCompeticion .= '<div class="competicion_equipo competiciones">
+                                        <a href="../controller/competicion_clasificacion.php?competicion='.$competicion->league->id.'">
+                                            <img src="'.$competicion->league->logo.'" alt="Logo">
+                                            <span>'.$competicion->league->name.'</span>
+                                        </a>';
+                    $datosCompeticion .= isset($_SESSION["usuario"]) ? '<i class="fa-solid fa-star icono_estrella favorito" id="competicion_'.$competicion->league->id.'"></i>' : '';   
+                    $datosCompeticion .= '</div><hr>';
+                }   
+
+            }
+            return $datosCompeticion;
+        }
         public function insertarCompeticion() {
             $conexion = FrancisGolBD::establecerConexion();
 
@@ -136,15 +155,15 @@
         }
 
         /* FUNCIONES COMPETICION EQUIPOS */
-        public function generarEquipos($equipos) {
+        public function generarEquiposCompeticion($equipos) {
 
-            $equiposFavoritas = Favoritos::recogerEquiposFavorito();
+            $equiposFavoritos = Equipo::recogerEquiposFavorito();
 
             $todosLosEquipos = "";
         
             foreach ($equipos->response as $equipo) {
         
-                $claseFavorito = in_array($equipo->team->id, $equiposFavoritas->__get("equiposCompeticiones")) ? "favorito" : "";
+                $claseFavorito = in_array($equipo->team->id, $equiposFavoritos) ? "favorito" : "";
 
                 $todosLosEquipos .= "<a href='../controller/equipo_estadisticas.php?equipo={$equipo->team->id}'><div>";
                     $todosLosEquipos .= "<img src=".$equipo->team->logo." alt='logo competición'>";
@@ -199,5 +218,51 @@
             }
         
             return [$opcionesPartidos, $partidosTotales];
+        }
+
+        /* FUNCIONES FAVORITOS */
+        public static function recogerCompeticionFavorita() {
+        
+            $arrayFavoritos = [];
+    
+            if (isset($_SESSION['usuario'])) {
+                
+                $usuario = unserialize($_SESSION['usuario']);
+                $idUsuario = $usuario->__get("id");
+        
+                $conexion = FrancisGolBD::establecerConexion();
+        
+                $consulta = "SELECT * FROM competicion_favorita WHERE idUsuario = $idUsuario";
+                $resultado = $conexion->query($consulta);
+        
+                while ($row = $resultado->fetch_assoc()) {
+    
+                    $arrayFavoritos[] = $row["idCompeticion"];
+                }
+                
+                return $arrayFavoritos;
+            }
+        }
+
+        public static function insertarCompeticionFavorita($idCompeticion, $idUsuario) {
+
+            $conexion = FrancisGolBD::establecerConexion();
+    
+            $consulta = $conexion->prepare("INSERT INTO competicion_favorita (idUsuario, idCompeticion)  VALUES (?, ?)");
+            $consulta->bind_param("ii", $idUsuario, $idCompeticion);
+            $consulta->execute();
+        }
+
+        public static function eliminarCompeticionFavorita($idCompeticion, $idUsuario) {
+
+            $conexion = FrancisGolBD::establecerConexion();
+    
+            $consulta = "SELECT * FROM competicion_favorita WHERE idUsuario = $idUsuario";
+            $resultado = $conexion->query($consulta);
+            if (mysqli_num_rows($resultado) == 1) return false;
+    
+            $consulta = $conexion->prepare("DELETE FROM competicion_favorita WHERE idUsuario = ? AND idCompeticion = ?");
+            $consulta->bind_param("ii", $idUsuario, $idCompeticion);
+            return $consulta->execute();
         }
     }

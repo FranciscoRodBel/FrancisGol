@@ -3,7 +3,6 @@
     require_once "../model/Usuario.php";
     require_once "../model/Equipo.php";
     require_once "../model/Competicion.php";
-    require_once "../model/Favoritos.php";
 
     Usuario::comprobarSesionIniciada(false);
 
@@ -14,11 +13,11 @@
 
         if ($_GET["accion"] == "competicion") {
             
-            echo Favoritos::eliminarCompeticion($_GET["id"], $idUsuario);
+            echo Competicion::eliminarCompeticionFavorita($_GET["id"], $idUsuario);
 
         } else if ($_GET["accion"] == "equipo") {
 
-            echo Favoritos::eliminarEquipo($_GET["id"], $idUsuario);
+            echo Equipo::eliminarEquipoFavorito($_GET["id"], $idUsuario);
         }
  
     }

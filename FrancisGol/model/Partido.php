@@ -1,5 +1,4 @@
 <?php
-    require_once "../model/Favoritos.php";
 class Partido {
     
     public function __construct(
@@ -260,31 +259,31 @@ class Partido {
     
         }
 
-        $competicionesFavoritas = Favoritos::recogerCompeticionFavorito();
+        $competicionesFavoritas = !isset($_SESSION["usuario"]) ? [140, 39, 61, 78, 71, 2] : (Competicion::recogerCompeticionFavorita());
 
         foreach ($partidosPorLiga as $idLiga => $partidosLiga) {
 
-            $claseFavorito = in_array($idLiga, $competicionesFavoritas->__get("equiposCompeticiones")) ? "favorito" : "";
-    
-            $todosLosPartidos .= '
-                    <section class="seccion_negra">
-                        <div class="competicion_equipo">
-                            <a href="../controller/competicion_clasificacion.php?competicion='.$idLiga.'">
-                                <img src="'.$datosLiga[$idLiga][0].'" alt="Logo">
-                                <span>'.$datosLiga[$idLiga][1].'</span>
-                            </a>';
-            $todosLosPartidos .= isset($_SESSION["usuario"]) ? '<i class="fa-solid fa-star icono_estrella '.$claseFavorito.'" id="competicion_'.$idLiga.'"></i>' : '';        
-            $todosLosPartidos .= '</div><hr>';
-    
-            foreach ($partidosLiga as $partidoLiga) {
-                $todosLosPartidos .= $partidoLiga;
+            if (in_array($idLiga, $competicionesFavoritas)) {
+                    
+                $todosLosPartidos .= '
+                <section class="seccion_negra">
+                    <div class="competicion_equipo">
+                        <a href="../controller/competicion_clasificacion.php?competicion='.$idLiga.'">
+                            <img src="'.$datosLiga[$idLiga][0].'" alt="Logo">
+                            <span>'.$datosLiga[$idLiga][1].'</span>
+                        </a>';
+                $todosLosPartidos .= isset($_SESSION["usuario"]) ? '<i class="fa-solid fa-star icono_estrella favorito" id="competicion_'.$idLiga.'"></i>' : "";        
+                $todosLosPartidos .= '</div><hr>';
+
+                foreach ($partidosLiga as $partidoLiga) {
+                    $todosLosPartidos .= $partidoLiga;
+                }
+        
+                $todosLosPartidos .= "</section>";
             }
-    
-            $todosLosPartidos .= "</section>";
-    
         }
     
-        return $todosLosPartidos;
+        return empty($todosLosPartidos) ? "No hay partidos disponibles" : $todosLosPartidos;
     }
 
     public static function generarFechasPartidos() {

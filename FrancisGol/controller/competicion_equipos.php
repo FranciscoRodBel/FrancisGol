@@ -2,6 +2,7 @@
     session_start();
     require_once "../model/Usuario.php";
     require_once "../model/Competicion.php";
+    require_once "../model/Equipo.php";
     require_once "../model/realizar_consultas.php";
 
     $titulo = "FrancisGol - Competición equipos";
@@ -14,7 +15,7 @@
         $datosCompeticion = $competicion->pintarCompeticion($competicion);
         
         $equipos = realizarConsulta("competicion_equipos_$idCompeticion"."_"."2023", "teams?league=$idCompeticion&season=2023", 86400); 
-        $equiposCompeticion = $competicion->generarEquipos($equipos);
+        $equiposCompeticion = $competicion->generarEquiposCompeticion($equipos);
 
     } else {
     

@@ -1,7 +1,7 @@
 <main>
     <h1 class="titulo_pagina">Competiciones</h1>
     <article>
-            <section>
+        <section class="seccion_buscador">
             <form method="GET">
                 <div class="buscador">
                     <label for="competiciones" class="icono_busqueda">
@@ -12,11 +12,10 @@
                 <datalist id="listaCompeticiones"></datalist>
                 <input type="submit" value="Enviar" class="boton_enviar">
             </form>
-
-            </section>
-            <section class="seccion_negra">
-
-            </section>
+        </section>
+        <section class="seccion_negra">
+            <?= $resultadoCompeticiones ?>
+        </section>
     </article>
 </main>
 <script src="../view/assets/scripts/favoritos.js"></script>

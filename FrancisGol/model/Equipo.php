@@ -1,5 +1,4 @@
 <?php
-    require_once "../model/Favoritos.php";
     class Equipo {
         
         public function __construct(
@@ -43,8 +42,8 @@
 
         public function pintarEquipo() {
             
-            $equiposFavoritas = Favoritos::recogerEquiposFavorito();
-            $claseFavorito = in_array($this->__get("id"), $equiposFavoritas->__get("equiposCompeticiones")) ? "favorito" : "";
+            $equiposFavoritos = Equipo::recogerEquiposFavorito();
+            $claseFavorito = isset($_SESSION["usuario"]) && in_array($this->__get("id"), $equiposFavoritos) ? "favorito" : "";
             
             $datosEquipo = '<div class="competicion_equipo">
                 <a>
@@ -306,5 +305,107 @@
             } catch (mysqli_sql_exception) {
                 // Si el equipo ya está insertado no hace nada
             }
+        }
+
+        /* FUNCIONES DE EQUIPOS FAVORITOS */
+
+        public static function recogerEquiposFavorito() {
+    
+            $arrayFavoritos = [];
+    
+            if (isset($_SESSION['usuario'])) {
+    
+                $usuario = unserialize($_SESSION['usuario']);
+                $idUsuario = $usuario->__get("id");
+        
+                $conexion = FrancisGolBD::establecerConexion();
+        
+                $consulta = "SELECT * FROM equipo_favorito WHERE idUsuario = $idUsuario";
+                $resultado = $conexion->query($consulta);
+        
+                while ($row = $resultado->fetch_assoc()) {
+    
+                    $arrayFavoritos[] = $row["idEquipo"];
+                }
+                
+                return $arrayFavoritos;
+            }
+        }
+        public static function insertarEquipoFavorito($idEquipo, $idUsuario) {
+
+            $conexion = FrancisGolBD::establecerConexion();
+    
+            $consulta = $conexion->prepare("INSERT INTO equipo_favorito (idUsuario, idEquipo)  VALUES (?, ?)");
+            $consulta->bind_param("ii", $idUsuario, $idEquipo);
+            $consulta->execute();
+        }
+    
+        public static function eliminarEquipoFavorito($idEquipo, $idUsuario) {
+    
+            $conexion = FrancisGolBD::establecerConexion();
+    
+            $consulta = "SELECT * FROM equipo_favorito WHERE idUsuario = $idUsuario";
+            $resultado = $conexion->query($consulta);
+            if (mysqli_num_rows($resultado) == 1) return false;
+    
+            $consulta = $conexion->prepare("DELETE FROM equipo_favorito WHERE idUsuario = ? AND idEquipo = ?");
+            $consulta->bind_param("ii", $idUsuario, $idEquipo);
+            return $consulta->execute();
+            
+        }
+
+        /* FUNCIONES PÁGINA DE FICHAJES DE EQUIPO*/
+        public static function pintarFichajesEquipo($fichajesEquipo) {
+
+            $fichajes = "";
+        
+            foreach ($fichajesEquipo->response as $key => $jugador) {
+        
+                foreach ($jugador->transfers as $key => $datoFichaje) {
+        
+                    if (preg_match("/^2024/", $datoFichaje->date) || preg_match("/^2023/", $datoFichaje->date)) {
+            
+                        // $jugador->player->id
+                        $fichajes .= "<div>
+                            <div class='datos_fichaje'>
+                                <a href=''>".$jugador->player->name."</a>
+                                <hr>
+                                <p>".$datoFichaje->date."</p>
+                            </div>
+                            <div class='fichaje_equipos'>
+                                <div class='equipo_fichaje'>
+                                    <a href=''>
+                                        <img src='".$datoFichaje->teams->out->logo."' alt='Logo'>
+                                        <p>".$datoFichaje->teams->out->name."</p>
+                                    </a>
+                                </div>
+                                <div class='tipo_fichaje'><p>";
+                                    $fichajes .= match ($datoFichaje->type) {
+                                        "Loan" => "Cedido",
+                                        "Free" => "Gratis",
+                                        "N/A" => "",
+                                        default => $datoFichaje->type
+                                    };
+                                    $fichajes .= "</p>
+                                    <p>
+                                        <i class='fa-sharp fa-solid fa-chevron-right'></i>
+                                        <i class='fa-sharp fa-solid fa-chevron-right'></i>
+                                        <i class='fa-sharp fa-solid fa-chevron-right'></i>
+                                    </p>
+                                </div>
+                                <div class='equipo_fichaje'>
+                                    <a href=''>
+                                        <img src='".$datoFichaje->teams->in->logo."' alt='Logo'>
+                                        <p>".$datoFichaje->teams->in->name."</p>
+                                    </a>
+                                </div>
+                            </div>".
+                        "</div>";
+            
+                    }
+                }
+            }
+        
+            return $fichajes;
         }
     }

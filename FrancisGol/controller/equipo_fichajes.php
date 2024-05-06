@@ -1,7 +1,6 @@
 <?php
     session_start();
     require_once "../model/Usuario.php";
-    require_once "../model/fichajes.php";
     require_once "../model/realizar_consultas.php";
     require_once "../model/Equipo.php";
 
@@ -15,7 +14,7 @@
         $datosEquipo = $equipo->pintarEquipo();
          
         $fichajesEquipo = realizarConsulta("fichajes_$idEquipo", "transfers?team=$idEquipo", 86400); 
-        $fichajes = pintarFichajesEquipo($fichajesEquipo);
+        $fichajes = Equipo::pintarFichajesEquipo($fichajesEquipo);
 
     } else {
 

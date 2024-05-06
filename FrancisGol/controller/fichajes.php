@@ -1,9 +1,9 @@
 <?php
     session_start();
     require_once "../model/Usuario.php";
+    require_once "../model/Equipo.php";
     require_once "../model/paises.php";
     require_once "../model/realizar_consultas.php";
-    require_once "../model/fichajes.php";
 
     $titulo = "FrancisGol - Registro";
     $lista_css = ["registro_inicio.css"];
@@ -18,7 +18,7 @@
             $idEquipo = $_POST['equipos_competicion'];
             $fichajesEquipo = realizarConsulta("fichajes_$idEquipo", "transfers?team=$idEquipo", 86400); 
 
-            $fichajes = pintarFichajesEquipo($fichajesEquipo);
+            $fichajes = Equipo::pintarFichajesEquipo($fichajesEquipo);
 
         } else {
             $fichajes = "<p>No se encontró el equipo</p>";

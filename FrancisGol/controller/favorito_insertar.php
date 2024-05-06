@@ -3,7 +3,6 @@
     require_once "../model/Usuario.php";
     require_once "../model/Equipo.php";
     require_once "../model/Competicion.php";
-    require_once "../model/Favoritos.php";
 
     Usuario::comprobarSesionIniciada(false);
 
@@ -17,14 +16,14 @@
             $competicion = Competicion::recogerCompeticion($_GET["id"]);
             $idCompeticion = $competicion->__get("id");
             
-            Favoritos::insertarCompeticion($idCompeticion, $idUsuario);
+            Competicion::insertarCompeticionFavorita($idCompeticion, $idUsuario);
 
         } else if ($_GET["accion"] == "equipo") {
 
             $equipo = Equipo::recogerEquipo($_GET["id"]);
             $idEquipo = $equipo->__get("id");
 
-            Favoritos::insertarEquipo($idEquipo, $idUsuario);
+            Equipo::insertarEquipoFavorito($idEquipo, $idUsuario);
         }
  
     }

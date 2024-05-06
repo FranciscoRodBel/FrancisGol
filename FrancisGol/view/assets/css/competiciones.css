@@ -1,6 +1,6 @@
 .buscador {
     position: relative;
-    width: 100vw;
+    width: 100%;
     display: flex;
     justify-content: center;
     margin-bottom: 20px;
@@ -88,6 +88,16 @@
 
 .ocultarjornada {
     display: none;
+}
+
+/* Página competiciones */
+.competiciones {
+    margin: 15px 0px;
+    padding: 0;
+}
+
+.seccion_buscador {
+    width: 100%;
 }
 
 @media screen and (min-width: 450px) {

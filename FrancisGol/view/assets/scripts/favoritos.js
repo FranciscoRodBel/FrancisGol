@@ -4,7 +4,10 @@ function escucharFavoritos() {
 
     for (const estrella of estrellasFavorito) {
         
-        estrella.addEventListener("click", () => {
+        estrella.addEventListener("click", (evento) => {
+
+            evento.stopPropagation();
+            evento.preventDefault();
             
             let idEstrella = estrella.id;
             let idEstrellaDivido = idEstrella.split('_');

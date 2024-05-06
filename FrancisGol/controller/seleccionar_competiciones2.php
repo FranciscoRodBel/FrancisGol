@@ -28,7 +28,7 @@
         foreach ($resultado->response as $liga) {
 
             $texto = $_GET['texto'];
-            $pattern = "/^$texto/i";
+            $pattern = "/$texto/i";
 
             if (preg_match($pattern, $liga->league->name)) {
                 $competicion = "<option data-idCompeticion='".$liga->league->id."'>".$liga->league->name."</option>"; 
