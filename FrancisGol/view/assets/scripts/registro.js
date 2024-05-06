@@ -1,6 +1,7 @@
 function escucharFormularios() {
         
     let selectFoto = document.getElementById("seleccionar_foto");
+    let foto_perfil = document.getElementById("foto_perfil");
     let inputFile = document.getElementById("inputFoto");
     let botonAnterior = document.querySelectorAll(".anterior");
     let botonSiguiente = document.querySelectorAll(".siguiente");
@@ -15,6 +16,13 @@ function escucharFormularios() {
         boton.addEventListener("click", (evento) => { cambiarSeccion(evento, "siguiente") });
     }
 
+
+    foto_perfil.addEventListener("click", (evento) => {
+            
+        evento.preventDefault();
+        inputFile.click();
+
+    });
     selectFoto.addEventListener("click", (evento) => {
             
         evento.preventDefault();

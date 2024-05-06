@@ -19,9 +19,13 @@
         <section class='fichajes'>
             <?= $fichajes ?>
         </section>
+        <section class='fichajes' id="fichajes_equipos_favoritos">
+
+        </section>
     </article>
 </main>
 <script src="../view/assets/scripts/fichajes.js"></script>
 <script>
     seleccionarCompeticionesEquipos();
+    escucharSelectEquiposFavoritos();
 </script>

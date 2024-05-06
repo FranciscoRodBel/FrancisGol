@@ -46,7 +46,7 @@
             $claseFavorito = isset($_SESSION["usuario"]) && in_array($this->__get("id"), $equiposFavoritos) ? "favorito" : "";
             
             $datosEquipo = '<div class="competicion_equipo">
-                <a>
+                <a href="../controller/equipo_estadisticas.php?equipo='.$this->__get("id").'">
                     <img src="'.$this->__get("escudo").'" alt="Logo">
                     <span>'.$this->__get("nombre").'</span>
                 </a>';
@@ -320,12 +320,15 @@
         
                 $conexion = FrancisGolBD::establecerConexion();
         
-                $consulta = "SELECT * FROM equipo_favorito WHERE idUsuario = $idUsuario";
+                $consulta = "SELECT ef.idEquipo, eq.nombre FROM equipo_favorito ef
+                             INNER JOIN equipo eq
+                             ON eq.idEquipo = ef.idEquipo
+                             WHERE ef.idUsuario = $idUsuario";
                 $resultado = $conexion->query($consulta);
         
                 while ($row = $resultado->fetch_assoc()) {
     
-                    $arrayFavoritos[] = $row["idEquipo"];
+                    $arrayFavoritos[$row["nombre"]] = $row["idEquipo"];
                 }
                 
                 return $arrayFavoritos;
@@ -368,13 +371,13 @@
                         // $jugador->player->id
                         $fichajes .= "<div>
                             <div class='datos_fichaje'>
-                                <a href=''>".$jugador->player->name."</a>
+                                <a href='../controller/jugador_datos.php?jugador=".$jugador->player->id."'>".$jugador->player->name."</a>
                                 <hr>
                                 <p>".$datoFichaje->date."</p>
                             </div>
                             <div class='fichaje_equipos'>
                                 <div class='equipo_fichaje'>
-                                    <a href=''>
+                                    <a href='../controller/equipo_estadisticas.php?equipo={$datoFichaje->teams->out->id}'>
                                         <img src='".$datoFichaje->teams->out->logo."' alt='Logo'>
                                         <p>".$datoFichaje->teams->out->name."</p>
                                     </a>
@@ -394,7 +397,7 @@
                                     </p>
                                 </div>
                                 <div class='equipo_fichaje'>
-                                    <a href=''>
+                                    <a href='../controller/equipo_estadisticas.php?equipo={$datoFichaje->teams->in->id}'>
                                         <img src='".$datoFichaje->teams->in->logo."' alt='Logo'>
                                         <p>".$datoFichaje->teams->in->name."</p>
                                     </a>
@@ -407,5 +410,18 @@
             }
         
             return $fichajes;
+        }
+
+        public static function generarSelectEquipos($equipos) {
+            
+            $opcionesEquipos = "<select class='seleccionar' id='seleccion_equipo'>";
+
+            foreach ($equipos as $nombreEquipo => $idEquipo) {
+                
+                $opcionesEquipos .= "<option value='{$idEquipo}'>{$nombreEquipo}</option>";
+            }
+            $opcionesEquipos .= "/<select>";
+
+            return $opcionesEquipos;
         }
     }

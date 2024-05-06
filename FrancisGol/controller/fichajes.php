@@ -25,7 +25,16 @@
         }
 
     } else {
-        $fichajes = "";
+
+        if (isset($_SESSION["usuario"])) {
+
+            $equiposFavoritos = Equipo::recogerEquiposFavorito();
+            $fichajes = Equipo::generarSelectEquipos($equiposFavoritos);
+
+        } else {
+            
+            $fichajes = "";
+        }
     }
 
     include '../view/templates/head.php';

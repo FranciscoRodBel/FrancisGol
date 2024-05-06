@@ -42,6 +42,7 @@ form {
     height: 200px;
     border-radius: 50%;
     margin-bottom: 10px;
+    cursor: pointer;
 }
 
 .seleccionar_foto, .seleccionar_pais {

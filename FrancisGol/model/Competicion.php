@@ -163,7 +163,7 @@
         
             foreach ($equipos->response as $equipo) {
         
-                $claseFavorito = in_array($equipo->team->id, $equiposFavoritos) ? "favorito" : "";
+                $claseFavorito = isset($_SESSION['usuario']) && in_array($equipo->team->id, $equiposFavoritos) ? "favorito" : "";
 
                 $todosLosEquipos .= "<a href='../controller/equipo_estadisticas.php?equipo={$equipo->team->id}'><div>";
                     $todosLosEquipos .= "<img src=".$equipo->team->logo." alt='logo competición'>";
