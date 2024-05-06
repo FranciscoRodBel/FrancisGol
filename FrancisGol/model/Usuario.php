@@ -133,7 +133,7 @@ class Usuario { // Se usa para manejar todos los datos del usuario
 
     public function generarFoto() {
     
-        $rutaTemporal = $_FILES['foto']['tmp_name']; // Obtén la ruta temporal del archivo
+        $rutaTemporal = $_FILES['inputFoto']['tmp_name']; // Obtén la ruta temporal del archivo
     
         if ($rutaTemporal == "") { // Si está vacía es que no se ha enviado la foto
             $archivo = addslashes(file_get_contents("../view/assets/images/foto_perfil.png"));
@@ -141,7 +141,7 @@ class Usuario { // Se usa para manejar todos los datos del usuario
         } else {
 
             // Del nombre del archivo recojo la extensión del archivo
-            $nombreArchivo = basename($_FILES['foto']['name']);
+            $nombreArchivo = basename($_FILES['inputFoto']['name']);
             $extension = strtolower(pathinfo($nombreArchivo, PATHINFO_EXTENSION));
         
             if (!in_array($extension, ["png", "jpeg", "jpg"])) { // Si el tipo de archivo no es válido devuelve error
