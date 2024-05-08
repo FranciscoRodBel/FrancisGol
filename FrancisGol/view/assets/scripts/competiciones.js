@@ -10,13 +10,11 @@ function seleccionarDatos(selectFormulario, rutaController, divPintarDatos, cond
         success: function(datos) {
             $(divPintarDatos).html(datos);
             
-            
             if (condicion) {
 
                 seleccionarDatos("#competiciones2", "../controller/seleccionar_equipos.php", '#equipos_competicion', false);
-
             }
-
+            escucharFavoritosRegistro();
         }
     });
 }
@@ -45,4 +43,5 @@ function seleccionarCompeticiones() {
 
         seleccionarDatos("#competiciones2", "../controller/seleccionar_equipos.php", '#equipos_competicion', false);
     });
+    
 }

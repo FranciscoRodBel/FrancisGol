@@ -14,7 +14,7 @@
             $competiciones = "<div>";
                 $competiciones .= "<img src=".$liga->league->logo." alt='logo competición'>";
                 $competiciones .= "<p>".$liga->league->name."</p>";
-                $competiciones .= isset($_SESSION["usuario"]) ? '<i class="fa-solid fa-star icono_estrella" id="competicion_'.$liga->league->id.'"></i>' : '';   
+                $competiciones .= '<i class="fa-solid fa-star icono_estrella" id="competicion_'.$liga->league->id.'"></i>';   
             $competiciones .= "</div>";
 
             if ($liga->country->code == $codigoPais) {
@@ -22,6 +22,5 @@
             }
 
         }
-
         echo $competiciones_pais;
     }

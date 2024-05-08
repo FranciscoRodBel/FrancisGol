@@ -14,9 +14,8 @@
             $equipos .= "<div>";
                 $equipos .= "<img src=".$equipo->team->logo." alt='logo competición'>";
                 $equipos .= "<p>".$equipo->team->name."</p>";
-                $equipos .= isset($_SESSION["usuario"]) ? '<i class="fa-solid fa-star icono_estrella" id="equipo'.$equipo->team->id.'"></i>' : ''; 
+                $equipos .= '<i class="fa-solid fa-star icono_estrella" id="equipo_'.$equipo->team->id.'"></i>'; 
             $equipos .= "</div>";
         }
-
         echo $equipos;
     }

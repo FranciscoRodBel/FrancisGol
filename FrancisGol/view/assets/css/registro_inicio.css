@@ -29,6 +29,15 @@ form {
     display: none;
 }
 
+.inputIncorrecto {
+    border: 2px solid var(--septimo_color);
+}
+
+.mensaje_error {
+    color: var(--septimo_color);
+    text-align: center;
+}
+
 .cuadro_inicio_registro label {
     color: var(--cuarto_color);
     text-align: center;
