@@ -5,6 +5,8 @@ function escucharFormularios() {
     let inputFile = document.getElementById("inputFoto");
     let botonAnterior = document.querySelectorAll(".anterior");
     let botonSiguiente = document.querySelectorAll(".siguiente");
+    let iconosOjos = document.querySelectorAll(".ojo_contrasenia");
+    let botonRegistro = document.getElementById("registro");
 
     for (const boton of botonAnterior) {
         
@@ -16,6 +18,10 @@ function escucharFormularios() {
         boton.addEventListener("click", (evento) => { cambiarSeccion(evento, "siguiente") });
     }
 
+    for (const icono of iconosOjos) {
+        
+        icono.addEventListener("click", () => {mostrarContrasenia(icono)});
+    }
 
     foto_perfil.addEventListener("click", (evento) => {
             
@@ -31,6 +37,8 @@ function escucharFormularios() {
     });
 
     inputFile.addEventListener("change", () => {cambiarImagen(inputFile)});
+
+    botonRegistro.addEventListener("click", comprobarRegistro);
 
 }
 
@@ -113,12 +121,33 @@ function alPulsarEnEstrella(evento) {
 
 function comprobarFavorito(estrella, accion, id) {
 
+    let botonSiguiente = document.getElementById("competicion_seleccionada");
+    let botonRegistro = document.getElementById("registro");
+
     if (estrella.classList.contains('favorito')) {
 
         favoritos[accion].splice(favoritos[accion].indexOf(id), 1);
+
+        if (accion == "competicion" && favoritos["competicion"].length == 0) {
+            
+            botonSiguiente.classList.add("ocultar");
+
+        } else if (accion == "equipo" && favoritos["equipo"].length == 0) {
+            
+            botonRegistro.classList.add("ocultar");
+        }
     } else {
 
         favoritos[accion].push(id);
+
+        if (accion == "competicion" && favoritos["competicion"].length > 0) {
+            
+            botonSiguiente.classList.remove("ocultar");
+
+        } else if (accion == "equipo" && favoritos["equipo"].length > 0) {
+            
+            botonRegistro.classList.remove("ocultar");
+        }
     }
 
     estrella.classList.toggle("favorito");
@@ -132,19 +161,19 @@ function comprobarInputs() {
     let repetir_contrasenia = document.getElementById("repetir_contrasenia");
 
     nombre.addEventListener("blur", function () {
-        comprobarAlSalirDelInput(nombre, /^[\w.]{5,25}$/, "El nombre tiene que estar compuesto por letras, números, puntos o guiones bajos entre 5 y 25 caracteres.");
+        comprobarAlSalirDelInput(nombre, /^[\w.]{5,25}$/i, "El nombre tiene que estar compuesto por letras, números, puntos o guiones bajos entre 5 y 25 caracteres.");
     })
 
     email.addEventListener("blur", function () {
-        comprobarAlSalirDelInput(email, /^[\w.]{5,25}$/, "hola");
+        comprobarAlSalirDelInput(email, /(?=^.{5,70}$)[\w]+@[\w]+\.[\w]+/i, "El email tiene que estar compuesto por caracteres(letras, números o guiones bajos) una @ seguido de caracteres, un punto y caracteres entre 5 y 70 caracteres");
     })
 
     contrasenia.addEventListener("blur", function () {
-        comprobarAlSalirDelInput(email, /^[\w.]{5,25}$/, "hola");
+        comprobarAlSalirDelInput(contrasenia, /(?!.*\s.*)(?=.*[0-9].*)(?=.*[a-z].*)(?=.*[A-Z].*)(?=.*[\W_].*)^[\w\W]{8,50}$/, "El email tiene que estar compuesto mínimo por una letra mayúscula y minúscula, un número y un caracter extraño entre 8 y 50 caracteres");
     })
 
     repetir_contrasenia.addEventListener("blur", function () {
-        comprobarAlSalirDelInput(email, /^[\w.]{5,25}$/, "hola");
+        comprobarAlSalirDelInput(repetir_contrasenia, /(?!.*\s.*)(?=.*[0-9].*)(?=.*[a-z].*)(?=.*[A-Z].*)(?=.*[\W_].*)^[\w\W]{8,50}$/, "El email tiene que estar compuesto mínimo por una letra mayúscula y minúscula, un número y un caracter extraño entre 8 y 50 caracteres");
     })
     
 }
@@ -172,8 +201,51 @@ function comprobarAlSalirDelInput(etiqueta, expresion, mensaje) {
 
         }
         
+    } else {
+
+        etiqueta.value = ""; 
+    }
+}
+
+function mostrarContrasenia(icono) {
+        
+    if (icono.nextElementSibling.type == "password") {
+
+        icono.nextElementSibling.type = "text";
 
     } else {
-        nombre.value = ""; 
+
+        icono.nextElementSibling.type = "password";
     }
+    
+}
+
+function comprobarRegistro(event) {
+    
+    event.preventDefault();
+
+    let formulario = document.querySelector("form");
+
+    let formData = new FormData(formulario);
+
+    formData.append('favoritos', JSON.stringify(favoritos));
+
+    let opcionesFetch = {
+        method: 'POST',
+        body: formData
+    };
+
+    fetch(formulario.getAttribute('action'), opcionesFetch)
+    .then(resultado => resultado.text())
+    .then(respuesta => {
+
+        let parrafoResultado = document.getElementById("resultado_formulario");
+        parrafoResultado.innerHTML = respuesta;
+        
+        console.log(response);
+
+    })
+    .catch(error => {
+        console.error('Error:', error);
+    });
 }

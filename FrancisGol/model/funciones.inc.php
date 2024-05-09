@@ -1,4 +1,5 @@
 <?php
+
     function comprobarDatos(string $dato) : string { // Comprueba que todos los datos no lleven código oculto
 
         $dato = trim($dato);

@@ -33,9 +33,25 @@ form {
     border: 2px solid var(--septimo_color);
 }
 
+.ojo_contrasenia {
+    position: relative;
+    top: 25px;
+    left: 80px;
+    cursor: pointer;
+    color: var(--segundo_color);
+}
+
+.contrasenia {
+    padding-right: 35px;
+}
+
 .mensaje_error {
     color: var(--septimo_color);
     text-align: center;
+}
+
+.ocultar {
+    display: none;
 }
 
 .cuadro_inicio_registro label {

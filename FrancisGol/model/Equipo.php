@@ -17,27 +17,40 @@
 
         public static function recogerEquipo($idEquipo) {
         
-            $conexion = FrancisGolBD::establecerConexion();
-            $consulta = "SELECT * FROM equipo WHERE idEquipo = $idEquipo";
-            $resultado = $conexion->query($consulta);
-    
-            if (mysqli_num_rows($resultado) == 1) {
+            if (is_numeric($idEquipo)) {
+
+                $conexion = FrancisGolBD::establecerConexion();
+                $consulta = "SELECT * FROM equipo WHERE idEquipo = $idEquipo";
+                $resultado = $conexion->query($consulta);
         
-                while($row = mysqli_fetch_assoc($resultado)) {
-                    
-                    $equipo = new Equipo($row['idEquipo'], $row['nombre'], $row['escudo']);
+                if (mysqli_num_rows($resultado) == 1) {
+            
+                    while($row = mysqli_fetch_assoc($resultado)) {
+                        
+                        $equipo = new Equipo($row['idEquipo'], $row['nombre'], $row['escudo']);
+                    }
+    
+                } else {
+    
+                    $equipo = realizarConsulta("equipo_$idEquipo", "teams?id=$idEquipo", 86400);
+    
+                    if ($equipo->results != 0) {
+
+                        $equipo = $equipo->response[0]->team;
+                        $equipo = new Equipo($equipo->id, $equipo->name, $equipo->logo);
+                        $equipo->insertarEquipo();
+
+                    } else {
+
+                        return "";
+                    }
+
                 }
-
-            } else {
-
-                $equipo = realizarConsulta("equipo_$idEquipo", "teams?id=$idEquipo", 86400);
-
-                $equipo = $equipo->response[0]->team;
-                $equipo = new Equipo($equipo->id, $equipo->name, $equipo->logo);
-                $equipo->insertarEquipo();
+    
+                return $equipo;
             }
 
-            return $equipo;
+            return "";
         }
 
         public function pintarEquipo() {

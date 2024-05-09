@@ -1,17 +1,19 @@
 <main>
     <h1 class="titulo_pagina">Registro de usuario</h1>
     <article>
-        <!-- <form action="../controller/registro.php" method="POST" enctype="multipart/form-data"> -->
+        <form action="../controller/registro_comprobar.php" method="POST" enctype="multipart/form-data">
             
             <section class="cuadro_inicio_registro desocultar">
                     <label for="nombre">Nombre usuario</label>
-                    <input type="text" id="nombre" name="nombre" placeholder="Nombre" value="<?= $_POST["nombre"] ?? "" ?>">
+                    <input type="text" id="nombre" name="nombre" placeholder="Nombre">
                     <label for="email">Email</label>
-                    <input type="text" id="email" name="email" placeholder="Email" value="<?= $_POST["email"] ?? "" ?>">
+                    <input type="text" id="email" name="email" placeholder="Email">
                     <label for="contrasenia">Contraseña</label>
-                    <input type="password" id="contrasenia" name="contrasenia" placeholder="Contraseña">
+                    <i class="fa-solid fa-eye ojo_contrasenia"></i>
+                    <input type="password" id="contrasenia" class="contrasenia" name="contrasenia" placeholder="Contraseña">
                     <label for="repetir_contrasenia">Repetir contraseña</label>
-                    <input type="password" id="repetir_contrasenia" name="repetir_contrasenia" placeholder="Contraseña">
+                    <i class="fa-solid fa-eye ojo_contrasenia"></i>
+                    <input type="password" id="repetir_contrasenia" class="contrasenia" name="repetir_contrasenia" placeholder="Contraseña">
                     <div class="conjunto_botones">
                         <button class="boton_gris siguiente">Siguiente</button>   
                     </div>
@@ -37,7 +39,7 @@
                 </div>
                 <div class="conjunto_botones">
                     <button class="boton_gris anterior">Anterior</button>
-                    <button class="boton_gris siguiente">Siguiente</button> 
+                    <button class="boton_gris siguiente ocultar" id="competicion_seleccionada">Siguiente</button> 
                 </div>
             </section>
 
@@ -54,9 +56,9 @@
                 </div>
                 <div class="conjunto_botones">
                     <button class="boton_gris anterior">Anterior</button>
-                    <input type="submit" value="Registrarse" name="registrarse" class="boton_verde">
+                    <input type="submit" id="registro" value="Registrarse" name="registrarse" class="boton_verde ocultar">
                 </div>
-                <p class='titulo_informacion'><?= $resultadoFormulario ?></p>
+                <p id="resultado_formulario" class='titulo_informacion'></p>
             </section>
         </form>
     </article>
