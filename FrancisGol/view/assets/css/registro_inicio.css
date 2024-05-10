@@ -54,6 +54,10 @@ form {
     display: none;
 }
 
+input:focus {
+    outline: none;
+}
+
 .cuadro_inicio_registro label {
     color: var(--cuarto_color);
     text-align: center;

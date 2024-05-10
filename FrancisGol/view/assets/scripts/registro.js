@@ -161,7 +161,7 @@ function comprobarInputs() {
     let repetir_contrasenia = document.getElementById("repetir_contrasenia");
 
     nombre.addEventListener("blur", function () {
-        comprobarAlSalirDelInput(nombre, /^[\w.]{5,25}$/i, "El nombre tiene que estar compuesto por letras, números, puntos o guiones bajos entre 5 y 25 caracteres.");
+        comprobarAlSalirDelInput(nombre, /(?=.*[a-zA-Z].*)^[\w.]{5,25}$/i, "El nombre tiene que estar compuesto por letras, números, puntos o guiones bajos entre 5 y 25 caracteres.");
     })
 
     email.addEventListener("blur", function () {
@@ -169,11 +169,11 @@ function comprobarInputs() {
     })
 
     contrasenia.addEventListener("blur", function () {
-        comprobarAlSalirDelInput(contrasenia, /(?!.*\s.*)(?=.*[0-9].*)(?=.*[a-z].*)(?=.*[A-Z].*)(?=.*[\W_].*)^[\w\W]{8,50}$/, "El email tiene que estar compuesto mínimo por una letra mayúscula y minúscula, un número y un caracter extraño entre 8 y 50 caracteres");
+        comprobarAlSalirDelInput(contrasenia, /(?!.*\s.*)(?=.*[0-9].*)(?=.*[a-z].*)(?=.*[A-Z].*)(?=.*[\W_].*)^[\w\W]{8,50}$/, "La contraseña tiene que estar compuesto mínimo por una letra mayúscula y minúscula, un número y un caracter extraño entre 8 y 50 caracteres.");
     })
 
     repetir_contrasenia.addEventListener("blur", function () {
-        comprobarAlSalirDelInput(repetir_contrasenia, /(?!.*\s.*)(?=.*[0-9].*)(?=.*[a-z].*)(?=.*[A-Z].*)(?=.*[\W_].*)^[\w\W]{8,50}$/, "El email tiene que estar compuesto mínimo por una letra mayúscula y minúscula, un número y un caracter extraño entre 8 y 50 caracteres");
+        comprobarAlSalirDelInput(repetir_contrasenia, /(?!.*\s.*)(?=.*[0-9].*)(?=.*[a-z].*)(?=.*[A-Z].*)(?=.*[\W_].*)^[\w\W]{8,50}$/, "La contraseña tiene que estar compuesto mínimo por una letra mayúscula y minúscula, un número y un caracter extraño entre 8 y 50 caracteres.");
     })
     
 }
@@ -224,6 +224,7 @@ function comprobarRegistro(event) {
     
     event.preventDefault();
 
+    let parrafoResultado = document.getElementById("resultado_formulario");
     let formulario = document.querySelector("form");
 
     let formData = new FormData(formulario);
@@ -235,11 +236,12 @@ function comprobarRegistro(event) {
         body: formData
     };
 
+    parrafoResultado.innerHTML = "<div class='cargando'></div>";
+
     fetch(formulario.getAttribute('action'), opcionesFetch)
     .then(resultado => resultado.text())
     .then(respuesta => {
 
-        let parrafoResultado = document.getElementById("resultado_formulario");
         parrafoResultado.innerHTML = respuesta;
         
         console.log(response);

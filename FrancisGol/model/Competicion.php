@@ -19,26 +19,39 @@
 
         public static function recogerCompeticion($idCompeticion) {
         
-            $conexion = FrancisGolBD::establecerConexion();
-            $consulta = "SELECT * FROM competicion WHERE idCompeticion = $idCompeticion";
-            $resultado = $conexion->query($consulta);
-    
-            if (mysqli_num_rows($resultado) == 1) {
+            if (is_numeric($idCompeticion)) {
+
+                $conexion = FrancisGolBD::establecerConexion();
+                $consulta = "SELECT * FROM competicion WHERE idCompeticion = $idCompeticion";
+                $resultado = $conexion->query($consulta);
         
-                while($row = mysqli_fetch_assoc($resultado)) {
+                if (mysqli_num_rows($resultado) == 1) {
+            
+                    while($row = mysqli_fetch_assoc($resultado)) {
+                        
+                        $competicion = new Competicion($row['idCompeticion'], $row['nombre'], $row['logo']);
+                    }
+
+                } else {
+
+                    $competicion = realizarConsulta("competicion_$idCompeticion", "leagues?id=$idCompeticion", 86400); 
                     
-                    $competicion = new Competicion($row['idCompeticion'], $row['nombre'], $row['logo']);
+                    if ($competicion->results != 0) {
+
+                        $competicion = $competicion->response[0]->league;
+                        $competicion = new Competicion($competicion->id, $competicion->name, $competicion->logo);
+                        $competicion->insertarCompeticion();
+
+                    } else {
+
+                        return "";
+                    }
                 }
 
-            } else {
-
-                $competicion = realizarConsulta("competicion_$idCompeticion", "leagues?id=$idCompeticion", 86400); 
-                $competicion = $competicion->response[0]->league;
-                $competicion = new Competicion($competicion->id, $competicion->name, $competicion->logo);
-                $competicion->insertarCompeticion();
+                return $competicion;
             }
 
-            return $competicion;
+            return "";
         }
 
         public function pintarCompeticion($datosCompeticion) {

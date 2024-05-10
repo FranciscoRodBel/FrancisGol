@@ -99,13 +99,17 @@ class Usuario { // Se usa para manejar todos los datos del usuario
         
         $consulta = "INSERT INTO usuario (email, nombre, contrasenia, foto) VALUES ('$email', '$nombre', '$contrasenia', '$foto')";
 
-        $conexion->query($consulta); // Ejecutar la consulta
-        $conexion->close(); // Cierra la conexión
+        $resultado = $conexion->query($consulta);
+        $idUsuario = mysqli_insert_id($conexion);
+
+        if ($resultado) return $idUsuario;
+
+        return $resultado;
     }
     
     
    
-    public function comprobarRegistro($email, $nombre, $contraseniaUno, $contraseniaDos) {
+    public function comprobarRegistro($email, $nombre, $contraseniaUno, $contraseniaDos, $competicionesFavoritas, $equipoFavoritas) {
         
         $email = comprobarDatos($email);
         $nombre = comprobarDatos($nombre);
@@ -119,15 +123,39 @@ class Usuario { // Se usa para manejar todos los datos del usuario
         if ($this->nombreEnUso($nombre)) return "El nombre ya está en uso";
         
         if (is_numeric($nombre)) return "Nombre incorrecto";
-
+        
         if ($contraseniaUno != $contraseniaDos) return "Las contraseñas no coinciden";
+
+        if (!preg_match("/(?=.*[a-zA-Z].*)^[\w.]{5,25}$/i", $nombre)) return "Nombre incorrecto, debe estar compuesto por letras, números, puntos o guiones bajos entre 5 y 25 caracteres.";
+
+        if (!preg_match("/(?=^.{5,70}$)[\w]+@[\w]+\.[\w]+/i", $email)) return "Email incorrecto, debe estar compuesto por caracteres(letras, números o guiones bajos) una @ seguido de caracteres, un punto y caracteres entre 5 y 70 caracteres.";
+
+        if (!preg_match("/(?!.*\s.*)(?=.*[0-9].*)(?=.*[a-z].*)(?=.*[A-Z].*)(?=.*[\W_].*)^[\w\W]{8,50}$/", $contraseniaUno)) return "Contraseña incorrecta, debe tiene que estar compuesto mínimo por una letra mayúscula, minúscula, un número y un caracter extraño entre 8 y 50 caracteres.";
 
         $foto = $this->generarFoto();
 
         if ($foto == "mal_formato") return "El formato de las fotos no es correcto";
 
-        $this->guardarDatosUsuario($email, $nombre, $contraseniaUno, $foto);
+        $idUsuario = $this->guardarDatosUsuario($email, $nombre, $contraseniaUno, $foto);
         
+        if (empty($idUsuario)) {
+
+            return "Error al guardar los datos";
+            
+        } else {
+
+            foreach ($competicionesFavoritas as $idCompeticion) {
+
+                Competicion::insertarCompeticionFavorita($idCompeticion, $idUsuario);
+            }
+
+            foreach ($equipoFavoritas as $idEquipo) {
+                
+                Equipo::insertarEquipoFavorito($idEquipo, $idUsuario);
+            }
+
+        }
+
         return "Cuenta Creada";
     }
 

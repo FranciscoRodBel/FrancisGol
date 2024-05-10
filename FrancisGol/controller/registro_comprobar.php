@@ -15,32 +15,46 @@
             $contrasenia = comprobarDatos($_POST['contrasenia']);
             $repetir_contrasenia = comprobarDatos($_POST['repetir_contrasenia']);
 
-            $favoritos = json_decode($_POST['favoritos'], true);
-            $competicionesFavoritas = $favoritos["competicion"];
-            $equipoFavoritas = $favoritos["equipo"];
-            
-            // foreach ($competicionesFavoritas as $idCompeticion) {
-            //     echo json_encode($idCompeticion);
-            // }
-            
-            foreach ($equipoFavoritas as $idEquipo) {
+            if (comprobarVacio([$email, $nombre, $contrasenia, $repetir_contrasenia])) {
 
-                if (empty(Equipo::recogerEquipo($idEquipo))) {
-                    $resultadoFormulario = "Los equipos en favoritos no son correctos";
+                $favoritos = json_decode($_POST['favoritos'], true);
+                $competicionesFavoritas = $favoritos["competicion"];
+                $equipoFavoritas = $favoritos["equipo"];
+    
+                $resultadoFormulario = empty($competicionesFavoritas) || empty($equipoFavoritas) ? "Tiene que seleccionar un equipo y una competición." : "";
+
+                if (empty($resultadoFormulario)) {
+                    foreach ($competicionesFavoritas as $idCompeticion) {
+    
+                        if (empty(Competicion::recogerCompeticion($idCompeticion))) {
+                            $resultadoFormulario = "Las competiciones en favoritos no son correctos.";
+                        }
+                    }
                 }
+    
+                if (empty($resultadoFormulario)) {
+                    foreach ($equipoFavoritas as $idEquipo) {
+    
+                        if (empty(Equipo::recogerEquipo($idEquipo))) {
+                            $resultadoFormulario = "Los equipos en favoritos no son correctos.";
+                        }
+                    }
+                }
+    
+                if (empty($resultadoFormulario)) {
+    
+                    $usuario = new Usuario($email);
+                    $resultadoFormulario = $usuario->comprobarRegistro($email, $nombre, $contrasenia, $repetir_contrasenia, $competicionesFavoritas, $equipoFavoritas);
+                }
+    
+                echo $resultadoFormulario;
+
+            } else {
+
+                echo "Debe rellenar todos los datos";
             }
-
-            if (empty($resultadoFormulario)) {
-
-                $usuario = new Usuario($email);
-                $resultadoFormulario = $usuario->comprobarRegistro($email, $nombre, $contrasenia, $repetir_contrasenia);
-            }
-
-            echo $resultadoFormulario;
-
-        
 
     } else {
 
-        echo "Acceso denegado";
+        echo "No se puedo realizar el registro.";
     }
