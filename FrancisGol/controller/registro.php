@@ -4,8 +4,10 @@
     require_once "../model/paises.php";
     require_once "../model/realizar_consultas.php";
 
+    Usuario::comprobarSesionIniciada(true);
+
     $titulo = "FrancisGol - Registro";
-    $lista_css = ["registro_inicio.css"];
+    $lista_css = ["registro_inicio.css", "competiciones.css"];
     
     $paises = realizarConsulta("paises", "countries", 86400); 
     $paises2 = crearOpcionesPaises($paises);

@@ -91,6 +91,7 @@
 }
 
 /* Página competiciones */
+
 .competiciones {
     margin: 15px 0px;
     padding: 0;
@@ -98,6 +99,10 @@
 
 .seccion_buscador {
     width: 100%;
+}
+
+.seccion_competiciones hr:last-of-type  {
+    display: none;
 }
 
 @media screen and (min-width: 450px) {

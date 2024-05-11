@@ -2,6 +2,8 @@
     session_start();
     include '../model/Usuario.php';
 
+    Usuario::comprobarSesionIniciada(true);
+
     $titulo = "FrancisGol - Inicio de sesión";
     $lista_css = ["registro_inicio.css"];
     

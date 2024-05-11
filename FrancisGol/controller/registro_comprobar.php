@@ -6,6 +6,8 @@
     require_once "../model/Equipo.php";
     require_once "../model/funciones.inc.php";
 
+    Usuario::comprobarSesionIniciada(true);
+
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
             $resultadoFormulario = "";

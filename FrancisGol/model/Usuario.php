@@ -190,7 +190,7 @@ class Usuario { // Se usa para manejar todos los datos del usuario
             // Que si la sesión está iniciada lo devuelva a la página de partidos, se usa en páginas de iniciar sesión y registro
             if (isset($_SESSION['usuario'])) {
             
-                header('Location: ./inicioSesion.php');
+                header('Location: ./partidos.php');
                 die();
             
             }

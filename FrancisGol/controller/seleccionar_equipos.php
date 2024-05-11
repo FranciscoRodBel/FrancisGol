@@ -11,9 +11,9 @@
 
         foreach ($resultado->response as $equipo) {
 
-            $equipos .= "<div>";
-                $equipos .= "<img src=".$equipo->team->logo." alt='logo competición'>";
-                $equipos .= "<p>".$equipo->team->name."</p>";
+            $equipos .= "<div class='competicion_equipo'><a>";
+                $equipos .= "<div class='logo_competicion'><img src=".$equipo->team->logo." alt='logo competición'></div>";
+                $equipos .= "<span>".$equipo->team->name."</span></a>";
                 $equipos .= '<i class="fa-solid fa-star icono_estrella" id="equipo_'.$equipo->team->id.'"></i>'; 
             $equipos .= "</div>";
         }

@@ -33,6 +33,7 @@
         $nombreUsuario = "";
         $tituloPlantilla = "";
         $datosEquipo = "";
+        $formacion = "";
         $resultadoPlantilla = "<p>No se encontró la plantilla</p>";
     }
 

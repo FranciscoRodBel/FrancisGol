@@ -21,15 +21,16 @@ class Partido {
     }
 
     public static function recogerPartido($idPartido) {
-        
+
+        $fecha_actual = date('Y-m-d\TH:i:sP');
+
         $partido = realizarConsulta("datos_partido_$idPartido", "fixtures?id=$idPartido", 86400);
         $partido = $partido->response[0];
         
         $hora_partido = strtotime($partido->fixture->date);
         $hora_partido = date('H:i', $hora_partido);
 
-        if (date('H:i') > $hora_partido) {
-
+        if ($fecha_actual < $partido->fixture->date) {
             $resultadoHora = $hora_partido;
         } else {
 
@@ -219,25 +220,31 @@ class Partido {
     /* FUNCIONES PARTIDOS */
     public static function pintarPartidos($partidos) {
     
+        $partidosEquiposFavoritos = [];
         $todosLosPartidos = "";
-    
+        $fecha_actual = date('Y-m-d\TH:i:sP');
+
+        $equiposFavoritos = isset($_SESSION["usuario"]) ? Equipo::recogerEquiposFavorito() : [];
+
         foreach ($partidos->response as $partido) {
     
             $hora_partido = strtotime($partido->fixture->date);
-            // $hora_partido = strtotime('+2 hours', $hora_partido);
             $hora_partido = date('H:i', $hora_partido);
+            $idEquipoLocal = $partido->teams->home->id;
+            $idEquipoVisitante = $partido->teams->away->id;
+            $idPartido = $partido->fixture->id;
             
             $partidosDeUnaLiga = '
                 <div class="enfrentamiento_equipos">
-                    <a href="../controller/partido_resumen.php?partido='.$partido->fixture->id.'">
+                    <a href="../controller/partido_resumen.php?partido='.$idPartido.'">
                         <div class="equipo_local">
                             <img src="'.$partido->teams->home->logo.'" alt="Logo">
                             <span>'.$partido->teams->home->name.'</span>
                         </div>
                         <div class="resultado_hora">
                             <p>VS</p>';
-                            if (date('H:i') > $hora_partido) {
-    
+                            
+                            if ($fecha_actual < $partido->fixture->date) {
                                 $partidosDeUnaLiga .= '<p>'.$hora_partido.'</p>';
                             } else {
     
@@ -255,31 +262,51 @@ class Partido {
     
             $idLigaActual = $partido->league->id;
             $datosLiga[$idLigaActual] = [$partido->league->logo, $partido->league->name];
-            $partidosPorLiga[$idLigaActual][] = $partidosDeUnaLiga;
-    
+            $partidosPorLiga[$idLigaActual][$idPartido] = $partidosDeUnaLiga;
+            
+            if (in_array($idEquipoLocal, $equiposFavoritos) || in_array($idEquipoVisitante, $equiposFavoritos)) {
+                
+                $partidosEquiposFavoritos[$idLigaActual] = $idPartido;
+            }
+
         }
 
         $competicionesFavoritas = !isset($_SESSION["usuario"]) ? [140, 39, 61, 78, 71, 2] : (Competicion::recogerCompeticionFavorita());
 
         foreach ($partidosPorLiga as $idLiga => $partidosLiga) {
 
-            if (in_array($idLiga, $competicionesFavoritas)) {
+            if (in_array($idLiga, $competicionesFavoritas) || array_key_exists($idLiga, $partidosEquiposFavoritos)) {
                     
                 $todosLosPartidos .= '
                 <section class="seccion_negra">
                     <div class="competicion_equipo">
                         <a href="../controller/competicion_clasificacion.php?competicion='.$idLiga.'">
-                            <img src="'.$datosLiga[$idLiga][0].'" alt="Logo">
+                            <div class="logo_competicion"><img src="'.$datosLiga[$idLiga][0].'" alt="Logo"></div>
                             <span>'.$datosLiga[$idLiga][1].'</span>
                         </a>';
-                $todosLosPartidos .= isset($_SESSION["usuario"]) ? '<i class="fa-solid fa-star icono_estrella favorito" id="competicion_'.$idLiga.'"></i>' : "";        
+                $favorito = in_array($idLiga, $competicionesFavoritas) ? "favorito" : "";
+                $todosLosPartidos .= isset($_SESSION["usuario"]) ? '<i class="fa-solid fa-star icono_estrella '.$favorito.'" id="competicion_'.$idLiga.'"></i>' : "";        
+
                 $todosLosPartidos .= '</div><hr>';
 
-                foreach ($partidosLiga as $partidoLiga) {
-                    $todosLosPartidos .= $partidoLiga;
+                foreach ($partidosLiga as $idPartido => $partidoLiga) {
+
+                    if (in_array($idLiga, $competicionesFavoritas)) {
+
+                        $todosLosPartidos .= $partidoLiga;
+
+                    } else {
+
+                        if (in_array($idPartido, $partidosEquiposFavoritos)) {
+                            $todosLosPartidos .= $partidoLiga;
+                        }
+
+                    }
+                    
                 }
         
                 $todosLosPartidos .= "</section>";
+                
             }
         }
     
@@ -298,7 +325,9 @@ class Partido {
     
         }
     
-        $fechas_partidos = "<a href='../controller/partidos.php?fecha=".$fechas[0]."'>".substr($fechas[0],8)."</a><hr>";
+        $fechas_partidos = '<i class="fa-regular fa-calendar"><input type="date" class="inputCalendario"></i>';
+        $fechas_partidos .= '';
+        $fechas_partidos .= "<a href='../controller/partidos.php?fecha=".$fechas[0]."'>".substr($fechas[0],8)."</a><hr>";
         $fechas_partidos .= "<a href='../controller/partidos.php?fecha=".$fechas[1]."'>".substr($fechas[1],8)."</a><hr>";
         $fechas_partidos .= "<a href='../controller/partidos.php?fecha=".$fechas[2]."'>".substr($fechas[2],8)."</a><hr>";
         $fechas_partidos .= "<a href='../controller/partidos.php?fecha=".$fechas[3]."'>Ayer</a><hr>";
@@ -307,7 +336,8 @@ class Partido {
         $fechas_partidos .= "<a href='../controller/partidos.php?fecha=".$fechas[6]."'>".substr($fechas[6],8)."</a><hr>";
         $fechas_partidos .= "<a href='../controller/partidos.php?fecha=".$fechas[7]."'>".substr($fechas[7],8)."</a><hr>";
         $fechas_partidos .= "<a href='../controller/partidos.php?fecha=".$fechas[8]."'>".substr($fechas[8],8)."</a>";
-    
+        $fechas_partidos .= '<i class="fa-regular fa-calendar"><input type="date" class="inputCalendario"></i>';
+        $fechas_partidos .= '';
         return $fechas_partidos;
     
     }

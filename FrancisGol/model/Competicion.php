@@ -61,7 +61,7 @@
 
             $datosCompeticion = '<div class="competicion_equipo">
                 <a>
-                    <img src="'.$this->__get("logo").'" alt="Logo">
+                    <div class="logo_competicion"><img src="'.$this->__get("logo").'" alt="Logo"></div>
                     <span>'.$this->__get("nombre").'</span>
                 </a>';
             $datosCompeticion .= isset($_SESSION["usuario"]) ? '<i class="fa-solid fa-star icono_estrella '.$claseFavorito.'" id="competicion_'.$this->__get("id").'"></i>' : '';   
@@ -80,7 +80,7 @@
                 if (in_array($competicion->league->id, $competicionesFavoritas)) {
                     $datosCompeticion .= '<div class="competicion_equipo competiciones">
                                         <a href="../controller/competicion_clasificacion.php?competicion='.$competicion->league->id.'">
-                                            <img src="'.$competicion->league->logo.'" alt="Logo">
+                                            <div class="logo_competicion"><img src="'.$competicion->league->logo.'" alt="Logo"></div>
                                             <span>'.$competicion->league->name.'</span>
                                         </a>';
                     $datosCompeticion .= isset($_SESSION["usuario"]) ? '<i class="fa-solid fa-star icono_estrella favorito" id="competicion_'.$competicion->league->id.'"></i>' : '';   
@@ -178,11 +178,18 @@
         
                 $claseFavorito = isset($_SESSION['usuario']) && in_array($equipo->team->id, $equiposFavoritos) ? "favorito" : "";
 
-                $todosLosEquipos .= "<a href='../controller/equipo_estadisticas.php?equipo={$equipo->team->id}'><div>";
-                    $todosLosEquipos .= "<img src=".$equipo->team->logo." alt='logo competición'>";
-                    $todosLosEquipos .= "<p>".$equipo->team->name."</p>";
-                    $todosLosEquipos .= isset($_SESSION["usuario"]) ? '<i class="fa-solid fa-star icono_estrella '.$claseFavorito.'" id="equipo_'.$equipo->team->id.'"></i>' : ''; 
-                $todosLosEquipos .= "</div></a>";
+                // $todosLosEquipos .= "<div class='competicion_equipo'><a href='../controller/equipo_estadisticas.php?equipo={$equipo->team->id}'>";
+                //     $todosLosEquipos .= "<div class='logo_competicion'><img src=".$equipo->team->logo." alt='logo competición'></div>";
+                //     $todosLosEquipos .= "<span>".$equipo->team->name."</span>";
+                //     $todosLosEquipos .= isset($_SESSION["usuario"]) ? '<i class="fa-solid fa-star icono_estrella '.$claseFavorito.'" id="equipo_'.$equipo->team->id.'"></i>' : ''; 
+                // $todosLosEquipos .= "</div></a></div><hr>";
+
+                $todosLosEquipos .= '<div class="competicion_equipo competiciones">
+                <a href="../controller/equipo_estadisticas.php?equipo='.$equipo->team->id.'">
+                    <div class="logo_competicion"><img src="'.$equipo->team->logo.'" alt="Logo"></div>';
+                $todosLosEquipos .= '<span>'.$equipo->team->name.'</span></a>';
+                $todosLosEquipos .= isset($_SESSION["usuario"]) ? '<i class="fa-solid fa-star icono_estrella '.$claseFavorito.'" id="equipo_'.$equipo->team->id.'"></i>' : ''; 
+                $todosLosEquipos .= '</div><hr>';
             }
         
             return $todosLosEquipos;

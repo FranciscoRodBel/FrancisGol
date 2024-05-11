@@ -10,4 +10,8 @@
     </article>
 </main>
 <script src="../view/assets/scripts/favoritos.js"></script>
-<script> escucharFavoritos(); </script>
+<script src="../view/assets/scripts/funciones.js"></script>
+<script> 
+    escucharFavoritos();
+    escucharCalendarios();
+</script>

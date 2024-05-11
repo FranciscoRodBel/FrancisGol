@@ -9,7 +9,7 @@
                 <a href="../controller/competicion_equipos.php?competicion=<?= $idCompeticion ?>" class="boton_gris"><span>Equipos</span></a>
             </div>
         </section>
-        <section class="equipos_competiciones">
+        <section class="equipo_competiciones seccion_competiciones">
             <?= $equiposCompeticion ?>
         </section>
     </article>

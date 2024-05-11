@@ -54,10 +54,6 @@ form {
     display: none;
 }
 
-input:focus {
-    outline: none;
-}
-
 .cuadro_inicio_registro label {
     color: var(--cuarto_color);
     text-align: center;
@@ -86,7 +82,7 @@ input:focus {
     margin: 20px 0;
     overflow: auto;
 }
-
+/* 
 .competiciones_equipos div {
     display: flex;
     align-items: center;
@@ -105,7 +101,7 @@ input:focus {
 
 .competiciones_equipos div img {
     width: 20%;
-}
+} */
 
 @media screen and (min-width: 450px) {
 
