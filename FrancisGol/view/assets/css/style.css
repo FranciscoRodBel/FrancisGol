@@ -411,31 +411,6 @@ nav a:hover {
     width: 60%;
     max-width: 600px;
 }
-/* .equipos_competiciones {
-    width: 80%;
-    margin: 20px 0;
-    overflow: auto;
-}
-
-.equipos_competiciones div {
-    display: flex;
-    align-items: center;
-    padding: 10px 0;
-    position: relative;
-    border-bottom: 2px solid var(--cuarto_color);
-}
-
-.equipos_competiciones div p {
-    color: var(--primer_color);
-    font-weight: bold;
-    padding: 10px 0 10px 10px;
-    width: 60%;
-    font-size: 10pt;
-}
-
-.equipos_competiciones div img {
-    width: 50px;
-} */
 
 /* Estilos página de fichajes*/
 

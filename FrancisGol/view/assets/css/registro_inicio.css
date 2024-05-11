@@ -82,26 +82,6 @@ form {
     margin: 20px 0;
     overflow: auto;
 }
-/* 
-.competiciones_equipos div {
-    display: flex;
-    align-items: center;
-    padding: 10px 0;
-    position: relative;
-    border-bottom: 2px solid var(--cuarto_color);
-}
-
-.competiciones_equipos div p {
-    color: var(--cuarto_color);
-    font-weight: bold;
-    padding: 10px 0 10px 10px;
-    width: 60%;
-    font-size: 10pt;
-}
-
-.competiciones_equipos div img {
-    width: 20%;
-} */
 
 @media screen and (min-width: 450px) {
 

@@ -28,9 +28,10 @@ class Partido {
         $partido = $partido->response[0];
         
         $hora_partido = strtotime($partido->fixture->date);
+        $fechaPartido = date('Y-m-d\TH:i:sP', $hora_partido);
         $hora_partido = date('H:i', $hora_partido);
 
-        if ($fecha_actual < $partido->fixture->date) {
+        if ($fecha_actual < $fechaPartido) {
             $resultadoHora = $hora_partido;
         } else {
 
@@ -179,11 +180,13 @@ class Partido {
     
                     $resumenPartido .= "
                     <div class='evento'>
+                        <div class='icono_minuto'>
                         <p class='minuto'>".$evento->time->elapsed."'</p>
                     ";
     
                     $resumenPartido .= match ($evento->type) {
-                        "Goal" => "<i class='fa-solid fa-futbol icono_evento'></i>",
+                        "Goal" => "<i class='fa-solid fa-futbol icono_evento verde'></i>",
+                        "Var" => $evento->detail == "Goal confirmed" ? "<i class='fa-solid fa-futbol icono_evento verde'></i>" : "<i class='fa-solid fa-futbol icono_evento rojo'></i>" ,
                         "NoGoal" => "<div class='icono_evento gol_anulado'>
                                         <i class='fa-solid fa-futbol'></i>
                                         <i class='fa-solid fa-xmark'></i>
@@ -192,11 +195,11 @@ class Partido {
                         "subst" => "<i class='fa-solid fa-arrows-rotate icono_evento'></i>",
                         default => $evento->detail
                     };
-    
+                    $resumenPartido .= "</div>";
                     $resumenPartido .= match ($evento->type) {
                         "subst" => "<div class='nombre_evento cambio'>
-                                        <p>".$evento->player->name."</p>
-                                        <p>".$evento->assist->name."</p>
+                                        <p class='rojo'>".$evento->player->name."</p>
+                                        <p class='verde'>".$evento->assist->name."</p>
                                     </div>",
                         default => "<p class='nombre_evento'>".$evento->player->name."</p>"
                     };
@@ -229,6 +232,7 @@ class Partido {
         foreach ($partidos->response as $partido) {
     
             $hora_partido = strtotime($partido->fixture->date);
+            $fechaPartido = date('Y-m-d\TH:i:sP', $hora_partido);
             $hora_partido = date('H:i', $hora_partido);
             $idEquipoLocal = $partido->teams->home->id;
             $idEquipoVisitante = $partido->teams->away->id;
@@ -244,7 +248,7 @@ class Partido {
                         <div class="resultado_hora">
                             <p>VS</p>';
                             
-                            if ($fecha_actual < $partido->fixture->date) {
+                            if ($fecha_actual < $fechaPartido) {
                                 $partidosDeUnaLiga .= '<p>'.$hora_partido.'</p>';
                             } else {
     

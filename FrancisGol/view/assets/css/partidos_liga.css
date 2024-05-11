@@ -73,12 +73,10 @@
     text-align: right;
 }
 
-.eventos_partidos p {
-    width: 100%;
-    font-size: 13pt;
+.eventos_partidos div p {
+    /* font-size: 11pt; */
     font-weight: bold;
-    text-align: center;
-    margin: 20px;
+    margin: 5px;
 }
 
 .evento {
@@ -91,12 +89,19 @@
 }
 
 .evento i {
-    font-size: 13pt;
+    font-size: 11pt;
 }
 
-.minuto {
+.evento .verde {
+    color: var(--octavo_color);
+}
+
+.evento .rojo {
+    color: var(--septimo_color);
+}
+
+.evento .minuto {
     text-align: center;
-    min-width: 25px;
 }
 
 .icono_evento {
@@ -106,7 +111,8 @@
 }
 
 .nombre_evento {
-    width: calc(100% - 60px);
+    overflow: hidden;
+    font-size: 8pt;
 }
 
 .tarjeta_amarilla, .tarjeta_roja {
@@ -227,11 +233,28 @@
     .fechas_partidos div hr {
         height: 20px;
     }
+
+    /* Eventos partidos */
+    .nombre_evento {
+        font-size: 10pt;
+    }
 }
 
 @media screen and (min-width: 700px) {
 
-    .evento {
+    .eventos_partidos > div:first-of-type .icono_minuto {
+        flex-direction: row-reverse;
+    }
+
+    .evento > div {
+        width: 50%;
+    }
+
+    .evento  div:first-of-type {
+        justify-content: space-evenly;
+    }
+
+    .evento p, .evento i {
         font-size: 12pt;
     }
 
@@ -245,12 +268,13 @@
         justify-content: center;
     }
     
-    .nombre_evento {
-        width: calc(100% - 90px);
-    }
-
     .titulo_informacion {
         font-size: 15pt;
     }
     
+    .icono_minuto {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
 }
