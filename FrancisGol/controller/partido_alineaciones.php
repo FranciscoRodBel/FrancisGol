@@ -2,6 +2,7 @@
     session_start();
     require_once "../model/Usuario.php";
     require_once "../model/Partido.php";
+    require_once "../model/Jugador.php";
     require_once "../model/realizar_consultas.php";
 
     $titulo = "FrancisGol - Estadísticas partido";

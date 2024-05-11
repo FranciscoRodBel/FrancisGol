@@ -50,10 +50,6 @@ form {
     text-align: center;
 }
 
-.ocultar {
-    display: none;
-}
-
 .cuadro_inicio_registro label {
     color: var(--cuarto_color);
     text-align: center;

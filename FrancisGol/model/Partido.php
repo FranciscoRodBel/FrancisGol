@@ -69,48 +69,42 @@ class Partido {
 
     /* FUNCIONES PARTIDO ALINEACIONES */
     public function pintarAlineacionesPartido($alineacionesPartido) {
-        // print_r($alineacionesPartido);
-    
-        // echo "<h3>Alineaciones del partido: </h3>";
-    
-        // foreach ($alineacionesPartido->response as $alineacion) {
-    
-        //     echo "<h3>Alineación de ". $alineacion->team->name ."</h3>";
-        //     echo "<p>Formación: ". $alineacion->formation ."</p>";
-        //     echo "<h4>Titulares</h4>";
-        //     echo "<ul>";
-    
-        //     foreach ($alineacion->startXI as $jugador) {
-        //         echo "<li>{$jugador->player->name} ({$jugador->player->pos}) - {$jugador->player->grid}</li>";
-        //     }
-    
-        //     echo "</ul>";
-    
-        //     if (!empty($alineacion->substitutes)) {
-    
-        //         echo "<h4>Suplentes</h4>";
-        //         echo "<ul>";
-    
-        //         foreach ($alineacion->substitutes as $suplente) {
-        //             echo "<li>{$suplente->player->name} ({$suplente->player->pos})</li>";
-        //         }
-    
-        //         echo "</ul>";
-        //     }
-        // }
+
         $alineacionPrincipal = "";
-        foreach ($alineacionesPartido->response as $alineacion) {
+        foreach ($alineacionesPartido->response as $clave => $alineacion) {
     
-            $alineacionPrincipal .= "<p>Formación: {$alineacion->formation}</p>";
-            $alineacionPrincipal .= "<div class='alineacion'><div class='formacion_equipo formacion_{$alineacion->formation}'>"; 
+            $alineacionPrincipal .= "<div class='alineacion_partido ".($clave == 1 ? "ocultar" : '' )."'>";
+            $alineacionPrincipal .= "<div class='alineacion '>
+                <p class='titulo_seccion'>Formación: {$alineacion->formation}</p>
+                <div class='formacion_equipo formacion_{$alineacion->formation}'>"; 
+            
             foreach ($alineacion->startXI as $jugador) {
+
                 $alineacionPrincipal .= 
-                "<div class='jugador_".str_replace(":","_",$jugador->player->grid)."'>
-                    <img src='../view/assets/images/logo.png' alt='foto'>
-                    <p>{$jugador->player->name}</p>
-                </div>";
+                "
+                <div class='jugador_".str_replace(":","_",$jugador->player->grid)."'>
+                    <a href='../controller/jugador_datos.php?jugador=".$jugador->player->id."'>
+                        <img src='https://media.api-sports.io/football/players/".$jugador->player->id.".png' alt='foto'>
+                        <p>{$jugador->player->name}</p>
+                    </a></div>";
             }
-            $alineacionPrincipal .= "</div></div>";
+
+            $alineacionPrincipal .= "</div></div>
+                <p class='titulo_seccion'>Suplentes</p>
+                <div class='seccion_negra jugadores_suplentes'>";
+
+            foreach ($alineacion->substitutes as $suplente) {
+
+                $alineacionPrincipal .= 
+                "<div>
+                    <a href='../controller/jugador_datos.php?jugador=".$suplente->player->id."'>
+                    <img src='https://media.api-sports.io/football/players/".$suplente->player->id.".png' alt='foto'>
+                    <p>{$suplente->player->name}</p>
+                </a></div>";
+            }
+
+            $alineacionPrincipal .= "</div></div></div>";
+
         }
     
         return $alineacionPrincipal;
@@ -124,12 +118,8 @@ class Partido {
         $tipoEstadistica = array("Tiros a puerta", "Tiros a fuera", "Tiros totales", "Tiros bloqueados", "Tiros dentro del área", "Tiros fuera del área", "Faltas cometidas", "Saques de esquina", "Fueras de juego", "Posesión del balón", "Tarjetas amarillas", "Tarjetas rojas", "Tiros parados", "Pases totales", "Pases efectivos", "% de pases", "Goles esperados");
     
         foreach ($estadisticasPartido->response as $key => $equipo) {
-            // echo "<h3>Estadísticas ".$equipo->team->name." </h3>";
-            // echo "Id {$equipo->team->name}: {$equipo->team->id}<br>";
-            // echo "<img src=".$equipo->team->logo." alt='logo'><br>";
-            // echo "<h4>Estadísticas</h4>";
     
-            $tablaEstadisticas .= " <table class='tabla_datos'>
+            $tablaEstadisticas .= " <table class='tabla_datos ".($key == 1 ? "ocultar" : '' )."'>
             <thead>
                 <tr>
                     <th colspan='2'>".$equipo->team->name."</th>
@@ -138,7 +128,6 @@ class Partido {
             <tbody>";
     
             foreach ($equipo->statistics as $key => $estadistica) {
-                // echo $estadistica->type.": {$estadistica->value} <br>";
     
                 $tablaEstadisticas .= "
                         <tr>

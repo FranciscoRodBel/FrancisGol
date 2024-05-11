@@ -10,10 +10,14 @@
             </div>
             <hr>
             <div class="conjunto_botones">
-                <a href="" class="boton_gris"><span><?= $nombreEquipoLocal ?></span></a>
-                <a href="" class="boton_gris"><span><?= $nombreEquipoVisitante ?></span></a>
+                <a class="boton_gris botonEquipo"><span><?= $nombreEquipoLocal ?></span></a>
+                <a class="boton_gris botonEquipo"><span><?= $nombreEquipoVisitante ?></span></a>
             </div>
+        </section>
+        <section class="seccion_plantilla">
             <?= $alineacionesPartido ?>
         </section>
     </article>
 </main>
+<script src="../view/assets/scripts/funciones.js"></script>
+<script>cambiarTablaDatos(".alineacion_partido");</script>

@@ -157,6 +157,9 @@
     justify-content: space-between;
 }
 
+.formacion_equipo a {
+    color: var(--primer_color);
+}
 
 /* Formaciones */
 
