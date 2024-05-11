@@ -2,13 +2,15 @@
     session_start();
     require_once "../model/Usuario.php";
     require_once "../model/Equipo.php";
+    require_once "../model/paises.php";
     require_once "../model/Competicion.php";
     
     $titulo = "FrancisGol - Competiciones";
     $lista_css = ["competiciones.css"];
 
-    // $competiciones = realizarConsulta("competiciones", "leagues", 86400); 
-    // $resultadoCompeticiones = Competicion::pintarCompeticiones($competiciones);
+    $paises = realizarConsulta("paises", "countries", 86400); 
+    $paises = crearOpcionesPaises($paises);
+
     $resultadoCompeticiones = Competicion::pintarCompeticionesFavoritas();
     
     $resultadoEquipos = Equipo::pintarEquiposFavoritos();

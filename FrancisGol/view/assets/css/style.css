@@ -43,7 +43,7 @@ html {
     overflow-wrap: break-word;
 }
 
-article {
+article, .centraHorizontal {
     display: flex;
     flex-direction: column;
     align-items: center;

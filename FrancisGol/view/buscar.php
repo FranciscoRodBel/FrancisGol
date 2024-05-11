@@ -7,7 +7,7 @@
                     <label for="competiciones" class="icono_busqueda">
                         <i class="fa-solid fa-magnifying-glass"></i>
                     </label>
-                    <input type="text" name="competicion" list="listaCompeticiones" placeholder="Busca una competición" onkeyup="buscarCompeticion(this.value, 'listaCompeticiones')">
+                    <input type="text" name="competicion" id="competicion" list="listaCompeticiones" placeholder="Busca una competición" onkeyup="buscarCompeticion(this.value, 'listaCompeticiones')">
                 </div>
                 <datalist id="listaCompeticiones"></datalist>
                 <input type="submit" value="Enviar" class="boton_enviar"></input>
@@ -20,16 +20,15 @@
     <h1 class="titulo_pagina">Equipos</h1>
     <article>
         <section class="seccion_buscador">
-            <form class="formulario_buscar" id="buscarEquipo">
-                <div class="buscador">
-                    <label for="competiciones" class="icono_busqueda">
-                        <i class="fa-solid fa-magnifying-glass"></i>
-                    </label>
-                    <input type="text" name="competicion" id="buscador_competicion" list="listaCompeticiones2" placeholder="Busca una competición" onkeyup="buscarCompeticion(this.value, 'listaCompeticiones2')">
-                </div>
-                <datalist id="listaCompeticiones2"></datalist>
+            <form id="buscarEquipo" class="buscarEquipo">
+                <select name="seleccionar_pais"  id="seleccionar_pais" class="seleccionar">
+                    <?= $paises ?>
+                </select>
+                <select name="seleccionar_competicion" id="competiciones" class="seleccionar">
+
+                </select>
                 <select name="equipos_competicion" id="equipos_competicion" class="seleccionar">
-                    <option>Debe buscar una competición</option>
+
                 </select>
                 <input type="submit" value="Enviar" class="boton_enviar">
             </form>
@@ -42,6 +41,7 @@
 <script src="../view/assets/scripts/favoritos.js"></script>
 <script src="../view/assets/scripts/fichajes.js"></script>
 <script>
+    seleccionarCompeticionesEquipos();
     function buscarCompeticion(str, idInput) {
 
         if (str.length == 0) {
@@ -68,6 +68,7 @@
 
         let datalist = document.getElementById("listaCompeticiones");
         let competicionInput = datalist.firstElementChild.getAttribute('data-idCompeticion');
+        document.getElementById("competicion").value = "";
 
         let url = "../controller/competicion_clasificacion.php?competicion=" + encodeURIComponent(competicionInput);
         window.location.href = url;
@@ -75,33 +76,6 @@
     });
 
     /* Buscar Equipo */
-
-    let buscadorCompeticion = document.getElementById("buscador_competicion");
-    let selectEquipos = document.getElementById("equipos_competicion");
-
-    buscadorCompeticion.addEventListener("blur", () => {
-
-        let datalist = document.getElementById("listaCompeticiones2");
-        let competicionInput = datalist.firstElementChild.getAttribute('data-idCompeticion');
-
-        fetch("../controller/seleccionar_equipos2.php?competicion="+competicionInput)
-        .then(resultado => resultado.text())
-        .then(resultado => {
-
-            if (resultado != "") {
-                
-                selectEquipos.innerHTML = resultado;
-                
-            } else {
-                selectEquipos.innerHTML = "<option>Seleccione una liga</option>";
-            }
-            
-
-        })
-        .catch(error => {
-            console.error('Fetch error:', error); // Manejo de errores
-        });
-    })
 
     document.getElementById("buscarEquipo").addEventListener("submit", function(event) {
         event.preventDefault();
@@ -115,5 +89,6 @@
 
 
     });
+    
     escucharFavoritos();
 </script>

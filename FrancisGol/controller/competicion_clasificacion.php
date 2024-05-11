@@ -11,7 +11,11 @@
 
         $idCompeticion = $_GET["competicion"];
         $competicion = Competicion::recogerCompeticion($idCompeticion);
-        $datosCompeticion = $competicion->pintarCompeticion($competicion);
+
+        $temporadasDisponibles = realizarConsulta("temporadasDisponibles", "leagues/seasons", 86400);
+        $optionsAniosDisponibles = Competicion::generarOptionsTemporadas($temporadasDisponibles);
+
+        $datosCompeticion = $competicion->pintarCompeticion();
 
         $clasificacion = realizarConsulta("competicion_clasificacion_$idCompeticion", "standings?league=$idCompeticion&season=2023", 86400); 
 

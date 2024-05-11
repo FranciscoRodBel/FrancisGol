@@ -11,31 +11,40 @@ function realizarConsulta($nombreJson, $rutaApi, $tiempoGuardado) {
         $resultado = json_decode($datos);
 
     } else {
-        $curl = curl_init();
+        
+        $arrayApiKeys = ["be6e260f0828d5854c973280d67305cd", "26df0569c8617e64e44a5a72cdebee09"];
 
-        curl_setopt_array($curl, array(
-        CURLOPT_URL => "https://v3.football.api-sports.io/$rutaApi",
-        CURLOPT_RETURNTRANSFER => true,
-        CURLOPT_ENCODING => '',
-        CURLOPT_MAXREDIRS => 10,
-        CURLOPT_TIMEOUT => 0,
-        CURLOPT_FOLLOWLOCATION => true,
-        CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-        CURLOPT_CUSTOMREQUEST => 'GET',
-        CURLOPT_HTTPHEADER => array(
-            'x-rapidapi-key: be6e260f0828d5854c973280d67305cd',
-            'x-rapidapi-host: v3.football.api-sports.io'
-        ),
-        ));
+        foreach ($arrayApiKeys as $apiKey) {
 
-        $response = curl_exec($curl);
-        curl_close($curl);
+            $curl = curl_init();
 
-        file_put_contents($archivo, $response);
+            curl_setopt_array($curl, array(
+            CURLOPT_URL => "https://v3.football.api-sports.io/$rutaApi",
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_ENCODING => '',
+            CURLOPT_MAXREDIRS => 10,
+            CURLOPT_TIMEOUT => 0,
+            CURLOPT_FOLLOWLOCATION => true,
+            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+            CURLOPT_CUSTOMREQUEST => 'GET',
+            CURLOPT_HTTPHEADER => array(
+                'x-rapidapi-key: '.$apiKey,
+                'x-rapidapi-host: v3.football.api-sports.io'
+            ),
+            ));
 
-        $resultado = json_decode($response);
+            $response = curl_exec($curl);
+            curl_close($curl);
 
+            $resultado = json_decode($response);
+
+            if (!empty($resultado->errors) && $resultado->errors->requests != "You have reached the request limit for the day, Go to https://dashboard.api-football.com to upgrade your plan.") {
+
+                file_put_contents($archivo, $response);
+                return $resultado;
+            }
         }
+    }
 
     return $resultado;
 }
