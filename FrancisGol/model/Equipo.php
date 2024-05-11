@@ -58,9 +58,9 @@
             $equiposFavoritos = Equipo::recogerEquiposFavorito();
             $claseFavorito = isset($_SESSION["usuario"]) && in_array($this->__get("id"), $equiposFavoritos) ? "favorito" : "";
             
-            $datosEquipo = '<div class="competicion_equipo">
+            $datosEquipo = '<div class="competicion_equipo competiciones">
                 <a href="../controller/equipo_estadisticas.php?equipo='.$this->__get("id").'">
-                    <img src="'.$this->__get("escudo").'" alt="Logo">
+                    <div class="logo_competicion"><img src="'.$this->__get("escudo").'" alt="Logo"></div>
                     <span>'.$this->__get("nombre").'</span>
                 </a>';
             $datosEquipo .= isset($_SESSION["usuario"]) ? '<i class="fa-solid fa-star icono_estrella '.$claseFavorito.'" id="equipo_'.$this->__get("id").'"></i>' : ''; 
@@ -368,6 +368,20 @@
             $consulta->bind_param("ii", $idUsuario, $idEquipo);
             return $consulta->execute();
             
+        }
+
+        public static function pintarEquiposFavoritos() {
+            
+            $resultadoEquipos = "";
+            $equiposFavoritos = isset($_SESSION["usuario"]) ?  Equipo::recogerEquiposFavorito() : [530, 529, 541, 157, 50, 85];
+        
+            foreach ($equiposFavoritos as $idEquipo) {
+        
+                $equipo = Equipo::recogerEquipo($idEquipo);
+                $resultadoEquipos .= $equipo->pintarEquipo();
+            }
+
+            return $resultadoEquipos;
         }
 
         /* FUNCIONES PÁGINA DE FICHAJES DE EQUIPO*/

@@ -560,6 +560,14 @@ nav a:hover {
     background-color: var(--cuarto_color);
 }
 
+/* Página de buscar */
+.formulario_buscar {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+
 
 /* Tabla página de trofeos */
 

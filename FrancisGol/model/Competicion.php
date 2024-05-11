@@ -54,13 +54,13 @@
             return "";
         }
 
-        public function pintarCompeticion($datosCompeticion) {
+        public function pintarCompeticion() {
 
             $competicionesFavoritas = Competicion::recogerCompeticionFavorita();
             $claseFavorito = isset($_SESSION["usuario"]) && in_array($this->__get("id"), $competicionesFavoritas) ? "favorito" : "";
 
-            $datosCompeticion = '<div class="competicion_equipo">
-                <a>
+            $datosCompeticion = '<div class="competicion_equipo competiciones">
+                <a href="../controller/competicion_clasificacion.php?competicion='.$this->__get("id").'">
                     <div class="logo_competicion"><img src="'.$this->__get("logo").'" alt="Logo"></div>
                     <span>'.$this->__get("nombre").'</span>
                 </a>';
@@ -70,26 +70,6 @@
             return $datosCompeticion;
         }
 
-        public static function pintarCompeticiones($competiciones) {
-
-            $competicionesFavoritas = !isset($_SESSION["usuario"]) ? [140, 39, 61, 78, 71, 2] : Competicion::recogerCompeticionFavorita();
-            $datosCompeticion = "";
-            
-            foreach ($competiciones->response as $competicion) {
-
-                if (in_array($competicion->league->id, $competicionesFavoritas)) {
-                    $datosCompeticion .= '<div class="competicion_equipo competiciones">
-                                        <a href="../controller/competicion_clasificacion.php?competicion='.$competicion->league->id.'">
-                                            <div class="logo_competicion"><img src="'.$competicion->league->logo.'" alt="Logo"></div>
-                                            <span>'.$competicion->league->name.'</span>
-                                        </a>';
-                    $datosCompeticion .= isset($_SESSION["usuario"]) ? '<i class="fa-solid fa-star icono_estrella favorito" id="competicion_'.$competicion->league->id.'"></i>' : '';   
-                    $datosCompeticion .= '</div><hr>';
-                }   
-
-            }
-            return $datosCompeticion;
-        }
         public function insertarCompeticion() {
             $conexion = FrancisGolBD::establecerConexion();
 
@@ -127,6 +107,20 @@
             }
 
             return $competiciones;
+        }
+
+        public static function pintarCompeticionesFavoritas() {
+            
+            $resultadoEquipos = "";
+            $competicionesFavoritas = isset($_SESSION["usuario"]) ?  Competicion::recogerCompeticionFavorita() : [140, 39, 61, 78, 71, 2];
+        
+            foreach ($competicionesFavoritas as $idCompeticion) {
+        
+                $competicion = Competicion::recogerCompeticion($idCompeticion);
+                $resultadoEquipos .= $competicion->pintarCompeticion();
+            }
+
+            return $resultadoEquipos;
         }
         
         /* FUNCIONES COMPETICIÓN CLASIFICACIÓN */
@@ -177,12 +171,6 @@
             foreach ($equipos->response as $equipo) {
         
                 $claseFavorito = isset($_SESSION['usuario']) && in_array($equipo->team->id, $equiposFavoritos) ? "favorito" : "";
-
-                // $todosLosEquipos .= "<div class='competicion_equipo'><a href='../controller/equipo_estadisticas.php?equipo={$equipo->team->id}'>";
-                //     $todosLosEquipos .= "<div class='logo_competicion'><img src=".$equipo->team->logo." alt='logo competición'></div>";
-                //     $todosLosEquipos .= "<span>".$equipo->team->name."</span>";
-                //     $todosLosEquipos .= isset($_SESSION["usuario"]) ? '<i class="fa-solid fa-star icono_estrella '.$claseFavorito.'" id="equipo_'.$equipo->team->id.'"></i>' : ''; 
-                // $todosLosEquipos .= "</div></a></div><hr>";
 
                 $todosLosEquipos .= '<div class="competicion_equipo competiciones">
                 <a href="../controller/equipo_estadisticas.php?equipo='.$equipo->team->id.'">
