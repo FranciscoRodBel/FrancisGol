@@ -14,7 +14,12 @@
         $competicion = Competicion::recogerCompeticion($idCompeticion);
         $datosCompeticion = $competicion->pintarCompeticion();
         
-        $equipos = realizarConsulta("competicion_equipos_$idCompeticion"."_"."2023", "teams?league=$idCompeticion&season=2023", 86400); 
+        $temporadasDisponibles = realizarConsulta("temporadasDisponibles", "leagues/seasons", 86400);
+        $optionsAniosDisponibles = Competicion::generarOptionsTemporadas($temporadasDisponibles);
+
+        $anioActual = date("Y") - 1;
+        $equipos = realizarConsulta("competicion_equipos_$idCompeticion"."_".$anioActual, "teams?league=$idCompeticion&season=$anioActual", 86400); 
+        
         $equiposCompeticion = $competicion->generarEquiposCompeticion($equipos);
 
     } else {
