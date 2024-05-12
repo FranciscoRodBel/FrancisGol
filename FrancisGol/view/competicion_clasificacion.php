@@ -14,16 +14,15 @@
                 </select>
             </div>
         </section>
-        <section class="seccionClasificacion">
+        <section class="seccionClasificacion" id="tablaClasificacion">
             <?= $tablaClasificacion ?>
         </section>
     </article>
 </main>
 <script src="../view/assets/scripts/favoritos.js"></script>
-<script> escucharFavoritos(); </script>
-<script>
-    let anioSeleccionado = document.getElementById("anioCompeticion");
-    
-    
-    console.log(anioSeleccionado.value);
+<script src="../view/assets/scripts/funciones.js"></script>
+<script> 
+    escucharFavoritos();
+    let idCompeticion = <?= $idCompeticion ?>;
+    escucharSelectAnio("anioCompeticion", "tablaClasificacion", "../controller/seleccionar_clasificacion.php?competicion="+idCompeticion+"&anio=");
 </script>

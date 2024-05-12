@@ -17,7 +17,8 @@
 
         $datosCompeticion = $competicion->pintarCompeticion();
 
-        $clasificacion = realizarConsulta("competicion_clasificacion_$idCompeticion", "standings?league=$idCompeticion&season=2023", 86400); 
+        $anioActual = date("Y") - 1;
+        $clasificacion = realizarConsulta("competicion_clasificacion_".$idCompeticion."_".$anioActual, "standings?league=$idCompeticion&season=$anioActual", 86400); 
 
         $tablaClasificacion = $competicion->generarClasificacion($clasificacion);
 

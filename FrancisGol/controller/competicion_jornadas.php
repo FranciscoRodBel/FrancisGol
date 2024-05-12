@@ -11,16 +11,30 @@
 
         $idCompeticion = $_GET["competicion"];
         $competicion = Competicion::recogerCompeticion($idCompeticion);
-        $datosCompeticion = $competicion->pintarCompeticion($competicion);
 
-        $jornadasCompeticion = realizarConsulta("competicion_jornadas_$idCompeticion", "fixtures?league=$idCompeticion&season=2023", 86400); 
-        $datosJornadas = $competicion->generarJornadas($jornadasCompeticion);
-        $opcionesJornadas = $datosJornadas[0];
-        $jornadas = $datosJornadas[1];
+        if (!empty($competicion)) {
+
+            $datosCompeticion = $competicion->pintarCompeticion();
+            
+            $anioActual = date("Y") - 1;
+            $jornadasCompeticion = realizarConsulta("competicion_jornadas_".$idCompeticion."_".$anioActual, "fixtures?league=$idCompeticion&season=$anioActual", 86400); 
+            $datosJornadas = $competicion->generarJornadas($jornadasCompeticion);
+            $opcionesJornadas = $datosJornadas[0];
+            $jornadas = $datosJornadas[1];
+
+            $temporadasDisponibles = realizarConsulta("temporadasDisponibles", "leagues/seasons", 86400);
+            $optionsAniosDisponibles = Competicion::generarOptionsTemporadas($temporadasDisponibles);
+
+        } else {
+
+            $datosCompeticion = "<p class='parrafo_informacion_blanco'>No se encontró la competición<p>";
+            $jornadas = "";
+            $opcionesJornadas = "";
+        }
 
     } else {
     
-        $datosCompeticion = "<p>No se encontró la competición<p>";
+        $datosCompeticion = "<p class='parrafo_informacion_blanco'>No se encontró la competición<p>";
         $jornadas = "";
         $opcionesJornadas = "";
     }

@@ -12,7 +12,7 @@
 
         $idCompeticion = $_GET["competicion"];
         $competicion = Competicion::recogerCompeticion($idCompeticion);
-        $datosCompeticion = $competicion->pintarCompeticion($competicion);
+        $datosCompeticion = $competicion->pintarCompeticion();
         
         $equipos = realizarConsulta("competicion_equipos_$idCompeticion"."_"."2023", "teams?league=$idCompeticion&season=2023", 86400); 
         $equiposCompeticion = $competicion->generarEquiposCompeticion($equipos);

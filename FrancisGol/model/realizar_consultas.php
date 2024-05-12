@@ -11,10 +11,6 @@ function realizarConsulta($nombreJson, $rutaApi, $tiempoGuardado) {
         $resultado = json_decode($datos);
 
     } else {
-        
-        $arrayApiKeys = ["be6e260f0828d5854c973280d67305cd", "26df0569c8617e64e44a5a72cdebee09"];
-
-        foreach ($arrayApiKeys as $apiKey) {
 
             $curl = curl_init();
 
@@ -28,7 +24,7 @@ function realizarConsulta($nombreJson, $rutaApi, $tiempoGuardado) {
             CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
             CURLOPT_CUSTOMREQUEST => 'GET',
             CURLOPT_HTTPHEADER => array(
-                'x-rapidapi-key: '.$apiKey,
+                'x-rapidapi-key: be6e260f0828d5854c973280d67305cd',
                 'x-rapidapi-host: v3.football.api-sports.io'
             ),
             ));
@@ -38,12 +34,11 @@ function realizarConsulta($nombreJson, $rutaApi, $tiempoGuardado) {
 
             $resultado = json_decode($response);
 
-            if (!empty($resultado->errors) && $resultado->errors->requests != "You have reached the request limit for the day, Go to https://dashboard.api-football.com to upgrade your plan.") {
+            file_put_contents($archivo, $response);
 
-                file_put_contents($archivo, $response);
-                return $resultado;
+            if ($resultado->results == 0) {
+                return "";
             }
-        }
     }
 
     return $resultado;

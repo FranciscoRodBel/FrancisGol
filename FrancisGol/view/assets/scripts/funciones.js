@@ -31,3 +31,63 @@ function cambiarTablaDatos(datoEquipo) {
 
     })
 }
+
+/* Página de competiciones */
+function escucharSelectAnio(selectAnio, divDatos, consulta) {
+    let anioSeleccionado = document.getElementById(selectAnio);
+    let divMostrarDatos = document.getElementById(divDatos);
+
+    anioSeleccionado.addEventListener("change", () => {
+        
+        fetch(consulta+anioSeleccionado.value)
+        .then(respuesta => respuesta.text())
+        .then(contenidoPagina => {
+            
+            divMostrarDatos.innerHTML = contenidoPagina;
+        })
+        .catch(error => console.log(error));
+    });
+}
+
+function escucharAniosJornadas() {
+    let anioSeleccionado = document.getElementById("anioCompeticion");
+    let divMostrarDatos = document.getElementById("jornadas");
+    let selectJornadas = document.getElementById("jornadasCompeticion");
+
+    anioSeleccionado.addEventListener("change", () => {
+        
+        fetch("../controller/seleccionar_jornadas.php?competicion="+idCompeticion+"&anio="+anioSeleccionado.value)
+        .then(respuesta => respuesta.json())
+        .then(contenidoPagina => {
+
+            if (contenidoPagina[0].length == 0) {
+
+                divMostrarDatos.innerHTML = "<p class='parrafo_informacion'>No se encontraron jornadas</p>";
+
+            } else {
+
+                divMostrarDatos.innerHTML = contenidoPagina[0];
+            }
+
+            selectJornadas.innerHTML = contenidoPagina[1];
+            ocultarJornadas();
+            
+        })
+        .catch(error => console.log(error));
+    });
+}
+
+function ocultarJornadas() {
+    let selectJornada = document.getElementById("jornadasCompeticion");
+    let jornadaAnterior = document.getElementById(selectJornada.value);
+    jornadaAnterior.classList.remove("ocultarjornada");
+
+    selectJornada.addEventListener("change", () => {
+
+        jornadaAnterior.classList.add("ocultarjornada");
+        let jornadaSeleccionada = document.getElementById(selectJornada.value);
+        
+        jornadaSeleccionada.classList.remove("ocultarjornada");
+        jornadaAnterior = jornadaSeleccionada;
+    });
+}

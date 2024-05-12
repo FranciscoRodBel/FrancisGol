@@ -51,8 +51,12 @@
     margin: 0 auto;
 }
 
-.separacion_partidos:last-of-type {
+.separacion_partidos:last-of-type, .separacion_partidos_negro:last-of-type {
     display: none;
+}
+
+.separacion_partidos_negro {
+    border: 1px solid var(--primer_color);
 }
 
 /* Diseño de las páginas de resumen del partido */
@@ -74,7 +78,6 @@
 }
 
 .eventos_partidos div p {
-    /* font-size: 11pt; */
     font-weight: bold;
     margin: 5px;
 }
@@ -210,11 +213,10 @@
         width: 50px;
     }
 
-    .separacion_partidos {
+    .separacion_partidos, .separacion_partidos_negro {
         display: none;
     }
     
-
     /* Diseño de las páginas de resumen del partido */
 
     .evento {

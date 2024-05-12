@@ -317,6 +317,17 @@ nav a:hover {
     padding: 10px;
 }
 
+.parrafo_informacion, .parrafo_informacion_blanco {
+    font-size: 13pt;
+    text-align: center;
+    width: 100%;
+    padding-top: 10pt;
+}
+
+.parrafo_informacion_blanco {
+    color: var(--cuarto_color);
+}
+
 /* Diseños de secciones de apartados de una sección*/
 
 .seccion_negra .boton_gris {
@@ -645,16 +656,6 @@ input:focus {
     margin: 0;
     border: none;
 }
-
-
-
-
-
-
-
-
-
-
 
 
 

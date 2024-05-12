@@ -211,23 +211,18 @@
         /* FUNCIONES COMPETICIONES JORNADAS */
         public function generarJornadas($jornadas) {
     
-            $jornada = $jornadas->response[0]->league->round;
-            $contadorJornada = 1;
-            $partidosTotales = "<div class='ocultarjornada' id='jornada_$contadorJornada'>";
-            $opcionesPartidos = "<option value='jornada_$contadorJornada'>Jornada $contadorJornada</option>";
+            $jornadasCompeticion = [];
+            $fecha_actual = date('Y-m-d\TH:i:sP');
+
+            foreach ($jornadas->response as $partido) {
         
-            foreach ($jornadas->response as $key => $partido) {
+                $hora_partido = strtotime($partido->fixture->date);
+                $fechaPartido = date('Y-m-d\TH:i:sP', $hora_partido);
+                $hora_partido = date('H:i', $hora_partido);
+
+                $ronda = $partido->league->round;
         
-                if ($jornada != $partido->league->round) {
-        
-                    $contadorJornada++;
-                    $opcionesPartidos .= "<option value='jornada_$contadorJornada'>Jornada $contadorJornada</option>";
-                    $jornada = $partido->league->round;
-                    $partidosTotales .= "</div><div class='ocultarjornada' id='jornada_$contadorJornada'>";
-        
-                } else {
-        
-                    $partidosTotales .= '
+                $partidosTotales = '
                     <div class="enfrentamiento_equipos">
                         <a href="../controller/partido_resumen.php?partido='.$partido->fixture->id.'">
                             <div class="equipo_local">
@@ -236,7 +231,12 @@
                             </div>
                             <div class="resultado_hora">
                                 <p>VS</p>';
-                                $partidosTotales .= '<p>'.$partido->goals->home.' - '.$partido->goals->away.'</p>';
+                                if ($fecha_actual < $fechaPartido) {
+                                    $partidosTotales .= '<p>'.$hora_partido.'</p>';
+                                } else {
+
+                                    $partidosTotales .= '<p>'.$partido->goals->home.' - '.$partido->goals->away.'</p>';
+                                }
         
                 $partidosTotales .= '</div>
                             <div class="equipo_visitante">
@@ -245,12 +245,25 @@
                             </div>
                         </a>
                     </div>
-                    <hr class="separacion_partidos">';
-                }
+                    <hr class="separacion_partidos_negro">';
+
+                isset($jornadasCompeticion[$ronda]) ? $jornadasCompeticion[$ronda] .= $partidosTotales : $jornadasCompeticion[$ronda] = $partidosTotales;
+
+            }
+
+            $contadorJornada = 1;
+            $opcionesPartidos = "";
+            $jornadasPartidos = "";
+
+            foreach ($jornadasCompeticion as $nombreRonda => $datosJornada) {
+
+                $contadorJornada++;
+                $opcionesPartidos .= "<option value='jornada_$contadorJornada'>$nombreRonda</option>";
+                $jornadasPartidos .= "<div class='ocultarjornada' id='jornada_$contadorJornada'>$datosJornada</div>";
         
             }
-        
-            return [$opcionesPartidos, $partidosTotales];
+
+            return [$opcionesPartidos, $jornadasPartidos];
         }
 
         /* FUNCIONES FAVORITOS */

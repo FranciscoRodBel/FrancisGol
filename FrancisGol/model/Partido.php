@@ -216,7 +216,7 @@ class Partido {
                 
             }
         } else {
-            $eventosOrdenados = "<p>El partido aún no ha comenzado</p>";
+            $eventosOrdenados = "<p class='parrafo_informacion'>El partido aún no ha comenzado</p>";
         }
 
 
