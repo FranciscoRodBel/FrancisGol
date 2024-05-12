@@ -11,10 +11,20 @@
 
         $idJugador = $_GET["jugador"];
         $jugador = Jugador::recogerJugador($idJugador);
-        $datosJugador = $jugador->pintarJugador();
 
-        $trofeosJugador = realizarConsulta("trofeos_jugador_$idJugador", "trophies?player=$idJugador", 86400); 
-        $datosTrofeosJugador = $jugador->pintarTrofeosJugador($trofeosJugador);
+        if (empty($jugador)) {
+
+            $datosTrofeosJugador = "<p class='parrafo_informacion'>No hay datos del jugador disponibles</p>";
+            $datosJugador = "";
+            
+        } else {
+
+            $datosJugador = $jugador->pintarJugador();
+
+            $trofeosJugador = realizarConsulta("trofeos_jugador_$idJugador", "trophies?player=$idJugador", 86400); 
+            $datosTrofeosJugador = $jugador->pintarTrofeosJugador($trofeosJugador);
+
+        }
 
     } else {
         $datosTrofeosJugador = "";
