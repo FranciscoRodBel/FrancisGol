@@ -662,8 +662,34 @@ input:focus {
     border: none;
 }
 
+/* Mensaje Cookies */
 
+.seccionCookies {
+    background-color: var(--tercer_color);
+    width: 100%;
+    position: sticky;
+    bottom: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 40px;
+}
 
+.seccionCookies p {
+    font-weight: bold;
+    text-align: center;
+    font-size: 15pt;
+    width: 90%;
+    max-width: 600px;
+    margin-bottom: 20px;
+}
+
+.seccionCookies div {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    text-align: center;
+}
 
 
 /* Estilos de ordenador */

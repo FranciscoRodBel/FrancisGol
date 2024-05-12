@@ -9,7 +9,6 @@
     $titulo = "FrancisGol - Partidos";
     $lista_css = ["partidos_liga.css"];
 
-
     $fechas_partidos = Partido::generarFechasPartidos();
     
     $fecha = isset($_GET["fecha"]) && !empty($_GET["fecha"]) ? $_GET["fecha"] : date("Y-m-d");

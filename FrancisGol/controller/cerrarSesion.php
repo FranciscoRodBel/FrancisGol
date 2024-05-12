@@ -6,4 +6,7 @@
     session_unset();
     session_destroy();
 
+    setcookie("email", "", time() - 1, "/");
+    setcookie("contrasenia", "", time() - 1, "/");
+
     header("Location: ./partidos.php");

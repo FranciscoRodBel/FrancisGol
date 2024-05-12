@@ -13,7 +13,7 @@
         $contrasenia = $_POST['contrasenia'];
 
         $usuario = new Usuario($email); // Creo el objeto del usuario
-        $resultadoFormulario = $usuario->comprobarInicioSesion($contrasenia); // Comprobará si la sesión es correcta, si es así iniciará sesión y si no, devolverá un mensaje indicando el error
+        $resultadoFormulario = $usuario->comprobarInicioSesion($contrasenia, "inicio"); // Comprobará si la sesión es correcta, si es así iniciará sesión y si no, devolverá un mensaje indicando el error
 
     } else {
         $resultadoFormulario = "";

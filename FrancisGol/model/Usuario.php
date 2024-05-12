@@ -8,6 +8,7 @@ class Usuario { // Se usa para manejar todos los datos del usuario
     protected string $email;
     protected string $nombre;
     protected string $foto;
+    protected string $cookies;
     
     public function __construct($email) {
         $this->email = $email;
@@ -34,10 +35,10 @@ class Usuario { // Se usa para manejar todos los datos del usuario
 
     // Inicio de sesión
 
-    public function comprobarInicioSesion($contrasenia) {
+    public function comprobarInicioSesion($contrasenia, $tipo) {
         $conexion = FrancisGolBD::establecerConexion();
         $email = $this->__get("email");
-        
+
         // Busco el email del usuario y recojo su contraseña
         $consulta = $conexion->stmt_init();
         $consulta->prepare("SELECT * FROM usuario WHERE email = ?");
@@ -48,17 +49,28 @@ class Usuario { // Se usa para manejar todos los datos del usuario
 
         if (!empty($email)) {
 
+            if ($tipo == "cookie") {
 
+                $comprobacionContrasenia = $resultado["contrasenia"] == $contrasenia;
+
+            } else {
+                $comprobacionContrasenia = password_verify($contrasenia, $resultado["contrasenia"]);
+            }
             // Compruebo si la contraseña es la misma
-            if ($resultado !== null && password_verify($contrasenia, $resultado["contrasenia"])) {
+            if ($resultado !== null && $comprobacionContrasenia) {
                 
                 // Si es la misma contraseña relleno las propiedades del objeto
                 $this->__set("id", $resultado["idUsuario"]);
                 $this->__set("nombre", $resultado["nombre"]);
                 $this->__set("foto", $resultado["foto"]);
+                $this->__set("cookies", $resultado["cookies"]);
+
+                $this->__get("cookies") == 1 ? $this->crearCookies() : "";
 
                 session_start();
                 $_SESSION['usuario'] = serialize($this); // guardo el propio objeto en la sesión de usuario
+
+                ob_end_flush();
                 header('Location: ./partidos.php');
                 die();
             }
@@ -97,7 +109,7 @@ class Usuario { // Se usa para manejar todos los datos del usuario
         // Cifra la contraseña del usuario
         $contrasenia = password_hash($contrasenia, PASSWORD_DEFAULT);
         
-        $consulta = "INSERT INTO usuario (email, nombre, contrasenia, foto) VALUES ('$email', '$nombre', '$contrasenia', '$foto')";
+        $consulta = "INSERT INTO usuario (email, nombre, contrasenia, foto, cookies) VALUES ('$email', '$nombre', '$contrasenia', '$foto', 0)";
 
         $resultado = $conexion->query($consulta);
         $idUsuario = mysqli_insert_id($conexion);
@@ -205,6 +217,50 @@ class Usuario { // Se usa para manejar todos los datos del usuario
             
             }
         }
+    }
+
+    /* FUNCIONES COOKIES */
+    public function generarMensajeCookies() {
+        
+        $mensajeCookie = '<div class="seccionCookies" id="seccionCookies">
+                <p>Acepte las cookies para mantener su sesión iniciada y mejorar su experiencia en nuestra web.</p>
+                <div>
+                    <a id="rechazarCookies" class="boton_gris">Rechazar</a>
+                    <a id="aceptarCookies" class="boton_verde">Aceptar</a>
+                </div>
+            </div>';
+        
+        return $mensajeCookie;
+
+    }
+
+    public function guardarCookies() {
+        
+        $conexion = FrancisGolBD::establecerConexion();
+
+        $consulta = "UPDATE usuario SET cookies = 1 WHERE idUsuario = ".$this->__get("id");
+        $conexion->query($consulta);
+
+    }
+
+    public function crearCookies() {
+
+        $email = $this->__get("email");
+        $contrasenia = $this->recogerContrasenia();
+    
+        setcookie("email", $email, time() + (86400 * 30), "/"); 
+        setcookie("contrasenia", $contrasenia, time() + (86400 * 30), "/");
+    }
+
+    public function recogerContrasenia() {
+
+        $conexion = FrancisGolBD::establecerConexion();
+        $consulta = "SELECT contrasenia FROM usuario WHERE idUsuario = ".$this->__get("id");
+        $resultado = $conexion->query($consulta);
+        $fila = $resultado->fetch_assoc();
+        $contrasenia = $fila['contrasenia'];
+
+        return $contrasenia;
     }
 }
 
