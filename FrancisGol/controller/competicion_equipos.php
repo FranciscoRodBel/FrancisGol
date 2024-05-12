@@ -24,7 +24,7 @@
 
     } else {
     
-        $datosCompeticion = "<p class='parrafo_informacion'>No se encontró la competición</p>";
+        $datosCompeticion = "<p class='titulo_informacion'>No se encontró la competición</p>";
         $equiposCompeticion = "";
     }
 

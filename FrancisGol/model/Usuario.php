@@ -77,7 +77,7 @@ class Usuario { // Se usa para manejar todos los datos del usuario
             
         }
     
-        return "Email o contraseña incorrecta";
+        return "<p class='titulo_informacion'>Email o contraseña incorrecta</p>";
     }    
 
      // Registro de cuenta

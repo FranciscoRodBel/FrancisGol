@@ -5,7 +5,6 @@ function escucharFormularios() {
     let inputFile = document.getElementById("inputFoto");
     let botonAnterior = document.querySelectorAll(".anterior");
     let botonSiguiente = document.querySelectorAll(".siguiente");
-    let iconosOjos = document.querySelectorAll(".ojo_contrasenia");
     let botonRegistro = document.getElementById("registro");
 
     for (const boton of botonAnterior) {
@@ -16,11 +15,6 @@ function escucharFormularios() {
     for (const boton of botonSiguiente) {
         
         boton.addEventListener("click", (evento) => { cambiarSeccion(evento, "siguiente") });
-    }
-
-    for (const icono of iconosOjos) {
-        
-        icono.addEventListener("click", () => {mostrarContrasenia(icono)});
     }
 
     foto_perfil.addEventListener("click", (evento) => {
@@ -40,6 +34,15 @@ function escucharFormularios() {
 
     botonRegistro.addEventListener("click", comprobarRegistro);
 
+}
+
+function mostrarOcultarContrasenia() {
+    
+    let iconosOjos = document.querySelectorAll(".ojo_contrasenia");
+    for (const icono of iconosOjos) {
+        
+        icono.addEventListener("click", () => {mostrarContrasenia(icono)});
+    }
 }
 
 function cambiarSeccion(evento, accion) {

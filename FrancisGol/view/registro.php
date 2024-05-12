@@ -75,4 +75,5 @@
     seleccionarCompeticiones();
     escucharFormularios();
     comprobarInputs();
+    mostrarOcultarContrasenia();
 </script>
