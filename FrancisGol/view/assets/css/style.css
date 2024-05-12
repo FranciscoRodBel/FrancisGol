@@ -551,6 +551,11 @@ nav a:hover {
 
 .equipo_plantilla div img {
     width: 70px;
+    border-radius: 50%;
+}
+
+.equipo_plantilla a {
+    color: var(--primer_color);
 }
 
 

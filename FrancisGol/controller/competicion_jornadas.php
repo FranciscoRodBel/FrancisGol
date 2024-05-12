@@ -27,14 +27,14 @@
 
         } else {
 
-            $datosCompeticion = "<p class='parrafo_informacion_blanco'>No se encontró la competición<p>";
+            $datosCompeticion = "<p class='parrafo_informacion_blanco'>No se encontró la competición</p>";
             $jornadas = "";
             $opcionesJornadas = "";
         }
 
     } else {
     
-        $datosCompeticion = "<p class='parrafo_informacion_blanco'>No se encontró la competición<p>";
+        $datosCompeticion = "<p class='parrafo_informacion_blanco'>No se encontró la competición</p>";
         $jornadas = "";
         $opcionesJornadas = "";
     }

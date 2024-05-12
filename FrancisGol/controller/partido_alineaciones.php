@@ -16,7 +16,13 @@
         
         $alineacionesPartido = realizarConsulta("partido_alineaciones_$idPartido", "fixtures/lineups?fixture=$idPartido", 86400); 
 
-        $alineacionesPartido = $partido->pintarAlineacionesPartido($alineacionesPartido);
+        if (!empty($alineacionesPartido)) {
+
+            $alineacionesPartido = $partido->pintarAlineacionesPartido($alineacionesPartido);
+        } else {
+
+            $alineacionesPartido = "<p class='parrafo_informacion'>No se encontraron alineaciones</p>";
+        }
 
         $nombreEquipoLocal = $partido->__get("nombreEquipoLocal");
         $nombreEquipoVisitante = $partido->__get("nombreEquipoVisitante");

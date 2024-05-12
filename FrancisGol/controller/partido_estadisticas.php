@@ -14,7 +14,14 @@
         $datosPartido = $partido->pintarPartido();
 
         $estadisticasPartido = realizarConsulta("partido_estadisticas_$idPartido", "fixtures/statistics?fixture=$idPartido", 86400); 
-        $tablaEstadisticas = $partido->pintarEstadisticasPartido($estadisticasPartido);
+        
+        if (!empty($estadisticasPartido)) {
+
+            $tablaEstadisticas = $partido->pintarEstadisticasPartido($estadisticasPartido);
+        } else {
+
+            $tablaEstadisticas = "<p class='parrafo_informacion'>No se encontraron estadísticas</p>";
+        }
 
         $nombreEquipoLocal = $partido->__get("nombreEquipoLocal");
         $nombreEquipoVisitante = $partido->__get("nombreEquipoVisitante");

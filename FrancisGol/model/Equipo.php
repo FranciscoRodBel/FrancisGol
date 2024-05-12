@@ -388,12 +388,14 @@
         public static function pintarFichajesEquipo($fichajesEquipo) {
 
             $fichajes = "";
-        
+            $anioActual = date("Y") - 1;
+            $anioSiguiente = date("Y");
+
             foreach ($fichajesEquipo->response as $key => $jugador) {
         
                 foreach ($jugador->transfers as $key => $datoFichaje) {
         
-                    if (preg_match("/^2024/", $datoFichaje->date) || preg_match("/^2023/", $datoFichaje->date)) {
+                    if (preg_match("/^$anioSiguiente/", $datoFichaje->date) || preg_match("/^$anioActual/", $datoFichaje->date)) {
             
                         // $jugador->player->id
                         $fichajes .= "<div>

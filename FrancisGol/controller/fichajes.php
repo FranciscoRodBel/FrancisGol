@@ -21,7 +21,7 @@
             $fichajes = Equipo::pintarFichajesEquipo($fichajesEquipo);
 
         } else {
-            $fichajes = "<p>No se encontró el equipo</p>";
+            $fichajes = "<p class='parrafo_informacion'>No se encontró el equipo</p>";
         }
 
     } else {
