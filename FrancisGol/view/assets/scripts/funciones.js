@@ -44,6 +44,7 @@ function escucharSelectAnio(selectAnio, divDatos, consulta) {
         .then(contenidoPagina => {
             
             divMostrarDatos.innerHTML = contenidoPagina;
+            seleccionarEstadisticasJugador();
         })
         .catch(error => console.log(error));
     });
@@ -90,4 +91,29 @@ function ocultarJornadas() {
         jornadaSeleccionada.classList.remove("ocultarjornada");
         jornadaAnterior = jornadaSeleccionada;
     });
+}
+
+function seleccionarEstadisticasJugador() {
+
+    let competicionJugador = document.getElementById("jugadorEstadisticas");
+
+    competicionJugador.addEventListener("change", mostrarEstadisticaJugador);
+}
+
+function mostrarEstadisticaJugador() {
+
+    let competicionJugador = document.getElementById("jugadorEstadisticas");
+    
+    console.log(competicionJugador);
+    let competiciones = document.querySelectorAll(".competiciones");
+
+    for (const competicion of competiciones) {
+
+        competicion.parentElement.parentElement.parentElement.classList.add("ocultar");
+
+        if (competicion.textContent == competicionJugador.value) {
+
+            competicion.parentElement.parentElement.parentElement.classList.remove("ocultar");
+        }
+    }
 }

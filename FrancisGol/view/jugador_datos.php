@@ -21,5 +21,6 @@
 <script src="../view/assets/scripts/funciones.js"></script>
 <script>
     let idJugador = <?= $idJugador ?>;
+    seleccionarEstadisticasJugador();
     escucharSelectAnio("anioJugador", "tablaDatosJugador", "../controller/seleccionar_datos_jugador.php?jugador="+idJugador+"&anio=");
 </script>

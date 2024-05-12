@@ -68,27 +68,36 @@
             
             if (!empty($datosJugador)) {
 
-                $tablaDatosJugador = "<table class='tabla_datos'>
-                <thead><tr><th colspan='2'>Datos</th></tr></thead><tbody>";
-                
+                $tablaDatosJugador = "";
+                $selectCompeticion = "";
+                $tablaEstadsticasJugador = "";
+
                 foreach($datosJugador->response as $jugador) {
             
-                    $tablaDatosJugador .= "<tr><td>Apodo</td><td>".$jugador->player->name."</td></tr>
-                    <tr><td>Nombre</td><td>".$jugador->player->firstname."</td></tr>
-                    <tr><td>Apellidos</td><td>".$jugador->player->lastname."</td></tr>
-                    <tr><td>Edad</td><td>".$jugador->player->age."</td></tr>
-                    <tr><td>Fecha nacimiento</td><td>".$jugador->player->birth->date."</td></tr>
-                    <tr><td>Lugar de nacimiento</td><td>".$jugador->player->birth->place."</td></tr>
-                    <tr><td>País de nacimiento</td><td>".$jugador->player->birth->country."</td></tr>
-                    <tr><td>Nacionalidad</td><td>".$jugador->player->nationality."</td></tr>
-                    <tr><td>Altura</td><td>".$jugador->player->height."</td></tr>
-                    <tr><td>Peso</td><td>".$jugador->player->weight."</td></tr>
-                    <tr><td>Lesionado</td><td>".$jugador->player->injured."</td></tr>";
+                    $tablaDatosJugador .= "
+                        <table class='tabla_datos'>
+                        <thead><tr><th colspan='2'>Datos</th></tr></thead><tbody>
+                        <tr><td>Apodo</td><td>".$jugador->player->name."</td></tr>
+                        <tr><td>Nombre</td><td>".$jugador->player->firstname."</td></tr>
+                        <tr><td>Apellidos</td><td>".$jugador->player->lastname."</td></tr>
+                        <tr><td>Edad</td><td>".$jugador->player->age."</td></tr>
+                        <tr><td>Fecha nacimiento</td><td>".$jugador->player->birth->date."</td></tr>
+                        <tr><td>Lugar de nacimiento</td><td>".$jugador->player->birth->place."</td></tr>
+                        <tr><td>País de nacimiento</td><td>".$jugador->player->birth->country."</td></tr>
+                        <tr><td>Nacionalidad</td><td>".$jugador->player->nationality."</td></tr>
+                        <tr><td>Altura</td><td>".$jugador->player->height."</td></tr>
+                        <tr><td>Peso</td><td>".$jugador->player->weight."</td></tr>
+                        <tr><td>Lesionado</td><td>".$jugador->player->injured."</td></tr>
+                        </tbody></table>";
             
-                    foreach ($jugador->statistics as $estadistica) {
+                    foreach ($jugador->statistics as $key => $estadistica) {
             
-                        $tablaDatosJugador .= "<tr><td>Equipo</td><td>".$estadistica->team->name."</td></tr>
-                        <tr><td>Competición</td><td>".$estadistica->league->name."</td></tr>
+                        $selectCompeticion .= "<option value='".$estadistica->league->name."'>".$estadistica->league->name."</option>";
+                        $tablaEstadsticasJugador .= "
+                        <table class='tabla_datos ".($key == 0 ? "" : "ocultar" )."'>
+                        <thead><tr><th colspan='2'>Estadísticas</th></tr></thead><tbody>
+                        <tr><td>Equipo</td><td>".$estadistica->team->name."</td></tr>
+                        <tr><td>Competición</td><td class='competiciones'>".$estadistica->league->name."</td></tr>
                         <tr><td>País</td><td>".$estadistica->league->country."</td></tr>
                         <tr><td>Año</td><td>".$estadistica->league->season."</td></tr>
                         <tr><td>Partidos jugados</td><td>".$estadistica->games->appearences."</td></tr>
@@ -127,18 +136,24 @@
                         <tr><td>Penaltis cometidos</td><td>".$estadistica->penalty->commited."</td></tr>
                         <tr><td>Penaltis marcados</td><td>".$estadistica->penalty->scored."</td></tr>
                         <tr><td>Penaltis fallados</td><td>".$estadistica->penalty->missed."</td></tr>
-                        <tr><td>Penaltis parados</td><td>".$estadistica->penalty->saved."</td></tr>";
+                        <tr><td>Penaltis parados</td><td>".$estadistica->penalty->saved."</td></tr>
+                        </tbody></table>";
                     }
+
+                    $tablaDatosJugador .= "
+                        <div class='centraHorizontal'>
+                            <select id='jugadorEstadisticas' class='seleccionar'>
+                                $selectCompeticion
+                            </select>
+                        </div>";
                 }
-                            
-                $tablaDatosJugador .= "</tbody></table>";
 
             } else {
 
                 return "";
             }
 
-            
+            $tablaDatosJugador .= $tablaEstadsticasJugador;
             return $tablaDatosJugador;
         }
         
@@ -158,7 +173,6 @@
                         <td>". $trofeo->season ."</td>
                     </tr>";
                 }
-        
             }
         
             $tablaTrofeos .= "</tbody></table>";
