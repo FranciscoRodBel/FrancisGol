@@ -1,5 +1,4 @@
 <?php
-    session_start();
     require_once "../model/Usuario.php";
     require_once "../model/Plantilla.php";
     require_once "../model/Equipo.php";

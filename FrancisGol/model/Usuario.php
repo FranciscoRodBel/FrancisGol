@@ -1,4 +1,5 @@
 <?php
+session_start(); 
 
 require_once 'FrancisGolBD.php';
 require_once 'funciones.inc.php';
@@ -67,10 +68,8 @@ class Usuario { // Se usa para manejar todos los datos del usuario
 
                 $this->__get("cookies") == 1 ? $this->crearCookies() : "";
 
-                session_start();
                 $_SESSION['usuario'] = serialize($this); // guardo el propio objeto en la sesión de usuario
 
-                ob_end_flush();
                 header('Location: ./partidos.php');
                 die();
             }

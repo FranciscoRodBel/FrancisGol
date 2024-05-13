@@ -1,5 +1,4 @@
 <?php
-    session_start();
     require_once "../model/Usuario.php";
 
     if (isset($_SESSION['usuario'])) {

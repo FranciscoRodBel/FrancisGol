@@ -164,19 +164,19 @@ function comprobarInputs() {
     let repetir_contrasenia = document.getElementById("repetir_contrasenia");
 
     nombre.addEventListener("blur", function () {
-        comprobarAlSalirDelInput(nombre, /(?=.*[a-zA-Z].*)^[\w.]{5,25}$/i, "El nombre tiene que estar compuesto por letras, números, puntos o guiones bajos entre 5 y 25 caracteres.");
+        comprobarAlSalirDelInput(nombre, /(?=.*[a-zA-Z].*)^[\w.]{5,25}$/i, "Debe incluir letras, números, puntos o guiones bajos entre 5 y 25 caracteres.");
     })
 
     email.addEventListener("blur", function () {
-        comprobarAlSalirDelInput(email, /(?=^.{5,70}$)[\w]+@[\w]+\.[\w]+/i, "El email tiene que estar compuesto por caracteres(letras, números o guiones bajos) una @ seguido de caracteres, un punto y caracteres entre 5 y 70 caracteres");
+        comprobarAlSalirDelInput(email, /(?=^.{5,70}$)[\w]+@[\w]+\.[\w]+/i, "Debe incluir letras, números o guiones bajos entre 5 y 70 caracteres");
     })
 
     contrasenia.addEventListener("blur", function () {
-        comprobarAlSalirDelInput(contrasenia, /(?!.*\s.*)(?=.*[0-9].*)(?=.*[a-z].*)(?=.*[A-Z].*)(?=.*[\W_].*)^[\w\W]{8,50}$/, "La contraseña tiene que estar compuesto mínimo por una letra mayúscula y minúscula, un número y un caracter extraño entre 8 y 50 caracteres.");
+        comprobarAlSalirDelInput(contrasenia, /(?!.*\s.*)(?=.*[0-9].*)(?=.*[a-z].*)(?=.*[A-Z].*)(?=.*[\W_].*)^[\w\W]{8,50}$/, "Debe incluir una mayúscula, minúscula, número y un caracter extraño entre 8 y 50 caracteres.");
     })
 
     repetir_contrasenia.addEventListener("blur", function () {
-        comprobarAlSalirDelInput(repetir_contrasenia, /(?!.*\s.*)(?=.*[0-9].*)(?=.*[a-z].*)(?=.*[A-Z].*)(?=.*[\W_].*)^[\w\W]{8,50}$/, "La contraseña tiene que estar compuesto mínimo por una letra mayúscula y minúscula, un número y un caracter extraño entre 8 y 50 caracteres.");
+        comprobarAlSalirDelInput(repetir_contrasenia, /(?!.*\s.*)(?=.*[0-9].*)(?=.*[a-z].*)(?=.*[A-Z].*)(?=.*[\W_].*)^[\w\W]{8,50}$/, "Debe incluir una mayúscula, minúscula, número y un caracter extraño entre 8 y 50 caracteres.");
     })
     
 }

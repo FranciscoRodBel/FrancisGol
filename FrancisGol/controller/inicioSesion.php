@@ -1,5 +1,4 @@
 <?php
-    session_start();
     include '../model/Usuario.php';
 
     Usuario::comprobarSesionIniciada(true);
