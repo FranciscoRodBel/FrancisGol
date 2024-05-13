@@ -13,14 +13,14 @@
 
         $usuario = unserialize($_SESSION['usuario']);
 
-        echo "<div class='menu_ordenador'><a href='../controller/cerrarSesion.php'>Cerrar sesión</a>";
-        echo "<img src='data:image/jpeg;base64," . base64_encode($usuario->__get("foto")) . "'/></div>";
+        echo "<div class='menu_ordenador'><a href='../controller/cerrarSesion.php' class='boton_registrar'>Cerrar sesión</a>";
+        echo "<a href='../controller/cuenta_favoritos.php'><img src='data:image/jpeg;base64," . base64_encode($usuario->__get("foto")) . "'/></a></div>";
 
         } else { ?>
 
             <div class="menu_ordenador">
-                <a href="../controller/inicioSesion.php">Iniciar sesión</a>
-                <a href="../controller/registro.php">Registrarse</a>
+                <a href="../controller/inicioSesion.php" class="boton_iniciar">Iniciar sesión</a>
+                <a href="../controller/registro.php" class="boton_registrar">Registrarse</a>
             </div>
             
         <?php } ?>

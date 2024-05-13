@@ -224,7 +224,7 @@ header .menu_ordenador {
     display: none;
 }
 
-header .menu_ordenador a {
+.boton_registrar, .boton_iniciar {
     margin: 5px;
     border-radius: 10px;
     padding: 5px 10px;
@@ -233,11 +233,11 @@ header .menu_ordenador a {
     color: #000000;
 }
 
-header .menu_ordenador a:first-of-type {
+.boton_iniciar {
     background-color: var(--quinto_color);
 }
 
-header .menu_ordenador a:last-of-type {
+.boton_registrar {
     background-color: var(--tercer_color);
 }
 
