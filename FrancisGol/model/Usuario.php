@@ -70,8 +70,7 @@ class Usuario { // Se usa para manejar todos los datos del usuario
 
                 $_SESSION['usuario'] = serialize($this); // guardo el propio objeto en la sesión de usuario
 
-                header('Location: ./partidos.php');
-                die();
+                return "";
             }
             
         }

@@ -65,13 +65,13 @@
 </main>
 <script src="../view/assets/scripts/competiciones.js"></script>
 <script src="../view/assets/scripts/registro.js"></script>
-<script src="../view/assets/scripts/favoritos.js"></script>
+<!-- <script src="../view/assets/scripts/favoritos.js"></script> -->
 <script>
     var favoritos = {
         "competicion": [],
         "equipo": []
     };
-    escucharFavoritos();
+    // escucharFavoritos();
     seleccionarCompeticiones();
     escucharFormularios();
     comprobarInputs();

@@ -14,7 +14,15 @@ function seleccionarDatos(selectFormulario, rutaController, divPintarDatos, cond
 
                 seleccionarDatos("#competiciones2", "../controller/seleccionar_equipos.php", '#equipos_competicion', false);
             }
-            escucharFavoritosRegistro();
+
+
+            try {
+                escucharFavoritos();
+
+            } catch (error) {
+                escucharFavoritosRegistro();
+            }
+
         }
     });
 }

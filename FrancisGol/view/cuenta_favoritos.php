@@ -1,6 +1,14 @@
 <main>
     <h1 class="titulo_pagina">Favoritos</h1>
     <article>
+        <section class="seccion_negra">
+            <img src='data:image/jpeg;base64,<?= base64_encode($fotoUsuario) ?>' class="fotoCuenta">
+            <hr>
+            <div class="conjunto_botones">
+                <a href="../controller/cuenta_favoritos.php" class="boton_gris"><span>Favoritos</span></a>
+                <a href="../controller/cuenta_datos.php" class="boton_gris"><span>Cuenta</span></a>
+            </div>
+        </section>
         <section class="cuadro_inicio_registro desocultar">
             <h3 class="titulo_informacion">Selecciona sus competiciones favoritas</h3>
             <select name="seleccionar_pais" id="seleccionar_pais1" class="seleccionar_pais">
@@ -28,6 +36,5 @@
 <script src="../view/assets/scripts/competiciones.js"></script>
 <script src="../view/assets/scripts/favoritos.js"></script>
 <script>
-    escucharFavoritos();
     seleccionarCompeticiones();
 </script>

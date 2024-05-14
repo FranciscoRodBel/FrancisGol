@@ -246,8 +246,6 @@ function comprobarRegistro(event) {
     .then(respuesta => {
 
         parrafoResultado.innerHTML = respuesta;
-        
-        console.log(response);
 
     })
     .catch(error => {

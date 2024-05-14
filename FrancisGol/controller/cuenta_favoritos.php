@@ -12,6 +12,10 @@
     $paises2 = crearOpcionesPaises($paises);
     $paises1 = "<option value='' selected>Competiciones generales</option>".$paises2;
 
+    $usuario = unserialize($_SESSION['usuario']);
+
+    $fotoUsuario = $usuario->__get("foto");
+
     include '../view/templates/head.php';
     include '../view/templates/header.php';
     include '../view/templates/nav.php';
