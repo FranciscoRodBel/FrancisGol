@@ -245,6 +245,65 @@ function comprobarRegistro(event) {
     .then(resultado => resultado.text())
     .then(respuesta => {
 
+        console.log(respuesta);
+        parrafoResultado.innerHTML = respuesta;
+
+    })
+    .catch(error => {
+        console.error('Error:', error);
+    });
+}
+
+/* Funciones editar cuenta */
+
+function escucharFormulariosEditar() {
+        
+    let selectFoto = document.getElementById("seleccionar_foto");
+    let foto_perfil = document.getElementById("foto_perfil");
+    let inputFile = document.getElementById("inputFoto");
+    let botonEditarFoto = document.getElementById("editarFoto");
+
+    foto_perfil.addEventListener("click", (evento) => {
+            
+        evento.preventDefault();
+        inputFile.click();
+
+    });
+    selectFoto.addEventListener("click", (evento) => {
+            
+        evento.preventDefault();
+        inputFile.click();
+
+    });
+
+    inputFile.addEventListener("change", () => {cambiarImagen(inputFile)});
+
+    botonEditarFoto.addEventListener("click", comprobarEdicion);
+
+}
+
+function comprobarEdicion(event) {
+    
+    event.preventDefault();
+
+    let parrafoResultado = event.target.nextElementSibling;
+    let formulario = event.target.parentNode;
+
+    console.log(formulario);
+    console.log(parrafoResultado);
+    let formData = new FormData(formulario);
+
+    let opcionesFetch = {
+        method: 'POST',
+        body: formData
+    };
+
+    parrafoResultado.innerHTML = "<div class='cargando'></div>";
+
+    fetch(formulario.getAttribute('action'), opcionesFetch)
+    .then(resultado => resultado.text())
+    .then(respuesta => {
+
         parrafoResultado.innerHTML = respuesta;
 
     })

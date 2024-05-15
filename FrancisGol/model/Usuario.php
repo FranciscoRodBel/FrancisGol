@@ -174,7 +174,15 @@ class Usuario { // Se usa para manejar todos los datos del usuario
         $rutaTemporal = $_FILES['inputFoto']['tmp_name']; // Obtén la ruta temporal del archivo
     
         if ($rutaTemporal == "") { // Si está vacía es que no se ha enviado la foto
-            $archivo = addslashes(file_get_contents("../view/assets/images/foto_perfil.png"));
+
+            if (isset($_SESSION['usuario'])) {
+                
+                $usuario = unserialize($_SESSION['usuario']);
+                $archivo = $usuario->__get("foto");
+
+            } else {
+                $archivo = addslashes(file_get_contents("../view/assets/images/foto_perfil.png"));
+            }
 
         } else {
 
@@ -260,5 +268,43 @@ class Usuario { // Se usa para manejar todos los datos del usuario
 
         return $contrasenia;
     }
+
+    public function editarFoto() {
+
+        $foto = $this->generarFoto();
+
+        if ($foto != "mal_formato") {
+            
+            return $this->actualizarFotoUsuario($foto);
+
+        } else {
+
+            return "El formato de la foto no es correcto";
+        }
+
+    }
+
+    public function actualizarFotoUsuario($foto) {
+        $conexion = FrancisGolBD::establecerConexion();
+    
+        $idUsuario = $this->__get("id");
+
+        $consulta = "UPDATE usuario SET foto = '$foto' WHERE idUsuario = $idUsuario";
+        
+        $resultado = $conexion->query($consulta); // Ejecutamos la consulta
+     
+        if ($resultado) {
+
+            $this->__set("foto", $foto);
+            $_SESSION['usuario'] = serialize($this);
+
+            return "Foto de perfil actualizada";
+
+        } else {
+
+            return "No se pudo cambiar la foto";
+        }
+    }
+ 
 }
 

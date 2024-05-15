@@ -14,7 +14,7 @@
         $usuario = unserialize($_SESSION['usuario']);
 
         echo "<div class='menu_ordenador'><a href='../controller/cerrarSesion.php' class='boton_registrar'>Cerrar sesión</a>";
-        echo "<a href='../controller/cuenta_favoritos.php'><img src='data:image/jpeg;base64," . base64_encode($usuario->__get("foto")) . "'/></a></div>";
+        echo "<a href='../controller/cuenta_favoritos.php'><img src='data:image/jpeg;base64," . base64_encode($usuario->__get("foto")) . "'></a></div>";
 
         } else { ?>
 
