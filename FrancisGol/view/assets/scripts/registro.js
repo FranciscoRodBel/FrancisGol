@@ -36,15 +36,6 @@ function escucharFormularios() {
 
 }
 
-function mostrarOcultarContrasenia() {
-    
-    let iconosOjos = document.querySelectorAll(".ojo_contrasenia");
-    for (const icono of iconosOjos) {
-        
-        icono.addEventListener("click", () => {mostrarContrasenia(icono)});
-    }
-}
-
 function cambiarSeccion(evento, accion) {
     
     let cambioSeccion;
@@ -210,6 +201,16 @@ function comprobarAlSalirDelInput(etiqueta, expresion, mensaje) {
     }
 }
 
+function mostrarOcultarContrasenia() {
+    
+    let iconosOjos = document.querySelectorAll(".ojo_contrasenia");
+
+    for (const icono of iconosOjos) {
+        
+        icono.addEventListener("click", () => {mostrarContrasenia(icono)});
+    }
+}
+
 function mostrarContrasenia(icono) {
         
     if (icono.nextElementSibling.type == "password") {
@@ -245,7 +246,6 @@ function comprobarRegistro(event) {
     .then(resultado => resultado.text())
     .then(respuesta => {
 
-        console.log(respuesta);
         parrafoResultado.innerHTML = respuesta;
 
     })
@@ -256,12 +256,28 @@ function comprobarRegistro(event) {
 
 /* Funciones editar cuenta */
 
+function comprobarInputsEditar() {
+    
+    let nuevaContrasenia = document.getElementById("nueva_contrasenia");
+    let contraseniaActual = document.getElementById("contrasenia_actual");
+
+    nuevaContrasenia.addEventListener("blur", function () {
+        comprobarAlSalirDelInput(nuevaContrasenia, /(?!.*\s.*)(?=.*[0-9].*)(?=.*[a-z].*)(?=.*[A-Z].*)(?=.*[\W_].*)^[\w\W]{8,50}$/, "Debe incluir una mayúscula, minúscula, número y un caracter extraño entre 8 y 50 caracteres.");
+    })
+
+    contraseniaActual.addEventListener("blur", function () {
+        comprobarAlSalirDelInput(contraseniaActual, /(?!.*\s.*)(?=.*[0-9].*)(?=.*[a-z].*)(?=.*[A-Z].*)(?=.*[\W_].*)^[\w\W]{8,50}$/, "Debe incluir una mayúscula, minúscula, número y un caracter extraño entre 8 y 50 caracteres.");
+    })
+}
+
 function escucharFormulariosEditar() {
         
     let selectFoto = document.getElementById("seleccionar_foto");
     let foto_perfil = document.getElementById("foto_perfil");
     let inputFile = document.getElementById("inputFoto");
     let botonEditarFoto = document.getElementById("editarFoto");
+    let botonEditarDatos = document.getElementById("editarDatos");
+    let editarContrasenia = document.getElementById("editarContrasenia");
 
     foto_perfil.addEventListener("click", (evento) => {
             
@@ -279,6 +295,8 @@ function escucharFormulariosEditar() {
     inputFile.addEventListener("change", () => {cambiarImagen(inputFile)});
 
     botonEditarFoto.addEventListener("click", comprobarEdicion);
+    botonEditarDatos.addEventListener("click", comprobarEdicion);
+    editarContrasenia.addEventListener("click", comprobarEdicion);
 
 }
 
@@ -289,8 +307,7 @@ function comprobarEdicion(event) {
     let parrafoResultado = event.target.nextElementSibling;
     let formulario = event.target.parentNode;
 
-    console.log(formulario);
-    console.log(parrafoResultado);
+
     let formData = new FormData(formulario);
 
     let opcionesFetch = {

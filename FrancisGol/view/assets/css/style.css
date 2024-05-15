@@ -625,6 +625,7 @@ nav a:hover {
     border-radius: 50%;
     width: 40px;
     height: 40px;
+    margin: 0 auto;
     animation: circulo 1s linear infinite;
 }
 

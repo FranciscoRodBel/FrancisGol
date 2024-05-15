@@ -37,6 +37,9 @@ class Usuario { // Se usa para manejar todos los datos del usuario
     // Inicio de sesión
 
     public function comprobarInicioSesion($contrasenia, $tipo) {
+
+        ob_start();
+
         $conexion = FrancisGolBD::establecerConexion();
         $email = $this->__get("email");
 
@@ -67,6 +70,8 @@ class Usuario { // Se usa para manejar todos los datos del usuario
                 $this->__set("cookies", $resultado["cookies"]);
 
                 $this->__get("cookies") == 1 ? $this->crearCookies() : "";
+
+                ob_end_flush(); 
 
                 $_SESSION['usuario'] = serialize($this); // guardo el propio objeto en la sesión de usuario
 
@@ -128,10 +133,6 @@ class Usuario { // Se usa para manejar todos los datos del usuario
 
         if (!comprobarVacio(array($nombre, $email, $contraseniaUno, $contraseniaDos))) return "El formulario está incompleto";
         
-        if ($this->emailEnUso()) return "El email ya está en uso";
-        
-        if ($this->nombreEnUso($nombre)) return "El nombre ya está en uso";
-        
         if (is_numeric($nombre)) return "Nombre incorrecto";
         
         if ($contraseniaUno != $contraseniaDos) return "Las contraseñas no coinciden";
@@ -140,7 +141,11 @@ class Usuario { // Se usa para manejar todos los datos del usuario
 
         if (!preg_match("/(?=^.{5,70}$)[\w]+@[\w]+\.[\w]+/i", $email)) return "Email incorrecto, debe estar compuesto por caracteres(letras, números o guiones bajos) una @ seguido de caracteres, un punto y caracteres entre 5 y 70 caracteres.";
 
-        if (!preg_match("/(?!.*\s.*)(?=.*[0-9].*)(?=.*[a-z].*)(?=.*[A-Z].*)(?=.*[\W_].*)^[\w\W]{8,50}$/", $contraseniaUno)) return "Contraseña incorrecta, debe tiene que estar compuesto mínimo por una letra mayúscula, minúscula, un número y un caracter extraño entre 8 y 50 caracteres.";
+        if (!preg_match("/(?!.*\s.*)(?=.*[0-9].*)(?=.*[a-z].*)(?=.*[A-Z].*)(?=.*[\W_].*)^[\w\W]{8,50}$/", $contraseniaUno)) return "Contraseña incorrecta, debe estar compuesto mínimo por una letra mayúscula, minúscula, un número y un caracter extraño entre 8 y 50 caracteres.";
+
+        if ($this->emailEnUso()) return "El email ya está en uso";
+        
+        if ($this->nombreEnUso($nombre)) return "El nombre ya está en uso";
 
         $foto = $this->generarFoto();
 
@@ -177,8 +182,7 @@ class Usuario { // Se usa para manejar todos los datos del usuario
 
             if (isset($_SESSION['usuario'])) {
                 
-                $usuario = unserialize($_SESSION['usuario']);
-                $archivo = $usuario->__get("foto");
+                return "sin_cambios";
 
             } else {
                 $archivo = addslashes(file_get_contents("../view/assets/images/foto_perfil.png"));
@@ -273,29 +277,32 @@ class Usuario { // Se usa para manejar todos los datos del usuario
 
         $foto = $this->generarFoto();
 
-        if ($foto != "mal_formato") {
-            
-            return $this->actualizarFotoUsuario($foto);
+        if ($foto == "mal_formato") return "El formato de la foto no es correcto";
 
-        } else {
+        if ($foto == "sin_cambios") return "Tiene que seleccionar una foto";
 
-            return "El formato de la foto no es correcto";
-        }
-
+        return $this->actualizarFotoUsuario($foto);
     }
 
     public function actualizarFotoUsuario($foto) {
         $conexion = FrancisGolBD::establecerConexion();
     
         $idUsuario = $this->__get("id");
-
+        
         $consulta = "UPDATE usuario SET foto = '$foto' WHERE idUsuario = $idUsuario";
         
         $resultado = $conexion->query($consulta); // Ejecutamos la consulta
      
         if ($resultado) {
 
-            $this->__set("foto", $foto);
+            $consulta = $conexion->stmt_init();
+            $consulta->prepare("SELECT * FROM usuario WHERE idUsuario = ?");
+            $consulta->bind_param("s", $idUsuario);
+            $consulta->execute();
+            $resultado = $consulta->get_result();
+            $resultado = $resultado->fetch_assoc();
+
+            $this->__set("foto", $resultado['foto']);
             $_SESSION['usuario'] = serialize($this);
 
             return "Foto de perfil actualizada";
@@ -305,6 +312,95 @@ class Usuario { // Se usa para manejar todos los datos del usuario
             return "No se pudo cambiar la foto";
         }
     }
- 
+
+    public function editarDatos() {
+
+        if (!isset($_POST["email"]) || !isset($_POST["nombre"]) || !isset($_POST["contrasenia"])) return "No se enviaron los datos";
+
+        $email = $_POST["email"];
+        $nombre = $_POST["nombre"];
+        $contrasenia = $_POST["contrasenia"];
+        $nombreActual = $this->__get("nombre");
+        $emailActual = $this->__get("email");
+    
+        if (!preg_match("/(?=.*[a-zA-Z].*)^[\w.]{5,25}$/i", $nombre)) return "Nombre incorrecto, debe estar compuesto por letras, números, puntos o guiones bajos entre 5 y 25 caracteres.";
+
+        if (!preg_match("/(?=^.{5,70}$)[\w]+@[\w]+\.[\w]+/i", $email)) return "Email incorrecto, debe estar compuesto por caracteres(letras, números o guiones bajos) una @ seguido de caracteres, un punto y caracteres entre 5 y 70 caracteres.";
+
+        $nuevoUsuario = new Usuario($email);
+        $nuevoUsuario->__set("nombre", $nombre);
+
+        if ($emailActual != $email && $nuevoUsuario->emailEnUso()) return "El email ya está en uso";
+        
+        if ($nombreActual != $nombre && $nuevoUsuario->nombreEnUso($nombre)) return "El nombre ya está en uso";
+
+        $contraseniaUsuario = $this->recogerContrasenia();
+        if (!password_verify($contrasenia, $contraseniaUsuario)) return "La contraseña no es correcta";
+
+        return $this->actualizarDatosUsuario($email, $nombre);
+    }
+    public function actualizarDatosUsuario($email, $nombre) {
+        
+        $conexion = FrancisGolBD::establecerConexion();
+        $idUsuario = $this->__get("id");
+        
+        $consulta = "UPDATE usuario SET email = '$email', nombre = '$nombre'  WHERE idUsuario = $idUsuario";
+        
+        $resultado = $conexion->query($consulta); // Ejecutamos la consulta
+     
+        if ($resultado) {
+
+            $this->__set("nombre", $nombre);
+            $this->__set("email", $email);
+            $_SESSION['usuario'] = serialize($this);
+
+            return "Datos actualizados";
+
+        } else {
+
+            return "No se pudieron actualizar los datos";
+        }
+    }
+
+    public function editarContrasenia() {
+        
+        if (!isset($_POST["nueva_contrasenia"]) || !isset($_POST["contrasenia_actual"]) || !isset($_POST["repetir_contrasenia"])) return "No se enviaron los datos";
+
+        $nuevaContrasenia = $_POST["nueva_contrasenia"];
+        $repetirContrasenia = $_POST["repetir_contrasenia"];
+        $contraseniaActual = $_POST["contrasenia_actual"];
+
+        if ($nuevaContrasenia != $repetirContrasenia) return "Las contraseñas nuevas no coinciden";
+
+        $contraseniaUsuario = $this->recogerContrasenia();
+        if (!password_verify($contraseniaActual, $contraseniaUsuario)) return "La contraseña acutal no es correcta";
+
+        if (!preg_match("/(?!.*\s.*)(?=.*[0-9].*)(?=.*[a-z].*)(?=.*[A-Z].*)(?=.*[\W_].*)^[\w\W]{8,50}$/", $nuevaContrasenia)) return "Nueva contraseña incorrecta, debe estar compuesto mínimo por una letra mayúscula, minúscula, un número y un caracter extraño entre 8 y 50 caracteres.";
+
+        return $this->actualizarContraseniaUsuario($nuevaContrasenia);
+    }
+
+    public function actualizarContraseniaUsuario($nuevaContrasenia) {
+        
+        $nuevaContrasenia = password_hash($nuevaContrasenia, PASSWORD_DEFAULT);
+
+        $conexion = FrancisGolBD::establecerConexion();
+        $idUsuario = $this->__get("id");
+        
+        $consulta = "UPDATE usuario SET contrasenia = '$nuevaContrasenia'  WHERE idUsuario = $idUsuario";
+        
+        $resultado = $conexion->query($consulta); // Ejecutamos la consulta
+     
+        if ($resultado) {
+
+            return "Contraseña actualizada";
+
+        } else {
+
+            return "No se pudo actualizar la contraseña";
+        }
+    }
 }
+
+
 

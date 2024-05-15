@@ -11,6 +11,8 @@
 
             echo match ($_GET["accion"]) {
                 "editarFoto" => $usuario->editarFoto(),
+                "editarDatos" => $usuario->editarDatos(),
+                "editarContrasenia" => $usuario->editarContrasenia(),
                 default => "Datos enviados incorrectos"
             };
         }
