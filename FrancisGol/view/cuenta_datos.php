@@ -10,7 +10,7 @@
                 <p class='parrafo_informacion_blanco'></p>
             </form>
         </section>
-    <h1 class="titulo_pagina">Editar Datos</h1>
+        <h1 class="titulo_pagina">Editar Datos</h1>
         <section class="cuadro_inicio_registro desocultar">
             <form action="../controller/cuenta_editar.php?accion=editarDatos">
                 <label for="nombre">Nombre usuario</label>

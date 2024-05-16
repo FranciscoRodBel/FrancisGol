@@ -38,8 +38,6 @@ class Usuario { // Se usa para manejar todos los datos del usuario
 
     public function comprobarInicioSesion($contrasenia, $tipo) {
 
-        ob_start();
-
         $conexion = FrancisGolBD::establecerConexion();
         $email = $this->__get("email");
 
@@ -51,13 +49,14 @@ class Usuario { // Se usa para manejar todos los datos del usuario
         $resultado = $consulta->get_result();
         $resultado = $resultado->fetch_assoc();
 
-        if (!empty($email)) {
+        if (!empty($email) && $this->emailEnUso()) {
 
             if ($tipo == "cookie") {
 
                 $comprobacionContrasenia = $resultado["contrasenia"] == $contrasenia;
 
             } else {
+
                 $comprobacionContrasenia = password_verify($contrasenia, $resultado["contrasenia"]);
             }
             // Compruebo si la contraseña es la misma
@@ -70,8 +69,6 @@ class Usuario { // Se usa para manejar todos los datos del usuario
                 $this->__set("cookies", $resultado["cookies"]);
 
                 $this->__get("cookies") == 1 ? $this->crearCookies() : "";
-
-                ob_end_flush(); 
 
                 $_SESSION['usuario'] = serialize($this); // guardo el propio objeto en la sesión de usuario
 
@@ -257,9 +254,10 @@ class Usuario { // Se usa para manejar todos los datos del usuario
 
         $email = $this->__get("email");
         $contrasenia = $this->recogerContrasenia();
-    
-        setcookie("email", $email, time() + (86400 * 30), "/"); 
-        setcookie("contrasenia", $contrasenia, time() + (86400 * 30), "/");
+
+        setcookie("email", $email, time() + 86400 * 30, "/"); 
+        setcookie("contrasenia", $contrasenia, time() + 86400 * 30, "/");
+
     }
 
     public function recogerContrasenia() {
@@ -354,6 +352,7 @@ class Usuario { // Se usa para manejar todos los datos del usuario
             $this->__set("email", $email);
             $_SESSION['usuario'] = serialize($this);
 
+            setcookie("email", $email, time() + 86400 * 30, "/"); 
             return "Datos actualizados";
 
         } else {
@@ -393,6 +392,7 @@ class Usuario { // Se usa para manejar todos los datos del usuario
      
         if ($resultado) {
 
+            setcookie("contrasenia", $nuevaContrasenia, time() + 86400 * 30, "/");
             return "Contraseña actualizada";
 
         } else {
