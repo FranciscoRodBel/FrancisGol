@@ -34,8 +34,8 @@
 
                 } else {
 
-                    $competicion = realizarConsulta("competicion_$idCompeticion", "leagues?id=$idCompeticion", 86400); 
-                    
+                    $competicion = realizarConsultaSinJson("leagues?id=$idCompeticion");
+
                     if ($competicion->results != 0) {
 
                         $competicion = $competicion->response[0]->league;

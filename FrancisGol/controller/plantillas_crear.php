@@ -9,9 +9,8 @@
     $lista_css = ["registro_inicio.css", "alineaciones.css"];
 
     if (isset($_SESSION['usuario'])) {
-
-        $paises = realizarConsulta("paises", "countries", 86400); 
-        $paises = crearOpcionesPaises($paises);
+ 
+        $paises = crearOpcionesPaises();
         
         if (isset($_POST['enviarEquipo']) && isset($_POST['equipos_competicion'])) {
 

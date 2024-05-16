@@ -1,5 +1,7 @@
 <?php
-    function crearOpcionesPaises($paises) {
+    function crearOpcionesPaises() {
+
+        $paises = realizarConsulta("paises", "countries", 86400);
 
         $opciones = "";
         foreach ($paises->response as $pais) {

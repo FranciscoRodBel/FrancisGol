@@ -24,7 +24,10 @@ class Partido {
 
         $fecha_actual = date('Y-m-d\TH:i:sP');
 
-        $partido = realizarConsulta("datos_partido_$idPartido", "fixtures?id=$idPartido", 86400);
+        $partido = realizarConsulta("datos_partido_$idPartido", "fixtures?id=$idPartido", 1800);
+
+        if (empty($partido)) { return ""; }
+
         $partido = $partido->response[0];
         
         $hora_partido = strtotime($partido->fixture->date);
@@ -150,76 +153,70 @@ class Partido {
         $idEquipoLocal = $this->__get("idEquipoLocal");
         $idEquipoVisitante = $this->__get("idEquipoVisitante");
 
-        if (!empty($eventosPartido->response)) {
-            foreach ($eventosPartido->response as $evento) {
+        if (empty($eventosPartido->response)) { return "<p class='parrafo_informacion'>El partido aún no ha comenzado</p>"; }
+        
+        foreach ($eventosPartido->response as $evento) {
 
-                $eventosEquipos[$evento->team->id][] = $evento;
-    
-            }
+            $eventosEquipos[$evento->team->id][] = $evento;
 
-            $eventosOrdenados = "";
-
-            $id = $idEquipoLocal;
-    
-            for ($i=0; $i < 2; $i++) { 
-    
-                $eventosEquipo = [];
-                $eventosOrdenados .= "<div>
-                <h3 class='titulo_informacion'>".$eventosEquipos[$id][0]->team->name."</h3>";
-
-                foreach ($eventosEquipos[$id] as $evento) {
-    
-                    $eventosPartido = "";
-                    $minuto = $evento->time->elapsed + $evento->time->extra;
-
-                    $eventosPartido .= "
-                    <div class='evento'>
-                        <div class='icono_minuto'>
-                        <p class='minuto'>".$minuto."'</p>
-                    ";
-    
-                    $eventosPartido .= match ($evento->type) {
-                        "Goal" => "<i class='fa-solid fa-futbol icono_evento verde'></i>",
-                        "Var" => $evento->detail == "Goal confirmed" ? "<i class='fa-solid fa-futbol icono_evento verde'></i>" : "<i class='fa-solid fa-futbol icono_evento rojo'></i>" ,
-                        "NoGoal" => "<div class='icono_evento gol_anulado'>
-                                        <i class='fa-solid fa-futbol'></i>
-                                        <i class='fa-solid fa-xmark'></i>
-                                     </div>",
-                        "Card" => $evento->detail == "Yellow Card" ? "<div class='icono_evento'><div class='tarjeta_amarilla'></div></div>" : "<div class='icono_evento'><div class='tarjeta_roja'></div></div>" ,
-                        "subst" => "<i class='fa-solid fa-arrows-rotate icono_evento'></i>",
-                        default => $evento->detail
-                    };
-                    $eventosPartido .= "</div>";
-                    $eventosPartido .= match ($evento->type) {
-                        "subst" => "<div class='nombre_evento cambio'>
-                                        <p class='rojo'>".$evento->player->name."</p>
-                                        <p class='verde'>".$evento->assist->name."</p>
-                                    </div>",
-                        default => "<p class='nombre_evento'>".$evento->player->name."</p>"
-                    };
-    
-                    $eventosPartido .= "</div>";
-
-                    isset($eventosEquipo[$minuto]) ? $eventosEquipo[$minuto] .= $eventosPartido : $eventosEquipo[$minuto] = $eventosPartido;
-                     
-                }
-
-                ksort($eventosEquipo);
-
-                foreach ($eventosEquipo as $evento) {
-                    $eventosOrdenados .= $evento;
-                }
-
-                $eventosOrdenados .= $id == $idEquipoLocal ? "</div><hr>" : "</div>";
-    
-                $id = $idEquipoVisitante;
-                
-            }
-        } else {
-            $eventosOrdenados = "<p class='parrafo_informacion'>El partido aún no ha comenzado</p>";
         }
 
+        $eventosOrdenados = "";
+        $id = $idEquipoLocal;
 
+        for ($i=0; $i < 2; $i++) { 
+
+            $eventosEquipo = [];
+            $eventosOrdenados .= "<div>
+            <h3 class='titulo_informacion'>".$eventosEquipos[$id][0]->team->name."</h3>";
+
+            foreach ($eventosEquipos[$id] as $evento) {
+
+                $eventosPartido = "";
+                $minuto = $evento->time->elapsed + $evento->time->extra;
+
+                $eventosPartido .= "
+                <div class='evento'>
+                    <div class='icono_minuto'>
+                    <p class='minuto'>".$minuto."'</p>
+                ";
+
+                $eventosPartido .= match ($evento->type) {
+                    "Goal" => "<i class='fa-solid fa-futbol icono_evento verde'></i>",
+                    "Var" => $evento->detail == "Goal confirmed" ? "<i class='fa-solid fa-futbol icono_evento verde'></i>" : "<i class='fa-solid fa-futbol icono_evento rojo'></i>" ,
+                    "NoGoal" => "<div class='icono_evento gol_anulado'>
+                                    <i class='fa-solid fa-futbol'></i>
+                                    <i class='fa-solid fa-xmark'></i>
+                                    </div>",
+                    "Card" => $evento->detail == "Yellow Card" ? "<div class='icono_evento'><div class='tarjeta_amarilla'></div></div>" : "<div class='icono_evento'><div class='tarjeta_roja'></div></div>" ,
+                    "subst" => "<i class='fa-solid fa-arrows-rotate icono_evento'></i>",
+                    default => $evento->detail
+                };
+                $eventosPartido .= "</div>";
+                $eventosPartido .= match ($evento->type) {
+                    "subst" => "<div class='nombre_evento cambio'>
+                                    <p class='rojo'>".$evento->player->name."</p>
+                                    <p class='verde'>".$evento->assist->name."</p>
+                                </div>",
+                    default => "<p class='nombre_evento'>".$evento->player->name."</p>"
+                };
+
+                $eventosPartido .= "</div>";
+
+                isset($eventosEquipo[$minuto]) ? $eventosEquipo[$minuto] .= $eventosPartido : $eventosEquipo[$minuto] = $eventosPartido;
+                    
+            }
+
+            ksort($eventosEquipo);
+
+            foreach ($eventosEquipo as $evento) {
+                $eventosOrdenados .= $evento;
+            }
+
+            $eventosOrdenados .= $id == $idEquipoLocal ? "</div><hr>" : "</div>";
+            $id = $idEquipoVisitante;
+            
+        }
         return $eventosOrdenados;
     }
 

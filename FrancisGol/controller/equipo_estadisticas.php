@@ -11,13 +11,28 @@
 
         $idEquipo = $_GET["equipo"];
         $equipo = Equipo::recogerEquipo($idEquipo);
-        $datosEquipo = $equipo->pintarEquipo();
-        
-        $equipoCompeticiones = Competicion::recogerEquipoCompeticiones($idEquipo); 
 
-        $opcionesCompeticiones = $equipo->generarOpcionesCompeticiones($equipoCompeticiones);
-        $opcionesAnios = $equipo->generarOpcionesAnios($equipoCompeticiones);
+        if (!empty($equipo)) {
 
+            $datosEquipo = $equipo->pintarEquipo();
+            
+            $equipoCompeticiones = Competicion::recogerEquipoCompeticiones($idEquipo); 
+
+            $opcionesCompeticiones = $equipo->generarOpcionesCompeticiones($equipoCompeticiones);
+            $opcionesAnios = $equipo->generarOpcionesAnios($equipoCompeticiones);
+
+        } else {
+
+            $opcionesCompeticiones = "";
+            $opcionesAnios = "";
+            $datosEquipo = "<p class='parrafo_informacion_blanco'>Equipo no encontrado</p>";
+        }
+
+    } else {
+
+        $opcionesCompeticiones = "";
+        $opcionesAnios = "";
+        $datosEquipo = "<p class='parrafo_informacion_blanco'>Equipo no encontrado</p>";
     }
 
     include '../view/templates/head.php';

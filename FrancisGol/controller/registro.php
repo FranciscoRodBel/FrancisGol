@@ -8,8 +8,7 @@
     $titulo = "FrancisGol - Registro";
     $lista_css = ["registro_inicio.css", "competiciones.css"];
     
-    $paises = realizarConsulta("paises", "countries", 86400); 
-    $paises2 = crearOpcionesPaises($paises);
+    $paises2 = crearOpcionesPaises();
     $paises1 = "<option value='' selected>Competiciones generales</option>".$paises2;
 
     include '../view/templates/head.php';

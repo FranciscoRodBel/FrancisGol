@@ -10,15 +10,24 @@
 
         $idEquipo = $_GET["equipo"];
         $equipo = Equipo::recogerEquipo($idEquipo);
-        $datosEquipo = $equipo->pintarEquipo();
-         
-        $equipoPlantilla = realizarConsulta("equipo_plantilla_$idEquipo", "/players/squads?team=$idEquipo", 86400); 
-        $plantilla = $equipo->generarPlantilla($equipoPlantilla);
+
+        if (!empty($equipo)) {
+
+            $datosEquipo = $equipo->pintarEquipo();
+            
+            $equipoPlantilla = realizarConsulta("equipo_plantilla_$idEquipo", "/players/squads?team=$idEquipo", 604800); 
+            $plantilla = $equipo->generarPlantilla($equipoPlantilla);
+
+        } else {
+
+            $plantilla = "";
+            $datosEquipo = "<p class='parrafo_informacion_blanco'>Equipo no encontrado</p>";
+        }
 
     } else {
 
-        header("Location: ../controller/partidos.php");
-        exit;
+        $plantilla = "";
+        $datosEquipo = "<p class='parrafo_informacion_blanco'>Equipo no encontrado</p>";
     }
 
     include '../view/templates/head.php';

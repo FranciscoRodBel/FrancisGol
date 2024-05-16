@@ -10,25 +10,37 @@
 
         $idPartido = $_GET["partido"];
         $partido = Partido::recogerPartido($idPartido);
-        $datosPartido = $partido->pintarPartido();
 
-        $estadisticasPartido = realizarConsulta("partido_estadisticas_$idPartido", "fixtures/statistics?fixture=$idPartido", 86400); 
-        
-        if (!empty($estadisticasPartido)) {
+        if (!empty($partido)) {
+            $datosPartido = $partido->pintarPartido();
 
-            $tablaEstadisticas = $partido->pintarEstadisticasPartido($estadisticasPartido);
+            $estadisticasPartido = realizarConsulta("partido_estadisticas_$idPartido", "fixtures/statistics?fixture=$idPartido", 1800); 
+            
+            if (!empty($estadisticasPartido)) {
+
+                $tablaEstadisticas = $partido->pintarEstadisticasPartido($estadisticasPartido);
+            } else {
+
+                $tablaEstadisticas = "<p class='parrafo_informacion'>No se encontraron estadísticas</p>";
+            }
+
+            $nombreEquipoLocal = $partido->__get("nombreEquipoLocal");
+            $nombreEquipoVisitante = $partido->__get("nombreEquipoVisitante");
+
         } else {
 
-            $tablaEstadisticas = "<p class='parrafo_informacion'>No se encontraron estadísticas</p>";
+            $nombreEquipoLocal = "Equipo";
+            $nombreEquipoVisitante = "Equipo";
+            $datosPartido = "";
+            $tablaEstadisticas = "<p class='parrafo_informacion'>Partido no encontrado</p>";
         }
-
-        $nombreEquipoLocal = $partido->__get("nombreEquipoLocal");
-        $nombreEquipoVisitante = $partido->__get("nombreEquipoVisitante");
 
     } else {
 
-        header("Location: ../controller/partidos.php");
-        exit;
+        $nombreEquipoLocal = "Equipo";
+        $nombreEquipoVisitante = "Equipo";
+        $datosPartido = "";
+        $tablaEstadisticas = "<p class='parrafo_informacion'>Partido no encontrado</p>";
     }
 
     include '../view/templates/head.php';

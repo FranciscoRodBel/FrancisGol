@@ -31,8 +31,8 @@
                 } else {
 
                     $anioActual = date("Y") - 1;
-                    $jugador = realizarConsulta("jugador_".$idJugador."_".$anioActual, "/players?id=$idJugador&season=$anioActual", 86400);
-            
+                    $jugador = realizarConsultaSinJson("/players?id=$idJugador&season=$anioActual");
+                    
                     if (!empty($jugador)) {
 
                         $jugador = $jugador->response[0]->player;

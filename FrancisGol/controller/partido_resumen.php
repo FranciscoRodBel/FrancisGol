@@ -10,16 +10,25 @@
     
         $idPartido = $_GET["partido"];
         $partido = Partido::recogerPartido($idPartido);
-        $datosPartido = $partido->pintarPartido();
         
-        $eventosPartido = realizarConsulta("partido_resumen_$idPartido", "fixtures/events?fixture=$idPartido", 86400); 
-        $resumenPartido = $partido->pintarResumenPartido($eventosPartido);
-      
+        if (!empty($partido)) {
+            
+            $datosPartido = $partido->pintarPartido();
+        
+            $eventosPartido = realizarConsulta("partido_resumen_$idPartido", "fixtures/events?fixture=$idPartido", 1800); 
+    
+            $resumenPartido = $partido->pintarResumenPartido($eventosPartido);
+
+        } else {
+
+            $datosPartido = "";
+            $resumenPartido = "<p class='parrafo_informacion'>Partido no encontrado</p>";
+        }
+
     } else {
       
-        header("Location: ../controller/partidos.php");
-        exit;
-
+        $datosPartido = "";
+        $resumenPartido = "<p class='parrafo_informacion'>Partido no encontrado</p>";
     }
 
     include '../view/templates/head.php';

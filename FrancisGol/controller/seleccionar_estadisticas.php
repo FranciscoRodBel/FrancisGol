@@ -11,7 +11,15 @@
 
         $equipo = Equipo::recogerEquipo($idEquipo);
 
-        $equipoEstadisticas = realizarConsulta("equipo_estadisticas_$idEquipo"."_"."$idCompeticion"."_"."$anio", "teams/statistics?league=$idCompeticion&season=$anio&team=$idEquipo", 86400); 
-        echo $equipo->pintarEstadisticasEquipo($equipoEstadisticas);
+        $equipoEstadisticas = realizarConsulta("equipo_estadisticas_$idEquipo"."_"."$idCompeticion"."_".$anio, "teams/statistics?league=$idCompeticion&season=$anio&team=$idEquipo", 86400); 
+        
+        if (!empty($equipoEstadisticas)) {
+            
+            echo $equipo->pintarEstadisticasEquipo($equipoEstadisticas);
 
+        } else {
+
+            echo "";
+
+        }
     }

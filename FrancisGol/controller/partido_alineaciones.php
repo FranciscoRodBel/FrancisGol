@@ -11,25 +11,37 @@
 
         $idPartido = $_GET["partido"];
         $partido = Partido::recogerPartido($idPartido);
-        $datosPartido = $partido->pintarPartido();
-        
-        $alineacionesPartido = realizarConsulta("partido_alineaciones_$idPartido", "fixtures/lineups?fixture=$idPartido", 86400); 
 
-        if (!empty($alineacionesPartido)) {
+        if (!empty($partido)) {
+            $datosPartido = $partido->pintarPartido();
+            
+            $alineacionesPartido = realizarConsulta("partido_alineaciones_$idPartido", "fixtures/lineups?fixture=$idPartido", 1800); 
 
-            $alineacionesPartido = $partido->pintarAlineacionesPartido($alineacionesPartido);
+            if (!empty($alineacionesPartido)) {
+
+                $alineacionesPartido = $partido->pintarAlineacionesPartido($alineacionesPartido);
+            } else {
+
+                $alineacionesPartido = "<p class='parrafo_informacion'>No se encontraron alineaciones</p>";
+            }
+
+            $nombreEquipoLocal = $partido->__get("nombreEquipoLocal");
+            $nombreEquipoVisitante = $partido->__get("nombreEquipoVisitante");
+
         } else {
 
-            $alineacionesPartido = "<p class='parrafo_informacion'>No se encontraron alineaciones</p>";
+            $nombreEquipoLocal = "Equipo";
+            $nombreEquipoVisitante = "Equipo";
+            $datosPartido = "";
+            $alineacionesPartido = "<p class='parrafo_informacion'>Partido no encontrado</p>";
         }
-
-        $nombreEquipoLocal = $partido->__get("nombreEquipoLocal");
-        $nombreEquipoVisitante = $partido->__get("nombreEquipoVisitante");
 
     } else {
 
-        header("Location: ../controller/partidos.php");
-        exit;
+        $nombreEquipoLocal = "Equipo";
+        $nombreEquipoVisitante = "Equipo";
+        $datosPartido = "";
+        $alineacionesPartido = "<p class='parrafo_informacion'>Partido no encontrado</p>";
     }
 
     include '../view/templates/head.php';

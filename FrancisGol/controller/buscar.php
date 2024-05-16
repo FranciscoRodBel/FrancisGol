@@ -7,8 +7,7 @@
     $titulo = "FrancisGol - Competiciones";
     $lista_css = ["competiciones.css"];
 
-    $paises = realizarConsulta("paises", "countries", 86400); 
-    $paises = crearOpcionesPaises($paises);
+    $paises = crearOpcionesPaises();
 
     $resultadoCompeticiones = Competicion::pintarCompeticionesFavoritas();
     

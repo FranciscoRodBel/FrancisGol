@@ -11,11 +11,18 @@
     $fechas_partidos = Partido::generarFechasPartidos();
     
     $fecha = isset($_GET["fecha"]) && !empty($_GET["fecha"]) ? $_GET["fecha"] : date("Y-m-d");
+    $formato = 'Y-m-d';
+    $objetoFecha = DateTime::createFromFormat($formato, $fecha);
 
-    $partidos = realizarConsulta("partidos_$fecha", "fixtures?date=$fecha", 86400); 
+    if ($objetoFecha && $objetoFecha->format($formato) === $fecha) {
 
-    $partidosSeleccionados = Partido::pintarPartidos($partidos);
-    
+        $partidos = realizarConsulta("partidos_$fecha", "fixtures?date=$fecha", 3600); 
+
+        $partidosSeleccionados = Partido::pintarPartidos($partidos);
+
+    } else {
+        $partidosSeleccionados = "La fecha enviada no es correcta";
+    }
 
     include '../view/templates/head.php';
     include '../view/templates/header.php';

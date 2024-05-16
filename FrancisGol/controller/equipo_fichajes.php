@@ -10,15 +10,24 @@
 
         $idEquipo = $_GET["equipo"];
         $equipo = Equipo::recogerEquipo($idEquipo);
-        $datosEquipo = $equipo->pintarEquipo();
-         
-        $fichajesEquipo = realizarConsulta("fichajes_$idEquipo", "transfers?team=$idEquipo", 86400); 
-        $fichajes = Equipo::pintarFichajesEquipo($fichajesEquipo);
+
+        if (!empty($equipo)) {
+
+            $datosEquipo = $equipo->pintarEquipo();
+            
+            $fichajesEquipo = realizarConsulta("fichajes_$idEquipo", "transfers?team=$idEquipo", 86400); 
+            $fichajes = Equipo::pintarFichajesEquipo($fichajesEquipo);
+
+        } else {
+
+            $fichajes = "";
+            $datosEquipo = "<p class='parrafo_informacion_blanco'>Equipo no encontrado</p>";
+        }
 
     } else {
 
-        header("Location: ../controller/partidos.php");
-        exit;
+        $fichajes = "";
+        $datosEquipo = "<p class='parrafo_informacion_blanco'>Equipo no encontrado</p>";
     }
 
     include '../view/templates/head.php';

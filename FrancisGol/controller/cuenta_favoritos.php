@@ -8,8 +8,7 @@
     $titulo = "FrancisGol - Cuenta favoritos";
     $lista_css = ["registro_inicio.css", "competiciones.css"];
 
-    $paises = realizarConsulta("paises", "countries", 86400); 
-    $paises2 = crearOpcionesPaises($paises);
+    $paises2 = crearOpcionesPaises();
     $paises1 = "<option value='' selected>Competiciones generales</option>".$paises2;
 
     $usuario = unserialize($_SESSION['usuario']);

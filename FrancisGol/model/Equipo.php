@@ -32,9 +32,9 @@
     
                 } else {
     
-                    $equipo = realizarConsulta("equipo_$idEquipo", "teams?id=$idEquipo", 86400);
+                    $equipo = realizarConsultaSinJson("teams?id=$idEquipo");
     
-                    if ($equipo->results != 0) {
+                    if (!empty($equipo)) {
 
                         $equipo = $equipo->response[0]->team;
                         $equipo = new Equipo($equipo->id, $equipo->name, $equipo->logo);
@@ -44,7 +44,6 @@
 
                         return "";
                     }
-
                 }
     
                 return $equipo;
@@ -400,6 +399,7 @@
                         // $jugador->player->id
                         $fichajes .= "<div>
                             <div class='datos_fichaje'>
+                                <img src='https://media.api-sports.io/football/players/".$jugador->player->id.".png' alt='foto' class='foto_jugador'>
                                 <a href='../controller/jugador_datos.php?jugador=".$jugador->player->id."'>".$jugador->player->name."</a>
                                 <hr>
                                 <p>".$datoFichaje->date."</p>

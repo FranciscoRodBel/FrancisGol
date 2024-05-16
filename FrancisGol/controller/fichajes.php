@@ -7,8 +7,7 @@
     $titulo = "FrancisGol - Registro";
     $lista_css = ["registro_inicio.css"];
 
-    $paises = realizarConsulta("paises", "countries", 86400); 
-    $paises = crearOpcionesPaises($paises);
+    $paises = crearOpcionesPaises();
 
     if (isset($_POST['enviar']) && isset($_POST['equipos_competicion'])) {
 

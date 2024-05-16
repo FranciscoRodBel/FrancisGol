@@ -36,6 +36,13 @@ function seleccionarDatosCompeticion(idEquipo, anio, idCompeticion) {
 
 function incluirDatosEnLaPagina(contenidoPagina) {
     let seccion_estadisticas_equipo = document.getElementById("estadisticas_equipo");
-    seccion_estadisticas_equipo.innerHTML = contenidoPagina;
 
+    if (contenidoPagina.length == 0) {
+        
+        seccion_estadisticas_equipo.innerHTML = "<p>Año no encontrado</p>";
+
+    } else {
+
+        seccion_estadisticas_equipo.innerHTML = contenidoPagina;
+    }
 }
