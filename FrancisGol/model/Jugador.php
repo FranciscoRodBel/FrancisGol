@@ -17,36 +17,40 @@
 
         public static function recogerJugador($idJugador) {
 
-                $conexion = FrancisGolBD::establecerConexion();
-                $consulta = "SELECT * FROM jugador WHERE idJugador = $idJugador";
-                $resultado = $conexion->query($consulta);
-        
-                if (mysqli_num_rows($resultado) == 1) {
+            if (is_numeric($idJugador)) {
+
+                    $conexion = FrancisGolBD::establecerConexion();
+                    $consulta = "SELECT * FROM jugador WHERE idJugador = $idJugador";
+                    $resultado = $conexion->query($consulta);
             
-                    while($row = mysqli_fetch_assoc($resultado)) {
-                        
-                        $jugador = new Jugador($row['idJugador'], $row['nombre'], $row['foto']);
-                    }
-    
-                } else {
-
-                    $anioActual = date("Y") - 1;
-                    $jugador = realizarConsultaSinJson("/players?id=$idJugador&season=$anioActual");
-                    
-                    if (!empty($jugador)) {
-
-                        $jugador = $jugador->response[0]->player;
-                        $jugador = new Jugador($jugador->id, $jugador->name, $jugador->photo);
-                        $jugador->insertarJugador();
-
+                    if (mysqli_num_rows($resultado) == 1) {
+                
+                        while($row = mysqli_fetch_assoc($resultado)) {
+                            
+                            $jugador = new Jugador($row['idJugador'], $row['nombre'], $row['foto']);
+                        }
+        
                     } else {
 
-                        return "";
+                        $anioActual = date("Y") - 1;
+                        $jugador = realizarConsultaSinJson("/players?id=$idJugador&season=$anioActual");
+                        
+                        if (!empty($jugador)) {
+
+                            $jugador = $jugador->response[0]->player;
+                            $jugador = new Jugador($jugador->id, $jugador->name, $jugador->photo);
+                            $jugador->insertarJugador();
+
+                        } else {
+
+                            return "";
+                        }
                     }
 
-                }
+                return $jugador;
+            }
 
-            return $jugador;
+            return "";
         }
 
         public function pintarJugador() {

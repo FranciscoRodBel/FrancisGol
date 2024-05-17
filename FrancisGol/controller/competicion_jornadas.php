@@ -6,36 +6,35 @@
     $titulo = "FrancisGol - Competición jornadas";
     $lista_css = ["competiciones.css", "partidos_liga.css"];
 
-    if (isset($_GET["competicion"]) && !empty($_GET["competicion"])) {
+    $datosCompeticion = "<p class='parrafo_informacion_blanco'>No se encontró la competición</p>";
+    $jornadas = "";
+    $opcionesJornadas = "";
 
+    if (isset($_GET["competicion"]) && !empty($_GET["competicion"])) {
+        
         $idCompeticion = $_GET["competicion"];
         $competicion = Competicion::recogerCompeticion($idCompeticion);
 
         if (!empty($competicion)) {
 
-            $datosCompeticion = $competicion->pintarCompeticion();
-            
-            $anioActual = date("Y") - 1;
-            $jornadasCompeticion = realizarConsulta("competicion_jornadas_".$idCompeticion."_".$anioActual, "fixtures?league=$idCompeticion&season=$anioActual", 86400); 
-            $datosJornadas = $competicion->generarJornadas($jornadasCompeticion);
-            $opcionesJornadas = $datosJornadas[0];
-            $jornadas = $datosJornadas[1];
+            $temporadasDisponibles = realizarConsulta("temporadas_disponibles_$idCompeticion", "leagues/seasons", 604800);
 
-            $temporadasDisponibles = realizarConsulta("temporadasDisponibles", "leagues/seasons", 86400);
-            $optionsAniosDisponibles = Competicion::generarOptionsTemporadas($temporadasDisponibles);
+            if (!empty($temporadasDisponibles)) {
 
-        } else {
+                $optionsAniosDisponibles = Competicion::generarOptionsTemporadas($temporadasDisponibles);
+                $datosCompeticion = $competicion->pintarCompeticion();
 
-            $datosCompeticion = "<p class='parrafo_informacion_blanco'>No se encontró la competición</p>";
-            $jornadas = "";
-            $opcionesJornadas = "";
+                $anioActual = date("Y") - 1;
+                $jornadasCompeticion = realizarConsulta("competicion_jornadas_".$idCompeticion."_".$anioActual, "fixtures?league=$idCompeticion&season=$anioActual", 86400);
+
+                if (!empty($jornadasCompeticion)) {
+
+                    $datosJornadas = $competicion->generarJornadas($jornadasCompeticion);
+                    $opcionesJornadas = $datosJornadas[0];
+                    $jornadas = $datosJornadas[1];
+                }
+            }
         }
-
-    } else {
-    
-        $datosCompeticion = "<p class='parrafo_informacion_blanco'>No se encontró la competición</p>";
-        $jornadas = "";
-        $opcionesJornadas = "";
     }
 
     include '../view/templates/head.php';

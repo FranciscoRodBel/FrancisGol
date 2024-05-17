@@ -10,7 +10,7 @@
         $idCompeticion = $_GET["competicion"];
         $competicion = Competicion::recogerCompeticion($idCompeticion);
 
-        $equipos = realizarConsulta("competicion_equipos_$idCompeticion"."_".$anioActual, "teams?league=$idCompeticion&season=$anioActual", 86400); 
+        $equipos = realizarConsulta("competicion_equipos_$idCompeticion"."_".$anioActual, "teams?league=$idCompeticion&season=$anioActual", 604800); 
 
         if (empty($equipos)) {
             
@@ -23,7 +23,7 @@
 
     } else {
 
-        $equipos_competicion = "";
+        $equipos_competicion = "<p class='parrafo_informacion'>No se encontraron resultados</p>";
     }
 
     echo $equipos_competicion;

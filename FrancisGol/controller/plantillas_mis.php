@@ -23,11 +23,12 @@
     
         } else {
     
-            $plantillas = "<p>No se encontraron plantillas creadas</p>";
+            $plantillas = "<p class='parrafo_informacion'>No se encontraron plantillas creadas</p>";
         }
 
     } else {
-        $plantillas = "<p>Debe iniciar sesión para ver sus plantillas</p>";
+        
+        $plantillas = "<p class='parrafo_informacion'>Debe iniciar sesión para ver sus plantillas</p>";
     }
 
     include '../view/templates/head.php';

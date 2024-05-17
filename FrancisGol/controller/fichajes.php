@@ -4,34 +4,33 @@
     require_once "../model/paises.php";
     require_once "../model/realizar_consultas.php";
 
-    $titulo = "FrancisGol - Registro";
+    $titulo = "FrancisGol - Fichajes";
     $lista_css = ["registro_inicio.css"];
 
     $paises = crearOpcionesPaises();
 
+    $fichajes = "<p class='parrafo_informacion'>No se encontró el equipo</p>";
+
     if (isset($_POST['enviar']) && isset($_POST['equipos_competicion'])) {
-
+        
         if (!empty($_POST['equipos_competicion'])) {
-            
+
             $idEquipo = $_POST['equipos_competicion'];
-            $fichajesEquipo = realizarConsulta("fichajes_$idEquipo", "transfers?team=$idEquipo", 86400); 
+            $fichajesEquipo = realizarConsulta("fichajes_$idEquipo", "transfers?team=$idEquipo", 86400);
 
-            $fichajes = Equipo::pintarFichajesEquipo($fichajesEquipo);
+            if (!empty($fichajesEquipo)) {
 
-        } else {
-            $fichajes = "<p class='parrafo_informacion'>No se encontró el equipo</p>";
+                $fichajes = Equipo::pintarFichajesEquipo($fichajesEquipo);
+            }
         }
 
-    } else {
+    } elseif (isset($_SESSION["usuario"])) {
 
-        if (isset($_SESSION["usuario"])) {
+        $equiposFavoritos = Equipo::recogerEquiposFavorito();
 
-            $equiposFavoritos = Equipo::recogerEquiposFavorito();
+        if (!empty($equiposFavoritos)) {
+
             $fichajes = Equipo::generarSelectEquipos($equiposFavoritos);
-
-        } else {
-            
-            $fichajes = "";
         }
     }
 

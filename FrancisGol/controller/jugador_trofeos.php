@@ -3,30 +3,28 @@
     require_once "../model/Jugador.php";
     require_once "../model/realizar_consultas.php";
 
-    $titulo = "FrancisGol - Equipo estadísticas";
+    $titulo = "FrancisGol - Trofeos jugador";
     $lista_css = ["competiciones.css"];
+
+    $mensajeNoDatos = "<p class='parrafo_informacion'>No hay datos del jugador disponibles</p>";
+    $datosJugador = "";
+    $datosTrofeosJugador = $mensajeNoDatos;
 
     if (isset($_GET["jugador"]) && !empty($_GET["jugador"])) {
 
         $idJugador = $_GET["jugador"];
         $jugador = Jugador::recogerJugador($idJugador);
-
-        if (empty($jugador)) {
-
-            $datosTrofeosJugador = "<p class='parrafo_informacion'>No hay datos del jugador disponibles</p>";
-            $datosJugador = "";
-            
-        } else {
+        
+        if (!empty($jugador)) {
 
             $datosJugador = $jugador->pintarJugador();
-
             $trofeosJugador = realizarConsulta("trofeos_jugador_$idJugador", "trophies?player=$idJugador", 86400); 
-            $datosTrofeosJugador = $jugador->pintarTrofeosJugador($trofeosJugador);
+            
+            if (!empty($trofeosJugador)) {
 
+                $datosTrofeosJugador = $jugador->pintarTrofeosJugador($trofeosJugador);
+            }
         }
-
-    } else {
-        $datosTrofeosJugador = "";
     }
 
     include '../view/templates/head.php';

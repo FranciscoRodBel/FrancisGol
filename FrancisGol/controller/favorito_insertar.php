@@ -13,8 +13,8 @@
         if ($_GET["accion"] == "competicion") {
             
             $competicion = Competicion::recogerCompeticion($_GET["id"]);
-            $idCompeticion = $competicion->__get("id");
             
+            $idCompeticion = $competicion->__get("id");
             Competicion::insertarCompeticionFavorita($idCompeticion, $idUsuario);
 
         } else if ($_GET["accion"] == "equipo") {

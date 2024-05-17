@@ -12,6 +12,7 @@
         $idUsuario = $usuario->__get("id");
 
     } else {
+
         $idUsuario = -1;
     }
 
@@ -27,7 +28,7 @@
 
     } else {
 
-        $plantillas = "<p>No se encontraron plantillas</p>";
+        $plantillas = "<p class='parrafo_informacion'>No se encontraron plantillas</p>";
     }
 
     include '../view/templates/head.php';

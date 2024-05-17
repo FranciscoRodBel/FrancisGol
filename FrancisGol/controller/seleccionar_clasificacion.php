@@ -18,12 +18,11 @@
         } else {
 
             $tablaClasificacion = $competicion->generarClasificacion($clasificacion);
-
         }
 
     } else {
 
-        $tablaClasificacion = "";
+        $tablaClasificacion = "<p class='parrafo_informacion'>No se encontraron resultados</p>";
     }
 
     echo $tablaClasificacion;

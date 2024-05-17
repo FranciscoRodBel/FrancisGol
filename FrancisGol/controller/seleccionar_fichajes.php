@@ -9,7 +9,7 @@
         if (!empty($_GET['equipo'])) {
             
             $idEquipo = $_GET['equipo'];
-            $fichajesEquipo = realizarConsulta("fichajes_$idEquipo", "transfers?team=$idEquipo", 86400); 
+            $fichajesEquipo = realizarConsulta("fichajes_$idEquipo", "transfers?team=$idEquipo", 604800); 
 
             $fichajes = Equipo::pintarFichajesEquipo($fichajesEquipo);
 

@@ -18,10 +18,18 @@
 
         $partidos = realizarConsulta("partidos_$fecha", "fixtures?date=$fecha", 3600); 
 
-        $partidosSeleccionados = Partido::pintarPartidos($partidos);
+        if (!empty($partidos)) {
 
+            $partidosSeleccionados = Partido::pintarPartidos($partidos);
+
+        } else {
+
+            $partidosSeleccionados = "<p class='parrafo_informacion'>No hay partidos disponibles</p>";
+        }
+        
     } else {
-        $partidosSeleccionados = "La fecha enviada no es correcta";
+
+        $partidosSeleccionados = "<p class='parrafo_informacion'>La fecha enviada no es correcta</p>";
     }
 
     include '../view/templates/head.php';

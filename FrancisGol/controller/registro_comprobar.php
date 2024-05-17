@@ -27,7 +27,8 @@
                     foreach ($competicionesFavoritas as $idCompeticion) {
     
                         if (empty(Competicion::recogerCompeticion($idCompeticion))) {
-                            $resultadoFormulario = "Las competiciones en favoritos no son correctos.";
+
+                            $resultadoFormulario = "Las competiciones en favoritos no son correctas.";
                         }
                     }
                 }

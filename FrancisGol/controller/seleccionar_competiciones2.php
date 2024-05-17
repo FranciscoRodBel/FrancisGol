@@ -6,14 +6,18 @@
 
         $resultado = realizarConsulta("competiciones", "leagues", 86400); 
         $competiciones_pais = "";
-        $codigoPais = $_POST['query'];
 
-        foreach ($resultado->response as $liga) {
+        if (!empty($resultado)) {
 
-            $competicion = "<option value='".$liga->league->id."'>".$liga->league->name."</option>";
+            $codigoPais = $_POST['query'];
 
-            if ($liga->country->code == $codigoPais) {
-                $competiciones_pais .= $competicion;
+            foreach ($resultado->response as $liga) {
+
+                $competicion = "<option value='".$liga->league->id."'>".$liga->league->name."</option>";
+
+                if ($liga->country->code == $codigoPais) {
+                    $competiciones_pais .= $competicion;
+                }
             }
         }
 
@@ -24,14 +28,18 @@
         $resultado = realizarConsulta("competiciones", "leagues", 86400); 
         $competiciones_pais = "";
 
-        foreach ($resultado->response as $liga) {
+        if (!empty($resultado)) {
 
             $texto = $_GET['texto'];
-            $pattern = "/$texto/i";
 
-            if (preg_match($pattern, $liga->league->name)) {
-                $competicion = "<option data-idCompeticion='".$liga->league->id."'>".$liga->league->name."</option>"; 
-                $competiciones_pais .= $competicion; 
+            foreach ($resultado->response as $liga) {
+
+                $pattern = "/$texto/i";
+
+                if (preg_match($pattern, $liga->league->name)) {
+                    $competicion = "<option data-idCompeticion='".$liga->league->id."'>".$liga->league->name."</option>"; 
+                    $competiciones_pais .= $competicion; 
+                }
             }
         }
 

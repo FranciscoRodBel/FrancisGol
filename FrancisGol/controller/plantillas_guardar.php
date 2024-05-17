@@ -21,45 +21,58 @@
 
          if (comprobarVacio([$posicionesJugadores, $titulo, $formacion, $datosPlantilla])) {
             
+            if (strlen($titulo) < 200) {
 
-            if (Plantilla::comprobarDatosJugadores($formacion, $posicionesJugadores, $datosPlantilla)) {
-               
-               if ($accion == "guardar") {
+               if (Plantilla::comprobarDatosJugadores($formacion, $posicionesJugadores, $datosPlantilla)) {
+                  
+                  if ($accion == "guardar") {
 
-                  $idPlantilla = Plantilla::guardarDatosJugadores($posicionesJugadores, $titulo, $formacion, $datosPlantilla);
-               
-                  header("Location: ../controller/plantillas_editar.php?plantilla=$idPlantilla");
-                  die();
+                     $idPlantilla = Plantilla::guardarDatosJugadores($posicionesJugadores, $titulo, $formacion, $datosPlantilla);
+                  
+                     header("Location: ../controller/plantillas_editar.php?plantilla=$idPlantilla");
+                     die();
 
-               } else if ($accion == "editar") {
+                  } else if ($accion == "editar") {
 
-                  if (isset($datos['idPlantilla'])) {
+                     if (isset($datos['idPlantilla'])) {
 
-                     $idPlantilla = $datos['idPlantilla'];
-                     $plantilla = Plantilla::recogerPlantilla($idPlantilla);
+                        $idPlantilla = $datos['idPlantilla'];
+                        $plantilla = Plantilla::recogerPlantilla($idPlantilla);
+                        
+                        if (!empty($plantilla)) {
+                           
+                           $usuario = unserialize($_SESSION['usuario']);
+                           $idUsuario = $usuario->__get("id");
+   
+                           if ($plantilla->__get("idUsuario") == $idUsuario) {
+                  
+                              echo $plantilla->actualizarDatosJugadores($posicionesJugadores, $titulo, $formacion);
+   
+                           } else {
+                  
+                              echo "No puede editar esta plantilla";
+                           }
 
-                     $usuario = unserialize($_SESSION['usuario']);
-                     $idUsuario = $usuario->__get("id");
+                        } else {
 
-                     if ($plantilla->__get("idUsuario") == $idUsuario) {
-            
-                        echo $plantilla->actualizarDatosJugadores($posicionesJugadores, $titulo, $formacion);
+                           echo "No se encontró la plantilla";
+                        }
 
                      } else {
-             
-                         echo "No puede editar esta plantilla";
+
+                        echo "Los datos enviados no son correctos";
                      }
 
-                  } else {
-
-                     echo "Los datos enviados no son correctos";
                   }
 
+               } else {
+
+                  echo "Los datos de la plantilla no son correctos";
                }
-
-            } else {
-
-               echo "Los datos de los jugadores no son correctos";
+               
+            }  else {
+               
+               echo "El título no puede ser superior a 200 caracteres";
             }
 
          } else {

@@ -139,6 +139,11 @@
     font-size: 13pt;
     font-weight: bold;
     overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 4;
+    -webkit-box-orient: vertical;
+    line-height: 1.3em;
+    max-height: calc(1.3em * 4);
 }
 
 .mi_plantilla div:first-of-type p {

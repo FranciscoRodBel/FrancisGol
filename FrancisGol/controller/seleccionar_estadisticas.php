@@ -11,7 +11,7 @@
 
         $equipo = Equipo::recogerEquipo($idEquipo);
 
-        $equipoEstadisticas = realizarConsulta("equipo_estadisticas_$idEquipo"."_"."$idCompeticion"."_".$anio, "teams/statistics?league=$idCompeticion&season=$anio&team=$idEquipo", 86400); 
+        $equipoEstadisticas = realizarConsulta("equipo_estadisticas_$idEquipo"."_"."$idCompeticion"."_".$anio, "teams/statistics?league=$idCompeticion&season=$anio&team=$idEquipo", 604800); 
         
         if (!empty($equipoEstadisticas)) {
             

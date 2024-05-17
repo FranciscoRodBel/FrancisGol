@@ -6,28 +6,24 @@
     $titulo = "FrancisGol - Equipo fichajes";
     $lista_css = ["competiciones.css"];
 
-    if (isset($_GET["equipo"]) && !empty($_GET["equipo"])) {
+    $datosEquipo = "<p class='parrafo_informacion_blanco'>Equipo no encontrado</p>";
+    $fichajes = "";
 
+    if (isset($_GET["equipo"]) && !empty($_GET["equipo"])) {
+        
         $idEquipo = $_GET["equipo"];
         $equipo = Equipo::recogerEquipo($idEquipo);
 
         if (!empty($equipo)) {
 
             $datosEquipo = $equipo->pintarEquipo();
-            
-            $fichajesEquipo = realizarConsulta("fichajes_$idEquipo", "transfers?team=$idEquipo", 86400); 
-            $fichajes = Equipo::pintarFichajesEquipo($fichajesEquipo);
+            $fichajesEquipo = realizarConsulta("fichajes_$idEquipo", "transfers?team=$idEquipo", 86400);
 
-        } else {
+            if (!empty($fichajesEquipo)) {
 
-            $fichajes = "";
-            $datosEquipo = "<p class='parrafo_informacion_blanco'>Equipo no encontrado</p>";
+                $fichajes = Equipo::pintarFichajesEquipo($fichajesEquipo);
+            }
         }
-
-    } else {
-
-        $fichajes = "";
-        $datosEquipo = "<p class='parrafo_informacion_blanco'>Equipo no encontrado</p>";
     }
 
     include '../view/templates/head.php';

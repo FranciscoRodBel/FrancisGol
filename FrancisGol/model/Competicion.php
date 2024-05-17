@@ -93,20 +93,24 @@
         
             $equipoCompeticiones =  realizarConsulta("equipo_competiciones_$idEquipo", "leagues?team=$idEquipo", 86400); 
 
-            foreach ($equipoCompeticiones->response as $competicion) {
+            if (!empty($equipoCompeticiones)) {
 
-                $competicionesEquipo = new Competicion($competicion->league->id, $competicion->league->name, $competicion->league->logo);
+                foreach ($equipoCompeticiones->response as $competicion) {
 
-
-                foreach ($competicion->seasons as $anio) {
-
-                    $competicionesEquipo->anios[] = $anio->year;
+                    $competicionesEquipo = new Competicion($competicion->league->id, $competicion->league->name, $competicion->league->logo);
+    
+    
+                    foreach ($competicion->seasons as $anio) {
+    
+                        $competicionesEquipo->anios[] = $anio->year;
+                    }
+                    $competiciones[] = $competicionesEquipo;
+    
                 }
-                $competiciones[] = $competicionesEquipo;
-
+    
+                return $competiciones;
             }
-
-            return $competiciones;
+            return "";
         }
 
         public static function pintarCompeticionesFavoritas() {

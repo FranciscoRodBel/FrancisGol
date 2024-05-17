@@ -5,7 +5,7 @@
 
     Usuario::comprobarSesionIniciada(false);
 
-    $titulo = "FrancisGol - Cuenta favoritos";
+    $titulo = "FrancisGol - Cuenta datos";
     $lista_css = ["registro_inicio.css", "competiciones.css"];
 
     $usuario = unserialize($_SESSION['usuario']);

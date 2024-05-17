@@ -1,5 +1,8 @@
 <?php
     class Plantilla {
+
+        protected static array $formaciones = array("3-1-4-2", "3-4-1-2", "3-4-2-1", "3-4-3", "3-5-1-1", "3-5-2", "3-6-1", "4-1-2-1-2", "4-1-3-1-1", "4-1-3-2", "4-1-4-1", "4-2-1-3", "4-2-2-2", "4-2-3-1", "4-3-1-2", "4-3-2-1", "4-3-3", "4-4-1-1", "4-4-2", "4-5-1", "5-3-2", "5-4-1");
+
         public function __construct(
             protected int $id,
             protected string $titulo,
@@ -19,25 +22,30 @@
 
         public static function recogerPlantilla($idPlantilla) {
     
-            $conexion = FrancisGolBD::establecerConexion();
+            if (is_numeric($idPlantilla)) {
+                
+                $conexion = FrancisGolBD::establecerConexion();
         
-            $consulta = "SELECT * FROM plantilla WHERE idPlantilla = $idPlantilla";
-        
-            $resultado = $conexion->query($consulta);
-        
-            if (mysqli_num_rows($resultado) > 0) {
-        
-                while($row = mysqli_fetch_assoc($resultado)) {
-                    
-                    $plantillaUsuario = new Plantilla($row['idPlantilla'], $row['titulo'], $row['anio'], $row['formacion'], $row['idUsuario'], $row['idEquipo']);
+                $consulta = "SELECT * FROM plantilla WHERE idPlantilla = $idPlantilla";
+            
+                $resultado = $conexion->query($consulta);
+            
+                if (mysqli_num_rows($resultado) > 0) {
+            
+                    while($row = mysqli_fetch_assoc($resultado)) {
+                        
+                        $plantillaUsuario = new Plantilla($row['idPlantilla'], $row['titulo'], $row['anio'], $row['formacion'], $row['idUsuario'], $row['idEquipo']);
+                    }
+    
+                } else {
+                    header("Location: ../controller/plantillas_mis.php");
+                    die();
                 }
-
-            } else {
-                header("Location: ../controller/plantillas_mis.php");
-                die();
+            
+                return $plantillaUsuario;
             }
-        
-            return $plantillaUsuario;
+            
+            return "";
         }
 
         public static function recogerPlantillasUsuario($idUsuario, $condicion) {
@@ -94,7 +102,17 @@
 
         /* FUNCIONES DE GUARDAR PLANTILLAS */
         public static function comprobarDatosJugadores($formacion, $posicionesJugadores, $datosPlantilla) {
-            $posiciones = Plantilla::generarClasesPosicionJugador($formacion);
+            
+            $formaciones = self::$formaciones;
+            if (in_array($formacion, $formaciones)) {
+
+                $posiciones = Plantilla::generarClasesPosicionJugador($formacion);
+                
+            } else {
+
+                return false;
+            }
+            
         
             foreach (json_decode($datosPlantilla)->response[0]->players as $numeroJugador => $jugador) {
         
@@ -165,8 +183,9 @@
         /* FUNCIONES DE CREAR PLANTILLAS */
 
         public static function generarSelectFormaciones($formacionSeleccionada = "4-3-3") {
-            $formaciones = array("3-1-4-2", "3-4-1-2", "3-4-2-1", "3-4-3", "3-5-1-1", "3-5-2", "3-6-1", "4-1-2-1-2", "4-1-3-1-1", "4-1-3-2", "4-1-4-1", "4-2-1-3", "4-2-2-2", "4-2-3-1", "4-3-1-2", "4-3-2-1", "4-3-3", "4-4-1-1", "4-4-2", "4-5-1", "5-3-2", "5-4-1");
             
+            $formaciones = self::$formaciones;
+
             $optionsFormaciones = "";
             foreach ($formaciones as $formacion) {
         

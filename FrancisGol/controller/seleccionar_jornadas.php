@@ -11,7 +11,7 @@
 
         if (!empty($competicion)) {
 
-            $jornadasCompeticion = realizarConsulta("competicion_jornadas_".$idCompeticion."_".$anioActual, "fixtures?league=$idCompeticion&season=$anioActual", 86400);
+            $jornadasCompeticion = realizarConsulta("competicion_jornadas_".$idCompeticion."_".$anioActual, "fixtures?league=$idCompeticion&season=$anioActual", 604800);
             $datosJornadas = $competicion->generarJornadas($jornadasCompeticion);
             $opcionesJornadas = $datosJornadas[0];
             $jornadas = $datosJornadas[1];

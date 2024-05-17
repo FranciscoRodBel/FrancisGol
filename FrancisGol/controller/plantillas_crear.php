@@ -7,37 +7,34 @@
 
     $titulo = "FrancisGol - Crear plantilla";
     $lista_css = ["registro_inicio.css", "alineaciones.css"];
+    $plantilla = "";
+    $datosEquipo = "";
 
     if (isset($_SESSION['usuario'])) {
- 
-        $paises = crearOpcionesPaises();
         
-        if (isset($_POST['enviarEquipo']) && isset($_POST['equipos_competicion'])) {
+        $paises = crearOpcionesPaises();
 
-            if (!empty($_POST['equipos_competicion'])) {
-                
-                $idEquipo = $_POST['equipos_competicion'];
-
-                $equipo = Equipo::recogerEquipo($idEquipo);
-                $datosEquipo = $equipo->pintarEquipo();
-                
-                $optionsSelectFormaciones = Plantilla::generarSelectFormaciones();
-
-                $equipoPlantilla = realizarConsulta("equipo_plantilla_$idEquipo", "/players/squads?team=$idEquipo", 86400); 
-                $plantilla = Plantilla::generarPlantilla($equipoPlantilla);
+        if (isset($_POST['enviarEquipo']) && isset($_POST['equipos_competicion']) && !empty($_POST['equipos_competicion'])) {
             
-            } else {
-                $datosEquipo = "";
-                $plantilla = "<p>No se encontró el equipo</p>";
-            }
+            $idEquipo = $_POST['equipos_competicion'];
+            $equipo = Equipo::recogerEquipo($idEquipo);
 
-        } else {
-            $datosEquipo = "";
-            $plantilla = "";
+            if (!empty($equipo)) {
+
+                $datosEquipo = $equipo->pintarEquipo();
+                $optionsSelectFormaciones = Plantilla::generarSelectFormaciones();
+                $equipoPlantilla = realizarConsulta("equipo_plantilla_$idEquipo", "/players/squads?team=$idEquipo", 604800); 
+                $plantilla = Plantilla::generarPlantilla($equipoPlantilla);
+
+            } else {
+                
+                $plantilla = "<p class='parrafo_informacion'>No se encontró el equipo</p>";
+            }
         }
 
     } else {
-        $plantilla = "<p>Debe iniciar sesión para crear plantillas</p>";
+
+        $plantilla = "<p class='parrafo_informacion'>Debe iniciar sesión para crear plantillas</p>";
     }
 
     include '../view/templates/head.php';

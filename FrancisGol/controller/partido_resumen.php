@@ -5,30 +5,29 @@
 
     $titulo = "FrancisGol - Resumen partido";
     $lista_css = ["partidos_liga.css"];
-    
+
+    $datosPartido = "";
+    $resumenPartido = "<p class='parrafo_informacion'>Partido no encontrado</p>";
+
     if (isset($_GET["partido"]) && !empty($_GET["partido"])) {
-    
+
         $idPartido = $_GET["partido"];
         $partido = Partido::recogerPartido($idPartido);
         
         if (!empty($partido)) {
-            
+
             $datosPartido = $partido->pintarPartido();
-        
             $eventosPartido = realizarConsulta("partido_resumen_$idPartido", "fixtures/events?fixture=$idPartido", 1800); 
-    
-            $resumenPartido = $partido->pintarResumenPartido($eventosPartido);
+            
+            if (!empty($eventosPartido)) {
 
-        } else {
+                $resumenPartido = $partido->pintarResumenPartido($eventosPartido);
+                
+            } else {
 
-            $datosPartido = "";
-            $resumenPartido = "<p class='parrafo_informacion'>Partido no encontrado</p>";
+                $resumenPartido = "<p class='parrafo_informacion'>No hay eventos disponibles</p>";
+            }
         }
-
-    } else {
-      
-        $datosPartido = "";
-        $resumenPartido = "<p class='parrafo_informacion'>Partido no encontrado</p>";
     }
 
     include '../view/templates/head.php';

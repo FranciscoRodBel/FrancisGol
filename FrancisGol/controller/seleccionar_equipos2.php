@@ -5,7 +5,7 @@
     if (isset($_POST['query'])) {
         
         $idCompeticion = $_POST['query'];
-        $resultado = realizarConsulta("competicion_equipos_$idCompeticion"."_"."2023", "teams?league=$idCompeticion&season=2023", 86400); 
+        $resultado = realizarConsulta("competicion_equipos_$idCompeticion"."_"."2023", "teams?league=$idCompeticion&season=2023", 604800); 
 
         $equipos = "";
 

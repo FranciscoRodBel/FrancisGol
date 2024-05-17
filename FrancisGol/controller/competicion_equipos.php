@@ -7,24 +7,31 @@
     $titulo = "FrancisGol - Competición equipos";
     $lista_css = ["competiciones.css"];
 
-    if (isset($_GET["competicion"]) && !empty($_GET["competicion"])) {
+    $datosCompeticion = "<p class='titulo_informacion'>No se encontró la competición</p>";
+    $equiposCompeticion = "";
 
+    if (isset($_GET["competicion"]) && !empty($_GET["competicion"])) {
+        
         $idCompeticion = $_GET["competicion"];
         $competicion = Competicion::recogerCompeticion($idCompeticion);
-        $datosCompeticion = $competicion->pintarCompeticion();
-        
-        $temporadasDisponibles = realizarConsulta("temporadasDisponibles", "leagues/seasons", 86400);
-        $optionsAniosDisponibles = Competicion::generarOptionsTemporadas($temporadasDisponibles);
 
-        $anioActual = date("Y") - 1;
-        $equipos = realizarConsulta("competicion_equipos_$idCompeticion"."_".$anioActual, "teams?league=$idCompeticion&season=$anioActual", 86400); 
-        
-        $equiposCompeticion = $competicion->generarEquiposCompeticion($equipos);
+        if (!empty($competicion)) {
 
-    } else {
-    
-        $datosCompeticion = "<p class='titulo_informacion'>No se encontró la competición</p>";
-        $equiposCompeticion = "";
+            $datosCompeticion = $competicion->pintarCompeticion();
+            $temporadasDisponibles = realizarConsulta("temporadas_disponibles_$idCompeticion", "leagues/seasons", 604800);
+
+            if (!empty($temporadasDisponibles)) {
+
+                $optionsAniosDisponibles = Competicion::generarOptionsTemporadas($temporadasDisponibles);
+                $anioActual = date("Y") - 1;
+                $equipos = realizarConsulta("competicion_equipos_{$idCompeticion}_{$anioActual}", "teams?league=$idCompeticion&season=$anioActual", 86400);
+
+                if (!empty($equipos)) {
+
+                    $equiposCompeticion = $competicion->generarEquiposCompeticion($equipos);
+                }
+            }
+        }
     }
 
     include '../view/templates/head.php';

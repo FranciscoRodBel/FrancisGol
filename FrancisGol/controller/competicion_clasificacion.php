@@ -6,25 +6,32 @@
     $titulo = "FrancisGol - Competición clasificación";
     $lista_css = ["competiciones.css"];
 
-    if (isset($_GET["competicion"]) && !empty($_GET["competicion"])) {
+    $datosCompeticion = "<p class='parrafo_informacion'>No se encontró la competición</p>";
+    $tablaClasificacion = "";
 
+    if (isset($_GET["competicion"]) && !empty($_GET["competicion"])) {
+        
         $idCompeticion = $_GET["competicion"];
         $competicion = Competicion::recogerCompeticion($idCompeticion);
 
-        $temporadasDisponibles = realizarConsulta("temporadasDisponibles", "leagues/seasons", 86400);
-        $optionsAniosDisponibles = Competicion::generarOptionsTemporadas($temporadasDisponibles);
+        if (!empty($competicion)) {
 
-        $datosCompeticion = $competicion->pintarCompeticion();
+            $temporadasDisponibles = realizarConsulta("temporadas_disponibles_$idCompeticion", "leagues/seasons", 604800);
 
-        $anioActual = date("Y") - 1;
-        $clasificacion = realizarConsulta("competicion_clasificacion_".$idCompeticion."_".$anioActual, "standings?league=$idCompeticion&season=$anioActual", 86400); 
+            if (!empty($temporadasDisponibles)) {
 
-        $tablaClasificacion = $competicion->generarClasificacion($clasificacion);
+                $optionsAniosDisponibles = Competicion::generarOptionsTemporadas($temporadasDisponibles);
+                $datosCompeticion = $competicion->pintarCompeticion();
 
-    } else {
-    
-        $datosCompeticion = "<p class='parrafo_informacion'>No se encontró la competición</p>";
-        $tablaClasificacion = "";
+                $anioActual = date("Y") - 1;
+                $clasificacion = realizarConsulta("competicion_clasificacion_{$idCompeticion}_{$anioActual}", "standings?league=$idCompeticion&season=$anioActual", 86400);
+
+                if (!empty($clasificacion)) {
+
+                    $tablaClasificacion = $competicion->generarClasificacion($clasificacion);
+                }
+            }
+        }
     }
 
     include '../view/templates/head.php';

@@ -4,7 +4,7 @@
     require_once "../model/paises.php";
     require_once "../model/Competicion.php";
     
-    $titulo = "FrancisGol - Competiciones";
+    $titulo = "FrancisGol - Buscar";
     $lista_css = ["competiciones.css"];
 
     $paises = crearOpcionesPaises();
