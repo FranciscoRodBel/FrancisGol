@@ -4,19 +4,17 @@
     require_once "../model/realizar_consultas.php";
 
 
-    if (isset($_GET['equipo'])) {
-
-        if (!empty($_GET['equipo'])) {
+    if (isset($_GET['equipo']) && !empty($_GET['equipo'])) {
             
             $idEquipo = $_GET['equipo'];
             $fichajesEquipo = realizarConsulta("fichajes_$idEquipo", "transfers?team=$idEquipo", 604800); 
 
-            $fichajes = Equipo::pintarFichajesEquipo($fichajesEquipo);
+            if (!empty($fichajesEquipo)) {
 
-            echo $fichajes;
-        } else {
+                echo Equipo::pintarFichajesEquipo($fichajesEquipo);
+            }
 
-            $fichajes = "<p>No se encontró el equipo</p>";
-        }
+    } else {
 
+        echo "<p>No se encontró el equipo</p>";
     }
