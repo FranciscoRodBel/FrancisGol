@@ -36,19 +36,22 @@
                 <label for="repetir_contrasenia">Contraseña actual</label>
                 <i class="fa-solid fa-eye ojo_contrasenia"></i>
                 <input type="password" id="contrasenia_actual" class="contrasenia" name="contrasenia_actual" placeholder="Contraseña actual">
-                     
-                
                 <input type="submit" id="editarContrasenia" value="Editar contraseña" name="editarContrasenia" class="boton_verde">
                 <p class='parrafo_informacion_blanco'></p>            
             </form>
         </section>
+        <h1 class="titulo_pagina">Borrar cuenta</h1>
+        <section class="seccionBorrarCuenta">
+            <a id="borrarCuenta" class="boton_rojo">Borrar Cuenta</a>
+        </section>
+
     </article>
 </main>
 <script src="../view/assets/scripts/registro.js"></script>
+<script src="../view/assets/scripts/plantillas_jugadores.js"></script>
 <script>
     mostrarOcultarContrasenia();
     escucharFormulariosEditar();
     comprobarInputsEditar();
     comprobarInputs();
-
 </script>

@@ -36,7 +36,7 @@
 
                     $competicion = realizarConsultaSinJson("leagues?id=$idCompeticion");
 
-                    if ($competicion->results != 0) {
+                    if (!empty($competicion)) {
 
                         $competicion = $competicion->response[0]->league;
                         $competicion = new Competicion($competicion->id, $competicion->name, $competicion->logo);

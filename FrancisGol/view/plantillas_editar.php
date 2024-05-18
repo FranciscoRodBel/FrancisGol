@@ -44,4 +44,4 @@
         escucharBotonesPopUp(idPlantilla) 
     });
     escucharFavoritos();
-</script>
+</script> 

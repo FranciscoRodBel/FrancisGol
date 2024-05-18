@@ -19,6 +19,5 @@
 
             $usuario = new Usuario($email);
             $usuario->comprobarInicioSesion($contrasenia, "cookie");
-
         }
     }

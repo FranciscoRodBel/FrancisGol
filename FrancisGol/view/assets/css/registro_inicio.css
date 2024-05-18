@@ -79,6 +79,15 @@ form {
     overflow: auto;
 }
 
+/* Editar cuenta */
+.seccionBorrarCuenta {
+    margin-bottom: 40px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+}
+
 @media screen and (min-width: 450px) {
 
     .icono_estrella {

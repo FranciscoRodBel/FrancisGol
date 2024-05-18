@@ -257,10 +257,10 @@ function escucharBotonesConfirmacion(idPlantilla) {
 function mostrarMensaje(elemento, mensaje) {
     
     let parrafoMensaje = document.createElement("p"); // Se crea un párrafo
-    parrafoMensaje.setAttribute("class", "titulo_informacion"); // Se le añade la clase de mensaje_datos
+    parrafoMensaje.setAttribute("class", "titulo_informacion"); // Se le añade la clase para los estilos
     parrafoMensaje.innerHTML = mensaje; // Se le añade un texto
 
-    elemento.appendChild(parrafoMensaje); // Se añade el mensaje dentro del padre del formulario
+    elemento.appendChild(parrafoMensaje); // Se añade el mensaje a la página
     
     setTimeout(function() {
         elemento.removeChild(parrafoMensaje); // A los 2 segundos se borra

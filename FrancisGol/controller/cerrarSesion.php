@@ -10,3 +10,4 @@
     setcookie("contrasenia", "", time() - 1, "/");
 
     header("Location: ./partidos.php");
+    die();

@@ -3,6 +3,7 @@ session_start();
 
 require_once 'FrancisGolBD.php';
 require_once 'funciones.inc.php';
+require_once "../controller/cookies.php";
 
 class Usuario { // Se usa para manejar todos los datos del usuario
     protected int $id;
@@ -59,16 +60,14 @@ class Usuario { // Se usa para manejar todos los datos del usuario
 
                 $comprobacionContrasenia = password_verify($contrasenia, $resultado["contrasenia"]);
             }
-            // Compruebo si la contraseña es la misma
+
             if ($resultado !== null && $comprobacionContrasenia) {
                 
-                // Si es la misma contraseña relleno las propiedades del objeto
+                // Si la contraseña del email es correcta relleno las propiedades del objeto
                 $this->__set("id", $resultado["idUsuario"]);
                 $this->__set("nombre", $resultado["nombre"]);
                 $this->__set("foto", $resultado["foto"]);
                 $this->__set("cookies", $resultado["cookies"]);
-
-                $this->__get("cookies") == 1 ? $this->crearCookies() : "";
 
                 $_SESSION['usuario'] = serialize($this); // guardo el propio objeto en la sesión de usuario
 
@@ -254,10 +253,9 @@ class Usuario { // Se usa para manejar todos los datos del usuario
 
         $email = $this->__get("email");
         $contrasenia = $this->recogerContrasenia();
-
+        
         setcookie("email", $email, time() + 86400 * 30, "/"); 
         setcookie("contrasenia", $contrasenia, time() + 86400 * 30, "/");
-
     }
 
     public function recogerContrasenia() {
@@ -400,7 +398,28 @@ class Usuario { // Se usa para manejar todos los datos del usuario
             return "No se pudo actualizar la contraseña";
         }
     }
+
+    /* Funciones borrado de cuenta */
+    public function borrarCuenta() {
+       
+        $conexion = FrancisGolBD::establecerConexion();
+
+        $idUsuario = $this->__get("id");
+
+        $consulta = $conexion->prepare("DELETE FROM usuario WHERE idUsuario = ?");
+        $consulta->bind_param("i", $idUsuario);
+        
+        $resultado = $consulta->execute();
+        $consulta->close();
+
+        if ($resultado) {
+
+            header("Location: ./cerrarSesion.php");
+            die();
+
+        } else {
+
+            return "Error al eliminar el usuario.";
+        }
+    }
 }
-
-
-

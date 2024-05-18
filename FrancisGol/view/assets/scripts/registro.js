@@ -260,6 +260,7 @@ function comprobarInputsEditar() {
     
     let nuevaContrasenia = document.getElementById("nueva_contrasenia");
     let contraseniaActual = document.getElementById("contrasenia_actual");
+    let boton_borrar = document.getElementById("borrarCuenta");
 
     nuevaContrasenia.addEventListener("blur", function () {
         comprobarAlSalirDelInput(nuevaContrasenia, /(?!.*\s.*)(?=.*[0-9].*)(?=.*[a-z].*)(?=.*[A-Z].*)(?=.*[\W_].*)^[\w\W]{8,50}$/, "Debe incluir una mayúscula, minúscula, número y un caracter extraño entre 8 y 50 caracteres.");
@@ -268,6 +269,12 @@ function comprobarInputsEditar() {
     contraseniaActual.addEventListener("blur", function () {
         comprobarAlSalirDelInput(contraseniaActual, /(?!.*\s.*)(?=.*[0-9].*)(?=.*[a-z].*)(?=.*[A-Z].*)(?=.*[\W_].*)^[\w\W]{8,50}$/, "Debe incluir una mayúscula, minúscula, número y un caracter extraño entre 8 y 50 caracteres.");
     })
+
+    boton_borrar.addEventListener("click", (evento) => { 
+        
+        evento.preventDefault();
+        escucharBotonesPopUpCuenta() 
+    });
 }
 
 function escucharFormulariosEditar() {
@@ -326,5 +333,65 @@ function comprobarEdicion(event) {
     })
     .catch(error => {
         console.error('Error:', error);
+    });
+}
+
+
+function escucharBotonesPopUpCuenta() {
+
+    let mensajeBorrado = document.createElement("div");
+    mensajeBorrado.classList.add("bloquearPagina");
+    mensajeBorrado.id = "popUp_fuente";
+    mensajeBorrado.innerHTML = "<div class='mensajeBorrado'>"+
+        "<p>¿Seguro que quiere eliminar la cuenta?</p>"+
+        "<p>Esta acción no se podrá revertir.</p>"+
+        "<div class='conjunto_botones'>" +
+            "<button class='boton_rojo' id='cancelarBorrado'>Cancelar</button>" +
+            "<button class='boton_verde' id='confirmarBorrado'>Confirmar</button>" +
+        "</div></div>";
+
+    // Agregar el elemento del mensaje de confirmación como hijo del cuerpo del documento
+    document.body.appendChild(mensajeBorrado);
+
+    escucharBotonesConfirmacionCuenta(); // Si se pulsa el botón de borrar escuchará el botón de confirmar y el de cancelar
+}
+
+function escucharBotonesConfirmacionCuenta() {
+
+    // Recojo los botones del popUp y el popUp
+    let botonConfirmar = document.getElementById("confirmarBorrado");
+    let botonCancelar = document.getElementById("cancelarBorrado");
+    let divPopUp = document.querySelector(".bloquearPagina");
+
+    botonConfirmar.addEventListener("click", () => { // Si pulsa en confirmar...
+
+        divPopUp.remove(); // Se elimina el popUp
+
+        fetch("../controller/cuenta_borrar.php") // Se hace una consulta modificará los datos
+        .then(response => response.text())
+        .then(resultado => {
+
+            if (resultado.redirected) { // Si la respuesta es una redirección
+        
+                window.location.href = resultado.url;
+
+            } else { // Si no hay redirección...
+
+                let seccion = document.querySelector(".seccionBorrarCuenta");
+                mostrarMensaje(seccion, resultado);
+                seccion.lastElementChild.setAttribute("class","titulo_informacion_negro")
+            }
+
+        })
+        .catch(error => {
+            // Manejo de errores
+            console.error('Fetch error:', error);
+        });
+
+    });
+
+    botonCancelar.addEventListener("click", () => { // Si pulsa en cancelar...
+
+        divPopUp.remove(); // Se elimina el popUp
     });
 }
