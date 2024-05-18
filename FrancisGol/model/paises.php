@@ -1,12 +1,12 @@
 <?php
     function crearOpcionesPaises() {
 
-        $paises = realizarConsulta("paises", "countries", 31536000);
+        $paises = realizarConsulta("paises", "countries", 31536000); // Recoge los paises disponilbes cada año
         $opciones = "";
 
         if (!empty($paises)) {
 
-            foreach ($paises->response as $pais) {
+            foreach ($paises->response as $pais) { // Recorre los paises y genera los options
     
                 if ($pais->name == "Spain") {
     

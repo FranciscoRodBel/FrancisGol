@@ -17,29 +17,29 @@
 
         public static function recogerJugador($idJugador) {
 
-            if (is_numeric($idJugador)) {
+            if (is_numeric($idJugador)) { // Compruebo si el id es un número
 
                     $conexion = FrancisGolBD::establecerConexion();
-                    $consulta = "SELECT * FROM jugador WHERE idJugador = $idJugador";
+                    $consulta = "SELECT * FROM jugador WHERE idJugador = $idJugador"; // Recojo los datos del jugador 
                     $resultado = $conexion->query($consulta);
             
-                    if (mysqli_num_rows($resultado) == 1) {
+                    if (mysqli_num_rows($resultado) == 1) { // Si está en la BBDD
                 
                         while($row = mysqli_fetch_assoc($resultado)) {
                             
-                            $jugador = new Jugador($row['idJugador'], $row['nombre'], $row['foto']);
+                            $jugador = new Jugador($row['idJugador'], $row['nombre'], $row['foto']); // Genera el objeto con los datos y lo devuelve
                         }
         
                     } else {
 
                         $anioActual = date("Y") - 1;
-                        $jugador = realizarConsultaSinJson("/players?id=$idJugador&season=$anioActual");
+                        $jugador = realizarConsultaSinJson("/players?id=$idJugador&season=$anioActual"); // Recojo los datos del jugador
                         
                         if (!empty($jugador)) {
 
                             $jugador = $jugador->response[0]->player;
-                            $jugador = new Jugador($jugador->id, $jugador->name, $jugador->photo);
-                            $jugador->insertarJugador();
+                            $jugador = new Jugador($jugador->id, $jugador->name, $jugador->photo); // Creo el objeto 
+                            $jugador->insertarJugador(); // Guardo el jugador recogido en la BBDD
 
                         } else {
 
@@ -53,7 +53,7 @@
             return "";
         }
 
-        public function pintarJugador() {
+        public function pintarJugador() { // Genera el HTML para visualizar la competición en distintas páginas
 
             $datosJugador = '<div class="competicion_equipo">
                 <a>
@@ -66,9 +66,9 @@
         }
 
         /* FUNCIONES JUGADOR DATOS */
-        public function pintarDatosJugador($anio) {
+        public function pintarDatosJugador($anio) { // Genera el HTML de las tablas de las estadísticas
 
-            $datosJugador = realizarConsulta("jugador_".$this->__get("id")."_".$anio, "/players?id=".$this->__get("id")."&season=$anio", 86400);
+            $datosJugador = realizarConsulta("jugador_".$this->__get("id")."_".$anio, "/players?id=".$this->__get("id")."&season=$anio", 86400); // Recoge todas las estadísticas
             
             if (!empty($datosJugador)) {
 
@@ -76,7 +76,7 @@
                 $selectCompeticion = "";
                 $tablaEstadsticasJugador = "";
 
-                foreach($datosJugador->response as $jugador) {
+                foreach($datosJugador->response as $jugador) { // Recorro los jugadores
             
                     $tablaDatosJugador .= "
                         <table class='tabla_datos'>
@@ -170,12 +170,14 @@
         
             foreach ($trofeosJugador->response as $trofeo) {
         
-                if ($trofeo->place == "Winner") {
+                if ($trofeo->place == "Winner") { // Muestro solo los trofeo que ganó
+
                     $tablaTrofeos .= "<tr>
                         <td>". $trofeo->league ."</td>
                         <td>". $trofeo->country ."</td>
                         <td>". $trofeo->season ."</td>
                     </tr>";
+
                 }
             }
         
@@ -185,15 +187,17 @@
         }
 
         public function insertarJugador() {
+
             $conexion = FrancisGolBD::establecerConexion();
             
+            // Recojo los datos del jugador
             $idJugador = $this->__get('id');
             $nombreJugador = $this->__get('nombre');
             $fotoJugador = $this->__get('foto');
 
             $consulta = $conexion->prepare("INSERT INTO jugador (idJugador, nombre, foto)  VALUES (?, ?, ?)");
     
-            try {
+            try { // Lo intento insertar, si da error porque ya está en la BBDD no lo inserta
                 $consulta->bind_param("iss", $idJugador, $nombreJugador, $fotoJugador);
                 $consulta->execute();
     

@@ -18,7 +18,7 @@
 
         } else {
 
-            $equipos_competicion = $competicion->generarEquiposCompeticion($equipos); // Genera el HTML de los equipos 
+            $equipos_competicion = $competicion->generarEquiposCompeticion($equipos); // Genera el HTML de los equipos de la competición
         }
 
     } else {

@@ -19,28 +19,28 @@
 
         public static function recogerCompeticion($idCompeticion) {
         
-            if (is_numeric($idCompeticion)) {
+            if (is_numeric($idCompeticion)) { // Compruebo si el id es un número
 
                 $conexion = FrancisGolBD::establecerConexion();
-                $consulta = "SELECT * FROM competicion WHERE idCompeticion = $idCompeticion";
+                $consulta = "SELECT * FROM competicion WHERE idCompeticion = $idCompeticion"; // Recojo los datos de la competición 
                 $resultado = $conexion->query($consulta);
         
-                if (mysqli_num_rows($resultado) == 1) {
+                if (mysqli_num_rows($resultado) == 1) { // Si está en la BBDD
             
-                    while($row = mysqli_fetch_assoc($resultado)) {
+                    while($row = mysqli_fetch_assoc($resultado)) { 
                         
-                        $competicion = new Competicion($row['idCompeticion'], $row['nombre'], $row['logo']);
+                        $competicion = new Competicion($row['idCompeticion'], $row['nombre'], $row['logo']); // Genera el objeto con los datos y lo devuelve
                     }
 
-                } else {
+                } else { // Si no está en la BBDD
 
-                    $competicion = realizarConsultaSinJson("leagues?id=$idCompeticion");
+                    $competicion = realizarConsultaSinJson("leagues?id=$idCompeticion"); // Recoge los datos pero no crea el fichero JSON porque guardará los datos en la BBDD 
 
                     if (!empty($competicion)) {
 
                         $competicion = $competicion->response[0]->league;
-                        $competicion = new Competicion($competicion->id, $competicion->name, $competicion->logo);
-                        $competicion->insertarCompeticion();
+                        $competicion = new Competicion($competicion->id, $competicion->name, $competicion->logo); // crea el objeto de la competición
+                        $competicion->insertarCompeticion(); // Guarda la competición en la BBDD
 
                     } else {
 
@@ -54,57 +54,61 @@
             return "";
         }
 
-        public function pintarCompeticion() {
+        public function pintarCompeticion() { // Genera el HTML para visualizar la competición en distintas páginas
 
             $competicionesFavoritas = Competicion::recogerCompeticionFavorita();
-            $claseFavorito = isset($_SESSION["usuario"]) && in_array($this->__get("id"), $competicionesFavoritas) ? "favorito" : "";
+            $claseFavorito = isset($_SESSION["usuario"]) && in_array($this->__get("id"), $competicionesFavoritas) ? "favorito" : ""; // Si está en favoritos añade la estrella amarilla y si no lo está la gris
 
+            // Genera el HTML de la competición
             $datosCompeticion = '<div class="competicion_equipo competiciones">
                 <a href="../controller/competicion_clasificacion.php?competicion='.$this->__get("id").'">
                     <div class="logo_competicion"><img src="'.$this->__get("logo").'" alt="Logo"></div>
                     <span>'.$this->__get("nombre").'</span>
                 </a>';
-            $datosCompeticion .= isset($_SESSION["usuario"]) ? '<i class="fa-solid fa-star icono_estrella '.$claseFavorito.'" id="competicion_'.$this->__get("id").'"></i>' : '';   
+            $datosCompeticion .= isset($_SESSION["usuario"]) ? '<i class="fa-solid fa-star icono_estrella '.$claseFavorito.'" id="competicion_'.$this->__get("id").'"></i>' : ''; // Muestra la estrella si la sesión está iniciada
             $datosCompeticion .= '</div><hr>';
 
             return $datosCompeticion;
         }
 
-        public function insertarCompeticion() {
+        public function insertarCompeticion() { // Guarda la Competición en la BBDD
+
             $conexion = FrancisGolBD::establecerConexion();
 
+            // Recojo los datos de la competición
             $idCompeticion = $this->__get("id");
             $nombreCompeticion = $this->__get("nombre");
             $logoCompeticion = $this->__get("logo");
     
             $consulta = $conexion->prepare("INSERT INTO competicion (idCompeticion, nombre, logo)  VALUES (?, ?, ?)");
             
-            try {
+            try { // Intenta insertarlo en la BBDD 
 
                 $consulta->bind_param("iss", $idCompeticion, $nombreCompeticion, $logoCompeticion);
                 $consulta->execute();
 
             } catch (mysqli_sql_exception) {
+
                 // Si la competición ya está insertado no hace nada
             }
         }
 
         public static function recogerEquipoCompeticiones($idEquipo) {
         
-            $equipoCompeticiones =  realizarConsulta("equipo_competiciones_$idEquipo", "leagues?team=$idEquipo", 86400); 
+            $equipoCompeticiones =  realizarConsulta("equipo_competiciones_$idEquipo", "leagues?team=$idEquipo", 604800); // Se recogen las competiciones en las que está el equipo 
 
             if (!empty($equipoCompeticiones)) {
 
-                foreach ($equipoCompeticiones->response as $competicion) {
+                foreach ($equipoCompeticiones->response as $competicion) { // Se recorren las competiciones
 
-                    $competicionesEquipo = new Competicion($competicion->league->id, $competicion->league->name, $competicion->league->logo);
+                    $competicionesEquipo = new Competicion($competicion->league->id, $competicion->league->name, $competicion->league->logo); // se crea el objeto de la competición
     
     
-                    foreach ($competicion->seasons as $anio) {
+                    foreach ($competicion->seasons as $anio) { // Se recorren los años disponibles del equipo
     
-                        $competicionesEquipo->anios[] = $anio->year;
+                        $competicionesEquipo->anios[] = $anio->year; // Se guardan los años disponibles de la competición
                     }
-                    $competiciones[] = $competicionesEquipo;
+                    $competiciones[] = $competicionesEquipo; // Se guarda el objeto de la competición en un array
     
                 }
     
@@ -116,12 +120,12 @@
         public static function pintarCompeticionesFavoritas() {
             
             $resultadoEquipos = "";
-            $competicionesFavoritas = isset($_SESSION["usuario"]) ?  Competicion::recogerCompeticionFavorita() : [140, 39, 61, 78, 135, 2];
+            $competicionesFavoritas = isset($_SESSION["usuario"]) ?  Competicion::recogerCompeticionFavorita() : [140, 39, 61, 78, 135, 2]; // Si la sesión está iniciada recoge las competiciones favoritas y si no está iniciada la sesión recoge el array de competiciones por defecto
         
-            foreach ($competicionesFavoritas as $idCompeticion) {
+            foreach ($competicionesFavoritas as $idCompeticion) { // Recorro los IDs de las competiciones
         
-                $competicion = Competicion::recogerCompeticion($idCompeticion);
-                $resultadoEquipos .= $competicion->pintarCompeticion();
+                $competicion = Competicion::recogerCompeticion($idCompeticion);  // Se recoge el objeto de la competición
+                $resultadoEquipos .= $competicion->pintarCompeticion(); // HTML con el logo y nombre de la competición
             }
 
             return $resultadoEquipos;
@@ -132,9 +136,9 @@
             $anioActual = date("Y") - 1;
             $options = "";
 
-            foreach ($temporadasDisponibles->response as $anio) {
+            foreach ($temporadasDisponibles->response as $anio) { // Se recorren las temporadas disponibles
 
-                if ($anioActual == $anio) {
+                if ($anioActual == $anio) { // Si el año es el actual se selecciona como predeterminado
 
                     $options .= "<option value='$anio' selected>$anio</option>";
 
@@ -149,7 +153,7 @@
         }
         
         /* FUNCIONES COMPETICIÓN CLASIFICACIÓN */
-        public function generarClasificacion($clasificacion) {
+        public function generarClasificacion($clasificacion) { // Genera el HTML de la clasificación de una competición
     
             $tablaClasificacion = "";
 
@@ -191,21 +195,22 @@
         }
 
         /* FUNCIONES COMPETICION EQUIPOS */
-        public function generarEquiposCompeticion($equipos) {
+        public function generarEquiposCompeticion($equipos) { // Se recogen los equipos de la competición
 
             $equiposFavoritos = Equipo::recogerEquiposFavorito();
 
             $todosLosEquipos = "";
         
-            foreach ($equipos->response as $equipo) {
+            foreach ($equipos->response as $equipo) { // Se recorren los equipos de la competición
         
-                $claseFavorito = isset($_SESSION['usuario']) && in_array($equipo->team->id, $equiposFavoritos) ? "favorito" : "";
+                $claseFavorito = isset($_SESSION['usuario']) && in_array($equipo->team->id, $equiposFavoritos) ? "favorito" : ""; // Si está en favoritos añade la estrella amarilla y si no lo está la gris
 
+                // Genera el HTML de los equipos de la competición
                 $todosLosEquipos .= '<div class="competicion_equipo competiciones">
                 <a href="../controller/equipo_estadisticas.php?equipo='.$equipo->team->id.'">
                     <div class="logo_competicion"><img src="'.$equipo->team->logo.'" alt="Logo"></div>';
                 $todosLosEquipos .= '<span>'.$equipo->team->name.'</span></a>';
-                $todosLosEquipos .= isset($_SESSION["usuario"]) ? '<i class="fa-solid fa-star icono_estrella '.$claseFavorito.'" id="equipo_'.$equipo->team->id.'"></i>' : ''; 
+                $todosLosEquipos .= isset($_SESSION["usuario"]) ? '<i class="fa-solid fa-star icono_estrella '.$claseFavorito.'" id="equipo_'.$equipo->team->id.'"></i>' : ''; // Si la sesión está iniciada añade la estrella al HTML
                 $todosLosEquipos .= '</div><hr>';
             }
         
@@ -216,16 +221,17 @@
         public function generarJornadas($jornadas) {
     
             $jornadasCompeticion = [];
-            $fecha_actual = date('Y-m-d\TH:i:sP');
+            $fecha_actual = date('Y-m-d\TH:i:sP'); // Con formato de año, mes, día, hora, minuto, segundo y la zona horaria
 
-            foreach ($jornadas->response as $partido) {
+            foreach ($jornadas->response as $partido) { // Recorre todas las jornadas
         
                 $hora_partido = strtotime($partido->fixture->date);
-                $fechaPartido = date('Y-m-d\TH:i:sP', $hora_partido);
-                $hora_partido = date('H:i', $hora_partido);
+                $fechaPartido = date('Y-m-d\TH:i:sP', $hora_partido); // Convierte la hora del partido a año, mes, día, hora, minuto, segundo y la zona horaria
+                $hora_partido = date('H:i', $hora_partido); // Recojo la hora del partido en horas y minutos
 
-                $ronda = $partido->league->round;
+                $ronda = $partido->league->round; // Nombre de la ronda
         
+                // Genera el HTML de las jornadas de la copetición
                 $partidosTotales = '
                     <div class="enfrentamiento_equipos">
                         <a href="../controller/partido_resumen.php?partido='.$partido->fixture->id.'">
@@ -235,9 +241,11 @@
                             </div>
                             <div class="resultado_hora">
                                 <p>VS</p>';
-                                if ($fecha_actual < $fechaPartido) {
-                                    $partidosTotales .= '<p>'.$hora_partido.'</p>';
-                                } else {
+                                if ($fecha_actual < $fechaPartido) { // Si la fecha del día del partido es mayor que la actual...
+                                   
+                                    $partidosTotales .= '<p>'.$hora_partido.'</p>'; // Muesto la hora de horas minutos
+
+                                } else { // Si es menor, que significa que el partido comenzó o se jugó, muestro el resultado
 
                                     $partidosTotales .= '<p>'.$partido->goals->home.' - '.$partido->goals->away.'</p>';
                                 }
@@ -251,23 +259,24 @@
                     </div>
                     <hr class="separacion_partidos_negro">';
 
+                // Si la jornada ya se creó en el array añade el HTML de la jornada a las jornadas que ya había y si no está lo añade
                 isset($jornadasCompeticion[$ronda]) ? $jornadasCompeticion[$ronda] .= $partidosTotales : $jornadasCompeticion[$ronda] = $partidosTotales;
 
             }
 
-            $contadorJornada = 1;
+            $contadorJornada = 1; // número de la jornada
             $opcionesPartidos = "";
             $jornadasPartidos = "";
 
-            foreach ($jornadasCompeticion as $nombreRonda => $datosJornada) {
+            foreach ($jornadasCompeticion as $nombreRonda => $datosJornada) { // Recorre las jornadas de las competiciones
 
                 $contadorJornada++;
-                $opcionesPartidos .= "<option value='jornada_$contadorJornada'>$nombreRonda</option>";
-                $jornadasPartidos .= "<div class='ocultarjornada' id='jornada_$contadorJornada'>$datosJornada</div>";
+                $opcionesPartidos .= "<option value='jornada_$contadorJornada'>$nombreRonda</option>"; // Crea los options para los select con los nombres de las jornadas
+                $jornadasPartidos .= "<div class='ocultarjornada' id='jornada_$contadorJornada'>$datosJornada</div>"; // Crea el div con las jornadas 
         
             }
 
-            return [$opcionesPartidos, $jornadasPartidos];
+            return [$opcionesPartidos, $jornadasPartidos]; // Devuelve ambos datos
         }
 
         /* FUNCIONES FAVORITOS */
@@ -277,17 +286,17 @@
     
             if (isset($_SESSION['usuario'])) {
                 
-                $usuario = unserialize($_SESSION['usuario']);
+                $usuario = unserialize($_SESSION['usuario']); // Recojo el objeto del usuario
                 $idUsuario = $usuario->__get("id");
         
                 $conexion = FrancisGolBD::establecerConexion();
         
-                $consulta = "SELECT * FROM competicion_favorita WHERE idUsuario = $idUsuario";
+                $consulta = "SELECT * FROM competicion_favorita WHERE idUsuario = $idUsuario"; // Selecciono las competiciones favoritas del usuario
                 $resultado = $conexion->query($consulta);
         
                 while ($row = $resultado->fetch_assoc()) {
     
-                    $arrayFavoritos[] = $row["idCompeticion"];
+                    $arrayFavoritos[] = $row["idCompeticion"]; // Guardo en un array los IDs de las competiciones
                 }
                 
                 return $arrayFavoritos;
@@ -298,6 +307,7 @@
 
             $conexion = FrancisGolBD::establecerConexion();
     
+            // Guardo el ID de la competición con el id del usuario 
             $consulta = $conexion->prepare("INSERT INTO competicion_favorita (idUsuario, idCompeticion)  VALUES (?, ?)");
             $consulta->bind_param("ii", $idUsuario, $idCompeticion);
             $consulta->execute();
@@ -307,10 +317,12 @@
 
             $conexion = FrancisGolBD::establecerConexion();
     
+            // Busco cuantas competiciones tiene en favoritos el usuario
             $consulta = "SELECT * FROM competicion_favorita WHERE idUsuario = $idUsuario";
             $resultado = $conexion->query($consulta);
-            if (mysqli_num_rows($resultado) == 1) return false;
+            if (mysqli_num_rows($resultado) == 1) return false; // Si solo tiene 1 devuelvo false ya que como mínimo el usuario tiene que tener una competición favorita
     
+            // Si tiene más de una competición favorita lo borra 
             $consulta = $conexion->prepare("DELETE FROM competicion_favorita WHERE idUsuario = ? AND idCompeticion = ?");
             $consulta->bind_param("ii", $idUsuario, $idCompeticion);
             return $consulta->execute();

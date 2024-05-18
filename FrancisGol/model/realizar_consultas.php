@@ -5,16 +5,16 @@ function realizarConsulta($nombreJson, $rutaApi, $tiempoGuardado) {
     $archivo = "../view/assets/json/$nombreJson.json"; // Nombre del archivo
 
     // Verifica si existe un archivo y si fue modificado en el último día
-    if (file_exists($archivo) && (time() - filemtime($archivo) < $tiempoGuardado)) {
+    if (file_exists($archivo) && (time() - filemtime($archivo) < $tiempoGuardado)) { // Si existe y le falta tiempo por renovar el JSON...
 
-        $datos = file_get_contents($archivo);
+        $datos = file_get_contents($archivo);  // Recoge el JSON 
         $resultado = json_decode($datos);
 
         if ($resultado->results == 0) {
             return "";
         }
 
-    } else {
+    } else { // Si no existe o el tiempo de validez del JSON terminó...
 
         $curl = curl_init();
 
@@ -33,14 +33,14 @@ function realizarConsulta($nombreJson, $rutaApi, $tiempoGuardado) {
         ),
         ));
 
-        $response = curl_exec($curl);
+        $response = curl_exec($curl); // Recojo los datos 
         curl_close($curl);
 
         $resultado = json_decode($response);
 
         if (!empty($resultado)) {
 
-            file_put_contents($archivo, $response);
+            file_put_contents($archivo, $response); // guardo los datos en un JSON
 
             if ($resultado->results == 0) {
                 return "";
@@ -51,7 +51,7 @@ function realizarConsulta($nombreJson, $rutaApi, $tiempoGuardado) {
         }
     }
 
-    return $resultado;
+    return $resultado; // Devuelvo los datos si están bien
 }
 
 
@@ -74,7 +74,7 @@ function realizarConsultaSinJson($rutaApi) {
     ),
     ));
 
-    $response = curl_exec($curl);
+    $response = curl_exec($curl); // Recojo los datos
     curl_close($curl);
 
     $resultado = json_decode($response);
@@ -90,5 +90,5 @@ function realizarConsultaSinJson($rutaApi) {
         return "";
     }
 
-    return $resultado;
+    return $resultado; // Los devuelvo si están bien
 }

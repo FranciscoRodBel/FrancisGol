@@ -22,7 +22,7 @@ class Partido {
 
     public static function recogerPartido($idPartido) {
 
-        $fecha_actual = date('Y-m-d\TH:i:sP');
+        $fecha_actual = date('Y-m-d\TH:i:sP'); // Con formato de año, mes, día, hora, minuto, segundo y la zona horaria
 
         $partido = realizarConsulta("datos_partido_$idPartido", "fixtures?id=$idPartido", 1800);
 
@@ -31,22 +31,25 @@ class Partido {
         $partido = $partido->response[0];
         
         $hora_partido = strtotime($partido->fixture->date);
-        $fechaPartido = date('Y-m-d\TH:i:sP', $hora_partido);
-        $hora_partido = date('H:i', $hora_partido);
+        $fechaPartido = date('Y-m-d\TH:i:sP', $hora_partido); // Convierte la hora del partido a año, mes, día, hora, minuto, segundo y la zona horaria
+        $hora_partido = date('H:i', $hora_partido); // Recojo la hora del partido en horas y minutos
 
-        if ($fecha_actual < $fechaPartido) {
-            $resultadoHora = $hora_partido;
-        } else {
+        if ($fecha_actual < $fechaPartido) { // Si la fecha del día del partido es mayor que la actual... 
+
+            $resultadoHora = $hora_partido; // Muesto la hora de horas minutos
+
+        } else { // Si es menor, que significa que el partido comenzó o se jugó, muestro el resultado
 
             $resultadoHora = $partido->goals->home.' - '.$partido->goals->away;
         }
 
+        // Creo el objeto con todos los datos del partido
         $partido = new Partido($idPartido, $partido->teams->home->id, $partido->teams->away->id, $partido->teams->home->name, $partido->teams->away->name, $partido->teams->home->logo, $partido->teams->away->logo, $resultadoHora);
 
         return $partido;
     }
 
-    public function pintarPartido() {
+    public function pintarPartido() { // Genera el html del partido
 
         $datosPartido = "<div class='enfrentamiento_equipos'>
             <a href='../controller/equipo_estadisticas.php?equipo={$this->__get('idEquipoLocal')}'>
@@ -74,18 +77,17 @@ class Partido {
     public function pintarAlineacionesPartido($alineacionesPartido) {
 
         $alineacionPrincipal = "";
-        foreach ($alineacionesPartido->response as $clave => $alineacion) {
+        foreach ($alineacionesPartido->response as $clave => $alineacion) { // Recorre la alineación
     
-            $alineacionPrincipal .= "<div class='alineacion_partido ".($clave == 1 ? "ocultar" : '' )."'>";
+            $alineacionPrincipal .= "<div class='alineacion_partido ".($clave == 1 ? "ocultar" : '' )."'>"; // La segunda alineación(visitante) la oculta
             $alineacionPrincipal .= "<div class='alineacion '>
                 <p class='titulo_seccion'>Formación: {$alineacion->formation}</p>
                 <div class='formacion_equipo formacion_{$alineacion->formation}'>"; 
             
-            foreach ($alineacion->startXI as $jugador) {
+            foreach ($alineacion->startXI as $jugador) { // Recorre todos los jugadores del once inicial
 
                 $alineacionPrincipal .= 
-                "
-                <div class='jugador_".str_replace(":","_",$jugador->player->grid)."'>
+                "<div class='jugador_".str_replace(":","_",$jugador->player->grid)."'>
                     <a href='../controller/jugador_datos.php?jugador=".$jugador->player->id."'>
                         <img src='https://media.api-sports.io/football/players/".$jugador->player->id.".png' alt='foto'>
                         <p>{$jugador->player->name}</p>
@@ -96,7 +98,7 @@ class Partido {
                 <p class='titulo_seccion'>Suplentes</p>
                 <div class='seccion_negra jugadores_suplentes'>";
 
-            foreach ($alineacion->substitutes as $suplente) {
+            foreach ($alineacion->substitutes as $suplente) { // Recorre los suplentes
 
                 $alineacionPrincipal .= 
                 "<div>
@@ -118,10 +120,12 @@ class Partido {
     public function pintarEstadisticasPartido($estadisticasPartido) {
  
         $tablaEstadisticas = "";
+        // Tipos de estadísticas
         $tipoEstadistica = array("Tiros a puerta", "Tiros a fuera", "Tiros totales", "Tiros bloqueados", "Tiros dentro del área", "Tiros fuera del área", "Faltas cometidas", "Saques de esquina", "Fueras de juego", "Posesión del balón", "Tarjetas amarillas", "Tarjetas rojas", "Tiros parados", "Pases totales", "Pases efectivos", "% de pases", "Goles esperados");
     
-        foreach ($estadisticasPartido->response as $key => $equipo) {
+        foreach ($estadisticasPartido->response as $key => $equipo) { // Recorro los equipos
     
+            // Genero dos tablas, uno con las estadísticas del equipo local y otro con el de los visitantes
             $tablaEstadisticas .= " <table class='tabla_datos ".($key == 1 ? "ocultar" : '' )."'>
             <thead>
                 <tr>
@@ -130,7 +134,7 @@ class Partido {
             </thead>
             <tbody>";
     
-            foreach ($equipo->statistics as $key => $estadistica) {
+            foreach ($equipo->statistics as $key => $estadistica) { // Muestra las estadísticas cogiendo los títulos del array
     
                 $tablaEstadisticas .= "
                         <tr>
@@ -155,22 +159,22 @@ class Partido {
 
         if (empty($eventosPartido->response)) { return "<p class='parrafo_informacion'>El partido aún no ha comenzado</p>"; }
         
-        foreach ($eventosPartido->response as $evento) {
+        foreach ($eventosPartido->response as $evento) { // Recorro los elementos
 
-            $eventosEquipos[$evento->team->id][] = $evento;
+            $eventosEquipos[$evento->team->id][] = $evento; // guado todos los eventos de los equipos por separado con el id del equipo como clave
 
         }
 
         $eventosOrdenados = "";
-        $id = $idEquipoLocal;
+        $id = $idEquipoLocal; // Cuando cambie el valor al id del equipo visitante se cerrará la tabla
 
-        for ($i=0; $i < 2; $i++) { 
+        for ($i=0; $i < 2; $i++) { // Recorro dos veces
 
             $eventosEquipo = [];
             $eventosOrdenados .= "<div>
             <h3 class='titulo_informacion'>".$eventosEquipos[$id][0]->team->name."</h3>";
 
-            foreach ($eventosEquipos[$id] as $evento) {
+            foreach ($eventosEquipos[$id] as $evento) { // Recorro los eventos y genero el HTML
 
                 $eventosPartido = "";
                 $minuto = $evento->time->elapsed + $evento->time->extra;
@@ -203,18 +207,18 @@ class Partido {
 
                 $eventosPartido .= "</div>";
 
-                isset($eventosEquipo[$minuto]) ? $eventosEquipo[$minuto] .= $eventosPartido : $eventosEquipo[$minuto] = $eventosPartido;
+                isset($eventosEquipo[$minuto]) ? $eventosEquipo[$minuto] .= $eventosPartido : $eventosEquipo[$minuto] = $eventosPartido; // Voy guardando los eventos en los minutos, si el minuto ya está creado lo añade a lo anterior y si no lo está lo añade como nuevo
                     
             }
 
-            ksort($eventosEquipo);
+            ksort($eventosEquipo); // Ordeno los minutos de menor a mayor
 
-            foreach ($eventosEquipo as $evento) {
+            foreach ($eventosEquipo as $evento) { // Recorro los eventos 
                 $eventosOrdenados .= $evento;
             }
 
-            $eventosOrdenados .= $id == $idEquipoLocal ? "</div><hr>" : "</div>";
-            $id = $idEquipoVisitante;
+            $eventosOrdenados .= $id == $idEquipoLocal ? "</div><hr>" : "</div>"; // La primera vez cierra el div y añade un hr y la segunda cierra solo el div
+            $id = $idEquipoVisitante; // Para que seleccione los datos del otro equipo
             
         }
         return $eventosOrdenados;
@@ -225,15 +229,17 @@ class Partido {
     
         $partidosEquiposFavoritos = [];
         $todosLosPartidos = "";
-        $fecha_actual = date('Y-m-d\TH:i:sP');
+        $fecha_actual = date('Y-m-d\TH:i:sP'); // Con formato de año, mes, día, hora, minuto, segundo y la zona horaria
 
-        $equiposFavoritos = isset($_SESSION["usuario"]) ? Equipo::recogerEquiposFavorito() : [];
+        $equiposFavoritos = isset($_SESSION["usuario"]) ? Equipo::recogerEquiposFavorito() : [530, 529, 541, 157, 50, 85]; // Si la sesión está iniciada recoge los equipos favoritos y si no está iniciada la sesión recoge el array de equipos por defecto
 
-        foreach ($partidos->response as $partido) {
+        foreach ($partidos->response as $partido) { // Recorro todos los partidos
     
             $hora_partido = strtotime($partido->fixture->date);
-            $fechaPartido = date('Y-m-d\TH:i:sP', $hora_partido);
-            $hora_partido = date('H:i', $hora_partido);
+            $fechaPartido = date('Y-m-d\TH:i:sP', $hora_partido); // Convierte la hora del partido a año, mes, día, hora, minuto, segundo y la zona horaria
+            $hora_partido = date('H:i', $hora_partido); // Recojo la hora del partido en horas y minutos
+            
+            // Recojo los IDs del partido
             $idEquipoLocal = $partido->teams->home->id;
             $idEquipoVisitante = $partido->teams->away->id;
             $idPartido = $partido->fixture->id;
@@ -248,9 +254,11 @@ class Partido {
                         <div class="resultado_hora">
                             <p>VS</p>';
                             
-                            if ($fecha_actual < $fechaPartido) {
-                                $partidosDeUnaLiga .= '<p>'.$hora_partido.'</p>';
-                            } else {
+                            if ($fecha_actual < $fechaPartido) { // Si la fecha del día del partido es mayor que la actual...
+                                
+                                $partidosDeUnaLiga .= '<p>'.$hora_partido.'</p>'; // Muesto la hora de horas minutos
+
+                            } else { // Si es menor, que significa que el partido comenzó o se jugó, muestro el resultado
     
                                 $partidosDeUnaLiga .= '<p>'.$partido->goals->home.' - '.$partido->goals->away.'</p>';
                             }
@@ -265,22 +273,23 @@ class Partido {
                 <hr class="separacion_partidos">';
     
             $idLigaActual = $partido->league->id;
-            $datosLiga[$idLigaActual] = [$partido->league->logo, $partido->league->name];
-            $partidosPorLiga[$idLigaActual][$idPartido] = $partidosDeUnaLiga;
+            $datosLiga[$idLigaActual] = [$partido->league->logo, $partido->league->name]; // Guardo los datos de la competición
+            $partidosPorLiga[$idLigaActual][$idPartido] = $partidosDeUnaLiga; // Gurfo el HTML generado de los partidos en un array doble en el id de la liga con el id del partido
             
-            if (in_array($idEquipoLocal, $equiposFavoritos) || in_array($idEquipoVisitante, $equiposFavoritos)) {
+            if (in_array($idEquipoLocal, $equiposFavoritos) || in_array($idEquipoVisitante, $equiposFavoritos)) { // Si el equipo visitante o el local están en favoritos...
                 
-                $partidosEquiposFavoritos[$idPartido] = $idLigaActual;
+                $partidosEquiposFavoritos[$idPartido] = $idLigaActual; // Guardo el id de la liga en el id del partido
             }
 
         }
 
-        $competicionesFavoritas = !isset($_SESSION["usuario"]) ? [140, 39, 61, 78, 135, 2] : (Competicion::recogerCompeticionFavorita());
+        $competicionesFavoritas = isset($_SESSION["usuario"]) ? Competicion::recogerCompeticionFavorita() : [140, 39, 61, 78, 135, 2] ; // Si la sesión está iniciada recoge las competiciones favoritas y si no está iniciada la sesión recoge el array de competiciones por defecto
 
-        foreach ($partidosPorLiga as $idLiga => $partidosLiga) {
+        foreach ($partidosPorLiga as $idLiga => $partidosLiga) { // Recorro los partidos recogidos anteriormente 
 
-            if (in_array($idLiga, $competicionesFavoritas) || in_array($idLiga, $partidosEquiposFavoritos)) {
+            if (in_array($idLiga, $competicionesFavoritas) || in_array($idLiga, $partidosEquiposFavoritos)) { // Si la competición está en favoritos o en el array de equipos favoritos...
                     
+                // Genero el HTML de la competición
                 $todosLosPartidos .= '
                 <section class="seccion_negra">
                     <div class="competicion_equipo">
@@ -288,21 +297,23 @@ class Partido {
                             <div class="logo_competicion"><img src="'.$datosLiga[$idLiga][0].'" alt="Logo"></div>
                             <span>'.$datosLiga[$idLiga][1].'</span>
                         </a>';
-                $favorito = in_array($idLiga, $competicionesFavoritas) ? "favorito" : "";
+                $favorito = in_array($idLiga, $competicionesFavoritas) ? "favorito" : ""; // Si la liga está en favoritos muestro la estrella amarilla, si no lo está la gris  
                 $todosLosPartidos .= isset($_SESSION["usuario"]) ? '<i class="fa-solid fa-star icono_estrella '.$favorito.'" id="competicion_'.$idLiga.'"></i>' : "";        
 
                 $todosLosPartidos .= '</div><hr>';
 
+                // Cuando se crea la cabecera añado todos los partidos si la competición está en favoritos o añado solo los partidos de los equipos favoritos
                 foreach ($partidosLiga as $idPartido => $partidoLiga) {
 
-                    if (in_array($idLiga, $competicionesFavoritas)) {
+                    if (in_array($idLiga, $competicionesFavoritas)) { // Si el id pertenece a una liga favorita...
 
-                        $todosLosPartidos .= $partidoLiga;
+                        $todosLosPartidos .= $partidoLiga; // Añade el HTML del partido 
 
                     } else {
 
-                        if (array_key_exists($idPartido, $partidosEquiposFavoritos)) {
-                            $todosLosPartidos .= $partidoLiga;
+                        if (array_key_exists($idPartido, $partidosEquiposFavoritos)) { // Si está el partido en el array de los equipos favoritos
+                           
+                            $todosLosPartidos .= $partidoLiga; // Añade el HTML del partido 
                         }
 
                     }
@@ -310,7 +321,6 @@ class Partido {
                 }
         
                 $todosLosPartidos .= "</section>";
-                
             }
         }
     
@@ -323,12 +333,13 @@ class Partido {
     
         $fechas = [];
     
-        for ($i=-4; $i < 5; $i++) { 
+        for ($i=-4; $i < 5; $i++) { // Genero 4 días atrás, hoy y cuatro días después
     
             array_push($fechas, date("Y-m-d", strtotime("$i day", strtotime($fecha_actual))));
     
         }
     
+        // genero el HTML del calendario
         $fechas_partidos = '<i class="fa-regular fa-calendar"><input type="date" class="inputCalendario"></i>';
         $fechas_partidos .= '';
         $fechas_partidos .= "<a href='../controller/partidos.php?fecha=".$fechas[0]."'>".substr($fechas[0],8)."</a><hr>";
