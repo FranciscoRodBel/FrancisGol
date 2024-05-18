@@ -69,6 +69,8 @@ class Usuario { // Se usa para manejar todos los datos del usuario
                 $this->__set("foto", $resultado["foto"]);
                 $this->__set("cookies", $resultado["cookies"]);
 
+                if ($this->__get("cookies") == 1) $this->crearCookies();
+
                 $_SESSION['usuario'] = serialize($this); // guardo el propio objeto en la sesión de usuario
 
                 return "";

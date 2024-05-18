@@ -1,10 +1,11 @@
 <?php
     include_once '../model/Usuario.php';
 
-    Usuario::comprobarSesionIniciada(true);
+    Usuario::comprobarSesionIniciada(true); // Si la sesión está iniciada lo redirige a la página de partidos
 
-    if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    if ($_SERVER["REQUEST_METHOD"] == "POST") { // Cuando inicie sesión viene aquí y...
 
+        // Recoge el email y la contraseña enviada 
         $email = $_POST['email'];
         $contrasenia = $_POST['contrasenia'];
 

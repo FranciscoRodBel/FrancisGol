@@ -9,25 +9,25 @@
     $nombreEquipoLocal = "Equipo";
     $nombreEquipoVisitante = "Equipo";
     $datosPartido = "";
-    $tablaEstadisticas = "<p class='parrafo_informacion'>Partido no encontrado</p>";
+    $tablaEstadisticas = "<p class='parrafo_informacion'>Partido no encontrado.</p>"; // Si algún dato está vacío se muestra este mensaje
 
-    if (isset($_GET["partido"]) && !empty($_GET["partido"])) {
+    if (isset($_GET["partido"]) && !empty($_GET["partido"])) { // Si se envió el id del partido...
 
         $idPartido = $_GET["partido"];
-        $partido = Partido::recogerPartido($idPartido);
+        $partido = Partido::recogerPartido($idPartido); // recojo el objeto del partido
         
         if (!empty($partido)) {
 
-            $datosPartido = $partido->pintarPartido();
-            $estadisticasPartido = realizarConsulta("partido_estadisticas_$idPartido", "fixtures/statistics?fixture=$idPartido", 1800); 
+            $datosPartido = $partido->pintarPartido(); // HTML con el logo y nombre del de los equipos y el resultado
+            $estadisticasPartido = realizarConsulta("partido_estadisticas_$idPartido", "fixtures/statistics?fixture=$idPartido", 1800); // Se recogen las estadísticas del partido cada media hora
             
             if (!empty($estadisticasPartido)) {
 
-                $tablaEstadisticas = $partido->pintarEstadisticasPartido($estadisticasPartido);
+                $tablaEstadisticas = $partido->pintarEstadisticasPartido($estadisticasPartido); // Genera el HTML con las estadísticas de ambos equipos
                 
             } else {
 
-                $tablaEstadisticas = "<p class='parrafo_informacion'>No se encontraron estadísticas</p>";
+                $tablaEstadisticas = "<p class='parrafo_informacion'>No se encontraron estadísticas.</p>";
             }
             
             $nombreEquipoLocal = $partido->__get("nombreEquipoLocal");

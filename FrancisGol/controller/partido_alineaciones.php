@@ -10,25 +10,25 @@
     $nombreEquipoLocal = "Equipo";
     $nombreEquipoVisitante = "Equipo";
     $datosPartido = "";
-    $alineacionesPartido = "<p class='parrafo_informacion'>Partido no encontrado</p>";
+    $alineacionesPartido = "<p class='parrafo_informacion'>Partido no encontrado.</p>"; // Si algún dato está vacío se muestra este mensaje
 
-    if (isset($_GET["partido"]) && !empty($_GET["partido"])) {
+    if (isset($_GET["partido"]) && !empty($_GET["partido"])) { // Si se envió el id del partido...
 
         $idPartido = $_GET["partido"];
-        $partido = Partido::recogerPartido($idPartido);
+        $partido = Partido::recogerPartido($idPartido); // recojo el objeto del partido
         
         if (!empty($partido)) {
 
-            $datosPartido = $partido->pintarPartido();
-            $alineacionesPartido = realizarConsulta("partido_alineaciones_$idPartido", "fixtures/lineups?fixture=$idPartido", 1800); 
+            $datosPartido = $partido->pintarPartido(); // HTML con el logo y nombre del de los equipos y el resultado
+            $alineacionesPartido = realizarConsulta("partido_alineaciones_$idPartido", "fixtures/lineups?fixture=$idPartido", 1800); // Se recogen las alineaciones del partido cada media hora
             
             if (!empty($alineacionesPartido)) {
 
-                $alineacionesPartido = $partido->pintarAlineacionesPartido($alineacionesPartido);
+                $alineacionesPartido = $partido->pintarAlineacionesPartido($alineacionesPartido); // Genera el HTML con las alienaciones de ambos equipos
 
             } else {
                 
-                $alineacionesPartido = "<p class='parrafo_informacion'>No se encontraron alineaciones</p>";
+                $alineacionesPartido = "<p class='parrafo_informacion'>No se encontraron alineaciones.</p>";
             }
             
             $nombreEquipoLocal = $partido->__get("nombreEquipoLocal");

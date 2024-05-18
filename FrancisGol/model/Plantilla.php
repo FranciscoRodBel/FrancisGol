@@ -8,6 +8,7 @@
             protected string $titulo,
             protected int $anio,
             protected string $formacion,
+            protected string $datosPlantilla,
             protected int $idUsuario,
             protected int $idEquipo
         ) {}
@@ -34,7 +35,7 @@
             
                     while($row = mysqli_fetch_assoc($resultado)) {
                         
-                        $plantillaUsuario = new Plantilla($row['idPlantilla'], $row['titulo'], $row['anio'], $row['formacion'], $row['idUsuario'], $row['idEquipo']);
+                        $plantillaUsuario = new Plantilla($row['idPlantilla'], $row['titulo'], $row['anio'], $row['formacion'], $row['datosPlantilla'], $row['idUsuario'], $row['idEquipo']);
                     }
     
                 } else {
@@ -68,7 +69,7 @@
         
                 while($row = mysqli_fetch_assoc($resultado)) {
                     
-                    $plantillasUsuario[] = new Plantilla($row['idPlantilla'], $row['titulo'], $row['anio'], $row['formacion'], $row['idUsuario'], $row['idEquipo']);
+                    $plantillasUsuario[] = new Plantilla($row['idPlantilla'], $row['titulo'], $row['anio'], $row['formacion'], $row['datosPlantilla'], $row['idUsuario'], $row['idEquipo']);
                 }
 
             } else {
@@ -150,15 +151,15 @@
         
             $usuario = unserialize($_SESSION['usuario']);
             $idUsuario = $usuario->__get("id");
-            $anio = 2023;
+            $anio = date("Y") - 1;
             $equipo = json_decode($datosPlantilla)->response[0]->team;
             $idEquipo = $equipo->id;
         
             $equipo = new Equipo($idEquipo, $equipo->name, $equipo->logo);
             $equipo->insertarEquipo();
         
-            $consulta = $conexion->prepare("INSERT INTO plantilla (titulo, anio, formacion, idUsuario, idEquipo)  VALUES (?, ?, ?, ?, ?)");
-            $consulta->bind_param("sisii", $titulo, $anio, $formacion, $idUsuario, $idEquipo);
+            $consulta = $conexion->prepare("INSERT INTO plantilla (titulo, anio, formacion, datosPlantilla ,idUsuario, idEquipo)  VALUES (?, ?, ?, ?, ?, ?)");
+            $consulta->bind_param("sissii", $titulo, $anio, $formacion, $datosPlantilla, $idUsuario, $idEquipo);
             $consulta->execute();
             
             $idPlantilla = mysqli_insert_id($conexion);

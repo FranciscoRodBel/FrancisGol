@@ -2,7 +2,6 @@
     require_once "../model/Usuario.php";
     require_once "../model/Plantilla.php";
     require_once "../model/Equipo.php";
-    require_once "../model/realizar_consultas.php";
 
     Usuario::comprobarSesionIniciada(false);
 
@@ -11,33 +10,35 @@
 
     $tituloPlantilla = "";
     $datosEquipo = "";
-    $resultadoPlantilla = "<p class='parrafo_informacion'>No se encontró la plantilla</p>";
+    $resultadoPlantilla = "<p class='parrafo_informacion'>No se encontró la plantilla</p>"; // Si algún dato está vacío se muestra este mensaje
 
-    if (isset($_GET['plantilla']) && !empty($_GET['plantilla'])) {
+    if (isset($_GET['plantilla']) && !empty($_GET['plantilla'])) {  // Si se envía el id de la plantilla...
         
-        $plantilla = Plantilla::recogerPlantilla($_GET['plantilla']);
+        $plantilla = Plantilla::recogerPlantilla($_GET['plantilla']); // Se crea el objeto de la plantilla
 
         if (!empty($plantilla)) {
 
-            $usuario = unserialize($_SESSION['usuario']);
+            $usuario = unserialize($_SESSION['usuario']); // Recojo el objeto del usuario de la sesión
             $idUsuario = $usuario->__get("id");
 
-            if ($plantilla->__get("idUsuario") == $idUsuario) {
+            if ($plantilla->__get("idUsuario") == $idUsuario) { // Si el id del usuario que tiene la sesión inciada es igual al propietario de la plantilla...
 
+                // Recojo todos los datos de la plantilla para mostrarlo en sus inputs
                 $tituloPlantilla = $plantilla->__get("titulo");
                 $formacion = $plantilla->__get("formacion");
                 $idPlantilla = $plantilla->__get("id");
-                $equipo = Equipo::recogerEquipo($plantilla->__get("idEquipo"));
+
+                $equipo = Equipo::recogerEquipo($plantilla->__get("idEquipo")); // Se recoge el objeto del equipo
 
                 if (!empty($equipo)) {
 
-                    $datosEquipo = $equipo->pintarEquipo();
+                    $datosEquipo = $equipo->pintarEquipo(); // HTML con el logo y nombre del equipo
                     $idEquipo = $equipo->__get("id");
-                    $equipoPlantilla = realizarConsulta("equipo_plantilla_$idEquipo", "/players/squads?team=$idEquipo", 604800); 
+                    $equipoPlantilla = json_decode($plantilla->__get("datosPlantilla"));
                     
                     if (!empty($equipoPlantilla)) {
 
-                        $optionsSelectFormaciones = Plantilla::generarSelectFormaciones($formacion);
+                        $optionsSelectFormaciones = Plantilla::generarSelectFormaciones($formacion); // Se generan los options con las formaciones disponibles
                         $datosPlantilla = $plantilla->recogerDatosPlantilla();
                         $resultadoPlantilla = $plantilla->pintarPlantillaEditar($datosPlantilla);
 

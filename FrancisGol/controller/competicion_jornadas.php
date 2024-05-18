@@ -6,32 +6,32 @@
     $titulo = "FrancisGol - Competición jornadas";
     $lista_css = ["competiciones.css", "partidos_liga.css"];
 
-    $datosCompeticion = "<p class='parrafo_informacion_blanco'>No se encontró la competición</p>";
+    $datosCompeticion = "<p class='parrafo_informacion_blanco'>No se encontró la competición.</p>"; // Si algún dato está vacío se muestra este mensaje
     $jornadas = "";
     $opcionesJornadas = "";
 
-    if (isset($_GET["competicion"]) && !empty($_GET["competicion"])) {
+    if (isset($_GET["competicion"]) && !empty($_GET["competicion"])) { // Si se ha enviado el id de la competición
         
         $idCompeticion = $_GET["competicion"];
-        $competicion = Competicion::recogerCompeticion($idCompeticion);
+        $competicion = Competicion::recogerCompeticion($idCompeticion); // Se recoge el objeto de la competición
 
         if (!empty($competicion)) {
 
-            $temporadasDisponibles = realizarConsulta("temporadas_disponibles_$idCompeticion", "leagues/seasons", 604800);
+            $temporadasDisponibles = realizarConsulta("temporadas_disponibles_$idCompeticion", "leagues/seasons", 604800); // Se recogen los años disponibles de la competición
 
             if (!empty($temporadasDisponibles)) {
 
                 $optionsAniosDisponibles = Competicion::generarOptionsTemporadas($temporadasDisponibles);
-                $datosCompeticion = $competicion->pintarCompeticion();
+                $datosCompeticion = $competicion->pintarCompeticion(); // HTML con el logo y nombre de la competición
 
                 $anioActual = date("Y") - 1;
-                $jornadasCompeticion = realizarConsulta("competicion_jornadas_".$idCompeticion."_".$anioActual, "fixtures?league=$idCompeticion&season=$anioActual", 86400);
+                $jornadasCompeticion = realizarConsulta("competicion_jornadas_".$idCompeticion."_".$anioActual, "fixtures?league=$idCompeticion&season=$anioActual", 86400); // Recojo las jornadas de las competiciones
 
                 if (!empty($jornadasCompeticion)) {
 
-                    $datosJornadas = $competicion->generarJornadas($jornadasCompeticion);
-                    $opcionesJornadas = $datosJornadas[0];
-                    $jornadas = $datosJornadas[1];
+                    $datosJornadas = $competicion->generarJornadas($jornadasCompeticion); // Se genera el HTML que se muestra en la página y las opciones de las jornadas
+                    $opcionesJornadas = $datosJornadas[0]; // HTML de las opciones
+                    $jornadas = $datosJornadas[1]; // HTML de los enfrentamientos de las jornadas
                 }
             }
         }

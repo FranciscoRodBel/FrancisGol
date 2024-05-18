@@ -7,12 +7,11 @@
     $titulo = "FrancisGol - Buscar";
     $lista_css = ["competiciones.css"];
 
-    $paises = crearOpcionesPaises();
+    $paises = crearOpcionesPaises(); // Se generan las opciones para el select que se utiliza para seleccionar las competiciones
 
-    $resultadoCompeticiones = Competicion::pintarCompeticionesFavoritas();
+    $resultadoCompeticiones = Competicion::pintarCompeticionesFavoritas(); // Devuelve el HTML con las competiciones favoritas
     
-    $resultadoEquipos = Equipo::pintarEquiposFavoritos();
-
+    $resultadoEquipos = Equipo::pintarEquiposFavoritos(); // Devuelve el HTML con los equipos favoritas
 
     include '../view/templates/head.php';
     include '../view/templates/header.php';
