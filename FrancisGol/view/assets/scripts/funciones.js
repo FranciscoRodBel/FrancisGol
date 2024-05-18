@@ -117,3 +117,72 @@ function mostrarEstadisticaJugador() {
         }
     }
 }
+
+/* FUNCIONES PÁGINA BUSCAR */
+
+function detectarPulsacionesInput() {
+        
+    let inputCompeticion = document.getElementById("competicion");
+
+    inputCompeticion.addEventListener("keyup", () => {
+
+        buscarCompeticion(inputCompeticion.value, 'listaCompeticiones');
+
+    });
+}
+
+function buscarCompeticion(str, idInput) {
+
+    if (str.length == 0) {
+
+        document.getElementById(idInput).innerHTML = "";
+        return;
+
+    } else {
+
+        fetch("../controller/seleccionar_competiciones2.php?texto="+str)
+        .then(response => { return response.text(); })
+        .then(competiciones => {
+            document.getElementById(idInput).innerHTML = competiciones;
+        })
+        .catch(error => {
+            console.error('Error:', error); // Manejar errores
+        });
+    }
+}
+
+function escucharEnviosFormulariosBusqueda() {
+
+    document.getElementById("buscar_competicion").addEventListener("submit", function(event) {
+        
+        event.preventDefault();
+
+        let datalist = document.getElementById("listaCompeticiones");
+
+        datalist.addEventListener("change", () => {
+            console.log(datalist);
+        });
+        let competicionInput = datalist.firstElementChild.getAttribute('data-idCompeticion');
+        document.getElementById("competicion").value = "";
+
+        let url = "../controller/competicion_clasificacion.php?competicion=" + encodeURIComponent(competicionInput);
+        window.location.href = url;
+
+    });
+
+    /* Buscar Equipo */
+
+    document.getElementById("buscarEquipo").addEventListener("submit", function(event) {
+
+        event.preventDefault();
+
+        let selectEquipos = document.getElementById("equipos_competicion");
+
+        if (!isNaN(selectEquipos.value)) {
+            let url = "../controller/equipo_estadisticas.php?equipo=" + encodeURIComponent(selectEquipos.value);
+            window.location.href = url;
+        }
+
+    });
+}
+

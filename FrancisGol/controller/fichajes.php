@@ -9,7 +9,7 @@
 
     $paises = crearOpcionesPaises();
 
-    $fichajes = "<p class='parrafo_informacion'>No se encontró el equipo</p>";
+    $fichajes = "<p class='parrafo_informacion'>Seleccione un equipo</p>";
 
     if (isset($_POST['enviar']) && isset($_POST['equipos_competicion'])) {
         
@@ -21,6 +21,10 @@
             if (!empty($fichajesEquipo)) {
 
                 $fichajes = Equipo::pintarFichajesEquipo($fichajesEquipo);
+
+            } else {
+
+                $fichajes = "<p class='parrafo_informacion'>No se encontró el equipo</p>";
             }
         }
 

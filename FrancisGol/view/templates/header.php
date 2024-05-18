@@ -27,3 +27,4 @@
     </div>
 </header>
 <script src="../view/assets/scripts/menu_hamburguesa.js"></script>
+<script> iniciarMenuHamburguesa(); </script>

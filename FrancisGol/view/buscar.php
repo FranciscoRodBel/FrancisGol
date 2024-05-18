@@ -7,7 +7,7 @@
                     <label for="competiciones" class="icono_busqueda">
                         <i class="fa-solid fa-magnifying-glass"></i>
                     </label>
-                    <input type="text" name="competicion" id="competicion" list="listaCompeticiones" placeholder="Busca una competición" onkeyup="buscarCompeticion(this.value, 'listaCompeticiones')">
+                    <input type="text" name="competicion" id="competicion" list="listaCompeticiones" placeholder="Busca una competición">
                 </div>
                 <datalist id="listaCompeticiones"></datalist>
                 <input type="submit" value="Enviar" class="boton_enviar"></input>
@@ -40,55 +40,10 @@
 </main>
 <script src="../view/assets/scripts/favoritos.js"></script>
 <script src="../view/assets/scripts/fichajes.js"></script>
+<script src="../view/assets/scripts/funciones.js"></script>
 <script>
     seleccionarCompeticionesEquipos();
-    function buscarCompeticion(str, idInput) {
-
-        if (str.length == 0) {
-
-            document.getElementById(idInput).innerHTML = "";
-            return;
-
-        } else {
-
-            const xmlhttp = new XMLHttpRequest();
-
-            xmlhttp.onload = function() {
-                
-                document.getElementById(idInput).innerHTML = this.responseText;
-            }
-            
-            xmlhttp.open("GET", "../controller/seleccionar_competiciones2.php?texto="+str);
-            xmlhttp.send();
-        }
-    }
-
-    document.getElementById("buscar_competicion").addEventListener("submit", function(event) {
-        event.preventDefault();
-
-        let datalist = document.getElementById("listaCompeticiones");
-        let competicionInput = datalist.firstElementChild.getAttribute('data-idCompeticion');
-        document.getElementById("competicion").value = "";
-
-        let url = "../controller/competicion_clasificacion.php?competicion=" + encodeURIComponent(competicionInput);
-        window.location.href = url;
-
-    });
-
-    /* Buscar Equipo */
-
-    document.getElementById("buscarEquipo").addEventListener("submit", function(event) {
-        event.preventDefault();
-
-        let selectEquipos = document.getElementById("equipos_competicion");
-
-        if (!isNaN(selectEquipos.value)) {
-            let url = "../controller/equipo_estadisticas.php?equipo=" + encodeURIComponent(selectEquipos.value);
-            window.location.href = url;
-        }
-
-
-    });
-    
+    detectarPulsacionesInput();
+    escucharEnviosFormulariosBusqueda();
     escucharFavoritos();
 </script>

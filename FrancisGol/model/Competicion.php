@@ -116,7 +116,7 @@
         public static function pintarCompeticionesFavoritas() {
             
             $resultadoEquipos = "";
-            $competicionesFavoritas = isset($_SESSION["usuario"]) ?  Competicion::recogerCompeticionFavorita() : [140, 39, 61, 78, 71, 2];
+            $competicionesFavoritas = isset($_SESSION["usuario"]) ?  Competicion::recogerCompeticionFavorita() : [140, 39, 61, 78, 135, 2];
         
             foreach ($competicionesFavoritas as $idCompeticion) {
         
@@ -170,7 +170,7 @@
                 foreach ($datosClasificacion as $equipo) {
 
                     $tablaClasificacion .= "<tr>
-                        <td><img src=".$equipo->team->logo." alt='escudo'></td>
+                        <td><div class='logo_competicion'><img src=".$equipo->team->logo." alt='escudo'></div></td>
                         <td>".$equipo->team->name."</td>
                         <td>".$equipo->points."</td>
                         <td>".$equipo->all->played."</td>

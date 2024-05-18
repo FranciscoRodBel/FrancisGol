@@ -36,8 +36,11 @@
 
                 $pattern = "/$texto/i";
 
-                if (preg_match($pattern, $liga->league->name)) {
-                    $competicion = "<option data-idCompeticion='".$liga->league->id."'>".$liga->league->name."</option>"; 
+                $paisCompeticion = $liga->country->code == null ? $liga->country->name : $liga->country->code;
+
+                if (preg_match($pattern, $liga->league->name." - ".$paisCompeticion)) {
+
+                    $competicion = "<option data-idCompeticion='".$liga->league->id."'>".$liga->league->name." - $paisCompeticion </option>"; 
                     $competiciones_pais .= $competicion; 
                 }
             }

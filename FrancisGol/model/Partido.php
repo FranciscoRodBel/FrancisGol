@@ -270,16 +270,16 @@ class Partido {
             
             if (in_array($idEquipoLocal, $equiposFavoritos) || in_array($idEquipoVisitante, $equiposFavoritos)) {
                 
-                $partidosEquiposFavoritos[$idLigaActual] = $idPartido;
+                $partidosEquiposFavoritos[$idPartido] = $idLigaActual;
             }
 
         }
 
-        $competicionesFavoritas = !isset($_SESSION["usuario"]) ? [140, 39, 61, 78, 71, 2] : (Competicion::recogerCompeticionFavorita());
+        $competicionesFavoritas = !isset($_SESSION["usuario"]) ? [140, 39, 61, 78, 135, 2] : (Competicion::recogerCompeticionFavorita());
 
         foreach ($partidosPorLiga as $idLiga => $partidosLiga) {
 
-            if (in_array($idLiga, $competicionesFavoritas) || array_key_exists($idLiga, $partidosEquiposFavoritos)) {
+            if (in_array($idLiga, $competicionesFavoritas) || in_array($idLiga, $partidosEquiposFavoritos)) {
                     
                 $todosLosPartidos .= '
                 <section class="seccion_negra">
@@ -301,7 +301,7 @@ class Partido {
 
                     } else {
 
-                        if (in_array($idPartido, $partidosEquiposFavoritos)) {
+                        if (array_key_exists($idPartido, $partidosEquiposFavoritos)) {
                             $todosLosPartidos .= $partidoLiga;
                         }
 
