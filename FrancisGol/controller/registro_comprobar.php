@@ -4,47 +4,45 @@
     require_once "../model/Equipo.php";
     require_once "../model/funciones.inc.php";
 
-    Usuario::comprobarSesionIniciada(true);
+    Usuario::comprobarSesionIniciada(true); // Si la sesión está iniciada lo redirige a la página de partidos
 
-    if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    if ($_SERVER["REQUEST_METHOD"] == "POST") { // Si llega un envío por POST...
 
             $resultadoFormulario = "";
 
+            // Compruebo los datos para evitar ataques
             $email = comprobarDatos($_POST['email']);
             $nombre = comprobarDatos($_POST['nombre']);
             $contrasenia = comprobarDatos($_POST['contrasenia']);
             $repetir_contrasenia = comprobarDatos($_POST['repetir_contrasenia']);
 
-            if (comprobarVacio([$email, $nombre, $contrasenia, $repetir_contrasenia])) {
+            if (comprobarVacio([$email, $nombre, $contrasenia, $repetir_contrasenia])) { // si no están vacíos
 
-                $favoritos = json_decode($_POST['favoritos'], true);
+                $favoritos = json_decode($_POST['favoritos'], true); // Recojo los equipos y las competiciones que ha marcado como favoritos
                 $competicionesFavoritas = $favoritos["competicion"];
                 $equipoFavoritas = $favoritos["equipo"];
     
                 $resultadoFormulario = empty($competicionesFavoritas) || empty($equipoFavoritas) ? "Tiene que seleccionar un equipo y una competición." : "";
 
-                if (empty($resultadoFormulario)) {
-                    foreach ($competicionesFavoritas as $idCompeticion) {
+                if (empty($resultadoFormulario)) { // Si no está vacío significa que han enviado al menos un equipo y una competición
+                    
+                    foreach ($competicionesFavoritas as $idCompeticion) { // Recorro las competiciones favoritas
     
-                        if (empty(Competicion::recogerCompeticion($idCompeticion))) {
+                        if (empty(Competicion::recogerCompeticion($idCompeticion))) { // Voy comprobando si existe la competición(si existen las guarda en la BBDD)
 
                             $resultadoFormulario = "Las competiciones en favoritos no son correctas.";
                         }
                     }
-                }
+
+                    foreach ($equipoFavoritas as $idEquipo) { // Recorro los equipos favoritos
     
-                if (empty($resultadoFormulario)) {
-                    foreach ($equipoFavoritas as $idEquipo) {
-    
-                        if (empty(Equipo::recogerEquipo($idEquipo))) {
+                        if (empty(Equipo::recogerEquipo($idEquipo))) {  // Voy comprobando si existe el equipo(si existen las guarda en la BBDD)
+                            
                             $resultadoFormulario = "Los equipos en favoritos no son correctos.";
                         }
                     }
-                }
-    
-                if (empty($resultadoFormulario)) {
-    
-                    $usuario = new Usuario($email);
+
+                    $usuario = new Usuario($email); // Creo el objeto usuario y envío los datos para que se comprueben y se guarden
                     $resultadoFormulario = $usuario->comprobarRegistro($email, $nombre, $contrasenia, $repetir_contrasenia, $competicionesFavoritas, $equipoFavoritas);
                 }
     
@@ -52,7 +50,7 @@
 
             } else {
 
-                echo "Debe rellenar todos los datos";
+                echo "Debe rellenar todos los datos.";
             }
 
     } else {

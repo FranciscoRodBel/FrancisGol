@@ -3,14 +3,14 @@
     require_once "../model/Plantilla.php";
     require_once "../model/Equipo.php";
 
-    Usuario::comprobarSesionIniciada(false);
+    Usuario::comprobarSesionIniciada(false); // Si la sesión no está iniciada lo redirige a la página de partidos
 
     $titulo = "FrancisGol - Editar plantilla";
     $lista_css = ["registro_inicio.css", "alineaciones.css"];
 
     $tituloPlantilla = "";
     $datosEquipo = "";
-    $resultadoPlantilla = "<p class='parrafo_informacion'>No se encontró la plantilla</p>"; // Si algún dato está vacío se muestra este mensaje
+    $resultadoPlantilla = "<p class='parrafo_informacion'>No se encontró la plantilla.</p>"; // Si algún dato está vacío se muestra este mensaje
 
     if (isset($_GET['plantilla']) && !empty($_GET['plantilla'])) {  // Si se envía el id de la plantilla...
         
@@ -34,25 +34,25 @@
 
                     $datosEquipo = $equipo->pintarEquipo(); // HTML con el logo y nombre del equipo
                     $idEquipo = $equipo->__get("id");
-                    $equipoPlantilla = json_decode($plantilla->__get("datosPlantilla"));
+                    $equipoPlantilla = json_decode($plantilla->__get("datosPlantilla")); // Recojo el json guardado en la BBDD
                     
                     if (!empty($equipoPlantilla)) {
 
                         $optionsSelectFormaciones = Plantilla::generarSelectFormaciones($formacion); // Se generan los options con las formaciones disponibles
-                        $datosPlantilla = $plantilla->recogerDatosPlantilla();
-                        $resultadoPlantilla = $plantilla->pintarPlantillaEditar($datosPlantilla);
+                        $datosPlantilla = $plantilla->recogerDatosPlantilla(); // Recoge los jugadores y sus posiciones
+                        $resultadoPlantilla = $plantilla->pintarPlantillaEditar($datosPlantilla); // Genera el HTML de las plantillas
 
                     } else {
 
-                        $resultadoPlantilla = "<p class='parrafo_informacion'>No se puede editar en estos momentos</p>";
+                        $resultadoPlantilla = "<p class='parrafo_informacion'>No se puede editar en estos momentos.</p>";
                     }
 
                 } else {
 
-                    $resultadoPlantilla = "<p class='parrafo_informacion'>No se encontró el equipo</p>";
+                    $resultadoPlantilla = "<p class='parrafo_informacion'>No se encontró el equipo.</p>";
                 }
 
-            } else {
+            } else { // Si no le pertenece envía al usuario a la página de mis plantillas
 
                 header("Location: ../controller/plantillas_mis.php");
                 die();

@@ -8,9 +8,9 @@
 
         $anioActual = $_GET["anio"];
         $idCompeticion = $_GET["competicion"];
-        $competicion = Competicion::recogerCompeticion($idCompeticion);
+        $competicion = Competicion::recogerCompeticion($idCompeticion); // Se recoge el objeto de la competición
 
-        $equipos = realizarConsulta("competicion_equipos_$idCompeticion"."_".$anioActual, "teams?league=$idCompeticion&season=$anioActual", 604800); 
+        $equipos = realizarConsulta("competicion_equipos_$idCompeticion"."_".$anioActual, "teams?league=$idCompeticion&season=$anioActual", 604800); // Se recogen los equipos de la competición
 
         if (empty($equipos)) {
             
@@ -18,7 +18,7 @@
 
         } else {
 
-            $equipos_competicion = $competicion->generarEquiposCompeticion($equipos);
+            $equipos_competicion = $competicion->generarEquiposCompeticion($equipos); // Genera el HTML de los equipos 
         }
 
     } else {

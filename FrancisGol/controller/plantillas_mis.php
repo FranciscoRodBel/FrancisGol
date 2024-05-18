@@ -8,27 +8,27 @@
 
     if (isset($_SESSION['usuario'])) {
         
-        $usuario = unserialize($_SESSION['usuario']);
+        $usuario = unserialize($_SESSION['usuario']); // Recojo el objeto del usuario de la sesión
         $idUsuario = $usuario->__get("id");
     
         $plantillas = "";
-        $plantillasUsuario = Plantilla::recogerPlantillasUsuario($idUsuario, true);
+        $plantillasUsuario = Plantilla::recogerPlantillasUsuario($idUsuario, true); // Se recogen todas plantillas que pertenecen al usuario, true si le pertenecen
 
         if (!empty($plantillasUsuario)) {
         
-            foreach ($plantillasUsuario as $plantilla) {
+            foreach ($plantillasUsuario as $plantilla) { // Se recorren todas las plantillas recogidas
     
-                $plantillas .= $plantilla->pintarPlantilla("editar");
+                $plantillas .= $plantilla->pintarPlantilla("editar"); // Se va generando el HTML para poder editar las plantillas
             }
     
         } else {
     
-            $plantillas = "<p class='parrafo_informacion'>No se encontraron plantillas creadas</p>";
+            $plantillas = "<p class='parrafo_informacion'>No se encontraron plantillas creadas.</p>";
         }
 
     } else {
         
-        $plantillas = "<p class='parrafo_informacion'>Debe iniciar sesión para ver sus plantillas</p>";
+        $plantillas = "<p class='parrafo_informacion'>Debe iniciar sesión para ver sus plantillas.</p>";
     }
 
     include '../view/templates/head.php';

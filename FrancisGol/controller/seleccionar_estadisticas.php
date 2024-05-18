@@ -9,15 +9,15 @@
         $idCompeticion = $_GET["idCompeticion"];
         $anio = $_GET["anio"];
 
-        $equipo = Equipo::recogerEquipo($idEquipo);
+        $equipo = Equipo::recogerEquipo($idEquipo); // Se recoge el objeto del equipo
 
         if (!empty($equipo)) {
 
-            $equipoEstadisticas = realizarConsulta("equipo_estadisticas_$idEquipo"."_"."$idCompeticion"."_".$anio, "teams/statistics?league=$idCompeticion&season=$anio&team=$idEquipo", 604800); 
+            $equipoEstadisticas = realizarConsulta("equipo_estadisticas_$idEquipo"."_"."$idCompeticion"."_".$anio, "teams/statistics?league=$idCompeticion&season=$anio&team=$idEquipo", 86400); // Se recogen los las estadísticas de los equipos
         
             if (!empty($equipoEstadisticas)) {
                 
-                echo $equipo->pintarEstadisticasEquipo($equipoEstadisticas);
+                echo $equipo->pintarEstadisticasEquipo($equipoEstadisticas); // Se pintan las estadísticas del equipo
     
             }
         }

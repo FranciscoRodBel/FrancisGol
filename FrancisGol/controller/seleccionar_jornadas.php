@@ -10,15 +10,15 @@
 
         $anioActual = $_GET["anio"];
         $idCompeticion = $_GET["competicion"];
-        $competicion = Competicion::recogerCompeticion($idCompeticion);
+        $competicion = Competicion::recogerCompeticion($idCompeticion); // Se recoge el objeto de la competición
 
         if (!empty($competicion)) {
 
-            $jornadasCompeticion = realizarConsulta("competicion_jornadas_".$idCompeticion."_".$anioActual, "fixtures?league=$idCompeticion&season=$anioActual", 604800);
+            $jornadasCompeticion = realizarConsulta("competicion_jornadas_".$idCompeticion."_".$anioActual, "fixtures?league=$idCompeticion&season=$anioActual", 86400); // Se recogen las jornadas del partido
             
             if (!empty($jornadasCompeticion)) {
             
-                $datosJornadas = $competicion->generarJornadas($jornadasCompeticion);
+                $datosJornadas = $competicion->generarJornadas($jornadasCompeticion); // Se generan las jornadas y los options de las jornadas
                 $opcionesJornadas = $datosJornadas[0];
                 $jornadas = $datosJornadas[1];
 

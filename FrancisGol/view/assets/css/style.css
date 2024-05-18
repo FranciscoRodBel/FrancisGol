@@ -606,7 +606,10 @@ nav a:hover {
     align-items: center;
 }
 
-
+.seccion_buscar {
+    max-height: 500px;
+    overflow-y: auto;
+}
 
 /* Tabla página de trofeos */
 

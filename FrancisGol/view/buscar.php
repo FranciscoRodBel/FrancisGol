@@ -13,7 +13,7 @@
                 <input type="submit" value="Enviar" class="boton_enviar"></input>
             </form>
         </section>
-        <section class="seccion_negra seccion_competiciones">
+        <section class="seccion_negra seccion_competiciones seccion_buscar">
             <?= $resultadoCompeticiones ?>
         </section>
     </article>
@@ -33,7 +33,7 @@
                 <input type="submit" value="Enviar" class="boton_enviar">
             </form>
         </section>
-        <section class="seccion_negra seccion_competiciones">
+        <section class="seccion_negra seccion_competiciones seccion_buscar">
             <?= $resultadoEquipos ?>
         </section>
     </article>

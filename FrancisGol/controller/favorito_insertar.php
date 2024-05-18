@@ -14,15 +14,21 @@
             
             $competicion = Competicion::recogerCompeticion($_GET["id"]); // Recojo los datos de la competición, al recoger los datos también los guarda en la BBDD si no están ya guardados
             
-            $idCompeticion = $competicion->__get("id");
-            Competicion::insertarCompeticionFavorita($idCompeticion, $idUsuario); // Guardo la competición favorita del usuario
+            if (!empty($competicion)) {
+
+                $idCompeticion = $competicion->__get("id");
+                Competicion::insertarCompeticionFavorita($idCompeticion, $idUsuario); // Guardo la competición favorita del usuario    
+            }
+
 
         } else if ($_GET["accion"] == "equipo") {
 
             $equipo = Equipo::recogerEquipo($_GET["id"]); // Recojo los datos del equipo, al recoger los datos también los guarda en la BBDD si no están ya guardados
-            $idEquipo = $equipo->__get("id");
+            
+            if (!empty($equipo)) {
 
-            Equipo::insertarEquipoFavorito($idEquipo, $idUsuario); // Guardo el equipo favorito del usuario
+                $idEquipo = $equipo->__get("id");
+                Equipo::insertarEquipoFavorito($idEquipo, $idUsuario); // Guardo el equipo favorito del usuario
+            } 
         }
- 
     }
