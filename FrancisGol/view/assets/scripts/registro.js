@@ -395,3 +395,49 @@ function escucharBotonesConfirmacionCuenta() {
         divPopUp.remove(); // Se elimina el popUp
     });
 }
+
+
+/* INICIO DE SESIÓN */
+
+function inicioSesion() {
+
+    let botonInicio = document.getElementById("iniciarSesion");
+
+    botonInicio.addEventListener("click", comprobarInicio);
+}
+
+function comprobarInicio(evento) {
+
+    evento.preventDefault();
+
+    let parrafoResultado = document.getElementById("resultado_formulario");
+    let formulario = document.querySelector("form");
+
+    let formData = new FormData(formulario);
+
+    let opcionesFetch = {
+        method: 'POST',
+        body: formData
+    };
+
+    parrafoResultado.innerHTML = "<div class='cargando'></div>";
+
+    fetch(formulario.getAttribute('action'), opcionesFetch)
+    .then(resultado => resultado.text())
+    .then(respuesta => {
+
+        if (respuesta.length == 0) {
+            
+            window.location.href = "../controller/partidos.php";
+
+        } else {
+
+            parrafoResultado.innerHTML = respuesta;
+        }
+
+
+    })
+    .catch(error => {
+        console.error('Error:', error);
+    });
+}

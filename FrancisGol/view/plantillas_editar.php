@@ -30,18 +30,10 @@
     let selectFormaciones = document.getElementById("formacion");
     selectFormaciones.addEventListener("change", cambiarformacion);
     listenersMovimientoJugadores();
-</script>
-<script>
-    let boton_editar = document.getElementById("editarEquipo");
-    let boton_borrar = document.getElementById("borrarEquipo");
+
     let datosPlantilla = <?= json_encode($equipoPlantilla) ?>;
     let idPlantilla = <?= $idPlantilla ?>;
+    comprobarEdicionPlantilla(datosPlantilla, idPlantilla);
 
-    boton_editar.addEventListener("click", (evento) => { recogerJugadores(datosPlantilla, evento, "editar", idPlantilla); });
-    boton_borrar.addEventListener("click", (evento) => { 
-        
-        evento.preventDefault();
-        escucharBotonesPopUp(idPlantilla) 
-    });
     escucharFavoritos();
 </script> 

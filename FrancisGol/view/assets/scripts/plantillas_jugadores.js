@@ -266,3 +266,18 @@ function mostrarMensaje(elemento, mensaje) {
         elemento.removeChild(parrafoMensaje); // A los 2 segundos se borra
     }, 2000); // 2000 milisegundos = 2 segundos
 }
+
+/* FUNCIONES EDITAR */
+    
+function comprobarEdicionPlantilla(datosPlantilla, idPlantilla) {
+    let boton_editar = document.getElementById("editarEquipo");
+    let boton_borrar = document.getElementById("borrarEquipo");
+
+
+    boton_editar.addEventListener("click", (evento) => { recogerJugadores(datosPlantilla, evento, "editar", idPlantilla); });
+    boton_borrar.addEventListener("click", (evento) => { 
+        
+        evento.preventDefault();
+        escucharBotonesPopUp(idPlantilla) 
+    });
+}
