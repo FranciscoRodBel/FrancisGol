@@ -47,12 +47,14 @@
 <script src="../view/assets/scripts/plantillas_jugadores.js"></script>
 <script>
     seleccionarCompeticionesEquipos();
-
+</script>
+<script>
     let selectFormaciones = document.getElementById("formacion");
     selectFormaciones.addEventListener("change", cambiarformacion);
 
     listenersMovimientoJugadores();
-
+</script>
+<script>
     let boton_guardar = document.getElementById("guardarEquipo");
     let datosPlantilla = <?= json_encode($equipoPlantilla) ?>;
     boton_guardar.addEventListener("click", (evento) => { recogerJugadores(datosPlantilla, evento, "guardar"); });

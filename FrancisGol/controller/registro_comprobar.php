@@ -8,8 +8,10 @@
 
     if ($_SERVER["REQUEST_METHOD"] == "POST") { // Si llega un envío por POST...
 
-            $resultadoFormulario = "";
+        $resultadoFormulario = "";
 
+        if (isset($_POST['email']) && isset($_POST['nombre']) && isset($_POST['contrasenia']) && $_POST['repetir_contrasenia'] && isset($_POST['favoritos']) && isset($_FILES['inputFoto'])) {
+            
             // Compruebo los datos para evitar ataques
             $email = comprobarDatos($_POST['email']);
             $nombre = comprobarDatos($_POST['nombre']);
@@ -52,6 +54,11 @@
 
                 echo "Debe rellenar todos los datos.";
             }
+
+        } else {
+
+            echo "Debe rellenar todos los datos.";
+        }
 
     } else {
 

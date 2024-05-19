@@ -70,7 +70,6 @@
         "competicion": [],
         "equipo": []
     };
-    // escucharFavoritos();
     seleccionarCompeticiones();
     escucharFormularios();
     comprobarInputs();
