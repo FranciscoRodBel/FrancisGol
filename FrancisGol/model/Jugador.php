@@ -145,7 +145,7 @@
                     }
 
                     $tablaDatosJugador .= "
-                        <div class='centraHorizontal'>
+                        <div class='centrar_horizontal'>
                             <select id='jugadorEstadisticas' class='seleccionar'>
                                 $selectCompeticion
                             </select>

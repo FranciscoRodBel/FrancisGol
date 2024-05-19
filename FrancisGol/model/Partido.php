@@ -121,7 +121,7 @@ class Partido {
  
         $tablaEstadisticas = "";
         // Tipos de estadísticas
-        $tipoEstadistica = array("Tiros a puerta", "Tiros a fuera", "Tiros totales", "Tiros bloqueados", "Tiros dentro del área", "Tiros fuera del área", "Faltas cometidas", "Saques de esquina", "Fueras de juego", "Posesión del balón", "Tarjetas amarillas", "Tarjetas rojas", "Tiros parados", "Pases totales", "Pases efectivos", "% de pases", "Goles esperados");
+        $tipoEstadistica = array("Tiros a puerta", "Tiros a fuera", "Tiros totales", "Tiros bloqueados", "Tiros dentro del área", "Tiros fuera del área", "Faltas cometidas", "Saques de esquina", "Fueras de juego", "Posesión del balón", "Tarjetas amarillas", "Tarjetas rojas", "Tiros parados", "Pases totales", "Pases efectivos", "% de pases", "Goles esperados", "Objetivos");
     
         foreach ($estadisticasPartido->response as $key => $equipo) { // Recorro los equipos
     
@@ -134,11 +134,14 @@ class Partido {
             </thead>
             <tbody>";
     
-            foreach ($equipo->statistics as $key => $estadistica) { // Muestra las estadísticas cogiendo los títulos del array
-    
+            foreach ($equipo->statistics as $key2 => $estadistica) { // Muestra las estadísticas cogiendo los títulos del array
+
+                if ($key2 == 17) {
+                    
+                }
                 $tablaEstadisticas .= "
                         <tr>
-                            <td>".$tipoEstadistica[$key]."</td>
+                            <td>".$tipoEstadistica[$key2]."</td>
                             <td>". $estadistica->value ."</td>
                         </tr>";
     

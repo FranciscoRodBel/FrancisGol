@@ -7,7 +7,7 @@
                 <a href="../controller/jugador_datos.php?jugador=<?= $idJugador ?>" class="boton_gris"><span>Datos</span></a>
                 <a href="../controller/jugador_trofeos.php?jugador=<?= $idJugador ?>" class="boton_gris"><span>Trofeos</span></a>
             </div>
-            <div class="centraHorizontal">
+            <div class="centrar_horizontal">
                 <select id="anioJugador" class="seleccionar">
                     <?= $optionsAniosDisponibles ?>
                 </select>
