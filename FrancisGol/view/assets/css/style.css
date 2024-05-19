@@ -82,7 +82,7 @@ input {
 }
 
 .seccion_negra {
-    background-color: #333333;
+    background-color: var(--segundo_color);
     width: 90%;
     padding: 20px;
     border-radius: 10px;
@@ -243,7 +243,7 @@ header .menu_ordenador {
     padding: 5px 10px;
     font-weight: bold;
     font-size: 10pt;
-    color: #000000;
+    color: var(--primer_color);
 }
 
 .boton_iniciar {

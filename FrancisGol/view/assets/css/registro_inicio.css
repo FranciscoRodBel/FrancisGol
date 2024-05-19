@@ -1,4 +1,4 @@
-/* Estilos del inicio de sesión */
+/* Estilos del inicio de sesión y registro*/
 
 form {
     width: 100%;
@@ -17,11 +17,11 @@ form {
     flex-direction: column;
     justify-content: space-between;
     align-items: center;
-    display: none;
+    display: none; /* Todas las secciones comienzan ocultas */
     margin-bottom: 40px;
 }
 
-.desocultar {
+.desocultar { /* Muestra las secciones */
     display: flex;
 }
 
@@ -33,7 +33,7 @@ form {
     border: 2px solid var(--septimo_color);
 }
 
-.ojo_contrasenia {
+.ojo_contrasenia { /* icono de la contraseña */
     position: relative;
     top: 25px;
     left: 80px;
@@ -87,6 +87,8 @@ form {
     align-items: center;
     width: 100%;
 }
+
+/* Diseños de ordenador */
 
 @media screen and (min-width: 450px) {
 

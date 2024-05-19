@@ -1,3 +1,24 @@
+/* Página buscar */
+
+.competiciones {
+    margin: 15px 0px;
+    padding: 0;
+}
+
+.seccion_buscador {
+    width: 100%;
+}
+
+.seccion_competiciones hr:last-of-type  {
+    display: none;
+}
+
+.buscarEquipo {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
 .buscador {
     position: relative;
     width: 100%;
@@ -10,11 +31,10 @@
     position: relative;
 }
 
-.buscador i {
+.buscador i { /* Icono de lupa */
     position: absolute;
     top: 7px;
     left: 8px;
-
 }
 
 .buscador input {
@@ -49,7 +69,7 @@
     border-collapse: collapse;
 }
 
-.seccionClasificacion table thead {
+.seccionClasificacion table thead { /* Si baja en la tabla el thead bajará también para que sepan que estadística es */
     background-color: var(--primer_color);
     color: var(--cuarto_color);
     position: sticky;
@@ -63,7 +83,7 @@
     border-bottom: 1px solid var(--primer_color);
 }
 
-.seccionClasificacion table tbody td:first-of-type {
+.seccionClasificacion table tbody td:first-of-type { /* Si se mueve a la derecha en la tabla la primera columna se fijará a la izquierda para que sepan que equipo es */
     background-color: var(--cuarto_color);
     position: sticky;
     left: 0px;
@@ -77,14 +97,14 @@
     width: 50px;
 }
 
-/* Estilos página de clasificación de competicion */
+/* Estilos página de jornadas de competicion */
 
 .jornadasCompeticion {
     width: 90%;
     margin-bottom: 40px;
 }
 
-.jornadasCompeticion .enfrentamiento_equipos *{
+.jornadasCompeticion .enfrentamiento_equipos * {
     color: var(--primer_color);
 }
 
@@ -92,30 +112,9 @@
     display: none;
 }
 
-/* Página competiciones */
+@media screen and (min-width: 450px) { /* Par el tamaño de ordenador */
 
-.competiciones {
-    margin: 15px 0px;
-    padding: 0;
-}
-
-.seccion_buscador {
-    width: 100%;
-}
-
-.seccion_competiciones hr:last-of-type  {
-    display: none;
-}
-
-.buscarEquipo {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-@media screen and (min-width: 450px) {
-
-    /* Estilos página de clasificación de competicion */
+    /* Estilos página de jornads de competicion */
 
     .jornadasCompeticion .enfrentamiento_equipos {
         margin: 40px 0;

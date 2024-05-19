@@ -16,7 +16,7 @@
 }
 
 .enfrentamiento_equipos div span {
-    width: calc(100% - 100px);
+    width: calc(100% - 100px); /* Le quito pixeles para que el nombre no se ponga encima del resultado */
     color: var(--cuarto_color);
     font-weight: bold;
     font-size: 10pt;
@@ -25,9 +25,9 @@
 .resultado_hora {
     height: 52px;
     min-width: 52px;
-    position: absolute;
+    position: absolute; /* Lo pongo absolute para  sacarlo del del centro de los dos divs y colocarlo a la derecha*/
     right: 0;
-    top: calc(50% - 26px);
+    top: calc(50% - 26px); /* Para colocarlo en el centro */
     flex-direction: column;
     justify-content: center;
     text-align: center;
@@ -35,7 +35,7 @@
     font-weight: bold;
 }
 
-.resultado_hora p:first-of-type {
+.resultado_hora p:first-of-type { /* Es el VS de los enfrentamientos */
     font-family: 'bebas_neue', sans-serif;
     letter-spacing: 3px;
     font-size: 20pt;
@@ -72,7 +72,7 @@
     min-width: 50%;
 }
 
-.eventos_partidos div:first-of-type .evento {
+.eventos_partidos div:first-of-type .evento { /* Para los eventos del equipo local */
     flex-direction: row-reverse;
     text-align: right;
 }
@@ -113,7 +113,7 @@
     justify-content: center;
 }
 
-.nombre_evento {
+.nombre_evento { /* nombre Jugador */
     overflow: hidden;
     font-size: 8pt;
 }
@@ -128,6 +128,9 @@
 .tarjeta_roja {
     background-color: var(--septimo_color);
 }
+
+
+/* Estilos del calendario de la parte superior de partidos */
 
 .fechas_partidos {
     display: flex;
@@ -144,7 +147,7 @@
     margin: 0 20px 40px 20px;  
 }
 
-.fechas_partidos div hr {
+.fechas_partidos div hr { /* Barra de separación entre los días */
     border: 1px solid var(--primer_color);
     border-radius: 50%;
     height: 10px;
@@ -158,11 +161,7 @@
 }
 
 
-
-
-
-
-
+/* ESTILOS DE ORDENADOR */
 
 
 @media screen and (min-width: 450px) {
@@ -177,13 +176,12 @@
         margin: 0;
     }
 
-    .equipo_local {
+    .equipo_local { 
         width: 50%;
-        flex-direction: row-reverse;
-
+        flex-direction: row-reverse; /* Para que salga el nombre y luego la foto */
     }
 
-    .enfrentamiento_equipos a:first-of-type {
+    .enfrentamiento_equipos a:first-of-type { /* Páginas de partidos que salga el equipo local a la derecha */
         justify-content: end;
     }
 
@@ -214,7 +212,7 @@
     }
 
     .separacion_partidos, .separacion_partidos_negro {
-        display: none;
+        display: none; /* Oculta la linea que separa los partidos */
     }
     
     /* Diseño de las páginas de resumen del partido */
@@ -244,6 +242,7 @@
 
 @media screen and (min-width: 700px) {
 
+    /* Estilos de partidos resumen */ 
     .eventos_partidos > div:first-of-type .icono_minuto {
         flex-direction: row-reverse;
     }
@@ -270,7 +269,7 @@
         justify-content: center;
     }
     
-    .titulo_informacion {
+    .titulo_informacion { /* Nombre de los equipos */
         font-size: 15pt;
     }
     

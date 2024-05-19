@@ -139,6 +139,7 @@
     font-size: 13pt;
     font-weight: bold;
     overflow: hidden;
+    /* Las siguientes líneas son para que en la página de plantillas usuarios se vean 3 puntos al final de la cuarta línea si el texto ocupa mucho*/
     display: -webkit-box;
     -webkit-line-clamp: 4;
     -webkit-box-orient: vertical;
