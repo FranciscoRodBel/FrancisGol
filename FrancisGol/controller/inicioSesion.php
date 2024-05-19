@@ -8,5 +8,6 @@
 
     include_once '../view/templates/head.php';
     include_once '../view/templates/header.php';
+    include '../view/templates/nav.php';
     include_once '../view/inicioSesion.php';
     include_once '../view/templates/footer.php';

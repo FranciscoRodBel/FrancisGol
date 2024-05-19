@@ -13,5 +13,6 @@
 
     include '../view/templates/head.php';
     include '../view/templates/header.php';
+    include '../view/templates/nav.php';
     include '../view/registro.php';
     include '../view/templates/footer.php';
