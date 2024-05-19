@@ -1,5 +1,5 @@
 <?php
-    function crearOpcionesPaises() {
+    function crearOpcionesPaises(): string {
 
         $paises = realizarConsulta("paises", "countries", 31536000); // Recoge los paises disponilbes cada año
         $opciones = "";

@@ -24,9 +24,11 @@ class Usuario { // Se usa para manejar todos los datos del usuario
         $this->$propiedad = $valor;
     }
 
-    public static function recogerNombreUsuario($idUsuario) {
+    public static function recogerNombreUsuario(int $idUsuario): string {
 
         $conexion = FrancisGolBD::establecerConexion();
+
+        // Busco el nombre del jugador pasado, esto se utiliza en la página de ver plantilla usuario para mostrar el nombre del creador de la plantilla
         $consulta = "SELECT nombre FROM usuario WHERE idUsuario = $idUsuario";
         $resultado = $conexion->query($consulta);
         $fila = $resultado->fetch_assoc();
@@ -37,12 +39,12 @@ class Usuario { // Se usa para manejar todos los datos del usuario
 
     // Inicio de sesión
 
-    public function comprobarInicioSesion($contrasenia, $tipo) {
+    public function comprobarInicioSesion(string $contrasenia, string $tipo): string {
 
         $conexion = FrancisGolBD::establecerConexion();
         $email = $this->__get("email");
 
-        // Busco el email del usuario y recojo su contraseña
+        // Busco por el email del usuario y recojo su contraseña
         $consulta = $conexion->stmt_init();
         $consulta->prepare("SELECT * FROM usuario WHERE email = ?");
         $consulta->bind_param("s", $email);
@@ -50,13 +52,13 @@ class Usuario { // Se usa para manejar todos los datos del usuario
         $resultado = $consulta->get_result();
         $resultado = $resultado->fetch_assoc();
 
-        if (!empty($email) && $this->emailEnUso()) {
+        if (!empty($email) && $this->emailEnUso()) { // Si el email es válido
 
-            if ($tipo == "cookie") {
+            if ($tipo == "cookie") { // Si estoy iniciando sesión con la cookie, comparo contraseña cifrada de la BBDD con contraseña cifrada de la Cookie
 
                 $comprobacionContrasenia = $resultado["contrasenia"] == $contrasenia;
 
-            } else {
+            } else { // Si es el inicio de sesión normal, compruebo contraseña cifrada de la BBDD con contraseña no cifrada introducida
 
                 $comprobacionContrasenia = password_verify($contrasenia, $resultado["contrasenia"]);
             }
@@ -82,7 +84,7 @@ class Usuario { // Se usa para manejar todos los datos del usuario
     }    
 
      // Registro de cuenta
-     public function emailEnUso()  { // comprueba si el email ya está en la base de datos
+     public function emailEnUso(): bool  { // comprueba si el email ya está en la base de datos
         $conexion = FrancisGolBD::establecerConexion();
         $email = $this->__get('email');
     
@@ -94,7 +96,7 @@ class Usuario { // Se usa para manejar todos los datos del usuario
         return !empty($consulta->fetch()); // Devuelve true si está con datos (que está en uso)
     }
 
-    public function nombreEnUso($nombre)  { // comprueba si el nombre ya está en la base de datos
+    public function nombreEnUso(string $nombre): bool  { // comprueba si el nombre ya está en la base de datos
         $conexion = FrancisGolBD::establecerConexion();
     
         $consulta = $conexion->prepare("SELECT * FROM usuario WHERE nombre = ?");
@@ -104,7 +106,7 @@ class Usuario { // Se usa para manejar todos los datos del usuario
         return !empty($consulta->fetch()); // Devuelve true si está con datos (que está en uso)
     }
 
-    public function guardarDatosUsuario($email, $nombre, $contrasenia, $foto) {
+    public function guardarDatosUsuario(string $email, string $nombre, string $contrasenia, string $foto): int|bool {
         $conexion = FrancisGolBD::establecerConexion();
         
         // Cifra la contraseña del usuario
@@ -115,20 +117,20 @@ class Usuario { // Se usa para manejar todos los datos del usuario
         $resultado = $conexion->query($consulta);
         $idUsuario = mysqli_insert_id($conexion);
 
+        // Devuelve o el id del usuario o false
         if ($resultado) return $idUsuario;
 
         return $resultado;
     }
     
-    
-   
-    public function comprobarRegistro($email, $nombre, $contraseniaUno, $contraseniaDos, $competicionesFavoritas, $equipoFavoritas) {
+    public function comprobarRegistro(string $email, string $nombre, string $contraseniaUno, string $contraseniaDos, array $competicionesFavoritas, array $equipoFavoritas): string {
         
         $email = comprobarDatos($email);
         $nombre = comprobarDatos($nombre);
         $contraseniaUno = comprobarDatos($contraseniaUno);
         $contraseniaDos = comprobarDatos($contraseniaDos);
 
+        // Comprueba que todos los datos que llegan son los que se esperaban
         if (!comprobarVacio(array($nombre, $email, $contraseniaUno, $contraseniaDos))) return "El formulario está incompleto";
         
         if (is_numeric($nombre)) return "Nombre incorrecto";
@@ -145,7 +147,7 @@ class Usuario { // Se usa para manejar todos los datos del usuario
         
         if ($this->nombreEnUso($nombre)) return "El nombre ya está en uso";
 
-        $foto = $this->generarFoto();
+        $foto = $this->generarFoto(); // Genera el blob de la foto
 
         if ($foto == "mal_formato") return "El formato de las fotos no es correcto";
 
@@ -157,7 +159,8 @@ class Usuario { // Se usa para manejar todos los datos del usuario
             
         } else {
 
-            foreach ($competicionesFavoritas as $idCompeticion) {
+            // Recorro los equipos y las competiciones favoritas y las guarda en la BBDD
+            foreach ($competicionesFavoritas as $idCompeticion) { 
 
                 Competicion::insertarCompeticionFavorita($idCompeticion, $idUsuario);
             }
@@ -172,7 +175,7 @@ class Usuario { // Se usa para manejar todos los datos del usuario
         return "Cuenta Creada";
     }
 
-    public function generarFoto() {
+    public function generarFoto(): string {
     
         $rutaTemporal = $_FILES['inputFoto']['tmp_name']; // Obtén la ruta temporal del archivo
     
@@ -180,9 +183,10 @@ class Usuario { // Se usa para manejar todos los datos del usuario
 
             if (isset($_SESSION['usuario'])) {
                 
-                return "sin_cambios";
+                return "sin_cambios"; // Si está editando y no selecciona nada no cambia la foto
 
-            } else {
+            } else { // Si no se envía la foto le añado una imagen predeterminada
+                
                 $archivo = addslashes(file_get_contents("../view/assets/images/foto_perfil.png"));
             }
 
@@ -192,7 +196,8 @@ class Usuario { // Se usa para manejar todos los datos del usuario
             $nombreArchivo = basename($_FILES['inputFoto']['name']);
             $extension = strtolower(pathinfo($nombreArchivo, PATHINFO_EXTENSION));
         
-            if (!in_array($extension, ["png", "jpeg", "jpg"])) { // Si el tipo de archivo no es válido devuelve error
+            if (!in_array($extension, ["png", "jpeg", "jpg"])) { // Si el tipo de archivo no es válido devuelve mal_formato
+                
                 return "mal_formato";
             }
 
@@ -203,7 +208,7 @@ class Usuario { // Se usa para manejar todos los datos del usuario
         return $archivo;
     }
 
-    public static function comprobarSesionIniciada($operacion) { // Se usa para redirigir a una página cuando esté o no la sesión iniciada
+    public static function comprobarSesionIniciada(bool $operacion) { // Se usa para redirigir a una página cuando esté o no la sesión iniciada
 
         if ($operacion) {
     
@@ -242,7 +247,7 @@ class Usuario { // Se usa para manejar todos los datos del usuario
 
     }
 
-    public function guardarCookies() {
+    public function guardarCookies() { // Cambia el valor de cookies a 1 para saber que aceptó las cookies
         
         $conexion = FrancisGolBD::establecerConexion();
 
@@ -251,7 +256,7 @@ class Usuario { // Se usa para manejar todos los datos del usuario
 
     }
 
-    public function crearCookies() {
+    public function crearCookies() { // Las crea para un mes
 
         $email = $this->__get("email");
         $contrasenia = $this->recogerContrasenia();
@@ -263,6 +268,8 @@ class Usuario { // Se usa para manejar todos los datos del usuario
     public function recogerContrasenia() {
 
         $conexion = FrancisGolBD::establecerConexion();
+
+        // Se usa para recoger la contraseña cifrada del usuario de la cookie
         $consulta = "SELECT contrasenia FROM usuario WHERE idUsuario = ".$this->__get("id");
         $resultado = $conexion->query($consulta);
         $fila = $resultado->fetch_assoc();
@@ -271,7 +278,7 @@ class Usuario { // Se usa para manejar todos los datos del usuario
         return $contrasenia;
     }
 
-    public function editarFoto() {
+    public function editarFoto(): string {
 
         $foto = $this->generarFoto();
 
@@ -279,10 +286,11 @@ class Usuario { // Se usa para manejar todos los datos del usuario
 
         if ($foto == "sin_cambios") return "Tiene que seleccionar una foto";
 
-        return $this->actualizarFotoUsuario($foto);
+        return $this->actualizarFotoUsuario($foto); // Guarda la foto en la BBDD
     }
 
-    public function actualizarFotoUsuario($foto) {
+    public function actualizarFotoUsuario(string $foto) {
+
         $conexion = FrancisGolBD::establecerConexion();
     
         $idUsuario = $this->__get("id");
@@ -291,7 +299,7 @@ class Usuario { // Se usa para manejar todos los datos del usuario
         
         $resultado = $conexion->query($consulta); // Ejecutamos la consulta
      
-        if ($resultado) {
+        if ($resultado) { // Si la foto se fuarda correctamente, recojo la foto de la BBDD y la guardo en el objeto(si directamente guardo la foto en el objeto no se visualiza la foto en la página)
 
             $consulta = $conexion->stmt_init();
             $consulta->prepare("SELECT * FROM usuario WHERE idUsuario = ?");
@@ -311,12 +319,14 @@ class Usuario { // Se usa para manejar todos los datos del usuario
         }
     }
 
-    public function editarDatos() {
+    public function editarDatos(): string {
 
         if (!isset($_POST["email"]) || !isset($_POST["nombre"]) || !isset($_POST["contrasenia"])) return "No se enviaron los datos";
+        // Si se enviaron los datos...
 
-        $email = $_POST["email"];
-        $nombre = $_POST["nombre"];
+        // Compruebo que los datos no tienen ninguna inyección SQL
+        $email = comprobarDatos($_POST["email"]);
+        $nombre = comprobarDatos($_POST["nombre"]);
         $contrasenia = $_POST["contrasenia"];
         $nombreActual = $this->__get("nombre");
         $emailActual = $this->__get("email");
@@ -325,34 +335,36 @@ class Usuario { // Se usa para manejar todos los datos del usuario
 
         if (!preg_match("/(?=^.{5,70}$)[\w]+@[\w]+\.[\w]+/i", $email)) return "Email incorrecto, debe estar compuesto por caracteres(letras, números o guiones bajos) una @ seguido de caracteres, un punto y caracteres entre 5 y 70 caracteres.";
 
-        $nuevoUsuario = new Usuario($email);
-        $nuevoUsuario->__set("nombre", $nombre);
+        $nuevoUsuario = new Usuario($email); // Creo el usuario
+        $nuevoUsuario->__set("nombre", $nombre); // Le añado el nombre al objeto
 
+        // Compruebo que el nuevo email y nombre son correctos
         if ($emailActual != $email && $nuevoUsuario->emailEnUso()) return "El email ya está en uso";
         
         if ($nombreActual != $nombre && $nuevoUsuario->nombreEnUso($nombre)) return "El nombre ya está en uso";
 
-        $contraseniaUsuario = $this->recogerContrasenia();
+        $contraseniaUsuario = $this->recogerContrasenia(); // Compruebo que la contraseña introducida es apta para cambiar los datos
         if (!password_verify($contrasenia, $contraseniaUsuario)) return "La contraseña no es correcta";
 
         return $this->actualizarDatosUsuario($email, $nombre);
     }
-    public function actualizarDatosUsuario($email, $nombre) {
+    public function actualizarDatosUsuario(string $email, string $nombre) {
         
         $conexion = FrancisGolBD::establecerConexion();
         $idUsuario = $this->__get("id");
         
         $consulta = "UPDATE usuario SET email = '$email', nombre = '$nombre'  WHERE idUsuario = $idUsuario";
         
-        $resultado = $conexion->query($consulta); // Ejecutamos la consulta
+        $resultado = $conexion->query($consulta); // Actualizo los datos
      
         if ($resultado) {
 
             $this->__set("nombre", $nombre);
             $this->__set("email", $email);
-            $_SESSION['usuario'] = serialize($this);
+            $_SESSION['usuario'] = serialize($this); // Actualizo el objeto del usuario de la sesión con los nuevos datos
 
-            setcookie("email", $email, time() + 86400 * 30, "/"); 
+            setcookie("email", $email, time() + 86400 * 30, "/"); // Actualizo los datos de la cookie
+
             return "Datos actualizados";
 
         } else {
@@ -361,27 +373,30 @@ class Usuario { // Se usa para manejar todos los datos del usuario
         }
     }
 
-    public function editarContrasenia() {
+    public function editarContrasenia(): string {
         
         if (!isset($_POST["nueva_contrasenia"]) || !isset($_POST["contrasenia_actual"]) || !isset($_POST["repetir_contrasenia"])) return "No se enviaron los datos";
+        // Si se enviaron los datos...
 
+        // Recojo los datos
         $nuevaContrasenia = $_POST["nueva_contrasenia"];
         $repetirContrasenia = $_POST["repetir_contrasenia"];
         $contraseniaActual = $_POST["contrasenia_actual"];
 
         if ($nuevaContrasenia != $repetirContrasenia) return "Las contraseñas nuevas no coinciden";
 
-        $contraseniaUsuario = $this->recogerContrasenia();
+        $contraseniaUsuario = $this->recogerContrasenia(); // recojo la contraseña actual del usuario para comprobar que puede cambiar la contraseña
+
         if (!password_verify($contraseniaActual, $contraseniaUsuario)) return "La contraseña acutal no es correcta";
 
         if (!preg_match("/(?!.*\s.*)(?=.*[0-9].*)(?=.*[a-z].*)(?=.*[A-Z].*)(?=.*[\W_].*)^[\w\W]{8,50}$/", $nuevaContrasenia)) return "Nueva contraseña incorrecta, debe estar compuesto mínimo por una letra mayúscula, minúscula, un número y un caracter extraño entre 8 y 50 caracteres.";
 
-        return $this->actualizarContraseniaUsuario($nuevaContrasenia);
+        return $this->actualizarContraseniaUsuario($nuevaContrasenia); // Si todo es correcto guardo los datos en la BBDD
     }
 
-    public function actualizarContraseniaUsuario($nuevaContrasenia) {
+    public function actualizarContraseniaUsuario(string $nuevaContrasenia): string {
         
-        $nuevaContrasenia = password_hash($nuevaContrasenia, PASSWORD_DEFAULT);
+        $nuevaContrasenia = password_hash($nuevaContrasenia, PASSWORD_DEFAULT); // Cifro la contraseña
 
         $conexion = FrancisGolBD::establecerConexion();
         $idUsuario = $this->__get("id");
@@ -392,7 +407,7 @@ class Usuario { // Se usa para manejar todos los datos del usuario
      
         if ($resultado) {
 
-            setcookie("contrasenia", $nuevaContrasenia, time() + 86400 * 30, "/");
+            setcookie("contrasenia", $nuevaContrasenia, time() + 86400 * 30, "/"); // Si la contraseña es correcta actualizo la cookie
             return "Contraseña actualizada";
 
         } else {
@@ -402,7 +417,7 @@ class Usuario { // Se usa para manejar todos los datos del usuario
     }
 
     /* Funciones borrado de cuenta */
-    public function borrarCuenta() {
+    public function borrarCuenta(): string {
        
         $conexion = FrancisGolBD::establecerConexion();
 
@@ -414,7 +429,7 @@ class Usuario { // Se usa para manejar todos los datos del usuario
         $resultado = $consulta->execute();
         $consulta->close();
 
-        if ($resultado) {
+        if ($resultado) { // Si se borra el usuario envía a la página de partidos
 
             header("Location: ./cerrarSesion.php");
             die();

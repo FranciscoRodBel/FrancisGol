@@ -17,7 +17,7 @@
             $this->$propiedad = $valor;
         }
 
-        public static function recogerCompeticion($idCompeticion) {
+        public static function recogerCompeticion(int|string $idCompeticion): string|object {
         
             if (is_numeric($idCompeticion)) { // Compruebo si el id es un número
 
@@ -54,7 +54,7 @@
             return "";
         }
 
-        public function pintarCompeticion() { // Genera el HTML para visualizar la competición en distintas páginas
+        public function pintarCompeticion(): string { // Genera el HTML para visualizar la competición en distintas páginas
 
             $competicionesFavoritas = Competicion::recogerCompeticionFavorita();
             $claseFavorito = isset($_SESSION["usuario"]) && in_array($this->__get("id"), $competicionesFavoritas) ? "favorito" : ""; // Si está en favoritos añade la estrella amarilla y si no lo está la gris
@@ -93,7 +93,7 @@
             }
         }
 
-        public static function recogerEquipoCompeticiones($idEquipo) {
+        public static function recogerEquipoCompeticiones(int $idEquipo): string|array {
         
             $equipoCompeticiones =  realizarConsulta("equipo_competiciones_$idEquipo", "leagues?team=$idEquipo", 604800); // Se recogen las competiciones en las que está el equipo 
 
@@ -117,7 +117,7 @@
             return "";
         }
 
-        public static function pintarCompeticionesFavoritas() {
+        public static function pintarCompeticionesFavoritas(): string {
             
             $resultadoEquipos = "";
             $competicionesFavoritas = isset($_SESSION["usuario"]) ?  Competicion::recogerCompeticionFavorita() : [140, 39, 61, 78, 135, 2]; // Si la sesión está iniciada recoge las competiciones favoritas y si no está iniciada la sesión recoge el array de competiciones por defecto
@@ -131,7 +131,7 @@
             return $resultadoEquipos;
         }
 
-        public static function generarOptionsTemporadas($temporadasDisponibles) {
+        public static function generarOptionsTemporadas(object $temporadasDisponibles): string {
             
             $anioActual = date("Y") - 1;
             $options = "";
@@ -146,14 +146,13 @@
 
                     $options .= "<option value='$anio'>$anio</option>";
                 }
-
             }
 
             return $options;
         }
         
         /* FUNCIONES COMPETICIÓN CLASIFICACIÓN */
-        public function generarClasificacion($clasificacion) { // Genera el HTML de la clasificación de una competición
+        public function generarClasificacion(object $clasificacion): string { // Genera el HTML de la clasificación de una competición
     
             $tablaClasificacion = "";
 
@@ -195,7 +194,7 @@
         }
 
         /* FUNCIONES COMPETICION EQUIPOS */
-        public function generarEquiposCompeticion($equipos) { // Se recogen los equipos de la competición
+        public function generarEquiposCompeticion(object $equipos): string { // Se recogen los equipos de la competición
 
             $equiposFavoritos = Equipo::recogerEquiposFavorito();
 
@@ -218,7 +217,7 @@
         }
 
         /* FUNCIONES COMPETICIONES JORNADAS */
-        public function generarJornadas($jornadas) {
+        public function generarJornadas(object $jornadas): array {
     
             $jornadasCompeticion = [];
             $fecha_actual = date('Y-m-d\TH:i:sP'); // Con formato de año, mes, día, hora, minuto, segundo y la zona horaria
@@ -280,7 +279,7 @@
         }
 
         /* FUNCIONES FAVORITOS */
-        public static function recogerCompeticionFavorita() {
+        public static function recogerCompeticionFavorita(): array {
         
             $arrayFavoritos = [];
     
@@ -299,11 +298,12 @@
                     $arrayFavoritos[] = $row["idCompeticion"]; // Guardo en un array los IDs de las competiciones
                 }
                 
-                return $arrayFavoritos;
             }
+
+            return $arrayFavoritos;
         }
 
-        public static function insertarCompeticionFavorita($idCompeticion, $idUsuario) {
+        public static function insertarCompeticionFavorita(int $idCompeticion, int $idUsuario) {
 
             $conexion = FrancisGolBD::establecerConexion();
     
@@ -313,7 +313,7 @@
             $consulta->execute();
         }
 
-        public static function eliminarCompeticionFavorita($idCompeticion, $idUsuario) {
+        public static function eliminarCompeticionFavorita(int $idCompeticion, int $idUsuario): bool {
 
             $conexion = FrancisGolBD::establecerConexion();
     

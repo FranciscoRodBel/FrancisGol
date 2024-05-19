@@ -15,7 +15,7 @@
             $this->$propiedad = $valor;
         }
 
-        public static function recogerEquipo($idEquipo) {
+        public static function recogerEquipo(int $idEquipo): string|object {
         
             if (is_numeric($idEquipo)) { // Si el id del equipo es númerico...
 
@@ -52,7 +52,7 @@
             return "";
         }
 
-        public function pintarEquipo() {
+        public function pintarEquipo(): string {
             
             $equiposFavoritos = Equipo::recogerEquiposFavorito();
             $claseFavorito = isset($_SESSION["usuario"]) && in_array($this->__get("id"), $equiposFavoritos) ? "favorito" : ""; // Si está en favoritos añade la estrella amarilla y si no lo está la gris
@@ -73,7 +73,7 @@
 
         /* FUNCIONES EQUIPOS ESTADÍSTICAS */
         
-        public function generarOpcionesCompeticiones($equipoCompeticiones) {
+        public function generarOpcionesCompeticiones(array $equipoCompeticiones): string {
             
             $opcionesCompeticiones = "";
 
@@ -86,7 +86,7 @@
         }
 
 
-        public function generarOpcionesAnios($equipoCompeticiones) {
+        public function generarOpcionesAnios(array $equipoCompeticiones): array {
 
 
             foreach ($equipoCompeticiones as $competicion) { // Recorre las competiciones
@@ -111,7 +111,7 @@
             return $arrayOpcionesAnios;
         }
 
-        public function pintarEstadisticasEquipo($equipoEstadisticas) { // Genera el código HTML para pintar todas las tablas de estadísticas
+        public function pintarEstadisticasEquipo(object $equipoEstadisticas): string { // Genera el código HTML para pintar todas las tablas de estadísticas
 
             $tablaEstadisticas = $this->pintarTablaEstadisticas($equipoEstadisticas);
             $tablaEstadisticas .= $this->pintarTablaGoles($equipoEstadisticas);
@@ -120,7 +120,7 @@
             return $tablaEstadisticas;
         }
 
-        public function pintarTablaEstadisticas($equipoEstadisticas) {
+        public function pintarTablaEstadisticas(object $equipoEstadisticas): string {
 
             $tipoEstadisticaFixtures = array("Partidos", "Victorias", "Empates", "Derrotas");
 
@@ -145,7 +145,7 @@
             return $tablaEstadisticas;
         }
 
-        public function pintarTablaGoles($equipoEstadisticas) {
+        public function pintarTablaGoles(object $equipoEstadisticas): string {
 
             $tablaEstadisticas = "";
             $tipoEstadisticaGoles = array("Goles", "Promedio G/P");
@@ -188,7 +188,7 @@
             return $tablaEstadisticas;
         }
 
-        public function pintarTablaRachas($equipoEstadisticas) {
+        public function pintarTablaRachas(object $equipoEstadisticas): string {
             
             $tipoEstadisticaRachas = array( // Encabezados de la tabla
                 "Victorias",
@@ -267,7 +267,7 @@
         }
 
         /* FUNCIONES EQUIPO PLANTILLA */
-        public function generarPlantilla($equipoPlantilla) { // Crea el HTML para ver los jugadores del equipo
+        public function generarPlantilla(object $equipoPlantilla): string { // Crea el HTML para ver los jugadores del equipo
 
             $jugadoresPlantilla = "<div><div>Foto</div>";
             $jugadoresPlantilla .= "<div>Nombre</div>";
@@ -324,7 +324,7 @@
 
         /* FUNCIONES DE EQUIPOS FAVORITOS */
 
-        public static function recogerEquiposFavorito() {
+        public static function recogerEquiposFavorito(): array {
     
             $arrayFavoritos = [];
     
@@ -346,11 +346,11 @@
     
                     $arrayFavoritos[$row["nombre"]] = $row["idEquipo"]; // Lo guardo en un array asociativo
                 }
-                
-                return $arrayFavoritos;
             }
+
+            return $arrayFavoritos;
         }
-        public static function insertarEquipoFavorito($idEquipo, $idUsuario) {
+        public static function insertarEquipoFavorito(int $idEquipo, int $idUsuario) {
 
             $conexion = FrancisGolBD::establecerConexion();
     
@@ -360,7 +360,7 @@
             $consulta->execute();
         }
     
-        public static function eliminarEquipoFavorito($idEquipo, $idUsuario) {
+        public static function eliminarEquipoFavorito(int $idEquipo, int $idUsuario): bool {
     
             $conexion = FrancisGolBD::establecerConexion();
     
@@ -376,7 +376,7 @@
             
         }
 
-        public static function pintarEquiposFavoritos() { // Si la sesión está iniciada recoge los equipos favoritos y si no está iniciada la sesión recoge el array de equipos por defecto
+        public static function pintarEquiposFavoritos(): string { // Si la sesión está iniciada recoge los equipos favoritos y si no está iniciada la sesión recoge el array de equipos por defecto
             
             $resultadoEquipos = "";
             $equiposFavoritos = isset($_SESSION["usuario"]) ?  Equipo::recogerEquiposFavorito() : [530, 529, 541, 157, 50, 85]; // Si la sesión está iniciada recoge los equipos favoritos y si no está iniciada la sesión recoge el array de equipos por defecto
@@ -391,7 +391,7 @@
         }
 
         /* FUNCIONES PÁGINA DE FICHAJES DE EQUIPO*/
-        public static function pintarFichajesEquipo($fichajesEquipo) {
+        public static function pintarFichajesEquipo(object $fichajesEquipo): string {
 
             $fichajes = "";
             $anioActual = date("Y") - 1;
@@ -447,7 +447,7 @@
             return $fichajes;
         }
 
-        public static function generarSelectEquipos($equipos) { // Para generar las opciones de quipos favoritos
+        public static function generarSelectEquipos(array $equipos): string { // Para generar las opciones de quipos favoritos
             
             $opcionesEquipos = "<select class='seleccionar' id='seleccion_equipo'>";
 

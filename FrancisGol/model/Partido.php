@@ -20,7 +20,7 @@ class Partido {
         $this->$propiedad = $valor;
     }
 
-    public static function recogerPartido($idPartido) {
+    public static function recogerPartido(int|string $idPartido): string|object {
 
         $fecha_actual = date('Y-m-d\TH:i:sP'); // Con formato de año, mes, día, hora, minuto, segundo y la zona horaria
 
@@ -49,7 +49,7 @@ class Partido {
         return $partido;
     }
 
-    public function pintarPartido() { // Genera el html del partido
+    public function pintarPartido(): string { // Genera el html del partido
 
         $datosPartido = "<div class='enfrentamiento_equipos'>
             <a href='../controller/equipo_estadisticas.php?equipo={$this->__get('idEquipoLocal')}'>
@@ -74,7 +74,7 @@ class Partido {
     }
 
     /* FUNCIONES PARTIDO ALINEACIONES */
-    public function pintarAlineacionesPartido($alineacionesPartido) {
+    public function pintarAlineacionesPartido(object $alineacionesPartido): string {
 
         $alineacionPrincipal = "";
         foreach ($alineacionesPartido->response as $clave => $alineacion) { // Recorre la alineación
@@ -117,7 +117,7 @@ class Partido {
     }
 
     /* FUNCIONES PARTIDO ESTADÍSTICAS */
-    public function pintarEstadisticasPartido($estadisticasPartido) {
+    public function pintarEstadisticasPartido(object $estadisticasPartido): string {
  
         $tablaEstadisticas = "";
         // Tipos de estadísticas
@@ -152,7 +152,7 @@ class Partido {
     }
     
     /* FUNCIONES PARTIDO RESUMEN */
-    public function pintarResumenPartido($eventosPartido) {
+    public function pintarResumenPartido(object $eventosPartido): string {
 
         $idEquipoLocal = $this->__get("idEquipoLocal");
         $idEquipoVisitante = $this->__get("idEquipoVisitante");
@@ -225,7 +225,7 @@ class Partido {
     }
 
     /* FUNCIONES PARTIDOS */
-    public static function pintarPartidos($partidos) {
+    public static function pintarPartidos(object $partidos): string {
     
         $partidosEquiposFavoritos = [];
         $todosLosPartidos = "";
@@ -327,7 +327,7 @@ class Partido {
         return empty($todosLosPartidos) ? "No hay partidos disponibles" : $todosLosPartidos;
     }
 
-    public static function generarFechasPartidos() {
+    public static function generarFechasPartidos(): string {
     
         $fecha_actual = date("Y-m-d");
     
@@ -353,7 +353,7 @@ class Partido {
         $fechas_partidos .= "<a href='../controller/partidos.php?fecha=".$fechas[8]."'>".substr($fechas[8],8)."</a>";
         $fechas_partidos .= '<i class="fa-regular fa-calendar"><input type="date" class="inputCalendario"></i>';
         $fechas_partidos .= '';
+        
         return $fechas_partidos;
-    
     }
 }

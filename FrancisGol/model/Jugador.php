@@ -15,7 +15,7 @@
             $this->$propiedad = $valor;
         }
 
-        public static function recogerJugador($idJugador) {
+        public static function recogerJugador(int|string $idJugador): string|object {
 
             if (is_numeric($idJugador)) { // Compruebo si el id es un número
 
@@ -53,7 +53,7 @@
             return "";
         }
 
-        public function pintarJugador() { // Genera el HTML para visualizar la competición en distintas páginas
+        public function pintarJugador(): string { // Genera el HTML para visualizar la competición en distintas páginas
 
             $datosJugador = '<div class="competicion_equipo">
                 <a>
@@ -66,7 +66,7 @@
         }
 
         /* FUNCIONES JUGADOR DATOS */
-        public function pintarDatosJugador($anio) { // Genera el HTML de las tablas de las estadísticas
+        public function pintarDatosJugador(int $anio): string { // Genera el HTML de las tablas de las estadísticas
 
             $datosJugador = realizarConsulta("jugador_".$this->__get("id")."_".$anio, "/players?id=".$this->__get("id")."&season=$anio", 86400); // Recoge todas las estadísticas
             
@@ -162,7 +162,7 @@
         }
         
         /* FUNCIONES JUGADOR TROFEOS */
-        public function pintarTrofeosJugador($trofeosJugador) {
+        public function pintarTrofeosJugador(object $trofeosJugador): string {
 
             $tablaTrofeos ="<table class='tabla_datos tabla_trofeos'>
             <thead><tr><th colspan='3'>Trofeos</th></tr>

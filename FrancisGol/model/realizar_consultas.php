@@ -1,6 +1,6 @@
 <?php
 
-function realizarConsulta($nombreJson, $rutaApi, $tiempoGuardado) {
+function realizarConsulta(string $nombreJson, string $rutaApi, int $tiempoGuardado): string|object {
     
     $archivo = "../view/assets/json/$nombreJson.json"; // Nombre del archivo
 
@@ -42,11 +42,10 @@ function realizarConsulta($nombreJson, $rutaApi, $tiempoGuardado) {
 
             file_put_contents($archivo, $response); // guardo los datos en un JSON
 
-            if ($resultado->results == 0) {
-                return "";
-            }
+            if ($resultado->results == 0) return "";
 
         } else {
+
             return "";
         }
     }
@@ -55,7 +54,7 @@ function realizarConsulta($nombreJson, $rutaApi, $tiempoGuardado) {
 }
 
 
-function realizarConsultaSinJson($rutaApi) {
+function realizarConsultaSinJson(string $rutaApi) : string|object {
     
     $curl = curl_init();
 
@@ -81,9 +80,7 @@ function realizarConsultaSinJson($rutaApi) {
 
     if (!empty($resultado)) {
 
-        if ($resultado->results == 0) {
-            return "";
-        }
+        if ($resultado->results == 0) return "";
 
     } else {
         

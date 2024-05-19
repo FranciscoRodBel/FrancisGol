@@ -1,7 +1,7 @@
 <?php
     class FrancisGolBD { // Clase para hacer la conexión a la base de datos
-        protected static $conexion; // almacena la conexión
-        public static function establecerConexion() { // Es estática por tanto se puede llamar sin tener el objeto creado
+        protected static $conexion; // Almacena la conexión
+        public static function establecerConexion(): object { // Es estática por tanto se puede llamar sin tener el objeto creado
 
             if (!isset(self::$conexion)) {
                 $server = "localhost:3307";
