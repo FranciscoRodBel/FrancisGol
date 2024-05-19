@@ -6,6 +6,9 @@
                 <?= $fechas_partidos ?>
             </div>
         </section>
+        <section class="fecha_partido">
+            <?= $fecha ?>
+        </section>
         <?= $partidosSeleccionados ?>
     </article>
 </main>

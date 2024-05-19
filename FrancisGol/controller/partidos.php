@@ -32,6 +32,9 @@
         $partidosSeleccionados = "<p class='parrafo_informacion'>La fecha enviada no es correcta.</p>";
     }
 
+    $fecha = new DateTime($fecha);
+    $fecha = $fecha->format('d-m-Y');
+
     include '../view/templates/head.php';
     include '../view/templates/header.php';
     include '../view/templates/nav.php';
