@@ -718,6 +718,20 @@ input:focus {
     margin-bottom: 20px;
 }
 
+/* Estilos página no encontrada */
+
+.pagina_no_encontrada {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.pagina_no_encontrada img {
+    min-width: 250px;
+    width: 50%;
+    max-width: 400px;
+}
+
 /* Animación de carga */
 
 @keyframes circulo {
