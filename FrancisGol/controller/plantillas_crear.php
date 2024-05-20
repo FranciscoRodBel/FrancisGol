@@ -7,7 +7,7 @@
 
     $titulo = "FrancisGol - Crear plantilla";
     $lista_css = ["registro_inicio.css", "alineaciones.css"];
-    $plantilla = "<p class='parrafo_informacion'>Debe iniciar sesión para crear plantillas.</p>"; // Si algún dato está vacío se muestra este mensaje
+    $plantilla = "<p class='parrafo_informacion'>Debe seleccionar una plantilla</p>"; // Si algún dato está vacío se muestra este mensaje
     $datosEquipo = "";
 
     if (isset($_SESSION['usuario'])) { // Si el usuario inicia sesión
@@ -24,13 +24,21 @@
                 $datosEquipo = $equipo->pintarEquipo(); // HTML con el logo y nombre del equipo
                 $optionsSelectFormaciones = Plantilla::generarSelectFormaciones(); // Se generan los options con las formaciones disponibles
                 $equipoPlantilla = realizarConsulta("equipo_plantilla_$idEquipo", "/players/squads?team=$idEquipo", 604800); // Recojo la plantilla actual del equipo cada semana
-                $plantilla = Plantilla::generarPlantilla($equipoPlantilla); // Genera el HTML con la alineación, sustitutos y reservas
+                
+                if (!empty($equipoPlantilla)) {
+
+                    $plantilla = Plantilla::generarPlantilla($equipoPlantilla); // Genera el HTML con la alineación, sustitutos y reservas
+                }
 
             } else {
                 
                 $plantilla = "<p class='parrafo_informacion'>No se encontró el equipo.</p>";
             }
         }
+
+    } else {
+
+        $plantilla = "<p class='parrafo_informacion'>Debe iniciar sesión para crear plantillas.</p>";
     }
 
     include '../view/templates/head.php';

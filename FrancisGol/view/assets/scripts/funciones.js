@@ -7,7 +7,7 @@ function escucharCalendarios() {
 
     for (const calendario of inputCalendario) { // Escucha si se cambio la fecha de los calendarios de las fechas de la parte superior de la página
         
-        calendario.addEventListener("input", () => {
+        calendario.addEventListener("change", () => {
           
             window.location.href = "../controller/partidos.php?fecha="+calendario.value;
         })
