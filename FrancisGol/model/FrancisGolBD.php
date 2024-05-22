@@ -4,7 +4,7 @@
         public static function establecerConexion(): object { // Es estática por tanto se puede llamar sin tener el objeto creado
 
             if (!isset(self::$conexion)) {
-                $server = "localhost";
+                $server = "localhost:3307";
                 $usuario = "root";
                 $contrasenia = "root";
                 $baseDatos = "francisGol";

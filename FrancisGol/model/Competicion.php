@@ -160,7 +160,8 @@
 
                 $tablaClasificacion .= "<table><thead><tr>
                             <td></td>
-                            <td>Club</td>
+                            <td>Escudo</td>
+                            <td>Equipo</td>
                             <td>Pts</td>
                             <td>Pj</td>
                             <td>V</td>
@@ -170,9 +171,10 @@
                             <td>GC</td>
                             <td>GD</td></tr></thead><tbody>";
             
-                foreach ($datosClasificacion as $equipo) {
+                foreach ($datosClasificacion as $posicion => $equipo) {
 
                     $tablaClasificacion .= "<tr>
+                        <td>$posicion</td>
                         <td><div class='logo_competicion'><img src=".$equipo->team->logo." alt='escudo'></div></td>
                         <td>".$equipo->team->name."</td>
                         <td>".$equipo->points."</td>

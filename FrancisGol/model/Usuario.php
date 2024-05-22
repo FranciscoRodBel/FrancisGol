@@ -417,7 +417,7 @@ class Usuario { // Se usa para manejar todos los datos del usuario
     }
 
     /* Funciones borrado de cuenta */
-    public function borrarCuenta(): string {
+    public function borrarCuenta() {
        
         $conexion = FrancisGolBD::establecerConexion();
 
@@ -426,17 +426,7 @@ class Usuario { // Se usa para manejar todos los datos del usuario
         $consulta = $conexion->prepare("DELETE FROM usuario WHERE idUsuario = ?");
         $consulta->bind_param("i", $idUsuario);
         
-        $resultado = $consulta->execute();
+        $consulta->execute();
         $consulta->close();
-
-        if ($resultado) { // Si se borra el usuario envía a la página de partidos
-
-            header("Location: ./cerrarSesion.php");
-            die();
-
-        } else {
-
-            return "Error al eliminar el usuario.";
-        }
     }
 }

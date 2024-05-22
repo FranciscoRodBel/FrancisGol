@@ -374,28 +374,7 @@ function escucharBotonesConfirmacionCuenta() {
 
     botonConfirmar.addEventListener("click", () => { // Si pulsa en confirmar...
 
-        divPopUp.remove(); // Se elimina el popUp
-
-        fetch("../controller/cuenta_borrar.php") // Se hace una consulta modificará los datos
-        .then(response => response.text())
-        .then(resultado => {
-
-            if (resultado.redirected) { // Si la respuesta es una redirección
-        
-                window.location.href = resultado.url;
-
-            } else { // Si no hay redirección...
-
-                let seccion = document.querySelector(".seccionBorrarCuenta");
-                mostrarMensaje(seccion, resultado);
-                seccion.lastElementChild.setAttribute("class","titulo_informacion_negro")
-            }
-
-        })
-        .catch(error => {
-            // Manejo de errores
-            console.error('Fetch error:', error);
-        });
+        window.location.href = "../controller/cuenta_borrar.php";
 
     });
 

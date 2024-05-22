@@ -5,4 +5,7 @@
 
     $usuario = unserialize($_SESSION['usuario']); // Recojo el objeto del usuario
 
-    echo $usuario->borrarCuenta(); // Borra la cuenta, si hay un error muestra el mensaje de error
+    $usuario->borrarCuenta(); // Borra la cuenta, si hay un error muestra el mensaje de error
+
+    header("Location: ./cerrarSesion.php");
+    die();

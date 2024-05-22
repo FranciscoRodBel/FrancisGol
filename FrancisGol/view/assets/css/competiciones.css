@@ -83,13 +83,13 @@
     border-bottom: 1px solid var(--primer_color);
 }
 
-.seccionClasificacion table tbody td:first-of-type { /* Si se mueve a la derecha en la tabla la primera columna se fijará a la izquierda para que sepan que equipo es */
+.seccionClasificacion table tbody td:nth-of-type(2) { /* Si se mueve a la derecha en la tabla la primera columna se fijará a la izquierda para que sepan que equipo es */
     background-color: var(--cuarto_color);
     position: sticky;
     left: 0px;
 }
 
-.seccionClasificacion table td:nth-of-type(2) {
+.seccionClasificacion table td:nth-of-type(3) {
     min-width: 200px;
 }
 
