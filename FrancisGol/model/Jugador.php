@@ -57,7 +57,7 @@
 
             $datosJugador = '<div class="competicion_equipo">
                 <a>
-                    <div class="logo_competicion"><img src="'.$this->__get("foto").'" alt="Logo"></div>
+                    <div class="logo_competicion"><img src="'.$this->__get("foto").'" alt="Logo" loading="lazy"></div>
                     <span>'.$this->__get("nombre").'</span>
                 </a>
             </div><hr>';

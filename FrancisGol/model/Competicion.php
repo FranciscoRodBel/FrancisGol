@@ -62,7 +62,7 @@
             // Genera el HTML de la competición
             $datosCompeticion = '<div class="competicion_equipo competiciones">
                 <a href="../controller/competicion_clasificacion.php?competicion='.$this->__get("id").'">
-                    <div class="logo_competicion"><img src="'.$this->__get("logo").'" alt="Logo"></div>
+                    <div class="logo_competicion"><img src="'.$this->__get("logo").'" alt="Logo" loading="lazy"></div>
                     <span>'.$this->__get("nombre").'</span>
                 </a>';
             $datosCompeticion .= isset($_SESSION["usuario"]) ? '<i class="fa-solid fa-star icono_estrella '.$claseFavorito.'" id="competicion_'.$this->__get("id").'"></i>' : ''; // Muestra la estrella si la sesión está iniciada
@@ -175,7 +175,7 @@
 
                     $tablaClasificacion .= "<tr>
                         <td>$posicion</td>
-                        <td><div class='logo_competicion'><img src=".$equipo->team->logo." alt='escudo'></div></td>
+                        <td><div class='logo_competicion'><img src=".$equipo->team->logo." alt='escudo' loading='lazy'></div></td>
                         <td>".$equipo->team->name."</td>
                         <td>".$equipo->points."</td>
                         <td>".$equipo->all->played."</td>
@@ -209,7 +209,7 @@
                 // Genera el HTML de los equipos de la competición
                 $todosLosEquipos .= '<div class="competicion_equipo competiciones">
                 <a href="../controller/equipo_estadisticas.php?equipo='.$equipo->team->id.'">
-                    <div class="logo_competicion"><img src="'.$equipo->team->logo.'" alt="Logo"></div>';
+                    <div class="logo_competicion"><img src="'.$equipo->team->logo.'" alt="Logo" loading="lazy"></div>';
                 $todosLosEquipos .= '<span>'.$equipo->team->name.'</span></a>';
                 $todosLosEquipos .= isset($_SESSION["usuario"]) ? '<i class="fa-solid fa-star icono_estrella '.$claseFavorito.'" id="equipo_'.$equipo->team->id.'"></i>' : ''; // Si la sesión está iniciada añade la estrella al HTML
                 $todosLosEquipos .= '</div><hr>';
@@ -237,7 +237,7 @@
                     <div class="enfrentamiento_equipos">
                         <a href="../controller/partido_resumen.php?partido='.$partido->fixture->id.'">
                             <div class="equipo_local">
-                                <img src="'.$partido->teams->home->logo.'" alt="Logo">
+                                <img src="'.$partido->teams->home->logo.'" alt="Logo" loading="lazy">
                                 <span>'.$partido->teams->home->name.'</span>
                             </div>
                             <div class="resultado_hora">
@@ -253,7 +253,7 @@
         
                 $partidosTotales .= '</div>
                             <div class="equipo_visitante">
-                                <img src="'.$partido->teams->away->logo.'" alt="Logo">
+                                <img src="'.$partido->teams->away->logo.'" alt="Logo" loading="lazy">
                                 <span>'.$partido->teams->away->name.'</span>
                             </div>
                         </a>

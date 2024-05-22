@@ -92,7 +92,7 @@
             $plantilla = "<div class='mi_plantilla'>
                             <a href='../controller/$ruta?plantilla={$this->__get('id')}'>
                                 <div>
-                                    <img src='{$equipo->__get('escudo')}' alt='escudo'>
+                                    <img src='{$equipo->__get('escudo')}' alt='escudo' loading='lazy'>
                                     <p>{$this->__get('titulo')}</p>
                                 </div>
                                 <div>
@@ -228,7 +228,7 @@
                     
                     $alineacionPrincipal .= 
                     "<div class='".$clasesJugador[$numeroJugador]."' draggable='true' data-idJugador='{$jugador->id}'>
-                        <img src='{$jugador->photo}' alt='foto'>
+                        <img src='{$jugador->photo}' alt='foto' loading='lazy'>
                         <p>{$jugador->name}</p>
                     </div>";
         
@@ -237,7 +237,7 @@
                     $alineacionPrincipal .= $numeroJugador == 11 ? "</div></div><p class='titulo_seccion'>Suplentes</p><section class='seccion_negra jugadores_suplentes'>" : "";
                     
                     $alineacionPrincipal .= "<div class='suplentes_".$numeroJugador."' draggable='true' data-idJugador='{$jugador->id}'>
-                                                <img src='{$jugador->photo}' alt='foto'>
+                                                <img src='{$jugador->photo}' alt='foto' loading='lazy'>
                                                 <p>{$jugador->name}</p>
                                             </div>";
                 } else { // Los no convocados
@@ -245,7 +245,7 @@
                     $alineacionPrincipal .= $numeroJugador == 23 ? "</section><p class='titulo_seccion'>No convocados</p><section class='seccion_negra jugadores_suplentes'>" : "";
                     
                     $alineacionPrincipal .= "<div class='no_convocado_".$numeroJugador."' draggable='true' data-idJugador='{$jugador->id}'>
-                                                <img src='{$jugador->photo}' alt='foto'>
+                                                <img src='{$jugador->photo}' alt='foto' loading='lazy'>
                                                 <p>{$jugador->name}</p>
                                             </div>";
                 }
@@ -319,7 +319,7 @@
                 $datosJugador = $datosPlantilla[$formacion];
 
                 $alineacion .= "<div class='".$formacion."' draggable='true' data-idJugador='".$datosJugador["id"]."'>
-                    <img src='".$datosJugador["foto"]."' alt='foto'>
+                    <img src='".$datosJugador["foto"]."' alt='foto' loading='lazy'>
                     <p>".$datosJugador["nombre"]."</p>
                 </div>";
             }
@@ -331,7 +331,7 @@
                 $datosJugador = $datosPlantilla["suplentes_$i"];
 
                 $alineacion .= "<div class='suplentes_".$i."' draggable='true' data-idJugador='".$datosJugador["id"]."'>
-                                    <img src='".$datosJugador["foto"]."' alt='foto'>
+                                    <img src='".$datosJugador["foto"]."' alt='foto' loading='lazy'>
                                     <p>".$datosJugador["nombre"]."</p>
                                 </div>";
             }
@@ -344,7 +344,7 @@
                 $datosJugador = $datosPlantilla["no_convocado_$i"];
 
                 $alineacion .= "<div class='no_convocado_".$i."' draggable='true' data-idJugador='".$datosJugador["id"]."'>
-                                    <img src='".$datosJugador["foto"]."' alt='foto'>
+                                    <img src='".$datosJugador["foto"]."' alt='foto' loading='lazy'>
                                     <p>".$datosJugador["nombre"]."</p>
                                 </div>";
             }

@@ -60,7 +60,7 @@
             // Genera el HTML del equipo
             $datosEquipo = '<div class="competicion_equipo competiciones">
                 <a href="../controller/equipo_estadisticas.php?equipo='.$this->__get("id").'">
-                    <div class="logo_competicion"><img src="'.$this->__get("escudo").'" alt="Logo"></div>
+                    <div class="logo_competicion"><img src="'.$this->__get("escudo").'" alt="Logo" loading="lazy"></div>
                     <span>'.$this->__get("nombre").'</span>
                 </a>';
 
@@ -287,7 +287,7 @@
                 };
         
                 $jugadoresPlantilla .= "<a href='../controller/jugador_datos.php?jugador=".$jugador->id."'><div>";
-                $jugadoresPlantilla .= "<img src=".$jugador->photo." alt='logo competición'>";
+                $jugadoresPlantilla .= "<img src=".$jugador->photo." alt='logo competición' loading='lazy'>";
                 $jugadoresPlantilla .= "<div>".$jugador->name."</div>";
                 $jugadoresPlantilla .= "<div>".$jugador->age."</div>";
                 $jugadoresPlantilla .= "<div>".$jugador->number."</div>";
@@ -405,7 +405,7 @@
             
                         $fichajes .= "<div>
                             <div class='datos_fichaje'>
-                                <img src='https://media.api-sports.io/football/players/".$jugador->player->id.".png' alt='foto' class='foto_jugador'>
+                                <img src='https://media.api-sports.io/football/players/".$jugador->player->id.".png' alt='foto' class='foto_jugador' loading='lazy'>
                                 <a href='../controller/jugador_datos.php?jugador=".$jugador->player->id."'>".$jugador->player->name."</a>
                                 <hr>
                                 <p>".$datoFichaje->date."</p>
@@ -413,7 +413,7 @@
                             <div class='fichaje_equipos'>
                                 <div class='equipo_fichaje'>
                                     <a href='../controller/equipo_estadisticas.php?equipo={$datoFichaje->teams->out->id}'>
-                                        <img src='".$datoFichaje->teams->out->logo."' alt='Logo'>
+                                        <img src='".$datoFichaje->teams->out->logo."' alt='Logo' loading='lazy'>
                                         <p>".$datoFichaje->teams->out->name."</p>
                                     </a>
                                 </div>
@@ -433,7 +433,7 @@
                                 </div>
                                 <div class='equipo_fichaje'>
                                     <a href='../controller/equipo_estadisticas.php?equipo={$datoFichaje->teams->in->id}'>
-                                        <img src='".$datoFichaje->teams->in->logo."' alt='Logo'>
+                                        <img src='".$datoFichaje->teams->in->logo."' alt='Logo' loading='lazy'>
                                         <p>".$datoFichaje->teams->in->name."</p>
                                     </a>
                                 </div>
