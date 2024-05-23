@@ -6,7 +6,7 @@
     $titulo = "FrancisGol - Competición clasificación";
     $lista_css = ["competiciones.css"];
 
-    $datosCompeticion = "<p class='parrafo_informacion'>No se encontró la competición.</p>"; // Si algún dato está vacío se muestra este mensaje
+    $datosCompeticion = "<p class='parrafo_informacion_blanco'>No se encontró la competición.</p>"; // Si algún dato está vacío se muestra este mensaje
     $tablaClasificacion = "";
 
     if (isset($_GET["competicion"]) && !empty($_GET["competicion"])) { // Si se envía el id de la competición...

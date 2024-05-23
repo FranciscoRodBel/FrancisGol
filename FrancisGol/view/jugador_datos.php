@@ -13,7 +13,7 @@
                 </select>
             </div>
         </section>
-        <section id="tablaDatosJugador">
+        <section id="tablaDatosJugador" class="tablaDatosJugador">
             <?= $tablaDatosJugador ?>
         </section>
     </article>

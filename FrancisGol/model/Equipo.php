@@ -15,7 +15,7 @@
             $this->$propiedad = $valor;
         }
 
-        public static function recogerEquipo(int $idEquipo): string|object {
+        public static function recogerEquipo(string|int $idEquipo): string|object {
         
             if (is_numeric($idEquipo)) { // Si el id del equipo es númerico...
 

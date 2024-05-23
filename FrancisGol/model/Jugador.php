@@ -78,7 +78,7 @@
 
                 foreach($datosJugador->response as $jugador) { // Recorro los jugadores
             
-                    $tablaDatosJugador .= "
+                    $tablaDatosJugador .= "<div>
                         <table class='tabla_datos'>
                         <thead><tr><th colspan='2'>Datos</th></tr></thead><tbody>
                         <tr><td>Apodo</td><td>".$jugador->player->name."</td></tr>
@@ -143,13 +143,8 @@
                         <tr><td>Penaltis parados</td><td>".$estadistica->penalty->saved."</td></tr>
                         </tbody></table>";
                     }
-
-                    $tablaDatosJugador .= "
-                        <div class='centrar_horizontal'>
-                            <select id='jugadorEstadisticas' class='seleccionar'>
-                                $selectCompeticion
-                            </select>
-                        </div>";
+                    $tablaEstadsticasJugador .= "</div>";
+                     
                 }
 
             } else {
@@ -158,6 +153,14 @@
             }
 
             $tablaDatosJugador .= $tablaEstadsticasJugador;
+
+            $tablaDatosJugador = "
+            <div class='centrar_horizontal'>
+                <select id='jugadorEstadisticas' class='seleccionar'>
+                    $selectCompeticion
+                </select>
+            </div>".$tablaDatosJugador;
+
             return $tablaDatosJugador;
         }
         
@@ -165,14 +168,16 @@
         public function pintarTrofeosJugador(object $trofeosJugador): string {
 
             $tablaTrofeos ="<table class='tabla_datos tabla_trofeos'>
-            <thead><tr><th colspan='3'>Trofeos</th></tr>
-            <tr><td>Competición</td><td>Tipo</td><td>Temporada</td></tr></thead><tbody>";
+            <thead><tr><th colspan='4'>Trofeos</th></tr>
+            <tr><td></td><td>Competición</td><td>Tipo</td><td>Temporada</td></tr></thead><tbody>";
+            $contador = 0;
         
             foreach ($trofeosJugador->response as $trofeo) {
         
                 if ($trofeo->place == "Winner") { // Muestro solo los trofeo que ganó
 
                     $tablaTrofeos .= "<tr>
+                        <td>". $contador++ ."</td>
                         <td>". $trofeo->league ."</td>
                         <td>". $trofeo->country ."</td>
                         <td>". $trofeo->season ."</td>

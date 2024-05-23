@@ -17,7 +17,7 @@
 
             </select>
         </section>
-        <section id="estadisticas_equipo">
+        <section id="estadisticas_equipo" class="seccion_estadisticas_equipo">
 
         </section>
     </article>

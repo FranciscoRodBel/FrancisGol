@@ -1,3 +1,3 @@
 <?php
-  header("Location: controller/partidos.php");
+  header("Location: controller/inicio.php");
   die();
