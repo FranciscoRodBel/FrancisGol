@@ -4,19 +4,19 @@
         <form action="../controller/registro_comprobar.php" method="POST" enctype="multipart/form-data">
             
             <section class="cuadro_inicio_registro desocultar">
-                    <label for="nombre">Nombre usuario</label>
-                    <input type="text" id="nombre" name="nombre" placeholder="Nombre">
-                    <label for="email">Email</label>
-                    <input type="text" id="email" name="email" placeholder="Email">
-                    <label for="contrasenia">Contraseña</label>
-                    <i class="fa-solid fa-eye ojo_contrasenia"></i>
-                    <input type="password" id="contrasenia" class="contrasenia" name="contrasenia" placeholder="Contraseña">
-                    <label for="repetir_contrasenia">Repetir contraseña</label>
-                    <i class="fa-solid fa-eye ojo_contrasenia"></i>
-                    <input type="password" id="repetir_contrasenia" class="contrasenia" name="repetir_contrasenia" placeholder="Contraseña">
-                    <div class="conjunto_botones">
-                        <button class="boton_gris siguiente">Siguiente</button>   
-                    </div>
+                <label for="nombre">Nombre usuario</label>
+                <input type="text" id="nombre" name="nombre" placeholder="Nombre" pattern="(?=.*[a-zA-Z].*)[\w.]{5,25}" title="Debe incluir letras, números, puntos o guiones bajos entre 5 y 25 caracteres.">
+                <label for="email">Email</label>
+                <input type="text" id="email" name="email" placeholder="Email" pattern="(?=.{5,70}$)[\w]+@[\w]+\.[\w]+" title="Debe incluir letras, números o guiones bajos entre 5 y 70 caracteres">
+                <label for="contrasenia">Contraseña</label>
+                <i class="fa-solid fa-eye ojo_contrasenia"></i>
+                <input type="password" id="contrasenia" class="contrasenia" name="contrasenia" placeholder="Contraseña" pattern="(?!.*\s.*)(?=.*[0-9].*)(?=.*[a-z].*)(?=.*[A-Z].*)(?=.*[\W_].*)[\w\W]{8,50}" title="Debe incluir una mayúscula, minúscula, número y un caracter extraño entre 8 y 50 caracteres.">
+                <label for="repetir_contrasenia">Repetir contraseña</label>
+                <i class="fa-solid fa-eye ojo_contrasenia"></i>
+                <input type="password" id="repetir_contrasenia" class="contrasenia" name="repetir_contrasenia" placeholder="Contraseña" pattern="(?!.*\s.*)(?=.*[0-9].*)(?=.*[a-z].*)(?=.*[A-Z].*)(?=.*[\W_].*)[\w\W]{8,50}" title="Debe incluir una mayúscula, minúscula, número y un caracter extraño entre 8 y 50 caracteres.">
+                <div class="conjunto_botones">
+                    <button class="boton_gris siguiente">Siguiente</button>
+                </div>
             </section>
 
             <section class="cuadro_inicio_registro">

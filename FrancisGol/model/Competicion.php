@@ -120,7 +120,7 @@
         public static function pintarCompeticionesFavoritas(): string {
             
             $resultadoEquipos = "";
-            $competicionesFavoritas = isset($_SESSION["usuario"]) ?  Competicion::recogerCompeticionFavorita() : [140, 39, 61, 78, 135, 2]; // Si la sesión está iniciada recoge las competiciones favoritas y si no está iniciada la sesión recoge el array de competiciones por defecto
+            $competicionesFavoritas = isset($_SESSION["usuario"]) ?  Competicion::recogerCompeticionFavorita() : [140, 39, 61, 78, 135, 2, 3]; // Si la sesión está iniciada recoge las competiciones favoritas y si no está iniciada la sesión recoge el array de competiciones por defecto
         
             foreach ($competicionesFavoritas as $idCompeticion) { // Recorro los IDs de las competiciones
         

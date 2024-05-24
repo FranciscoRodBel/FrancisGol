@@ -166,7 +166,7 @@ function comprobarInputs() {
     })
 
     email.addEventListener("blur", function () {
-        comprobarAlSalirDelInput(email, /(?=^.{5,70}$)[\w]+@[\w]+\.[\w]+/i, "Debe incluir letras, números o guiones bajos entre 5 y 70 caracteres");
+        comprobarAlSalirDelInput(email, /(?=^.{5,70}$)[\w]+@[\w]+\.[\w]+/i, "Debe incluir letras, números o guiones bajos, hasta 70 caracteres");
     })
 
     contrasenia.addEventListener("blur", function () {

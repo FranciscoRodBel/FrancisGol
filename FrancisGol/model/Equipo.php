@@ -379,7 +379,7 @@
         public static function pintarEquiposFavoritos(): string { // Si la sesión está iniciada recoge los equipos favoritos y si no está iniciada la sesión recoge el array de equipos por defecto
             
             $resultadoEquipos = "";
-            $equiposFavoritos = isset($_SESSION["usuario"]) ?  Equipo::recogerEquiposFavorito() : [530, 529, 541, 157, 50, 85]; // Si la sesión está iniciada recoge los equipos favoritos y si no está iniciada la sesión recoge el array de equipos por defecto
+            $equiposFavoritos = isset($_SESSION["usuario"]) ?  Equipo::recogerEquiposFavorito() : [530, 529, 541, 157, 50, 85, 10139]; // Si la sesión está iniciada recoge los equipos favoritos y si no está iniciada la sesión recoge el array de equipos por defecto
         
             foreach ($equiposFavoritos as $idEquipo) { // Recorro los IDs de las competiciones
         

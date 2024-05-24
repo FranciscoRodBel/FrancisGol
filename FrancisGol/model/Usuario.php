@@ -139,7 +139,7 @@ class Usuario { // Se usa para manejar todos los datos del usuario
 
         if (!preg_match("/(?=.*[a-zA-Z].*)^[\w.]{5,25}$/i", $nombre)) return "Nombre incorrecto, debe estar compuesto por letras, números, puntos o guiones bajos entre 5 y 25 caracteres.";
 
-        if (!preg_match("/(?=^.{5,70}$)[\w]+@[\w]+\.[\w]+/i", $email)) return "Email incorrecto, debe estar compuesto por caracteres(letras, números o guiones bajos) una @ seguido de caracteres, un punto y caracteres entre 5 y 70 caracteres.";
+        if (!preg_match("/(?=^.{5,70}$)[\w]+@[\w]+\.[\w]+/i", $email)) return "Email incorrecto, debe estar compuesto por caracteres(letras, números o guiones bajos) una @ seguido de caracteres, un punto y caracteres, hasta 70 caracteres.";
 
         if (!preg_match("/(?!.*\s.*)(?=.*[0-9].*)(?=.*[a-z].*)(?=.*[A-Z].*)(?=.*[\W_].*)^[\w\W]{8,50}$/", $contraseniaUno)) return "Contraseña incorrecta, debe estar compuesto mínimo por una letra mayúscula, minúscula, un número y un caracter extraño entre 8 y 50 caracteres.";
 

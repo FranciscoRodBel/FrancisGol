@@ -234,7 +234,7 @@ class Partido {
         $todosLosPartidos = "";
         $fecha_actual = date('Y-m-d\TH:i:sP'); // Con formato de año, mes, día, hora, minuto, segundo y la zona horaria
 
-        $equiposFavoritos = isset($_SESSION["usuario"]) ? Equipo::recogerEquiposFavorito() : [530, 529, 541, 157, 50, 85]; // Si la sesión está iniciada recoge los equipos favoritos y si no está iniciada la sesión recoge el array de equipos por defecto
+        $equiposFavoritos = isset($_SESSION["usuario"]) ? Equipo::recogerEquiposFavorito() : [530, 529, 541, 157, 50, 85, 10139]; // Si la sesión está iniciada recoge los equipos favoritos y si no está iniciada la sesión recoge el array de equipos por defecto
 
         foreach ($partidos->response as $partido) { // Recorro todos los partidos
     
@@ -286,7 +286,7 @@ class Partido {
 
         }
 
-        $competicionesFavoritas = isset($_SESSION["usuario"]) ? Competicion::recogerCompeticionFavorita() : [140, 39, 61, 78, 135, 2] ; // Si la sesión está iniciada recoge las competiciones favoritas y si no está iniciada la sesión recoge el array de competiciones por defecto
+        $competicionesFavoritas = isset($_SESSION["usuario"]) ? Competicion::recogerCompeticionFavorita() : [140, 39, 61, 78, 135, 2, 3] ; // Si la sesión está iniciada recoge las competiciones favoritas y si no está iniciada la sesión recoge el array de competiciones por defecto
 
         foreach ($partidosPorLiga as $idLiga => $partidosLiga) { // Recorro los partidos recogidos anteriormente 
 
