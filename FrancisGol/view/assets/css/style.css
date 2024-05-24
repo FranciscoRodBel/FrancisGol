@@ -30,6 +30,7 @@
 html {
     min-width: 280px;
     background-color: var(--cuarto_color);
+    overflow-x: hidden;
 }
 
 * {
@@ -215,7 +216,7 @@ nav a:hover {
     padding: 10px;
 }
 
-.titulo_seccion {
+.titulo_seccion, .titulo_slider {
     color: var(--primer_color);
     font-size: 15pt;
     font-weight: bold;
@@ -223,11 +224,19 @@ nav a:hover {
     padding: 10px;
 }
 
-.parrafo_informacion, .parrafo_informacion_blanco {
+.titulo_slider {
+    font-size: 18pt;
+}
+
+.parrafo_informacion, .parrafo_informacion_blanco, .parrafo_slider {
     font-size: 13pt;
     text-align: center;
     width: 100%;
     padding-top: 10pt;
+}
+
+.parrafo_slider {
+    text-align: justify;
 }
 
 .parrafo_informacion_blanco {
@@ -772,16 +781,80 @@ input:focus {
     max-width: 400px;
 }
 
+/* Estilos página de Inicio */
+
+.seccion_sliders {
+    position: relative;
+    width: 100%;
+    margin: 20px auto;
+    overflow: hidden;
+    height: 600px; /* Se pone una altura fija ya que al ser el slider absolute dentro de la sección no tendría contenido y se queda sin altura, además así todos los slider tienen el mismo tamaño y no mueve las demás secciones*/
+    display: flex;
+}
+
+.slider {
+    width: 100%;
+    padding: 0 5%; /* Para centrarlo al centro horizontalmente */
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    opacity: 0;
+}
+
+.slider img {
+    width: 250px;
+    height: 250px;
+}
+
+/* Pongo 30s porque son 3 sliders de 10 segundos cada uno y le añado el infinite para que no pare de moverse */
+.slider:nth-of-type(1) {
+    animation: animacion_slider 30s infinite;
+}
+
+.slider:nth-of-type(2) {
+    animation: animacion_slider 30s infinite 10s; /* Todos hacen la misma animación pero con 10 segundos de diferencia */
+}
+
+.slider:nth-of-type(3) {
+    animation: animacion_slider 30s infinite 20s;
+}
+
+/* Animación de los sliders */
+
+@keyframes animacion_slider {
+    0% { /* El slider empieza oculta a la derecha fuera de la pantalla(left: 100%)*/
+        opacity: 0; 
+        left: 100%; 
+    }
+    10% { /* El slider se desoculta y se mueve a la izquierda en el primer segundo*/
+        opacity: 1; 
+        left: 0%; 
+    }
+    30% { /* El slider se mantiene en pantalla */
+        opacity: 1; 
+        left: 0%; 
+    }
+    45% { /* El slider se oculta a la izquierda de la pantalla */
+        opacity: 0; 
+        left: -100%;
+    }
+    100% { /* Se mantiene oculto hasta el final de la animación */
+        opacity: 0; 
+        left: -100%;
+    }
+}
+
 /* Animación de carga */
 
-@keyframes circulo {
+@keyframes circulo { /* Va girando sin pausa el div creando el efecto de que el borde está moviendose */
 
     0% {
-    transform: rotate(0deg);
+        transform: rotate(0deg); 
     }
     
     100% {
-    transform: rotate(360deg);
+        transform: rotate(360deg);
     }
 
 }

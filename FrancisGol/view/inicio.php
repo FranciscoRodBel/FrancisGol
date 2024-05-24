@@ -1,6 +1,28 @@
 <main>
     <h1 class="titulo_pagina">Inicio</h1>
     <article>
-
+        <section class="seccion_sliders">
+            <div class="slider">
+                <div>
+                    <h2 class="titulo_slider">¡Bienvenido a FrancisGol!</h2>
+                    <p class="parrafo_slider">Tu fuente definitiva de información futbolística. Descubre datos completos de partidos, competiciones, jugadores y fichajes en un solo lugar. Navega fácilmente y mantente al día con todas las novedades del mundo del fútbol. ¡Explora ahora y vive la pasión con nosotros!</p>
+                </div>
+                <img src="../view/assets/images/slider1.png" alt="Foto slider">
+            </div>
+            <div class="slider">
+                <div>
+                    <h2 class="titulo_slider">¡Regístrate y personaliza tu experiencia!</h2>
+                    <p class="parrafo_slider">Al crear una cuenta, podrás añadir tus equipos y competiciones favoritas. Así, recibirás información y actualizaciones solo de tus favoritos, viendo los partidos que más te interesan de manera rápida y sencilla. ¡Haz clic en el botón de registro y vive el fútbol a tu manera!</p>
+                </div>
+                <img src="../view/assets/images/slider2.png" alt="Foto slider">
+            </div>
+            <div class="slider">
+                <div>
+                    <h2 class="titulo_slider">¡Crea plantillas de equipos!</h2>
+                    <p class="parrafo_slider">Al registrarte, podrás seleccionar un equipo y crear una alineación con la plantilla actual del equipo seleccionado. Esta plantilla será pública para todos los usuarios, permitiéndote hacer predicciones para los partidos o mostrar cuál sería su alineación favorita del equipo.</p>
+                </div>
+                <img src="../view/assets/images/slider3.png" alt="Foto slider">
+            </div>
+        </section>
     </article>
 </main>
