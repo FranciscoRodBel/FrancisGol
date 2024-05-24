@@ -1,5 +1,5 @@
 <header>
-    <a href="../controller/partidos.php">
+    <a href="../controller/inicio.php">
         <img src="../view/assets/images/logo.png" alt="Logo">
         <span>FrancisGol</span>
     </a>

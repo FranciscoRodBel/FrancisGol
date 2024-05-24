@@ -786,9 +786,8 @@ input:focus {
 .seccion_sliders {
     position: relative;
     width: 100%;
-    margin: 20px auto;
     overflow: hidden;
-    height: 600px; /* Se pone una altura fija ya que al ser el slider absolute dentro de la sección no tendría contenido y se queda sin altura, además así todos los slider tienen el mismo tamaño y no mueve las demás secciones*/
+    height: 700px; /* Se pone una altura fija ya que al ser el slider absolute dentro de la sección no tendría contenido y se queda sin altura, además así todos los slider tienen el mismo tamaño y no mueve las demás secciones*/
     display: flex;
 }
 
@@ -800,6 +799,12 @@ input:focus {
     flex-direction: column;
     align-items: center;
     opacity: 0;
+    left: 100%; /* Para que estén todos los sliders ocultos a la derecha de la web */
+}
+
+.slider .boton_verde {
+    display: block;
+    margin: 20px auto;
 }
 
 .slider img {
@@ -968,5 +973,45 @@ input:focus {
 
     .tipo_fichaje i {
         font-size: 20pt;
+    }
+}
+
+@media screen and (min-width: 700px) {
+
+    /* Estilos de los sliders */
+
+    .seccion_sliders {
+        height: 350px; 
+    }
+    .slider {
+        flex-direction: row;
+        padding: 0 10%; /* Para centrarlo al centro horizontalmente */
+    }
+
+    .slider:nth-of-type(2) {
+        flex-direction: row-reverse;
+    }
+}
+
+
+@media screen and (min-width: 1000px) {
+
+    /* Estilos de los sliders */
+
+    .seccion_sliders {
+        height: 400px; 
+    }
+    .slider img {
+        width: 350px;
+        height: 350px;
+    }
+}
+
+@media screen and (min-width: 1500px) {
+
+    /* Estilos de los sliders */
+
+    .slider {
+        padding: 0 15%; /* Para centrarlo al centro horizontalmente */
     }
 }
