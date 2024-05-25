@@ -19,7 +19,7 @@
     
                 $claseFavorito = isset($_SESSION["usuario"]) && in_array($liga->league->id, $competicionesFavoritas) ? "favorito" : ""; // Si está en favoritos añade la estrella amarilla y si no lo está la gris
                 $competiciones = "<div class='competicion_equipo'><a>";
-                    $competiciones .= "<div class='logo_competicion'><img src=".$liga->league->logo." alt='logo competición' loading='lazy'></div>";
+                    $competiciones .= "<div class='logo_competicion'><img src=".$liga->league->logo." alt='logo competición'></div>";
                     $competiciones .= "<span>".$liga->league->name."</span></a>";
                     $competiciones .= '<i class="fa-solid fa-star icono_estrella '.$claseFavorito.'" id="competicion_'.$liga->league->id.'"></i>';   
                 $competiciones .= "</div>";

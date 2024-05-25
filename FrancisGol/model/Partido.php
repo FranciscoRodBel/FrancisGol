@@ -54,7 +54,7 @@ class Partido {
         $datosPartido = "<div class='enfrentamiento_equipos'>
             <a href='../controller/equipo_estadisticas.php?equipo={$this->__get('idEquipoLocal')}'>
                 <div class='equipo_local'>
-                    <img src='{$this->__get('escudoEquipoLocal')}' alt='Logo' loading='lazy'>
+                    <img src='{$this->__get('escudoEquipoLocal')}' alt='Logo'>
                     <span>{$this->__get('nombreEquipoLocal')}</span>
                 </div>
             </a>
@@ -64,7 +64,7 @@ class Partido {
             </div>
             <a href='../controller/equipo_estadisticas.php?equipo={$this->__get('idEquipoVisitante')}'>
                 <div class='equipo_visitante'>
-                    <img src='{$this->__get('escudoEquipoVisitante')}' alt='Logo' loading='lazy'>
+                    <img src='{$this->__get('escudoEquipoVisitante')}' alt='Logo'>
                     <span>{$this->__get('nombreEquipoVisitante')}</span>
                 </div>
             </a>
@@ -89,7 +89,7 @@ class Partido {
                 $alineacionPrincipal .= 
                 "<div class='jugador_".str_replace(":","_",$jugador->player->grid)."'>
                     <a href='../controller/jugador_datos.php?jugador=".$jugador->player->id."'>
-                        <img src='https://media.api-sports.io/football/players/".$jugador->player->id.".png' alt='foto' loading='lazy'>
+                        <img src='https://media.api-sports.io/football/players/".$jugador->player->id.".png' alt='foto'>
                         <p>{$jugador->player->name}</p>
                     </a></div>";
             }
@@ -103,7 +103,7 @@ class Partido {
                 $alineacionPrincipal .= 
                 "<div>
                     <a href='../controller/jugador_datos.php?jugador=".$suplente->player->id."'>
-                    <img src='https://media.api-sports.io/football/players/".$suplente->player->id.".png' alt='foto' loading='lazy'>
+                    <img src='https://media.api-sports.io/football/players/".$suplente->player->id.".png' alt='foto'>
                     <p>{$suplente->player->name}</p>
                 </a></div>";
             }
@@ -251,7 +251,7 @@ class Partido {
                 <div class="enfrentamiento_equipos">
                     <a href="../controller/partido_resumen.php?partido='.$idPartido.'">
                         <div class="equipo_local">
-                            <img src="'.$partido->teams->home->logo.'" alt="Logo" loading="lazy">
+                            <img src="'.$partido->teams->home->logo.'" alt="Logo">
                             <span>'.$partido->teams->home->name.'</span>
                         </div>
                         <div class="resultado_hora">
@@ -268,7 +268,7 @@ class Partido {
     
             $partidosDeUnaLiga .= '</div>
                         <div class="equipo_visitante">
-                            <img src="'.$partido->teams->away->logo.'" alt="Logo" loading="lazy">
+                            <img src="'.$partido->teams->away->logo.'" alt="Logo">
                             <span>'.$partido->teams->away->name.'</span>
                         </div>
                     </a>
@@ -297,7 +297,7 @@ class Partido {
                 <section class="seccion_negra">
                     <div class="competicion_equipo">
                         <a href="../controller/competicion_clasificacion.php?competicion='.$idLiga.'">
-                            <div class="logo_competicion"><img src="'.$datosLiga[$idLiga][0].'" alt="Logo" loading="lazy"></div>
+                            <div class="logo_competicion"><img src="'.$datosLiga[$idLiga][0].'" alt="Logo"></div>
                             <span>'.$datosLiga[$idLiga][1].'</span>
                         </a>';
                 $favorito = in_array($idLiga, $competicionesFavoritas) ? "favorito" : ""; // Si la liga está en favoritos muestro la estrella amarilla, si no lo está la gris  

@@ -239,6 +239,13 @@ nav a:hover {
     text-align: justify;
 }
 
+.parrafo_inicio {
+    width: 90%;
+    max-width: 900px;
+    text-align: justify;
+    margin: 20px;
+}
+
 .parrafo_informacion_blanco {
     color: var(--cuarto_color);
 }

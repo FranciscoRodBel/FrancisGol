@@ -31,5 +31,9 @@
                 <img src="../view/assets/images/slider3.png" alt="Foto slider">
             </div>
         </section>
+        <section>
+            <h2 class="titulo_slider">¡Más información sobre FrancisGol! </h2>
+            <p class="parrafo_inicio">En FrancisGol, puedes acceder a la información de los partidos de fútbol sin necesidad de registrarte. Sin embargo, en la página de partidos esta funcionalidad está limitada a las cinco grandes ligas europeas (La Liga, Premier League, Ligue 1, Bundesliga y Serie A) y a las competiciones europeas más importantes, como la Champions League y la Europa League. La actualización de la información de los partidos se realiza cada media hora, mientras que el resto de los datos se actualiza diariamente.</p>
+        </section>
     </article>
 </main>
