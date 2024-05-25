@@ -569,21 +569,28 @@ nav a:hover {
 /* Página de equipo plantilla */
 
 .equipo_plantilla {
-    display: block;
     width: 80%;
     overflow-x: auto;
 }
 
-.equipo_plantilla > div:first-of-type {
+.equipo_plantilla > div:first-of-type div {
     background-color: var(--primer_color);
     color: var(--cuarto_color);
     padding: 10px;
     font-weight: bold;
-    border-radius: 10px;
-    margin-bottom: 5px;
+    text-align: center;
+    width: 100%;
 }
 
-.equipo_plantilla > div, .equipo_plantilla a > div{
+.equipo_plantilla > div:first-of-type div:first-of-type {
+    border-radius: 10px 0 0 10px;
+}
+
+.equipo_plantilla > div:first-of-type div:last-of-type {
+    border-radius: 0 10px 10px 0;
+}
+
+.equipo_plantilla > div, .equipo_plantilla a > div {
     display: grid;
     grid-template-columns: repeat(5, minmax(100px, 1fr));
     justify-items: center;
