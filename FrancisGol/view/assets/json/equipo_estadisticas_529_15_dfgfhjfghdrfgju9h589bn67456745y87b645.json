@@ -1,1 +1,0 @@
-{"get":"teams\/statistics","parameters":{"league":"15","season":"dfgfhjfghdrfgju9h589bn67456745y87b645","team":"529"},"errors":{"season":"The Season field must contain an integer."},"results":0,"paging":{"current":1,"total":1},"response":[]}
