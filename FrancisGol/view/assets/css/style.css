@@ -569,8 +569,16 @@ nav a:hover {
 /* Página de equipo plantilla */
 
 .equipo_plantilla {
-    width: 80%;
     overflow-x: auto;
+    height: 500px;
+    margin-bottom: 40px;
+    max-width: 80%;
+}
+
+.equipo_plantilla > div:first-of-type {
+    position: sticky;
+    top: 0;
+    padding: 0;
 }
 
 .equipo_plantilla > div:first-of-type div {
@@ -586,17 +594,14 @@ nav a:hover {
     border-radius: 10px 0 0 10px;
 }
 
-.equipo_plantilla > div:first-of-type div:last-of-type {
-    border-radius: 0 10px 10px 0;
-}
-
 .equipo_plantilla > div, .equipo_plantilla a > div {
     display: grid;
-    grid-template-columns: repeat(5, minmax(100px, 1fr));
+    grid-template-columns: repeat(5, 150px);
     justify-items: center;
     align-items: center;
-    padding: 5px;
+    padding: 5px 0 5px 0;
     border-bottom: 1px solid var(--tercer_color);
+    width: max-content;
 }
 
 .equipo_plantilla div img {
@@ -606,8 +611,8 @@ nav a:hover {
 
 .equipo_plantilla a {
     color: var(--primer_color);
+    width: max-content;
 }
-
 
 /* Estadísticas del equipo */
 
