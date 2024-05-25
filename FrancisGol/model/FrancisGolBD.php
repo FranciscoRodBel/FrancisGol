@@ -7,7 +7,7 @@
                 $server = "localhost:3307";
                 $usuario = "root";
                 $contrasenia = "root";
-                $baseDatos = "francisGol";
+                $baseDatos = "francisgol";
 
                 self::$conexion = new mysqli($server, $usuario, $contrasenia, $baseDatos); // Inicio la conexión usando el objeto mysql
 
