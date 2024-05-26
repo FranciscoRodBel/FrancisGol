@@ -1,5 +1,5 @@
 <main>
-    <h1 class="titulo_pagina">Editar Foto</h1>
+    <h1 class="titulo_pagina">cuenta</h1>
     <article>
         <section class="seccion_negra">
             <div class="conjunto_botones">
@@ -7,6 +7,7 @@
                 <a href="../controller/cuenta_datos.php" class="boton_gris"><span>Cuenta</span></a>
             </div>
         </section>
+        <h1 class="titulo_pagina">Editar Foto</h1>
         <section class="cuadro_inicio_registro desocultar">
             <form action="../controller/cuenta_editar.php?accion=editarFoto" enctype="multipart/form-data">
                 <img class="foto_perfil" id="foto_perfil" src='data:image/jpeg;base64, <?= base64_encode($fotoUsuario) ?>' alt="Foto de perfil">
