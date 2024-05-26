@@ -1,5 +1,5 @@
 <main>
-    <h1 class="titulo_pagina">Equipo plantilla</h1>
+    <h1 class="titulo_pagina">Equipo fichajes</h1>
     <article>
         <section class="seccion_negra">
             <?= $datosEquipo ?>
