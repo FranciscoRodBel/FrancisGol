@@ -174,7 +174,7 @@
                 foreach ($datosClasificacion as $posicion => $equipo) {
 
                     $tablaClasificacion .= "<tr>
-                        <td>$posicion</td>
+                        <td>".$posicion + 1 ."</td>
                         <td><div class='logo_competicion'><img src=".$equipo->team->logo." alt='escudo'></div></td>
                         <td>".$equipo->team->name."</td>
                         <td>".$equipo->points."</td>
