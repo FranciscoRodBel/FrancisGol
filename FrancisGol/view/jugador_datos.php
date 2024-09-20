@@ -1,5 +1,5 @@
 <main>
-    <h1 class="titulo_pagina">Equipo Datos</h1>
+    <h1 class="titulo_pagina">Datos del jugador</h1>
     <article>
         <section class="seccion_negra">
             <?= $datosJugador ?>
